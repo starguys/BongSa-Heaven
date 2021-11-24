@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+}
+
+.DevHeader_box_btn {
+  text-decoration: none;
+}
+
+.DevHeader_box {
+  display: flex;
+}
+
+.DevHeader_box_btn {
+  border: solid 1px black;
+  margin: 0.5px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.DevHeader_box_btn:hover {
+  background-color: gray;
+}
+.DevFooter_btn {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
