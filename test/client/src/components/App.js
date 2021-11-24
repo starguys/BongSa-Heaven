@@ -25,6 +25,7 @@ export default function App() {
     const want_vol = userinfo.want_region;
     const age = userinfo.age;
     console.log("Im UserInfo", userinfo);
+    
     axios
       .post(
         "http://localhost:8080/auth/signup",
@@ -33,8 +34,7 @@ export default function App() {
           nickname: nickname,
           password: password,
           sex: sex,
-          want_region,
-          want_region,
+          want_region:want_region,
           want_vol: want_vol,
           age: age,
         },
