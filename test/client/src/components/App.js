@@ -33,8 +33,7 @@ export default function App() {
           nickname: nickname,
           password: password,
           sex: sex,
-          want_region,
-          want_region,
+          want_region: want_region,
           want_vol: want_vol,
           age: age,
         },
@@ -51,11 +50,61 @@ export default function App() {
       });
   };
 
+  const handleSignIn = () => {
+    console.log("handleSignIn");
+    const email = userinfo.email;
+    const password = userinfo.password;
+
+    console.log("Im UserInfo", userinfo);
+    axios
+      .post(
+        "http://localhost:8080/auth/signin",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        const token = res.data.data;
+        console.log("res");
+        console.log(token);
+        handleResponseSuccess(token);
+      })
+      .catch((err) => {
+        console.log("err");
+      });
+  };
+
+  const handleResponseSuccess = (token) => {
+    isAuthenticated(token);
+  };
+
+  const isAuthenticated = (token) => {
+    axios
+      .get(
+        "http://localhost:8080/user/info",
+        { token },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log("res");
+      })
+      .catch((err) => {
+        console.log("err");
+      });
+  };
   // email, nickname, password, sex, want_region, want_vol, age(young/adult/old)
 
   return (
     <div className="test_box">
-      <div className="test_box_signUp">
+      <div className="test_box_box">
         <input
           type="email"
           placeholder="email"
@@ -92,6 +141,19 @@ export default function App() {
           onChange={handleInputValue("age")}
         />
         <button onClick={handleSignUp}>Auth/SignUp[Post]</button>
+      </div>
+      <div className="test_box_box">
+        <input
+          type="email"
+          placeholder="email"
+          onChange={handleInputValue("email")}
+        />
+        <input
+          type="password"
+          placeholder="password"
+          onChange={handleInputValue("password")}
+        />
+        <button onClick={handleSignIn}>Auth/SignIn[Post]</button>
       </div>
     </div>
   );
