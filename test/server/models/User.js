@@ -1,32 +1,39 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const userSchema = new mongoose.Schema({
-email: {
-    type:String,
-    required:true,
-    unique:true
-},
-password:{
-    type:String
-},
-nickname:{
-    type:String
-},
-sex:{
-    type:String
+const userSchema = new Schema({
+  board: [
+    {
+      ref: "Board",
+      type: mongoose.Schema.Types.ObjectId,
+    },
+  ],
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  nickname: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    minlength: 5,
+  },
+  sex: {
+    type: String,
+  },
+  want_region: {
+    type: String,
+  },
+  want_vol: {
+    type: String,
+  },
+  age: {
+    type: String,
+  },
+});
 
-},
-want_region:{
-    type:String
-},
-want_vol:{
-    typre:String
-},
-age:{
-    type:String
-}},
-{timestamps:{createdAt: 'created_at',updatedAt: 'updated_at'}})
-
-const User = mongoose.model('User', userSchema);
- 
-module.exports = User
+// userSchema.plugin(findOrCreate);
+module.exports = mongoose.model("User", userSchema);

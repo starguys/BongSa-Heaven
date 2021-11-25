@@ -70,25 +70,25 @@ export default function App() {
         }
       )
       .then((res) => {
-        const token = res.data.data;
+        const accessToken = res.data.accessToken;
         console.log("res");
-        console.log(token);
-        handleResponseSuccess(token);
+        console.log(accessToken);
+        handleResponseSuccess(accessToken);
       })
       .catch((err) => {
         console.log("err");
       });
   };
 
-  const handleResponseSuccess = (token) => {
-    isAuthenticated(token);
+  const handleResponseSuccess = (accessToken) => {
+    isAuthenticated(accessToken);
   };
 
-  const isAuthenticated = (token) => {
+  const isAuthenticated = (accessToken) => {
     axios
       .get(
         "http://localhost:8080/user/info",
-        { token },
+        { accessToken },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,

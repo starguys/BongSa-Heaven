@@ -1,9 +1,8 @@
+const router = require("express").Router();
+const controller = require("../controllers/user");
 
+router.get("/userinfo", controller.userinfoControl);
+router.patch("/edit", controller.editControl);
+router.delete("/withdrawal", controller.withdrawalControl);
 
-const router = require('express').Router()
-const controllers = require('../controllers/user')
-
-router.post('/signup',controllers.authSignup)
-router.post('/signin,' , controllers.authSignin)
-
-module.exports = router
+module.exports = router;

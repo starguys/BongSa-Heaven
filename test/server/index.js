@@ -1,42 +1,36 @@
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const cookieParser = require('cookie-parser');
-const mongoose =require('mongoose')
-const userRouter = require('./routes/user')
+require("dotenv").config();
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const express = require("express");
+const app = express();
 
-const corsOptions = {origin:['http://localhost:3000'],
-methods: ["GET", "POST", "OPTIONS", "PATCH", "DELETE"],
-credentials:true
-}
+const DB = require("./config/config");
+const freeboardRouter = require("./routes/freeboard");
+const userRouter = require("./routes/user");
+const authRouter = require("./routes/auth");
 
-require('dotenv').config();
+//use modules
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  })
+);
+app.use(cookieParser());
+DB();
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(cors(corsOptions))
+//routes
+app.use("/user", userRouter);
+app.use("/auth", authRouter);
+app.use("/freeboard", freeboardRouter);
 
+//server
 const PORT = process.env.PORT || 8080;
-//app.use ()  router들
+app.listen(PORT, () => {
+  console.log(`      🚀 Server is starting on ${PORT}`);
+});
 
-//mongoose mongodb node.js 연결
-mongoose.connect(process.env.MONGO_URI)
-.then(()=>{
-    console.log('connected to mongo')
-})
-.catch(err =>{
-    console.log(err)
-})
-//mongoose 부터는 Promise를 사용할 수 있습니다.
-
-app.use('/auth',userRouter)
-
-
-
-app.listen(PORT,() =>{
-console.log(`server is starting ${PORT}`);
-
-})
-
-module.exports=app
-
+module.exports = app;
