@@ -32,5 +32,5 @@ const boardSchema = new Schema({
   ],
 });
 
-boardSchema.plugin(findOrCreate);
+// boardSchema.plugin(findOrCreate);
 module.exports = mongoose.model("Board", boardSchema);
