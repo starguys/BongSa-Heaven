@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import "../App.css";
 import "../css/Reset.css";
 
+import Footer from "./Pages/Main/Footer";
 import DevHeader from "./DevHeader";
 import DevFooter from "./DevFooter";
 import MainPage from "./Pages/Main/MainPage";
@@ -45,7 +46,7 @@ export default function App() {
   };
 
   return (
-    <div>
+    <div id="app_div">
       {isDevHeader ? <DevHeader /> : null}
       <Route exact path="/" component={MainPage} />
       {/* Sign */}
@@ -88,6 +89,7 @@ export default function App() {
       <Route exact path="/CrewBoardList" component={CrewBoardList} />
       ㅎㅇㅇ~
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
+      <Footer />
     </div>
   );
 }
