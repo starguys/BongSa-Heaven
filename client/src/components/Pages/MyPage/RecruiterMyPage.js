@@ -1,5 +1,10 @@
 import React from "react";
+import MyPageHeader from "./MyPageHeader";
 
 export default function RecruiterMyPage() {
-  return <div>Im RecruiterMyPage</div>;
+  return (
+    <>
+      <MyPageHeader componentName={"마이페이지"} />
+    </>
+  );
 }

@@ -20,6 +20,7 @@ import RecruiterEdit from "./Pages/MyPage/RecruiterEdit";
 import RecruiterMyPage from "./Pages/MyPage/RecruiterMyPage";
 import RecruiterPasswordCheck from "./Pages/MyPage/RecruiterPasswordCheck";
 import SeeRecruiter from "./Pages/MyPage/SeeRecruiter";
+import SeeUser from "./Pages/MyPage/SeeUser";
 import UserDelete from "./Pages/MyPage/UserDelete";
 import UserEdit from "./Pages/MyPage/UserEdit";
 import UserEditPasswordCheck from "./Pages/MyPage/UserEditPasswordCheck";
@@ -66,6 +67,7 @@ export default function App() {
         component={RecruiterPasswordCheck}
       />
       <Route exact path="/SeeRecruiter" component={SeeRecruiter} />
+      <Route exact path="/SeeUser" component={SeeUser} />
       <Route exact path="/UserDelete" component={UserDelete} />
       <Route exact path="/UserEdit" component={UserEdit} />
       <Route
@@ -87,7 +89,6 @@ export default function App() {
       <Route exact path="/CrewBoardDelete" component={CrewBoardDelete} />
       <Route exact path="/CrewBoardEdit" component={CrewBoardEdit} />
       <Route exact path="/CrewBoardList" component={CrewBoardList} />
-      ㅎㅇㅇ~
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
       <Footer />
     </div>

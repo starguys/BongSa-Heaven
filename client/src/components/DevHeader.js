@@ -39,10 +39,16 @@ export default function DevHeader() {
         <div className="DevHeader_box_btn">
           <Link to="/RecruiterPasswordCheck">RecruiterPasswordCheck</Link>
         </div>
+        <div className="DevHeader_box_btn">
+          <Link to="/RecruiterMyPage">RecruiterMyPage</Link>
+        </div>
       </div>
       <div className="DevHeader_box">
         <div className="DevHeader_box_btn">
           <Link to="/SeeRecruiter">SeeRecruiter</Link>
+        </div>
+        <div className="DevHeader_box_btn">
+          <Link to="/SeeUser">SeeUser</Link>
         </div>
         <div className="DevHeader_box_btn">
           <Link to="/UserDelete">UserDelete</Link>

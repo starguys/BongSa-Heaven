@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 export default function Footer() {
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <>
+      {isLogin ? (
+        <div className="footer_signInOut">SignOut</div>
+      ) : (
+        <div className="footer_signInOut">SignIn</div>
+      )}
+
       <div id="footer_div">
         <div id="footer_leftbox">
           <div className="footer_gitid">

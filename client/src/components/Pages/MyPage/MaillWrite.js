@@ -1,5 +1,10 @@
 import React from "react";
+import MyPageHeader from "./MyPageHeader";
 
 export default function MaillWrite() {
-  return <div>Im MaillWrite</div>;
+  return (
+    <>
+      <MyPageHeader componentName={"쪽지"} />
+    </>
+  );
 }

@@ -1,5 +1,10 @@
 import React from "react";
+import MyPageHeader from "./MyPageHeader";
 
 export default function UserEdit() {
-  return <div>Im UserEdit</div>;
+  return (
+    <>
+      <MyPageHeader componentName={"회원정보 수정하기"} />
+    </>
+  );
 }
