@@ -3,7 +3,6 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const app = express();
-
 const DB = require("./config/config");
 const freeboardRouter = require("./routes/freeboard");
 const userRouter = require("./routes/user");

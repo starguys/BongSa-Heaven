@@ -1,11 +1,15 @@
 require("dotenv").config();
 const crypto = require("crypto");
-const User = require("../models/user");
+const User = require("../models/User");
+const Board = require('../models/Board')
+const axios = require('axios')
 const {
   generateAccessToken,
   generateRefreshToken,
   isAuthorized,
   checkRefreshToken,
+
+  // decryption
 } = require("../middlewares/token");
 
 module.exports = {
@@ -36,55 +40,52 @@ module.exports = {
 
     // 3. db에 없다면 db에 등록
     // 크립토로 비밀번호 솔트해싱
-    if (!existUser) {
-      const hardPass = crypto.randomBytes(64, (err, buf) => {
-        crypto.pbkdf2(
-          password,
-          buf.toString("base64"),
-          110011,
-          64,
-          "sha512",
-          () => {
-            console.log("싸장님 비번 소금쳤어요");
-          }
-        );
-      });
+    
+   
+        crypto.pbkdf2(password, process.env.SALT, 100000, 64, 'sha512', async (err, key) => {
+          console.log(key.toString('base64'));
+      
+   
+
+
       const newUser = {
         email: email,
-        password: hardPass,
+        password: key.toString('base64'),
         nickname: nickname,
         sex: sex,
         want_region: want_region,
         want_vol: want_vol,
         age: age,
       };
+   
       const insertDb = await new User(newUser).save();
+     
+      
       if (!insertDb) {
         return res.status(500).send({ message: "싸장님 서버 이상해" });
       } else {
         return res.status(201).send({ message: "싸장님 웰캄 투 봉사천국" });
       }
-    }
+
+    });
+
   },
 
   signinControl: async (req, res) => {
     // 1. 이메일과 패스드가 담긴 바디를 받는다
     const { email, password } = req.body;
-    const hardPass = crypto.randomBytes(64, (err, buf) => {
-      crypto.pbkdf2(
-        password,
-        buf.toString("base64"),
-        110011,
-        64,
-        "sha512",
-        () => {
-          console.log("===err===", err);
-        }
-      );
-    });
+
+        crypto.pbkdf2(password, process.env.SALT, 100000, 64, 'sha512',async (err, key) => {
+ 
+          const hashKey = key.toString('base64')
+          console.log(hashKey)
+      
+   
+ 
     // 2. 유저db 에서 이메일이 있는지 확인한다
-    const query = { email: email, password: hardPass };
+    const query = { email: email, password: hashKey };
     const userInfo = await User.findOne(query);
+
     // 3. 없다면 404 돌려보냄
     if (!userInfo) {
       return res
@@ -106,9 +107,27 @@ module.exports = {
     } else {
       res.status(500).send("error");
     }
+
+});
+
   },
 
   nickcheckControl: async (req, res) => {
     return res.send("nickcheck ok!");
   },
-};
+
+  googleSinginControl: async (req,res) =>{
+
+    const { email, username, profileImage } = req.body // username은 email의 앞부분
+    const googleToken = req.headers.authorization //cons
+  
+
+
+
+
+
+   
+  
+}
+
+}

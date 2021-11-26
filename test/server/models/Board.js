@@ -2,34 +2,34 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const boardSchema = new Schema({
-  user: [
-    {
-      ref: "User",
-      type: mongoose.Schema.Types.ObjectId,
-    },
-  ],
-  freeboard: [
-    {
-      type: String,
-      title: String,
-      image: {
-        type: Array,
-      },
-      descreption: String,
-    },
-  ],
-  crewboard: [
-    {
-      type: String,
-      title: String,
-      image: {
-        type: Array,
-      },
-      one_line: String,
-      descreption: String,
-      region: String,
-    },
-  ],
+ 
+  user_id:{
+    type:Number,
+    ref:'User',
+    required:true,
+    
+
+ },
+ image:{
+   type:String,
+ 
+   
+ },
+ description:{
+   type:String,
+
+ },
+ comments:[{
+  type: mongoose.Schema.Types.ObjectId, ref: 'Comment'
+ }],
+ crew:{
+   type:Boolean,
+   default:false
+ },
+ shorts_description:{
+   type:String,
+   maxLength:50
+ }
 });
 
 // boardSchema.plugin(findOrCreate);

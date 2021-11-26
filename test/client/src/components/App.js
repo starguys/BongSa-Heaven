@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../App.css";
 
+// import ReactDOM from 'react-dom';
+import {GoogleLogin} from 'react-google-login';
+axios.defaults.withCredentials = true;
 export default function App() {
   const [userinfo, setuserinfo] = useState({
     email: "",
@@ -79,6 +82,7 @@ export default function App() {
         console.log("err");
       });
   };
+  
 
   const handleResponseSuccess = (accessToken) => {
     isAuthenticated(accessToken);
@@ -101,9 +105,14 @@ export default function App() {
         console.log("err");
       });
   };
+
+
+  
   // email, nickname, password, sex, want_region, want_vol, age(young/adult/old)
 
   return (
+    // <script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <div className="test_box">
       <div className="test_box_box">
         <input
@@ -153,7 +162,17 @@ export default function App() {
           type="password"
           placeholder="password"
           onChange={handleInputValue("password")}
-        />
+
+          // 구글로그인
+        />  <GoogleLogin
+        clientId='288722608551-n6ktb74p9fbe0871dikkoul506eedkgq.apps.googleusercontent.com'
+        onSuccess={googleHandler}
+        onFailure={(err) => console.log('err', err)}
+        cookiePolicy={'single_host_origin'}
+        isSignedIn={true}
+        render={renderProps => <button onClick={renderProps.onClick}>구글</button>}
+    />
+  
         <button onClick={handleSignIn}>Auth/SignIn[Post]</button>
       </div>
     </div>

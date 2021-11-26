@@ -1,6 +1,9 @@
 require("dotenv").config();
 const { sign, verify } = require("jsonwebtoken");
 
+
+
+
 module.exports = {
   generateAccessToken: (data) => {
     return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
@@ -20,6 +23,7 @@ module.exports = {
     } catch (err) {
       return res.status(400).send({ message: "싸장님 엑세스 토큰 들고와!" });
     }
+
   },
   checkRefreshToken: (req) => {
     const refreshToken = req.header.cookie.split("=")[2];
@@ -31,5 +35,9 @@ module.exports = {
     } catch (err) {
       return null;
     }
-  },
-};
+
+},
+
+
+
+  }
