@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 
 const DB = require("./config/config");
-const freeboardRouter = require("./routes/freeboard");
+const boardRouter = require("./routes/board");
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
 
@@ -25,7 +25,7 @@ DB();
 //routes
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
-app.use("/freeboard", freeboardRouter);
+app.use("/board", boardRouter);
 
 //server
 const PORT = process.env.PORT || 8080;

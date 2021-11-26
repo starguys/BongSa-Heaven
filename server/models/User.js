@@ -21,6 +21,10 @@ const userSchema = new Schema({
     type: String,
     minlength: 5,
   },
+  salt: {
+    type: String,
+    minlength: 5,
+  },
   sex: {
     type: String,
   },
