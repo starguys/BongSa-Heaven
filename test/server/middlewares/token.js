@@ -12,19 +12,19 @@ module.exports = {
     const authorization =
       req.headers["Authorization"] || req.headers["authorization"];
     if (!authorization) {
-      return res.status(401).send({ message: "싸장님 권한 없어!" });
+      return null;
     }
     const token = authorization.split(" ")[1]; // `Bearer ${Authorization}`
     try {
       return verify(token, process.env.ACCESS_SECRET);
     } catch (err) {
-      return res.status(400).send({ message: "싸장님 엑세스 토큰 들고와!" });
+      return null;
     }
   },
   checkRefreshToken: (req) => {
     const refreshToken = req.header.cookie.split("=")[2];
     if (!refreshToken) {
-      return res.status(400).send({ message: "싸장님 리프레시 토큰 없어!" });
+      return null;
     }
     try {
       return verify(refreshToken, process.env.REFRESH_SECRET);
