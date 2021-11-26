@@ -76,9 +76,13 @@ body {
 }
 
 .HeaderIcon {
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .MyPage_Maill_Icon {
+  font-size: 50px;
+}
+
+.EditIcon {
   font-size: 50px;
 }

@@ -6,11 +6,25 @@ import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function MainPage() {
-  const NoticeContainer = styled.div`
-    background-color: rgb(0, 0, 0, 0.7);
-    width: 100%;
-    height: 20%;
+  const CrewBoardTitle = styled.div`
+    position: absolute;
+    width: 133px;
+    height: 24px;
+    left: 18px;
+    top: 117px;
+
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 35px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.495238px;
+
+    color: #000000;
   `;
+
   const CrewBoardRecommend = styled.div`
     width: 100%;
     height: 30%;
@@ -147,8 +161,8 @@ export default function MainPage() {
   return (
     <>
       <Header />
-      <NoticeContainer>공지사항</NoticeContainer>
       {/* CrewBoard */}
+      {/* <CrewBoardTitle>Best Top 10</CrewBoardTitle> */}
       <CrewBoardRecommend>
         <CrewBoardRecommendTop>
           <CrewBoardRecommendTopText>
