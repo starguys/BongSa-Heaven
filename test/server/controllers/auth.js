@@ -113,7 +113,7 @@ module.exports = {
           // const issueDate = new Date();
           // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
           // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
-          res
+          return res
             .cookie("refreshToken", refreshToken, { httpOnly: true })
             .status(200)
             .send({ accessToken: accessToken });
@@ -130,8 +130,10 @@ module.exports = {
       return res.status(401).send({ message: "싸장님 토큰 망가졌어" });
     }
     if (accessTokenData) {
-      res.clearCookie("refreshToken");
-      res.status(200).send({ message: "싸장님 또 와" });
+      return res
+        .clearCookie("refreshToken")
+        .status(200)
+        .send({ message: "싸장님 또 와" });
     } else {
       return res.status(500).send({ message: "서버 이상해" });
     }
