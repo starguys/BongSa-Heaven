@@ -6,7 +6,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  background-color: rgb(0, 0, 0, 0.2);
+  background-color: white;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -37,6 +37,8 @@ const ContentsBox = styled.div`
   flex-direction: column;
   border-radius: 20px;
   padding: 20px 0px 20px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 const ContentsBoxTitleBox = styled.div`
   display: flex;
@@ -57,12 +59,13 @@ const ContentsBoxWriterBox = styled.div`
   align-items: center;
   padding: 20px 0px 0px 0px;
 `
-const ContentsBoxWriter = styled.input`
+const ContentsBoxWriter = styled.div`
   display: flex;
   align-items: center;
   width: 80%;
   margin: 0px auto 0px auto;
   border: none;
+  color: #448B76;
 `
 
 const ContentsBoxContents = styled.textarea`
@@ -84,6 +87,7 @@ const Img = styled.img`
   width: 80%;
   object-fit: cover;
   opacity: 0.5;
+  border-radius: 10px;
 `
 
 const ImgUploadBox = styled.div`
@@ -94,7 +98,7 @@ const ImgUploadBox = styled.div`
   margin: 30px 0px 15px 0px;
 `
 const ImgUploadButton = styled.div`
-  background-color : gray;
+  background-color : #FF7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -120,9 +124,10 @@ const CancelButton = styled.div`
   margin-right: 10px;
   margin-bottom: 20px;
   border-radius: 20px;
+  border: 1px solid #000000;
 `
 const CompleteButton = styled.div`
-  background-color : gray;
+  background-color : #FF7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -153,7 +158,7 @@ export default function CrewBoardEdit() {
             </ContentsBoxTitle>
           </ContentsBoxTitleBox>
           <ContentsBoxWriterBox>
-            <ContentsBoxWriter placeholder="작성자 닉네임"></ContentsBoxWriter>
+            <ContentsBoxWriter>닉네임자리</ContentsBoxWriter>
           </ContentsBoxWriterBox>
           <ContentsBoxContents placeholder="수정할 글 내용">
           </ContentsBoxContents>

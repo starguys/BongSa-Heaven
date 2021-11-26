@@ -5,7 +5,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Header = styled.div`
   display:flex;
-  background-color: gray;
+  background-color: #FFD4D4;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -37,7 +37,7 @@ const SelectBox = styled.div`
   margin: 15px 0px 15px 0px;
 `
 const DeleteButton = styled.div`
-  background-color : gray;
+  background-color : #FF7676;
   color: white;
   display: flex;
   justify-content: center;

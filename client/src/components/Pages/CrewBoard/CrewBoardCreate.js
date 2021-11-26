@@ -7,7 +7,7 @@ import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  background-color: rgb(0, 0, 0, 0.2);
+  background-color: white;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -39,6 +39,8 @@ const CreateBox = styled.div`
   border-radius: 20px;
   padding: 20px 0px 20px 0px;
   margin: 10px 0px 10px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 const CreateBoxTitleBox = styled.div`
   display: flex;
@@ -101,7 +103,7 @@ const ImgUploadBox = styled.div`
   margin: 30px 0px 15px 0px;
 `
 const ImgUploadButton = styled.div`
-  background-color : gray;
+  background-color : #FF7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -127,9 +129,10 @@ const CancelButton = styled.div`
   margin-right: 10px;
   margin-bottom: 20px;
   border-radius: 20px;
+  border: 1px solid #000000;
 `
 const CompleteButton = styled.div`
-  background-color : gray;
+  background-color : #FF7676;
   color: white;
   display: flex;
   justify-content: center;

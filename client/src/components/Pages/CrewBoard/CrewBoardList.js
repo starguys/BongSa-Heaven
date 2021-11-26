@@ -18,7 +18,7 @@ const Loading = styled.div`
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  background-color: rgb(0, 0, 0, 0.2);
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -29,6 +29,7 @@ const Header = styled.div`
   align-items: center;
   width: 100%;
   padding: 30px 0px 20px 0px;
+  background-color: #FFD4D4;
 `
 const HeaderText = styled.div`
   width: 80%;
@@ -57,12 +58,13 @@ const ImageBox = styled.div`
   align-items: center;
   width: 90%;
   height: 65%;
+  border: solid 1px black;
 `
 const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.5;
+
 `
 
 const Describe = styled.div`
@@ -71,20 +73,22 @@ const Describe = styled.div`
   width: 90%;
   height: 35%;
   background-color: white;
+  border: solid 1px black;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 
 const SayHello = styled.div`
   height: 30%;
   display: flex;
   align-items: flex-end;
-  opacity: 0.5;
   font-size: 0.8em;
 `
 const VolunteersName = styled.div`
   height: 50%;
   display: flex;
   align-items: center;
-  font-size: 1em;  
+  font-size: 1em;
+  color: #448B76;
 `
 const PublishedDate = styled.div`
   height: 20%;

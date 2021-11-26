@@ -7,7 +7,7 @@ import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  background-color: rgb(0, 0, 0, 0.2);
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,6 +38,8 @@ const ContentsBox = styled.div`
   flex-direction: column;
   border-radius: 20px;
   padding: 20px 0px 20px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 const ContentsBoxTitleBox = styled.div`
   display: flex;
@@ -63,6 +65,7 @@ const ContentsBoxWriter = styled.div`
   align-items: center;
   width: 20%;
   margin: 0px 5px 0px 18px;
+  color: #448B76;
 `
 
 const ContentsBoxAdjustBox = styled.div`
@@ -73,7 +76,7 @@ const ContentsBoxAdjustBox = styled.div`
 `
 
 const ContentsBoxAdjust = styled.div`
-  background-color: gray;
+  background-color: #FF7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -97,6 +100,7 @@ const Img = styled.img`
   width: 80%;
   object-fit: cover;
   opacity: 0.5;
+  border-radius: 10px;
 `;
 
 const ContentsBoxDeleteBox = styled.div`
@@ -106,6 +110,7 @@ const ContentsBoxDeleteBox = styled.div`
   justify-content: flex-end;
 `;
 const ContentsBoxDeleteButton = styled.div`
+  color: #D80000;
   opacity: 0.5;
   padding-right: 25px;
 `
@@ -118,7 +123,7 @@ const ListBox = styled.div`
   padding: 10px;
 `;
 const ListButton = styled.div`
-  background-color: gray;
+  background-color: #FF7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -135,6 +140,8 @@ const CommentList = styled.div`
   border-radius: 20px;
   background-color: white;
   padding: 10px 0px 15px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 const CommentBox = styled.div`
   display: flex;
@@ -178,7 +185,9 @@ const CommentInputContents = styled.input`
 `
 
 const CommentInputButton = styled.div`
-  background-color : gray;
+  background-color : #FF7676;
+  color: #FFFFFF;
+  line-height: 23px;
   width: 22%;
   height: 90%;
   border-radius: 20px;
@@ -270,7 +279,7 @@ export default function CrewBoardContents() {
             <CommentInputContents placeholder="내용을 입력하세요.">
             </CommentInputContents>
           </CommentInput>
-          <CommentInputButton>댓 글<br /><br />달 기</CommentInputButton>
+          <CommentInputButton>댓 글<br />달 기</CommentInputButton>
         </CommentInputBox>
       </Wrapper>
     </>
