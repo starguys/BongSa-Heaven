@@ -1,18 +1,18 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { faPaperPlane } from "@fortawesome/free-regular-svg-icons"; 
+import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgb(0, 0, 0, 0.2);
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   overflow: auto;
-`
+`;
 const Header = styled.div`
   display:flex;
   justify-content: center;
@@ -51,7 +51,7 @@ const ContentsBoxTitle = styled.div`
   width: 80%;
   font-size: 20px;
   border-bottom: solid gray 1px;
-`
+`;
 const ContentsBoxWriterBox = styled.div`
   display: flex;
   align-items: center;
@@ -80,7 +80,7 @@ const ContentsBoxAdjust = styled.div`
   align-items: center;
   padding: 10px;
   border-radius: 20px;
-`
+`;
 const ContentsBoxContents = styled.div`
   width: 80%;  
   margin: 15px auto 40px auto;
@@ -97,15 +97,14 @@ const Img = styled.img`
   width: 80%;
   object-fit: cover;
   opacity: 0.5;
-`
+`;
 
 const ContentsBoxDeleteBox = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
-`
+`;
 const ContentsBoxDeleteButton = styled.div`
   opacity: 0.5;
   padding-right: 25px;
@@ -117,9 +116,9 @@ const ListBox = styled.div`
   width: 80%;
   display:flex;
   padding: 10px;
-`
+`;
 const ListButton = styled.div`
-  background-color : gray;
+  background-color: gray;
   color: white;
   display: flex;
   justify-content: center;
@@ -128,7 +127,7 @@ const ListButton = styled.div`
   padding: 10px;
   margin: 10px;
   border-radius: 20px;
-`
+`;
 const CommentList = styled.div`
   flex-direction: column;
   align-items: center;
@@ -147,7 +146,7 @@ const CommentBox = styled.div`
 const CommentWriter = styled.span`
   margin-left: 25px;
   font-size: 18px;
-`
+`;
 
 const CommentDate = styled.span`
   margin-left: 30px;
@@ -156,7 +155,7 @@ const CommentDate = styled.span`
 `
 
 const CommentContents = styled.div`
-  display:flex;
+  display: flex;
   align-items: center;
   margin: 10px 0px 0px 25px;
 `
@@ -199,14 +198,12 @@ export default function CrewBoardContents() {
           <HeaderText>
           </HeaderText>
           <IconBox>
-           <FontAwesomeIcon icon={faTimes} />
+            <FontAwesomeIcon icon={faTimes} />
           </IconBox>
         </Header>
         <ContentsBox>
           <ContentsBoxTitleBox>
-            <ContentsBoxTitle>
-              힘쎈봉사단
-            </ContentsBoxTitle>
+            <ContentsBoxTitle>힘쎈봉사단</ContentsBoxTitle>
           </ContentsBoxTitleBox>
           <ContentsBoxWriterBox>
             <ContentsBoxWriter>작성자A</ContentsBoxWriter>
@@ -218,15 +215,18 @@ export default function CrewBoardContents() {
             </ContentsBoxAdjustBox>
           </ContentsBoxWriterBox>
           <ContentsBoxContents>
-            <br/>
+            <br />
             안녕하세요.
-            <br/><br/>
-            30~40대 남녀로 구성된 봉사단으로써, 연탄나르기, 농어촌 일손 돕기 등의 봉사를 수행하고 있습니다.
-            <br/><br/>
+            <br />
+            <br />
+            30~40대 남녀로 구성된 봉사단으로써, 연탄나르기, 농어촌 일손 돕기
+            등의 봉사를 수행하고 있습니다.
+            <br />
+            <br />
             모든 힘이 필요한 곳에 도움을 드리고 싶습니다. 연락 부탁드려요!
           </ContentsBoxContents>
           <ContentsBoxImgBox>
-            <Img src="https://dimg.donga.com/wps/NEWS/IMAGE/2019/10/10/97803507.1.jpg"/>
+            <Img src="https://dimg.donga.com/wps/NEWS/IMAGE/2019/10/10/97803507.1.jpg" />
           </ContentsBoxImgBox>
           <ContentsBoxDeleteBox>
             <ContentsBoxDeleteButton>삭제</ContentsBoxDeleteButton>
@@ -241,36 +241,28 @@ export default function CrewBoardContents() {
               작성자A
               <CommentDate>2021.11.21</CommentDate>
             </CommentWriter>
-            <CommentContents>
-              정말 좋은 봉사단인것 같아요!
-            </CommentContents>
+            <CommentContents>정말 좋은 봉사단인것 같아요!</CommentContents>
           </CommentBox>
           <CommentBox>
             <CommentWriter>
               작성자A
               <CommentDate>2021.11.21</CommentDate>
             </CommentWriter>
-            <CommentContents>
-              정말 좋은 봉사단인것 같아요!
-            </CommentContents>
+            <CommentContents>정말 좋은 봉사단인것 같아요!</CommentContents>
           </CommentBox>
           <CommentBox>
             <CommentWriter>
               작성자A
               <CommentDate>2021.11.21</CommentDate>
             </CommentWriter>
-            <CommentContents>
-              정말 좋은 봉사단인것 같아요!
-            </CommentContents>
+            <CommentContents>정말 좋은 봉사단인것 같아요!</CommentContents>
           </CommentBox>
           <CommentBox>
             <CommentWriter>
               작성자A
               <CommentDate>2021.11.21</CommentDate>
             </CommentWriter>
-            <CommentContents>
-              정말 좋은 봉사단인것 같아요!
-            </CommentContents>
+            <CommentContents>정말 좋은 봉사단인것 같아요!</CommentContents>
           </CommentBox>
         </CommentList>
         <CommentInputBox>

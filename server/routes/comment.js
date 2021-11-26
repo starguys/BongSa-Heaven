@@ -1,7 +1,8 @@
 const router = require("express").Router();
-const controller = require("../controllers/user");
+const controller = require("../controllers/comment");
 
-router.get("/userinfo", controller.userinfoControl);
+router.post("/register", controller.registerControl);
+router.get("/list", controller.infoControl);
 router.patch("/edit", controller.editControl);
 router.delete("/withdrawal", controller.withdrawalControl);
 
