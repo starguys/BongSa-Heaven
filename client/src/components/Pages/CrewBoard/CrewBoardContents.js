@@ -14,94 +14,107 @@ const Wrapper = styled.div`
   overflow: auto;
 `;
 const Header = styled.div`
-  display: flex;
-  justify-content: flex-end;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 30px 0px 20px 0px;
+`
+const HeaderText = styled.div`
+  width: 80%;
+  display:flex;
+  justify-content: center;
   align-items: center;
   font-size: 24px;
-  width: 100%;
-  min-height: 12%;
-  box-sizing: border-box;
-`;
+`
 const IconBox = styled.div`
-  padding-right: 30px;
-`;
+  right: 5vw;
+`
 
 const ContentsBox = styled.div`
   background-color: white;
   width: 80%;
-  min-height: 70%;
-  display: flex;
+  display:flex;
   flex-direction: column;
   border-radius: 20px;
-`;
+  padding: 20px 0px 20px 0px;
+`
 const ContentsBoxTitleBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 9%;
-`;
+`
 const ContentsBoxTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 80%;
-  height: 80%;
   font-size: 20px;
   border-bottom: solid gray 1px;
 `;
 const ContentsBoxWriterBox = styled.div`
   display: flex;
   align-items: center;
-  height: 15%;
-`;
+  padding: 20px 0px 0px 0px;
+`
+const ContentsBoxWriter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin: 0px 5px 0px 18px;
+`
+
+const ContentsBoxAdjustBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 60%;
+`
+
 const ContentsBoxAdjust = styled.div`
   background-color: gray;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
-  height: 60%;
-  left: 36%;
-  position: relative;
+  padding: 10px;
   border-radius: 20px;
 `;
 const ContentsBoxContents = styled.div`
-  width: 90%;
-  height: 35%;
-  padding: 13px;
-`;
+  width: 80%;  
+  margin: 15px auto 40px auto;
+`
 const ContentsBoxImgBox = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 28%;
-`;
+  width: 100%;
+  margin: 15px 0 30px 0;
+`
 const Img = styled.img`
-  width: 90%;
-  height: 100%;
+  width: 80%;
   object-fit: cover;
   opacity: 0.5;
 `;
 
 const ContentsBoxDeleteBox = styled.div`
   width: 100%;
-  height: 15%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
 `;
 const ContentsBoxDeleteButton = styled.div`
   opacity: 0.5;
-  padding-right: 20px;
-`;
+  padding-right: 25px;
+`
 
 const ListBox = styled.div`
   display: flex;
   align-items: center;
   width: 80%;
-  min-height: 8%;
-  display: flex;
+  display:flex;
   padding: 10px;
 `;
 const ListButton = styled.div`
@@ -111,49 +124,79 @@ const ListButton = styled.div`
   justify-content: center;
   align-items: center;
   width: 30%;
-  height: 70%;
+  padding: 10px;
+  margin: 10px;
   border-radius: 20px;
 `;
 const CommentList = styled.div`
-  border: black 3px solid;
-  display: flex;
   flex-direction: column;
   align-items: center;
   width: 80%;
   border-radius: 20px;
   background-color: white;
-  padding: 10px;
-`;
+  padding: 10px 0px 15px 0px;
+`
 const CommentBox = styled.div`
-  border: green 3px solid;
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 50%;
   border-bottom: dashed gray 1px;
-`;
+  padding: 20px 0px;
+`
 const CommentWriter = styled.span`
-  border: blue 3px solid;
+  margin-left: 25px;
   font-size: 18px;
 `;
 
 const CommentDate = styled.span`
-  border: blue 3px solid;
   margin-left: 30px;
-  font-size: 18px;
-`;
+  font-size: 15px;
+  opacity: 0.5;
+`
 
 const CommentContents = styled.div`
   display: flex;
   align-items: center;
+  margin: 10px 0px 0px 25px;
+`
+
+const CommentInputBox = styled.div`
   margin-top: 8px;
-`;
+  width: 80%;
+  display: flex;
+  margin: 30px 0px 60px 0px;
+`
+const CommentInput = styled.div`
+  width: 70%;
+  height: 90%;
+  margin: 30px 0px 30px 0px;
+`
+const CommentInputContents = styled.input`
+  width: 100%;
+  height: 90%;
+  display: flex;
+`
+
+const CommentInputButton = styled.div`
+  background-color : gray;
+  width: 22%;
+  height: 90%;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  margin: 30px 0px 30px 20px;
+`
+
 
 export default function CrewBoardContents() {
   return (
     <>
       <Wrapper>
         <Header>
+          <HeaderText>
+          </HeaderText>
           <IconBox>
             <FontAwesomeIcon icon={faTimes} />
           </IconBox>
@@ -163,9 +206,13 @@ export default function CrewBoardContents() {
             <ContentsBoxTitle>힘쎈봉사단</ContentsBoxTitle>
           </ContentsBoxTitleBox>
           <ContentsBoxWriterBox>
-            &nbsp;&nbsp;&nbsp;&nbsp;작성자A&nbsp;&nbsp;
+            <ContentsBoxWriter>작성자A</ContentsBoxWriter>
             <FontAwesomeIcon icon={faPaperPlane} />
-            <ContentsBoxAdjust>수정하기</ContentsBoxAdjust>
+            <ContentsBoxAdjustBox>
+              <ContentsBoxAdjust>
+                수정하기
+              </ContentsBoxAdjust>
+            </ContentsBoxAdjustBox>
           </ContentsBoxWriterBox>
           <ContentsBoxContents>
             <br />
@@ -218,6 +265,13 @@ export default function CrewBoardContents() {
             <CommentContents>정말 좋은 봉사단인것 같아요!</CommentContents>
           </CommentBox>
         </CommentList>
+        <CommentInputBox>
+          <CommentInput> 
+            <CommentInputContents placeholder="내용을 입력하세요.">
+            </CommentInputContents>
+          </CommentInput>
+          <CommentInputButton>댓 글<br /><br />달 기</CommentInputButton>
+        </CommentInputBox>
       </Wrapper>
     </>
   );
