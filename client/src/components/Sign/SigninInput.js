@@ -1,8 +1,9 @@
 import React from "react";
 import styled from 'styled-components'
 
-
-
+import  { useState, useRef, useEffect } from 'react';
+import { Route } from "react-router-dom";
+import axios from 'axios';
 const InputBox = styled.div`
   background-color: #FFD4D4;
   width: 100%;
@@ -45,16 +46,41 @@ const PossibleOrNot = styled.div`
 
 
 
+
+
+
 export default function SignInInput() {
+
+
+  //이벤트 클릭햇을시 반응하도록
+  //이메일 입력 , 패스워드 입력
+  const [email,setEmail] = useState('')
+  const [password,setPassword] =useState('')
+
+  //로그인 버튼을 클릭햇을때
+  const handleLogin = () =>{
+  
+  }
+  const handleEmail = (e) =>{
+ 
+    console.log(e.target.value)
+    setEmail(e.target.value)
+  }
+  const handlePassword =(e) =>{
+    e.preventDefault();
+    console.log(e.target.value)
+    setPassword(e.target.value)
+  }
+
   return (
     <>
         <InputBox>
           <SignInWhiteBox>
-            <SignInWhiteInput placeholder="아이디">
+            <SignInWhiteInput type='email' placeholder="아이디(이메일)" onChange = {handleEmail} >
             </SignInWhiteInput>
           </SignInWhiteBox>
           <SignInWhiteBox>
-            <SignInWhiteInput placeholder="비밀번호">
+            <SignInWhiteInput  type='password' placeholder="비밀번호" onChange ={handlePassword}>
             </SignInWhiteInput>
           </SignInWhiteBox>
         </InputBox>
