@@ -87,35 +87,6 @@ export default function UserMaill() {
   return (
     <>
       <MyPageHeader componentName={"쪽지"} />
-
-      <UserMaillSend>
-        <UserMaillCancleBtn>취소</UserMaillCancleBtn>
-        <span>쪽지 쓰기</span>
-        <UserMaillSendBtn>보내기</UserMaillSendBtn>
-      </UserMaillSend>
-      <UserMaillWhoSend>
-        <UserMaillWhoSendText>받는 사람</UserMaillWhoSendText>
-        <UserMaillWhoSendInput type="text" />
-        <UserMaillWhoSendBtn>닉네임 확인</UserMaillWhoSendBtn>
-      </UserMaillWhoSend>
-      <UserMaillNickCheckContainer>
-        <UserMaillNickCheckTextTrue>
-          닉네임이 확인되었습니다
-        </UserMaillNickCheckTextTrue>
-        <UserMaillNickCheckTextFalse>
-          닉네임을 확인해 주세요
-        </UserMaillNickCheckTextFalse>
-      </UserMaillNickCheckContainer>
-      <UserMaillMessage>
-        <UserMaillMessageInput
-          type="text"
-          placeholder="쪽지 내용을 입력해 주세요."
-        />
-      </UserMaillMessage>
-      <UserMaillSend>
-        <UserMaillCancleBtn>취소</UserMaillCancleBtn>
-        <UserMaillSendBtn>보내기</UserMaillSendBtn>
-      </UserMaillSend>
     </>
   );
 }

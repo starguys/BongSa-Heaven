@@ -6,239 +6,166 @@ import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
 export default function SeeRecruiter() {
   const TopSpace = styled.div`
-    width: 100%;
-    height: 15%;
+    height: 43px;
   `;
 
-  const SeeContainer = styled.div`
-    width: 100%;
+  const SeeRecruiterContainer = styled.div`
+    margin-bottom: 13px;
+    margin-left: 17.5px;
+    width: 340px;
+    height: 290px;
+    background: #ffffff;
+    box-shadow: 0px 2px 11px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
     display: flex;
-    justify-content: center;
-    padding-top: 5%;
-    padding-bottom: 5%;
-  `;
-
-  const SeeContainerBox = styled.div`
-    background-color: rgb(122, 122, 122, 04);
-    width: 90%;
-    height: 200px;
-  `;
-
-  const SeeContainerBoxTop = styled.div`
-    background-color: white;
-    width: 94%;
-    height: 30%;
-    margin-left: 3%;
-    margin-top: 5%;
-    display: flex;
-    justify-content: space-between;
-  `;
-
-  const SeeContainerBoxTopUser = styled.div`
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 22px;
-  `;
-  const SeeContainerBoxTopSend = styled.div`
-    width: 45%;
-    padding-left: 1%;
-    display: flex;
+    flex-direction: column;
     align-items: center;
   `;
-
-  const SeeContainerBoxTopSendBtn = styled.button`
-    border: 0;
-    background-color: rgb(0, 0, 0, 0.4);
-    margin: 5%;
-  `;
-
-  const SeeContainerBoxBottom = styled.div`
-    background-color: white;
-    width: 94%;
-    height: 40%;
-    margin-left: 3%;
-    margin-top: 5%;
-  `;
-
-  const SeeContainerBoxBottomColumn = styled.div`
-    width: 100%;
-    height: 33%;
-
-    display: flex;
-  `;
-  const SeeContainerBoxBottomColumnLeft = styled.div`
-    background-color: rgb(0, 0, 0, 0.2);
-    width: 50%;
-    border-bottom: solid 1px rgb(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
+  const RecruiterUserName = styled.div`
+    margin-top: 26px;
+    width: 111px;
+    height: 21px;
+    font-family: Roboto;
+    font-style: normal;
     font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    color: #448b76;
   `;
-  const SeeContainerBoxBottomColumnRight = styled.div`
-    width: 50%;
-    border-bottom: solid 1px rgb(0, 0, 0, 0.7);
+  const SendMaillBtn = styled.button`
+    margin-top: 12px;
+    margin-bottom: 38px;
+    width: 98px;
+    height: 28px;
+    background: #f7f7f7;
+    border-radius: 4px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+  `;
+  const VolRegion = styled.div`
+    border-bottom: solid 1px rgb(0, 0, 0, 0.1);
+    margin-top: 10px;
+    width: 300px;
+    height: 27px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
   `;
-
+  const VolType = styled.div`
+    border-bottom: solid 1px rgb(0, 0, 0, 0.1);
+    margin-top: 10px;
+    width: 300px;
+    height: 27px;
+    display: flex;
+  `;
+  const RecruiterGroupName = styled.div`
+    border-bottom: solid 1px rgb(0, 0, 0, 0.1);
+    margin-top: 10px;
+    width: 300px;
+    height: 27px;
+    display: flex;
+  `;
+  const LeftBox = styled.div`
+    width: 190px;
+    height: 100%;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+  `;
+  const RightBox = styled.div`
+    width: 110px;
+    height: 100%;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+  `;
   return (
     <>
       <MyPageHeader componentName={"봉사 모집자 보기"} />
       <TopSpace></TopSpace>
-      <SeeContainer>
-        <SeeContainerBox>
-          <SeeContainerBoxTop>
-            <SeeContainerBoxTopUser>함께봉사 님</SeeContainerBoxTopUser>
-            <SeeContainerBoxTopSend>
-              <FontAwesomeIcon icon={faPaperPlane} />
-              <SeeContainerBoxTopSendBtn>쪽지 보내기</SeeContainerBoxTopSendBtn>
-            </SeeContainerBoxTopSend>
-          </SeeContainerBoxTop>
-          <SeeContainerBoxBottom>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                봉사활동 지역
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                영등포구
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                봉사활동 종류
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                노인돌봄
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                기관명/ 봉사단체 이름
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                봉사1515
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-          </SeeContainerBoxBottom>
-        </SeeContainerBox>
-      </SeeContainer>
-      <SeeContainer>
-        <SeeContainerBox>
-          <SeeContainerBoxTop>
-            <SeeContainerBoxTopUser>함께봉사 님</SeeContainerBoxTopUser>
-            <SeeContainerBoxTopSend>
-              <FontAwesomeIcon icon={faPaperPlane} />
-              <SeeContainerBoxTopSendBtn>쪽지 보내기</SeeContainerBoxTopSendBtn>
-            </SeeContainerBoxTopSend>
-          </SeeContainerBoxTop>
-          <SeeContainerBoxBottom>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                봉사활동 지역
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                영등포구
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                봉사활동 종류
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                노인돌봄
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                기관명/ 봉사단체 이름
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                봉사1515
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-          </SeeContainerBoxBottom>
-        </SeeContainerBox>
-      </SeeContainer>
-      <SeeContainer>
-        <SeeContainerBox>
-          <SeeContainerBoxTop>
-            <SeeContainerBoxTopUser>함께봉사 님</SeeContainerBoxTopUser>
-            <SeeContainerBoxTopSend>
-              <FontAwesomeIcon icon={faPaperPlane} />
-              <SeeContainerBoxTopSendBtn>쪽지 보내기</SeeContainerBoxTopSendBtn>
-            </SeeContainerBoxTopSend>
-          </SeeContainerBoxTop>
-          <SeeContainerBoxBottom>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                봉사활동 지역
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                영등포구
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                봉사활동 종류
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                노인돌봄
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                기관명/ 봉사단체 이름
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                봉사1515
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-          </SeeContainerBoxBottom>
-        </SeeContainerBox>
-      </SeeContainer>
-      <SeeContainer>
-        <SeeContainerBox>
-          <SeeContainerBoxTop>
-            <SeeContainerBoxTopUser>함께봉사 님</SeeContainerBoxTopUser>
-            <SeeContainerBoxTopSend>
-              <FontAwesomeIcon icon={faPaperPlane} />
-              <SeeContainerBoxTopSendBtn>쪽지 보내기</SeeContainerBoxTopSendBtn>
-            </SeeContainerBoxTopSend>
-          </SeeContainerBoxTop>
-          <SeeContainerBoxBottom>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                봉사활동 지역
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                영등포구
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                봉사활동 종류
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                노인돌봄
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-            <SeeContainerBoxBottomColumn>
-              <SeeContainerBoxBottomColumnLeft>
-                기관명/ 봉사단체 이름
-              </SeeContainerBoxBottomColumnLeft>
-              <SeeContainerBoxBottomColumnRight>
-                봉사1515
-              </SeeContainerBoxBottomColumnRight>
-            </SeeContainerBoxBottomColumn>
-          </SeeContainerBoxBottom>
-        </SeeContainerBox>
-      </SeeContainer>
+      <SeeRecruiterContainer>
+        <RecruiterUserName>함께봉사 님</RecruiterUserName>
+        <SendMaillBtn>
+          <FontAwesomeIcon icon={faPaperPlane} />
+          &nbsp; 쪽지 보내기
+        </SendMaillBtn>
+        <VolRegion>
+          <LeftBox>봉사활동 지역</LeftBox>
+          <RightBox>영등포구</RightBox>
+        </VolRegion>
+        <VolType>
+          <LeftBox>봉사활동 종류</LeftBox>
+          <RightBox>노인돌봄</RightBox>
+        </VolType>
+        <RecruiterGroupName>
+          <LeftBox>기관명/ 봉사단체 이름</LeftBox>
+          <RightBox>봉사1515</RightBox>
+        </RecruiterGroupName>
+      </SeeRecruiterContainer>
+      <SeeRecruiterContainer>
+        <RecruiterUserName>함께봉사 님</RecruiterUserName>
+        <SendMaillBtn>
+          <FontAwesomeIcon icon={faPaperPlane} />
+          &nbsp; 쪽지 보내기
+        </SendMaillBtn>
+        <VolRegion>
+          <LeftBox>봉사활동 지역</LeftBox>
+          <RightBox>영등포구</RightBox>
+        </VolRegion>
+        <VolType>
+          <LeftBox>봉사활동 종류</LeftBox>
+          <RightBox>노인돌봄</RightBox>
+        </VolType>
+        <RecruiterGroupName>
+          <LeftBox>기관명/ 봉사단체 이름</LeftBox>
+          <RightBox>봉사1515</RightBox>
+        </RecruiterGroupName>
+      </SeeRecruiterContainer>
+      <SeeRecruiterContainer>
+        <RecruiterUserName>함께봉사 님</RecruiterUserName>
+        <SendMaillBtn>
+          <FontAwesomeIcon icon={faPaperPlane} />
+          &nbsp; 쪽지 보내기
+        </SendMaillBtn>
+        <VolRegion>
+          <LeftBox>봉사활동 지역</LeftBox>
+          <RightBox>영등포구</RightBox>
+        </VolRegion>
+        <VolType>
+          <LeftBox>봉사활동 종류</LeftBox>
+          <RightBox>노인돌봄</RightBox>
+        </VolType>
+        <RecruiterGroupName>
+          <LeftBox>기관명/ 봉사단체 이름</LeftBox>
+          <RightBox>봉사1515</RightBox>
+        </RecruiterGroupName>
+      </SeeRecruiterContainer>
+      <SeeRecruiterContainer>
+        <RecruiterUserName>함께봉사 님</RecruiterUserName>
+        <SendMaillBtn>
+          <FontAwesomeIcon icon={faPaperPlane} />
+          &nbsp; 쪽지 보내기
+        </SendMaillBtn>
+        <VolRegion>
+          <LeftBox>봉사활동 지역</LeftBox>
+          <RightBox>영등포구</RightBox>
+        </VolRegion>
+        <VolType>
+          <LeftBox>봉사활동 종류</LeftBox>
+          <RightBox>노인돌봄</RightBox>
+        </VolType>
+        <RecruiterGroupName>
+          <LeftBox>기관명/ 봉사단체 이름</LeftBox>
+          <RightBox>봉사1515</RightBox>
+        </RecruiterGroupName>
+      </SeeRecruiterContainer>
     </>
   );
 }

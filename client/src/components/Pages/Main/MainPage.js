@@ -6,13 +6,11 @@ import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function MainPage() {
-  const CrewBoardTitle = styled.div`
-    position: absolute;
+  const CrewBoardBestTitle = styled.div`
     width: 133px;
     height: 24px;
-    left: 18px;
-    top: 117px;
-
+    margin-top: 64px;
+    margin-left: 18px;
     font-family: Noto Sans KR;
     font-style: normal;
     font-weight: bold;
@@ -21,206 +19,148 @@ export default function MainPage() {
     display: flex;
     align-items: center;
     letter-spacing: -0.495238px;
-
     color: #000000;
   `;
 
-  const CrewBoardRecommend = styled.div`
+  const CrewBoardImageContainer = styled.div`
+    margin-top: 21px;
     width: 100%;
-    height: 30%;
-  `;
-
-  const CrewBoardRecommendTop = styled.div`
-    width: 100%;
-    height: 20%;
-  `;
-
-  const CrewBoardRecommendTopText = styled.div`
-    background-color: blue;
-    color: white;
-    width: 70%;
-    height: 100%;
+    height: 138px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-size: 23px;
   `;
 
-  const CrewBoardRecommendMiddle = styled.div`
-    background-color: white;
+  const CrewBoardImage = styled.img`
+    width: 165px;
+    height: 138px;
+    border-radius: 10px;
+    margin: 0px 5px;
+  `;
+
+  const CrewBoardMoreBtn = styled.button`
+    width: 340px;
+    height: 55px;
+    background: #f7f7f7;
+    border-radius: 4px;
+    margin: 31px 0px 0px 17px;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+  `;
+
+  const FreeBoardTitle = styled.div`
+    margin-top: 47px;
+    margin-left: 18px;
     width: 100%;
-    height: 60%;
+    height: 24px;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 35px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-  `;
-
-  const CrewBoardRecommendMiddleImgBox = styled.div`
-    background-image: url(${(props) => props.url});
-    width: 40%;
-    height: 80%;
-    display: flex;
-    justify-content: start;
-    align-items: flex-end;
-  `;
-
-  const CrewBoardRecommendMiddleImgBoxText = styled.div`
-    background: rgb(0, 0, 255, 0.4);
-    color: white;
-    width: 70%;
-    height: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-  `;
-
-  const CrewBoardRecommendMiddleImg = styled.img`
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  `;
-
-  const CrewBoardRecommendBottom = styled.div`
-    width: 100%;
-    height: 20%;
-    display: flex;
-    justify-content: flex-end;
-    z-index: 1;
-  `;
-
-  const CrewBoardRecommendBottomText = styled.div`
-    background-color: blue;
-    color: white;
-    width: 70%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 23px;
-  `;
-
-  const MainSpaceMiddle = styled.div`
-    background-color: rgb(0, 0, 0, 0.7);
-    width: 100%;
-    height: 15%;
-  `;
-  const FreeBoardContainer = styled.div`
-    width: 100%;
-    height: 30%;
-  `;
-
-  const FreeBoardHeader = styled.div`
-    background-color: orange;
-    width: 40%;
-    height: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 23px;
-    margin-bottom: 5%;
+    letter-spacing: -0.495238px;
   `;
 
   const FreeBoardList = styled.div`
-    border-bottom: solid 1.5px rgb(0, 0, 0, 0.4);
-    width: 100%;
-    height: 23%;
+    border-bottom: solid 1px #f2f2f2;
+    margin-top: 26px;
+    margin-left: 17px;
+    width: 332px;
+    height: 50.5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   `;
 
   const FreeBoardListTitle = styled.div`
-    padding-left: 10%;
-    width: 100%;
-    height: 50%;
+    margin-bottom: 9px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
   `;
-
-  const FreeBoardListText = styled.div`
-    padding-left: 10%;
-
-    width: 100%;
-    height: 50%;
+  const FreeBoardListTitleBottom = styled.div`
+    margin-bottom: 13.5px;
     display: flex;
   `;
-
-  const FreeBoardListTextUser = styled.div`
-    font-size: 13px;
-    width: 25%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    opacity: 0.4;
-  `;
-
-  const FreeBoardListTextDate = styled.div`
-    font-size: 13px;
-    width: 50%;
-    height: 100%;
+  const FreeBoardListTitleBottomUser = styled.div`
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
     display: flex;
     align-items: center;
-    opacity: 0.4;
   `;
+  const FreeBoardListTitleBottomDate = styled.div`
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+  `;
+
   return (
     <>
       <Header />
-      {/* CrewBoard */}
-      {/* <CrewBoardTitle>Best Top 10</CrewBoardTitle> */}
-      <CrewBoardRecommend>
-        <CrewBoardRecommendTop>
-          <CrewBoardRecommendTopText>
-            Best 봉사단 TOP 10
-          </CrewBoardRecommendTopText>
-        </CrewBoardRecommendTop>
-        <CrewBoardRecommendMiddle>
-          <FontAwesomeIcon icon={faCaretLeft} />
-          <CrewBoardRecommendMiddleImgBox url="/image-dummy/vol1.jpeg">
-            <CrewBoardRecommendMiddleImgBoxText>
-              한사랑봉사단
-            </CrewBoardRecommendMiddleImgBoxText>
-          </CrewBoardRecommendMiddleImgBox>
-          <CrewBoardRecommendMiddleImgBox url="/image-dummy/vol2.jpeg">
-            <CrewBoardRecommendMiddleImgBoxText>
-              다함꼐봉사단
-            </CrewBoardRecommendMiddleImgBoxText>
-          </CrewBoardRecommendMiddleImgBox>
-          <FontAwesomeIcon icon={faCaretRight} />
-        </CrewBoardRecommendMiddle>
-        <CrewBoardRecommendBottom>
-          <CrewBoardRecommendBottomText>
-            더 많은 봉사단 보기
-          </CrewBoardRecommendBottomText>
-        </CrewBoardRecommendBottom>
-      </CrewBoardRecommend>
-      <MainSpaceMiddle></MainSpaceMiddle>
-      {/* FreeBoard */}
-      <FreeBoardContainer>
-        <FreeBoardHeader>자유게시판</FreeBoardHeader>
-        <FreeBoardList>
-          <FreeBoardListTitle>
-            안녕하세요 여기가 그 자유로운 게시판인가요?
-          </FreeBoardListTitle>
-          <FreeBoardListText>
-            <FreeBoardListTextUser>작성자A</FreeBoardListTextUser>
-            <FreeBoardListTextDate>2021.11.23</FreeBoardListTextDate>
-          </FreeBoardListText>
-        </FreeBoardList>
-        <FreeBoardList>
-          <FreeBoardListTitle>
-            안녕하세요 여기가 그 자유로운 게시판인가요?
-          </FreeBoardListTitle>
-          <FreeBoardListText>
-            <FreeBoardListTextUser>작성자A</FreeBoardListTextUser>
-            <FreeBoardListTextDate>2021.11.23</FreeBoardListTextDate>
-          </FreeBoardListText>
-        </FreeBoardList>
-        <FreeBoardList>
-          <FreeBoardListTitle>
-            안녕하세요 여기가 그 자유로운 게시판인가요?
-          </FreeBoardListTitle>
-          <FreeBoardListText>
-            <FreeBoardListTextUser>작성자A</FreeBoardListTextUser>
-            <FreeBoardListTextDate>2021.11.23</FreeBoardListTextDate>
-          </FreeBoardListText>
-        </FreeBoardList>
-      </FreeBoardContainer>
+      <CrewBoardBestTitle>Best Top 10</CrewBoardBestTitle>
+      <CrewBoardImageContainer>
+        <CrewBoardImage src="/image-dummy/vol1.jpeg" />
+        <CrewBoardImage src="/image-dummy/vol2.jpeg" />
+      </CrewBoardImageContainer>
+      <CrewBoardMoreBtn>더 많은 봉사단 보기</CrewBoardMoreBtn>
+      <FreeBoardTitle>자유게시판</FreeBoardTitle>
+      <FreeBoardList>
+        <FreeBoardListTitle>
+          안녕하세요 여기가 그 자유로운 게시판인가요?
+        </FreeBoardListTitle>
+        <FreeBoardListTitleBottom>
+          <FreeBoardListTitleBottomUser>김봉사</FreeBoardListTitleBottomUser>
+          <FreeBoardListTitleBottomDate>
+            2021.11.23
+          </FreeBoardListTitleBottomDate>
+        </FreeBoardListTitleBottom>
+      </FreeBoardList>
+      <FreeBoardList>
+        <FreeBoardListTitle>
+          안녕하세요 여기가 그 자유로운 게시판인가요?
+        </FreeBoardListTitle>
+        <FreeBoardListTitleBottom>
+          <FreeBoardListTitleBottomUser>김봉사</FreeBoardListTitleBottomUser>
+          <FreeBoardListTitleBottomDate>
+            2021.11.23
+          </FreeBoardListTitleBottomDate>
+        </FreeBoardListTitleBottom>
+      </FreeBoardList>{" "}
+      <FreeBoardList>
+        <FreeBoardListTitle>
+          안녕하세요 여기가 그 자유로운 게시판인가요?
+        </FreeBoardListTitle>
+        <FreeBoardListTitleBottom>
+          <FreeBoardListTitleBottomUser>김봉사</FreeBoardListTitleBottomUser>
+          <FreeBoardListTitleBottomDate>
+            2021.11.23
+          </FreeBoardListTitleBottomDate>
+        </FreeBoardListTitleBottom>
+      </FreeBoardList>{" "}
+      <FreeBoardList>
+        <FreeBoardListTitle>
+          안녕하세요 여기가 그 자유로운 게시판인가요?
+        </FreeBoardListTitle>
+        <FreeBoardListTitleBottom>
+          <FreeBoardListTitleBottomUser>김봉사</FreeBoardListTitleBottomUser>
+          <FreeBoardListTitleBottomDate>
+            2021.11.23
+          </FreeBoardListTitleBottomDate>
+        </FreeBoardListTitleBottom>
+      </FreeBoardList>
     </>
   );
 }

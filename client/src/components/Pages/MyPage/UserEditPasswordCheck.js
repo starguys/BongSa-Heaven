@@ -4,16 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserEditPasswordCheck() {
-  const Wrapper = styled.div`
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: auto;
-  `;
-
   const Header = styled.div`
     display: flex;
     justify-content: flex-end;
@@ -25,53 +15,66 @@ export default function UserEditPasswordCheck() {
   `;
 
   const IconBox = styled.div`
-    padding-right: 30px;
+    margin-top: 24px;
+    padding-right: 16px;
   `;
 
   const PassCheckTitle = styled.div`
-    width: 80%;
-    height: 10%;
-    display: flex;
-    align-items: center;
-    font-size: 34px;
-    font-weight: bold;
+    margin-left: 43px;
+    margin-top: 26px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 35px;
+    color: #000000;
   `;
   const PassCheckText = styled.div`
-    width: 80%;
-    height: 20%;
-    font-size: 21px;
+    margin-top: 30px;
+    margin-left: 43px;
+    width: 290px;
+    height: 42px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+
+    color: #000000;
   `;
-  const EmailCheckInput = styled.input`
-    width: 80%;
-    height: 5%;
-  `;
+
   const PasswordCheckInput = styled.input`
-    width: 80%;
-    height: 5%;
-    margin-top: 2%;
+    margin-top: 116px;
+    margin-left: 28px;
+    width: 320px;
+    height: 45px;
+    background: #ffffff;
+    border: 1px solid #000000;
   `;
   const CheckBtn = styled.button`
-    width: 82%;
-    height: 7%;
-    margin-top: 15%;
+    margin-left: 27px;
+    margin-top: 45px;
+    margin-bottom: 140px;
+    width: 327px;
+    height: 55px;
+    background: #f7f7f7;
+    border-radius: 4px;
+    border: 0;
   `;
   return (
     <>
-      <Wrapper>
-        <Header>
-          <IconBox>
-            <FontAwesomeIcon icon={faTimes} />
-          </IconBox>
-        </Header>
-        <PassCheckTitle>비밀번호 재확인</PassCheckTitle>
-        <PassCheckText>
-          회원의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 입력해
-          주시기 바랍니다.
-        </PassCheckText>
-        <EmailCheckInput placeholder="email" />
-        <PasswordCheckInput placeholder="password" />
-        <CheckBtn>확인</CheckBtn>
-      </Wrapper>
+      <Header>
+        <IconBox>
+          <FontAwesomeIcon icon={faTimes} className="Xicon" />
+        </IconBox>
+      </Header>
+      <PassCheckTitle>비밀번호 재확인</PassCheckTitle>
+      <PassCheckText>
+        회원의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 입력해 주시기
+        바랍니다.
+      </PassCheckText>
+      <PasswordCheckInput placeholder="password" />
+      <CheckBtn>확인</CheckBtn>
     </>
   );
 }
