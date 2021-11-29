@@ -106,6 +106,9 @@ export default function DevHeader() {
       <div className="DevHeader_box_btn">
         <Link to="/RecruiterMyPage">RecruiterMyPage</Link>
       </div>
+      <div className="DevHeader_box_btn">
+        <Link to="/RecruiterMaill">RecruiterMaill</Link>
+      </div>
     </>
   );
 }
