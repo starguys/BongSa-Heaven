@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
+import Header2 from "../../components/common/Header2";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -13,22 +13,6 @@ const Wrapper = styled.div`
   align-items: center;
   overflow: auto;
 `;
-const Header = styled.div`
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 30px 0px 20px 0px;
-`
-const HeaderText = styled.div`
-  width: 80%;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-`
-const IconBox = styled.div`
-  right: 5vw;
-`
 
 const ContentsBox = styled.div`
   background-color: white;
@@ -202,13 +186,7 @@ export default function CrewBoardContents() {
   return (
     <>
       <Wrapper>
-        <Header>
-          <HeaderText>
-          </HeaderText>
-          <IconBox>
-            <FontAwesomeIcon icon={faTimes} />
-          </IconBox>
-        </Header>
+        <Header2 componentName="모집글 보기"/>
         <ContentsBox>
           <ContentsBoxTitleBox>
             <ContentsBoxTitle>힘쎈봉사단</ContentsBoxTitle>
