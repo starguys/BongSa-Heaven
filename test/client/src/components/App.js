@@ -1,12 +1,23 @@
 import React, { useState } from "react";
+import { Route } from "react-router-dom";
+import { useHistory } from "react-router";
 import axios from "axios";
 import kakaologo from "./kakaologo.png";
 import google from "./google.png";
 import "../App.css";
-import Upload from './uploading'
+import Upload from "./uploading";
+import KakaoKill from "./KakaoKill";
+import KakaoTest from "./KakaoTest";
+import KakaoLogin from "./KakaoLogin";
 
 axios.defaults.withCredentials = true;
 export default function App() {
+  const history = useHistory();
+  const GoKakaoTest = () => {
+    history.push("/KakaoTest");
+  };
+  const url = window.location.href;
+  const arr = url.split("=");
   const [userinfo, setuserinfo] = useState({
     email: "",
     nickname: "",
@@ -109,7 +120,6 @@ export default function App() {
 
   return (
     <div className="test_box">
-      
       <Upload />
       <div className="test_box_box">
         <input
@@ -171,9 +181,11 @@ export default function App() {
         <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=498bc95ff9c33f89e4cff4ef0775b24b&redirect_uri=http://localhost:3000/auth/kakao">
           <img src={kakaologo} alt="kakao"></img>
         </a>
-
       </div>
       <button className="multer">이미지를 올려보자!</button>
+      <button onClick={GoKakaoTest}>카카오 멸망전</button>
+      <Route exact path="/KakaoTest" component={KakaoTest} />
+      <Route exact path="/KakoKill" component={KakaoKill} />
     </div>
   );
 }

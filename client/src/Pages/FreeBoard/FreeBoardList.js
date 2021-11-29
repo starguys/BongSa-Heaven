@@ -2,15 +2,19 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
+import Header2 from "../../components/common/Header2";
+import Loading from "../../components/common/Loading";
+import Contents from "../../components/FreeBoard/Contents";
+import Pagination from "../../components/common/Pagination";
 
+const Headerspace = styled.div`
+  background-color: #ffb1b1;
   width: 100%;
   padding: 40px 0px 40px 0px;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-
-
 
 export default function FreeBoardList() {
   const [isLoading, CheckLoading] = useState(true);
@@ -25,43 +29,25 @@ export default function FreeBoardList() {
 
   return (
     <>
-      <Header>
-        <FontAwesomeIcon icon={faBars} className="HeaderIcon" />
-        <HeaderText>
-          <LogoBox>
-            <Logo src="./image/logo2.png"></Logo>
-          </LogoBox>
-        </HeaderText>
-        <IconBox>
-          <MypageIcon src="./image/Mypage.png"></MypageIcon>
-        </IconBox>
-      </Header>
+      <Header2 componentName="자유 게시판" />
       <Headerspace></Headerspace>
 
-
-      <>
-        <Header2 componentName="자유 게시판"/>
-        <Headerspace>
-        </Headerspace>
-
-        {isLoading ? 
+      {isLoading ? (
         <>
-        <Loading/>
+          <Loading />
         </>
       ) : (
         <>
-
-        <Contents/>
-        <Contents/>
-        <Contents/>
-        <Contents/>
-        <Contents/>
-        <Contents/>
-        <Contents/>
+          <Contents />
+          <Contents />
+          <Contents />
+          <Contents />
+          <Contents />
+          <Contents />
+          <Contents />
         </>
-        }
-
-        <Pagination/>
-      </>
+      )}
+      <Pagination />
+    </>
   );
 }

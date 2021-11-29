@@ -1,6 +1,6 @@
 require("dotenv").config();
 const crypto = require("crypto");
-const User = require("../models/user");
+const User = require("../models/User");
 const axios = require("axios");
 const {
   generateAccessToken,
