@@ -2,7 +2,7 @@
 
 ##  LOGO => 따뜻함, 마음 그리고 당신 세 가지의 다른 마음이 모여서 따뜻한 사회를 만듭니다.
 
-![logo2](https://user-images.githubusercontent.com/83863101/143883479-9ae18281-c220-428b-948d-aa62a2e2be4d.png width=300 height=300)
+![logo2](https://user-images.githubusercontent.com/83863101/143883479-9ae18281-c220-428b-948d-aa62a2e2be4d.png)
 
 ## 자원봉사자
 ### 자원봉사를 하고싶은 사람들과 함께할 수 있는 커뮤니티 공간을 제공합니다.
