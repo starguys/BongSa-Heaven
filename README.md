@@ -45,4 +45,4 @@
 팀장 | 김재후 | BACK_END | nkimtnt
 
 ## WIKI PAGE
-### [4_detectives의 WIKI PAGE](https://github.com/codestates/BongSa-Heaven/wiki)
+### [봉사천국이 궁금하다면!! =>> WIKI로 오세요!!](https://github.com/codestates/BongSa-Heaven/wiki)
