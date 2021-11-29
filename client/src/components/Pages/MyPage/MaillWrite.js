@@ -87,6 +87,7 @@ export default function UserMaill() {
   return (
     <>
       <MyPageHeader componentName={"쪽지"} />
+      <span>PRpls..</span>
     </>
   );
 }
