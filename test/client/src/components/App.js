@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../App.css";
-
+axios.defaults.withCredentials = true;
 export default function App() {
   const [userinfo, setuserinfo] = useState({
     email: "",
@@ -69,25 +69,25 @@ export default function App() {
         }
       )
       .then((res) => {
-        const token = res.data.data;
-        console.log("res");
-        console.log(token);
-        handleResponseSuccess(token);
+        const accessToken = res.data.accessToken;
+        console.log("===res.data===", res.data);
+        console.log(accessToken);
+        handleResponseSuccess(accessToken);
       })
       .catch((err) => {
         console.log("err");
       });
   };
 
-  const handleResponseSuccess = (token) => {
-    isAuthenticated(token);
+  const handleResponseSuccess = (accessToken) => {
+    isAuthenticated(accessToken);
   };
 
-  const isAuthenticated = (token) => {
+  const isAuthenticated = (accessToken) => {
     axios
       .get(
         "http://localhost:8080/user/info",
-        { token },
+        { accessToken },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
