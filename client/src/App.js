@@ -4,8 +4,8 @@ import "../App.css";
 import "../css/Reset.css";
 
 import Footer from "./Pages/Main/Footer";
-import DevHeader from "./DevHeader";
-import DevFooter from "./DevFooter";
+import DevHeader from "./components/DevHeader";
+import DevFooter from "./components/DevFooter";
 import MainPage from "./Pages/Main/MainPage";
 
 import RecruiterSignUp from "./Pages/Sign/RecruiterSignUp";
