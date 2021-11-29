@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
-export default function Users() {
+export default function Recruiters() {
   const SeeRecruiterContainer = styled.div`
     margin-bottom: 13px;
     margin-left: 17.5px;
@@ -90,16 +90,20 @@ export default function Users() {
           &nbsp; 쪽지 쓰기
         </SendMaillBtn>
         <VolRegion>
-          <LeftBox>봉사활동 지역</LeftBox>
-          <RightBox>영등포구</RightBox>
+          <LeftBox>희망 봉사 지역</LeftBox>
+          <RightBox>서울</RightBox>
         </VolRegion>
         <VolType>
-          <LeftBox>봉사활동 종류</LeftBox>
-          <RightBox>노인돌봄</RightBox>
+          <LeftBox>희망 봉사 종류</LeftBox>
+          <RightBox>유기견/유기묘</RightBox>
         </VolType>
         <RecruiterGroupName>
-          <LeftBox>기관명/ 봉사단체 이름</LeftBox>
-          <RightBox>봉사1515</RightBox>
+          <LeftBox>성별</LeftBox>
+          <RightBox>남성</RightBox>
+        </RecruiterGroupName>
+        <RecruiterGroupName>
+          <LeftBox>나이대</LeftBox>
+          <RightBox>장년</RightBox>
         </RecruiterGroupName>
       </SeeRecruiterContainer>
     </>

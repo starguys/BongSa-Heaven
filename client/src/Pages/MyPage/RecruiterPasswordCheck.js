@@ -1,26 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Header2 from "../../components/common/Header2";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Header4 from "../../components/common/Header4";
 
 export default function RecruiterPasswordCheck() {
-  const Header = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    font-size: 24px;
-    width: 100%;
-    min-height: 12%;
-    box-sizing: border-box;
-  `;
-
-  const IconBox = styled.div`
-    margin-top: 24px;
-    padding-right: 16px;
-  `;
-
   const PassCheckTitle = styled.div`
     margin-left: 43px;
     margin-top: 26px;
@@ -65,7 +47,7 @@ export default function RecruiterPasswordCheck() {
   `;
   return (
     <>
-      <Header2 />
+      <Header4 />
       <PassCheckTitle>비밀번호 재확인</PassCheckTitle>
       <PassCheckText>
         회원의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 입력해 주시기

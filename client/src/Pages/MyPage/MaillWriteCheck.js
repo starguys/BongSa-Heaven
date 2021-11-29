@@ -1,27 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-
-const Header = styled.div`
-  display: flex;
-  background-color: #ffd4d4;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 30px 0px 20px 0px;
-`;
-const HeaderText = styled.div`
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-`;
-const IconBox = styled.div`
-  right: 5vw;
-`;
 
 const DeleteBoxTitleBox = styled.div`
   display: flex;
@@ -65,7 +44,7 @@ const CancelButton = styled.div`
 export default function CrewBoardDelete() {
   return (
     <>
-      <Header2 />
+      <Header2 componentName={"쪽지"} />
       <DeleteBoxTitleBox>쪽지를 전송하시겠습니까?</DeleteBoxTitleBox>
       <SelectBox>
         <DeleteButton>확인</DeleteButton>

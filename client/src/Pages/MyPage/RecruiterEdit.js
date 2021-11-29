@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Header2 from "../../components/common/Header2";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Header3 from "../../components/common/Header3";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -13,22 +10,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: auto;
-`;
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 30px 0px 20px 0px;
-`;
-const HeaderText = styled.div`
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const IconBox = styled.div`
-  right: 5vw;
 `;
 
 const LogoBox = styled.div`
@@ -103,8 +84,8 @@ const CompleteButton = styled.div`
 export default function RecruiterSignUp() {
   return (
     <>
+      <Header3 />
       <Wrapper>
-        <Header2 />
         <LogoBox>
           <Logo src="./image/logo2.png"></Logo>
         </LogoBox>
