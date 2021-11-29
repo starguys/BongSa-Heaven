@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import kakaologo from "./kakaologo.png";
+import google from "./google.png";
 import "../App.css";
+
 axios.defaults.withCredentials = true;
 export default function App() {
   const [userinfo, setuserinfo] = useState({
@@ -154,6 +157,16 @@ export default function App() {
           onChange={handleInputValue("password")}
         />
         <button onClick={handleSignIn}>Auth/SignIn[Post]</button>
+      </div>
+      <div className="google">
+        <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=111205615579-0h1irsj18ef04oeggsv09f39vg68lf1e.apps.googleusercontent.com&redirect_uri=http://localhost:8080/auth/google&response_type=code&prompt=consent&scope=https://www.googleapis.com/auth/userinfo.email">
+          <img src={google} alt="google" width="300"></img>
+        </a>
+      </div>
+      <div className="kakao">
+        <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=498bc95ff9c33f89e4cff4ef0775b24b&redirect_uri=http://localhost:3000/auth/kakao">
+          <img src={kakaologo} alt="kakao"></img>
+        </a>
       </div>
     </div>
   );
