@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
-export default function UserMaill() {
+export default function MaillWriteBottom() {
   const MaillTitleContainer = styled.div`
     margin-top: 27px;
     height: 33px;

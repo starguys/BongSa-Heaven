@@ -2,15 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-import Header2 from "../../components/common/Header2";
-import Loading from "../../components/common/Loading";
-import Contents from "../../components/FreeBoard/Contents";
-import Pagination from "../../components/common/Pagination";
 
-
-
-const Headerspace = styled.div`
-  background-color: #FFB1B1;
   width: 100%;
   padding: 40px 0px 40px 0px;
   display: flex;
@@ -19,18 +11,33 @@ const Headerspace = styled.div`
 `;
 
 
-export default function FreeBoardList() {
 
-  const [isLoading, CheckLoading] = useState(true)
+export default function FreeBoardList() {
+  const [isLoading, CheckLoading] = useState(true);
 
   const loadingHandler = () => {
-    CheckLoading(false)
+    CheckLoading(false);
   };
 
   useEffect(() => {
-    setTimeout(() => loadingHandler(), 1000)})
+    setTimeout(() => loadingHandler(), 1000);
+  });
 
   return (
+    <>
+      <Header>
+        <FontAwesomeIcon icon={faBars} className="HeaderIcon" />
+        <HeaderText>
+          <LogoBox>
+            <Logo src="./image/logo2.png"></Logo>
+          </LogoBox>
+        </HeaderText>
+        <IconBox>
+          <MypageIcon src="./image/Mypage.png"></MypageIcon>
+        </IconBox>
+      </Header>
+      <Headerspace></Headerspace>
+
 
       <>
         <Header2 componentName="자유 게시판"/>
@@ -41,8 +48,9 @@ export default function FreeBoardList() {
         <>
         <Loading/>
         </>
-        :
+      ) : (
         <>
+
         <Contents/>
         <Contents/>
         <Contents/>

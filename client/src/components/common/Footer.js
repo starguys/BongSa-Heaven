@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 export default function Footer() {
+  const history = useHistory();
   const [isLogin, setIsLogin] = useState(false);
   const LogInOut = styled.div`
     background: #ffd5d5;
@@ -46,13 +48,25 @@ export default function Footer() {
 
   const FooterPosition = styled.div``;
 
+  const GoSignIn = () => {
+    history.push("/SignIn");
+  };
+
+  const GoHome = () => {
+    history.push("/");
+  };
+
   return (
     <>
       <FooterPosition>
         {isLogin ? (
-          <LogInOut className="footer_signInOut">로그아웃</LogInOut>
+          <LogInOut className="footer_signInOut" onClick={GoHome}>
+            로그아웃
+          </LogInOut>
         ) : (
-          <LogInOut className="footer_signInOut">로그인</LogInOut>
+          <LogInOut className="footer_signInOut" onClick={GoSignIn}>
+            로그인
+          </LogInOut>
         )}
 
         <div id="footer_div">

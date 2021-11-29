@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Header2 from "../../components/common/Header2";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from "react-router";
+import Header3 from "../../components/common/Header3";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -13,22 +11,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: auto;
-`;
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 30px 0px 20px 0px;
-`;
-const HeaderText = styled.div`
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const IconBox = styled.div`
-  right: 5vw;
 `;
 
 const LogoBox = styled.div`
@@ -129,12 +111,14 @@ const AgeButton = styled.div`
 
 const CompleteBox = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 80%;
   margin: 10px 0px 30px 0px;
 `;
 const CompleteButton = styled.div`
+  margin-bottom: 15px;
   background-color: #ff7676;
   color: white;
   display: flex;
@@ -142,13 +126,34 @@ const CompleteButton = styled.div`
   align-items: center;
   padding: 20px 80px 20px 80px;
   border-radius: 5px;
+  width: 110px;
+`;
+const DeleteBtn = styled.div`
+  margin-bottom: 15px;
+  background-color: #448b76;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 80px 20px 80px;
+  border-radius: 5px;
+  width: 110px;
+  opacity: 0.6;
+  height: 5px;
 `;
 
 export default function UserEdit() {
+  const history = useHistory();
+  const GoMyPage = () => {
+    history.push("/UserMyPage");
+  };
+  const GoUserDelete = () => {
+    history.push("/UserDelete");
+  };
   return (
     <>
+      <Header3 />
       <Wrapper>
-        <Header2 />
         <LogoBox>
           <Logo src="./image/logo2.png"></Logo>
         </LogoBox>
@@ -188,7 +193,8 @@ export default function UserEdit() {
           <AgeButton>장년</AgeButton>
         </SelectBox>
         <CompleteBox>
-          <CompleteButton>회원가입 완료</CompleteButton>
+          <CompleteButton onClick={GoMyPage}>수정완료 완료</CompleteButton>
+          <DeleteBtn onClick={GoUserDelete}>회원탈퇴</DeleteBtn>
         </CompleteBox>
       </Wrapper>
     </>

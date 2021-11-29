@@ -1,7 +1,7 @@
 import React from "react";
 import Header2 from "../../components/common/Header2";
 import styled from "styled-components";
-import Recruiters from "../../components/Mypages/Recruiters";
+import Users from "../../components/Mypages/Users";
 
 export default function SeeUsers() {
   const TopSpace = styled.div`
@@ -12,15 +12,15 @@ export default function SeeUsers() {
     <>
       <Header2 componentName={"봉사자 보기"} />
       <TopSpace></TopSpace>
-      <Recruiters />
-      <Recruiters />
-      <Recruiters />
-      <Recruiters />
-      <Recruiters />
-      <Recruiters />
-      <Recruiters />
-      <Recruiters />
-      <Recruiters />
+      <Users />
+      <Users />
+      <Users />
+      <Users />
+      <Users />
+      <Users />
+      <Users />
+      <Users />
+      <Users />
     </>
   );
 }
