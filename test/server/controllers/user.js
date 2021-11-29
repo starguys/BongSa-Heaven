@@ -11,4 +11,7 @@ module.exports = {
   withdrawalControl: async (req, res) => {
     return res.send("withdrawal ok!");
   },
+  imageControl: async (req, res) => {
+    return res.send("image ok!");
+  },
 };

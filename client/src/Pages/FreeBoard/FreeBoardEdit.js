@@ -2,6 +2,8 @@ import React from "react";
 import styled from 'styled-components'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Header2 from "../../components/common/Header2";
+import EditButton from "../../components/CrewBoard/EditButton";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -11,23 +13,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: auto;
-`
-const Header = styled.div`
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 30px 0px 20px 0px;
-`
-const HeaderText = styled.div`
-  width: 80%;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-`
-const IconBox = styled.div`
-  right: 5vw;
 `
 
 const ContentsBox = styled.div`
@@ -89,68 +74,13 @@ const Img = styled.img`
   border-radius: 10px;
 `
 
-const ImgUploadBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  margin: 30px 0px 15px 0px;
-`
-const ImgUploadButton = styled.div`
-  background-color : #FF7676;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 80px 20px 80px;
-  border-radius: 20px;
-`
-const SelectBox = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 80%;
-  margin: 15px 0px 15px 0px;
-`
-const CancelButton = styled.div`
-  background-color : white;
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35%;
-  padding: 20px 0px 20px 0px;
-  margin-right: 10px;
-  margin-bottom: 20px;
-  border-radius: 20px;
-  border: 1px solid #000000;
-`
-const CompleteButton = styled.div`
-  background-color : #FF7676;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35%;
-  padding: 20px 0px 20px 0px;
-  margin-left: 10px;
-  margin-bottom: 20px;
-  border-radius: 20px;
-`
 
 
 export default function FreeBoardEdit() {
   return (
     <>
       <Wrapper>
-        <Header>
-          <HeaderText>
-            글 수정하기
-          </HeaderText>
-          <IconBox>
-           <FontAwesomeIcon icon={faTimes} />
-          </IconBox>
-        </Header>
+        <Header2 componentName="글 수정하기"/>  
         <ContentsBox>
           <ContentsBoxTitleBox>
             <ContentsBoxTitle placeholder="수정할 글 제목.">
@@ -166,17 +96,7 @@ export default function FreeBoardEdit() {
             <Img src="https://cdn.notefolio.net/img/6f/97/6f9787b975c70fbda92d195bba79cd3490c57a4beebe2da510a1579fc542fa48_v1.jpg"/>
           </ContentsBoxImgBox>
         </ContentsBox>
-        <ImgUploadBox>
-          <ImgUploadButton>이미지 업로드</ImgUploadButton>
-        </ImgUploadBox>
-        <SelectBox>
-          <CancelButton>
-            취소
-          </CancelButton>
-          <CompleteButton>
-            수정 완료
-          </CompleteButton>
-        </SelectBox>
+        <EditButton/>
       </Wrapper>
     </>
   );

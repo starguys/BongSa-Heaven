@@ -1,7 +1,8 @@
 import React from "react";
-import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+
+import styled from 'styled-components' 
+import Header2 from "../../components/common/Header2";
+import CreateButton from "../../components/FreeBoard/CreateButton";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -11,24 +12,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: auto;
-`;
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 30px 0px 20px 0px;
-`;
-const HeaderText = styled.div`
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-`;
-const IconBox = styled.div`
-  right: 5vw;
-`;
+`
 
 const CreateBox = styled.div`
   background-color: white;
@@ -129,12 +113,8 @@ export default function FreeBoardCreate() {
   return (
     <>
       <Wrapper>
-        <Header>
-          <HeaderText>글 작성하기</HeaderText>
-          <IconBox>
-            <FontAwesomeIcon icon={faTimes} />
-          </IconBox>
-        </Header>
+
+        <Header2 componentName="글 작성하기"/>
         <CreateBox>
           <CreateBoxTitleBox>
             <CreateBoxTitle placeholder="제목"></CreateBoxTitle>
@@ -146,13 +126,8 @@ export default function FreeBoardCreate() {
             <CreateBoxContents placeholder="내용을 입력하세요."></CreateBoxContents>
           </CreateBoxContentsBox>
         </CreateBox>
-        <ImgUploadBox>
-          <ImgUploadButton>이미지 업로드</ImgUploadButton>
-        </ImgUploadBox>
-        <SelectBox>
-          <CancelButton>취소</CancelButton>
-          <CompleteButton>작성 완료</CompleteButton>
-        </SelectBox>
+
+        <CreateButton/>
       </Wrapper>
     </>
   );

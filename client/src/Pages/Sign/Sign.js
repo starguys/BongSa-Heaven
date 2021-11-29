@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
+import SignInInput from '../../components/Sign/SigninInput'
+
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -132,18 +134,8 @@ export default function SignIn() {
         <LogoBox>
           <Logo src="./image/logo2.png"></Logo>
         </LogoBox>
-        <InputBox>
-          <SignInWhiteBox>
-            <SignInWhiteInput placeholder="아이디"></SignInWhiteInput>
-          </SignInWhiteBox>
-          <SignInWhiteBox>
-            <SignInWhiteInput placeholder="비밀번호"></SignInWhiteInput>
-          </SignInWhiteBox>
-        </InputBox>
-        <CheckingPossibleOrNotBox>
-          <PossibleOrNot>로그인에 실패하였습니다.</PossibleOrNot>
-        </CheckingPossibleOrNotBox>
 
+       <SignInInput />
         <CompleteBox>
           <CompleteButton>로그인</CompleteButton>
         </CompleteBox>
