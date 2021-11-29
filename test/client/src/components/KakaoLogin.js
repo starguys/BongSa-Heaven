@@ -1,26 +1,20 @@
 import React from "react";
+import KakaoLoin from "react-kakao-login";
+import kakaologo from "./kakaologo.png";
 
-const { Kakao } = window;
-const loginWithKakao = () => {
-  console.log("hello");
-  Kakao.Auth.authorize({
-    redirectUri: "http://localhost:3000/KakaoTest",
-  });
-};
-
-const KakaoLogin = () => {
+export default function Kakao({ responseKakao }) {
   return (
-    <div>
-      <a id="custom-login-btn" onClick={loginWithKakao}>
+    <KakaoLoin
+      token="fc9c0ed012d3c76f1c78904adbf0e0f9"
+      onSuccess={responseKakao}
+      render={(renderProps) => (
         <img
-          src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-          width="222"
+          src={kakaologo}
+          alt="kakao"
+          onClick={renderProps.onClick}
+          aria-hidden="true"
         />
-      </a>
-    </div>
+      )}
+    />
   );
-};
-
-export default KakaoLogin;
-
-//const loginWithKakao = () => {
+}
