@@ -16,6 +16,7 @@ export default function App() {
     age: "",
   });
 
+  const [imag, setImge] = useState("");
   const handleInputValue = (key) => (e) => {
     setuserinfo({ ...userinfo, [key]: e.target.value });
   };
@@ -168,6 +169,7 @@ export default function App() {
           <img src={kakaologo} alt="kakao"></img>
         </a>
       </div>
+      <button className="multer">이미지를 올려보자!</button>
     </div>
   );
 }
