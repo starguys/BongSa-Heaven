@@ -25,7 +25,6 @@ const HeaderText = styled.div`
   display:flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
 `
 const IconBox = styled.div`
   right: 5vw;
@@ -51,7 +50,6 @@ const ContentsBoxTitle = styled.div`
   justify-content: center;
   align-items: center;
   width: 80%;
-  font-size: 20px;
   border-bottom: solid gray 1px;
 `;
 const ContentsBoxWriterBox = styled.div`
@@ -60,12 +58,12 @@ const ContentsBoxWriterBox = styled.div`
   padding: 20px 0px 0px 0px;
 `
 const ContentsBoxWriter = styled.div`
+  color: #448B76;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 20%;
   margin: 0px 5px 0px 18px;
-  color: #448B76;
 `
 
 const ContentsBoxAdjustBox = styled.div`
@@ -87,6 +85,7 @@ const ContentsBoxAdjust = styled.div`
 const ContentsBoxContents = styled.div`
   width: 80%;  
   margin: 15px auto 40px auto;
+  font-size: 12px;
 `
 const ContentsBoxImgBox = styled.div`
   display: flex;
@@ -129,7 +128,7 @@ const ListButton = styled.div`
   justify-content: center;
   align-items: center;
   width: 30%;
-  padding: 10px;
+  padding: 10px 0 10px 0;
   margin: 10px;
   border-radius: 20px;
 `;
@@ -152,12 +151,11 @@ const CommentBox = styled.div`
 `
 const CommentWriter = styled.span`
   margin-left: 25px;
-  font-size: 18px;
 `;
 
 const CommentDate = styled.span`
   margin-left: 30px;
-  font-size: 15px;
+  font-size: 14px;
   opacity: 0.5;
 `
 
@@ -165,6 +163,7 @@ const CommentContents = styled.div`
   display: flex;
   align-items: center;
   margin: 10px 0px 0px 25px;
+  font-size: 12px;
 `
 
 const CommentInputBox = styled.div`

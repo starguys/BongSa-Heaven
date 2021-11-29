@@ -25,7 +25,7 @@ const HeaderText = styled.div`
   display:flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-weight: bold;
 `
 const IconBox = styled.div`
   right: 5vw;
@@ -52,7 +52,6 @@ const CreateBoxTitle = styled.input`
   justify-content: flex;
   align-items: center;
   width: 80%;
-  font-size: 20px;
   border: 0px;
   border-bottom: solid gray 1px;
   opacity: 0.5;
@@ -68,7 +67,6 @@ const CreateBoxintro = styled.input`
   justify-content: flex;
   align-items: center;
   width: 80%;
-  font-size: 18px;
   border: 0px;
   border-bottom: solid gray 1px;
   opacity: 0.5;
@@ -84,12 +82,12 @@ const CreateBoxContents = styled.textarea`
   align-items: center;
   width: 80%;
   height: 400px;
-  font-size: 18px;
+  font-size: 12px;
   border: 0px;
   opacity: 0.5;
 
   ::placeholder {
-    font-size: 18px;
+    font-size: 12px;
   }
 `
 

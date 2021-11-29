@@ -6,7 +6,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  background-color: rgb(0, 0, 0, 0.2);
+  background-color: #FFD4D4;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -24,21 +24,24 @@ const HeaderText = styled.div`
   display:flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
 `
 const IconBox = styled.div`
   right: 5vw;
 `
 
-const LogoBox = styled.img`
-  padding: 40px 100px;
-  margin: 10px 0px 30px 0px;
-  background-color: rgb(0, 0, 0, 0.2);
+const LogoBox = styled.div`
+  width: 80%;
+  margin: 10px 0px 50px 0px;
+  background-color: #FFD4D4;
   display:flex;
   justify-content: center;
   align-items: center;
-`
 
+`
+const Logo = styled.img`
+  width: 60%;
+  object-fit: cover;
+`
 
 
 const SignUpWhiteBox = styled.div`
@@ -55,7 +58,6 @@ const SignUpWhiteInput = styled.input`
   border: none;
 
   ::placeholder {
-    font-size: 15px;
   }
 `
 const CheckingPossibleOrNotBox = styled.div`
@@ -72,7 +74,7 @@ const PossibleOrNot = styled.div`
 `
 
 const CheckingPossibleOrNotButton = styled.div`
-  background-color: gray;
+  background-color: #FF7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -90,7 +92,7 @@ const SelectSexBox = styled.div`
   margin: 30px 0px 15px 0px;
 `
 const SelectSexButton = styled.div`
-  background-color : #9e9e9e;
+  background-color : #FFB1B1;
   color: black;
   display: flex;
   flex-direction: column;
@@ -114,7 +116,7 @@ const SelectBox = styled.div`
   margin: 15px 0px 15px 0px;
 `
 const AgeButton = styled.div`
-  background-color : #9e9e9e;
+  background-color : #FFB1B1;
   color: black;
   display: flex;
   justify-content: center;
@@ -134,14 +136,13 @@ const CompleteBox = styled.div`
   margin: 10px 0px 30px 0px;
 `
 const CompleteButton = styled.div`
-  background-color : gray;
+  background-color : #FF7676;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px 80px 20px 80px;
   border-radius: 5px;
-  font-size: 18px;
 `
 
 
@@ -156,7 +157,9 @@ export default function UserSignUp() {
            <FontAwesomeIcon icon={faTimes} />
           </IconBox>
         </Header>
-        <LogoBox src="./image/logo.png"></LogoBox>
+        <LogoBox>
+          <Logo src="./image/logo2.png"></Logo>
+        </LogoBox>
         <SignUpWhiteBox>
           <SignUpWhiteInput placeholder="아이디">
           </SignUpWhiteInput>

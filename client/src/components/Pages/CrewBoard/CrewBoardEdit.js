@@ -24,7 +24,7 @@ const HeaderText = styled.div`
   display:flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-weight: bold;
 `
 const IconBox = styled.div`
   right: 5vw;
@@ -50,7 +50,6 @@ const ContentsBoxTitle = styled.input`
   justify-content: center;
   align-items: center;
   width: 80%;
-  font-size: 20px;
   border: none;
   border-bottom: solid gray 1px;
 `
@@ -73,6 +72,7 @@ const ContentsBoxContents = styled.textarea`
   height: 10vh;
   margin: 15px auto 40px auto;
   border: none;
+  font-size: 12px;
 `
 
 const ContentsBoxImgBox = styled.div`

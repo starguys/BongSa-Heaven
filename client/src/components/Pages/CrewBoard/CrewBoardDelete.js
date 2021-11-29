@@ -16,7 +16,7 @@ const HeaderText = styled.div`
   display:flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-weight: bold;
 `
 const IconBox = styled.div`
   right: 5vw;
