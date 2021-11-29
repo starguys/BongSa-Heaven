@@ -7,7 +7,7 @@ import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  background-color: rgb(0, 0, 0, 0.2);
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +25,6 @@ const HeaderText = styled.div`
   display:flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
 `
 const IconBox = styled.div`
   right: 5vw;
@@ -38,6 +37,8 @@ const ContentsBox = styled.div`
   flex-direction: column;
   border-radius: 20px;
   padding: 20px 0px 20px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 const ContentsBoxTitleBox = styled.div`
   display: flex;
@@ -49,7 +50,6 @@ const ContentsBoxTitle = styled.div`
   justify-content: center;
   align-items: center;
   width: 80%;
-  font-size: 20px;
   border-bottom: solid gray 1px;
 `;
 const ContentsBoxWriterBox = styled.div`
@@ -58,6 +58,7 @@ const ContentsBoxWriterBox = styled.div`
   padding: 20px 0px 0px 0px;
 `
 const ContentsBoxWriter = styled.div`
+  color: #448B76;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -73,7 +74,7 @@ const ContentsBoxAdjustBox = styled.div`
 `
 
 const ContentsBoxAdjust = styled.div`
-  background-color: gray;
+  background-color: #FF7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -84,6 +85,7 @@ const ContentsBoxAdjust = styled.div`
 const ContentsBoxContents = styled.div`
   width: 80%;  
   margin: 15px auto 40px auto;
+  font-size: 12px;
 `
 const ContentsBoxImgBox = styled.div`
   display: flex;
@@ -97,6 +99,7 @@ const Img = styled.img`
   width: 80%;
   object-fit: cover;
   opacity: 0.5;
+  border-radius: 10px;
 `;
 
 const ContentsBoxDeleteBox = styled.div`
@@ -106,6 +109,7 @@ const ContentsBoxDeleteBox = styled.div`
   justify-content: flex-end;
 `;
 const ContentsBoxDeleteButton = styled.div`
+  color: #D80000;
   opacity: 0.5;
   padding-right: 25px;
 `
@@ -118,13 +122,13 @@ const ListBox = styled.div`
   padding: 10px;
 `;
 const ListButton = styled.div`
-  background-color: gray;
+  background-color: #FF7676;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 30%;
-  padding: 10px;
+  padding: 10px 0 10px 0;
   margin: 10px;
   border-radius: 20px;
 `;
@@ -135,6 +139,8 @@ const CommentList = styled.div`
   border-radius: 20px;
   background-color: white;
   padding: 10px 0px 15px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 const CommentBox = styled.div`
   display: flex;
@@ -145,12 +151,11 @@ const CommentBox = styled.div`
 `
 const CommentWriter = styled.span`
   margin-left: 25px;
-  font-size: 18px;
 `;
 
 const CommentDate = styled.span`
   margin-left: 30px;
-  font-size: 15px;
+  font-size: 14px;
   opacity: 0.5;
 `
 
@@ -158,6 +163,7 @@ const CommentContents = styled.div`
   display: flex;
   align-items: center;
   margin: 10px 0px 0px 25px;
+  font-size: 12px;
 `
 
 const CommentInputBox = styled.div`
@@ -178,7 +184,9 @@ const CommentInputContents = styled.input`
 `
 
 const CommentInputButton = styled.div`
-  background-color : gray;
+  background-color : #FF7676;
+  color: #FFFFFF;
+  line-height: 23px;
   width: 22%;
   height: 90%;
   border-radius: 20px;
@@ -270,7 +278,7 @@ export default function CrewBoardContents() {
             <CommentInputContents placeholder="내용을 입력하세요.">
             </CommentInputContents>
           </CommentInput>
-          <CommentInputButton>댓 글<br /><br />달 기</CommentInputButton>
+          <CommentInputButton>댓 글<br />달 기</CommentInputButton>
         </CommentInputBox>
       </Wrapper>
     </>

@@ -7,7 +7,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  background-color: white;
+  background-color: #FFD4D4;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -31,16 +31,21 @@ const IconBox = styled.div`
   right: 5vw;
 `
 
-const LogoBox = styled.img`
-  padding: 40px 100px;
-  margin: 10px 0px 30px 0px;
-  background-color: rgb(0, 0, 0, 0.2);
+const LogoBox = styled.div`
+  width: 80%;
+  margin: 10px 0px 50px 0px;
+  background-color: #FFD4D4;
   display:flex;
   justify-content: center;
   align-items: center;
+
 `
-const GrayBox = styled.div`
-  background-color: rgb(0, 0, 0, 0.2);
+const Logo = styled.img`
+  width: 60%;
+  object-fit: cover;
+`
+const InputBox = styled.div`
+  background-color: #FFD4D4;
   width: 100%;
   display:flex;
   flex-direction: column;
@@ -87,7 +92,7 @@ const CompleteBox = styled.div`
   margin: 10px 0px 10px 0px;
 `
 const CompleteButton = styled.div`
-  background-color : gray;
+  background-color : #FF7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -105,7 +110,7 @@ const SignUpBox = styled.div`
   margin: 30px 0px 100px 0px;
 `
 const SignUpButton = styled.div`
-  background-color : gray;
+  background-color : #FF7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -128,17 +133,19 @@ export default function SignIn() {
            <FontAwesomeIcon icon={faTimes} />
           </IconBox>
         </Header>
-        <LogoBox src="./image/logo.png"></LogoBox>
-        <GrayBox>
+        <LogoBox>
+          <Logo src="./image/logo2.png"></Logo>
+        </LogoBox>
+        <InputBox>
           <SignInWhiteBox>
             <SignInWhiteInput placeholder="아이디">
             </SignInWhiteInput>
           </SignInWhiteBox>
           <SignInWhiteBox>
-            <SignInWhiteInput placeholder="닉네임">
+            <SignInWhiteInput placeholder="비밀번호">
             </SignInWhiteInput>
           </SignInWhiteBox>
-        </GrayBox>
+        </InputBox>
         <CheckingPossibleOrNotBox>
           <PossibleOrNot>로그인에 실패하였습니다.</PossibleOrNot>
         </CheckingPossibleOrNotBox>

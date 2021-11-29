@@ -5,22 +5,31 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Header = styled.div`
   display:flex;
-  background-color: gray;
-  justify-content: center;
+  background-color: #FFD4D4;
   align-items: center;
   width: 100%;
   padding: 30px 0px 20px 0px;
 `
 const HeaderText = styled.div`
-  width: 80%;
+  width: 60%;
   display:flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-weight: bold;
 `
-// const IconBox = styled.div`
-//   right: 5vw;
-// `
+
+const IconBox = styled.div`
+  width: 20%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+`
+const BackIcon = styled.img`
+  width: 30%;
+  object-fit: cover;
+`
+
 const SignupSpace = styled.div`
   display: flex;
   justify-content: center;
@@ -36,7 +45,7 @@ const SelectBox = styled.div`
   height: 90vh;
 `
 const GeneralButton = styled.div`
-  background-color : yellow;
+  background-color : #4AF197;
   color: black;
   display: flex;
   flex-direction: column;
@@ -50,7 +59,7 @@ const GeneralButtonTitle = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 50px;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
 `
 const GeneralButtonSubtitle = styled.div`
@@ -63,7 +72,7 @@ const GeneralButtonSubtitle = styled.div`
 
 
 const RecruiterButton = styled.div`
-  background-color : blue;
+  background-color : #BB7BFC;
   color: white;
   display: flex;
   flex-direction: column;
@@ -78,7 +87,7 @@ const RecruiterButtonTitle = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 50px;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
 `
 const RecruiterButtonSubtitle = styled.div`
@@ -93,6 +102,9 @@ export default function SignUp() {
   return (
     <>
       <Header>
+        <IconBox>
+          <BackIcon src="./image/back.png"></BackIcon>
+        </IconBox>
         <HeaderText>
           회원 가입
         </HeaderText>
