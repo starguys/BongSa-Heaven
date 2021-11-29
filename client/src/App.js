@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Route } from "react-router-dom";
-import "../App.css";
-import "../css/Reset.css";
+import "./App.css";
+import "./css/Reset.css";
 
-import Footer from "./Pages/Main/Footer";
+import Footer from "./components/common/Footer";
 import DevHeader from "./components/DevHeader";
 import DevFooter from "./components/DevFooter";
 import MainPage from "./Pages/Main/MainPage";
@@ -19,6 +19,7 @@ import RecruiterDelete from "./Pages/MyPage/RecruiterDelete";
 import RecruiterEdit from "./Pages/MyPage/RecruiterEdit";
 import RecruiterMyPage from "./Pages/MyPage/RecruiterMyPage";
 import RecruiterPasswordCheck from "./Pages/MyPage/RecruiterPasswordCheck";
+import RecruiterMaill from "./Pages/MyPage/RecruiterMaill";
 import SeeRecruiter from "./Pages/MyPage/SeeRecruiter";
 import SeeUser from "./Pages/MyPage/SeeUser";
 import UserDelete from "./Pages/MyPage/UserDelete";
@@ -66,6 +67,7 @@ export default function App() {
         path="/RecruiterPasswordCheck"
         component={RecruiterPasswordCheck}
       />
+      <Route exact path="/RecruiterMaill" component={RecruiterMaill} />
       <Route exact path="/SeeRecruiter" component={SeeRecruiter} />
       <Route exact path="/SeeUser" component={SeeUser} />
       <Route exact path="/UserDelete" component={UserDelete} />

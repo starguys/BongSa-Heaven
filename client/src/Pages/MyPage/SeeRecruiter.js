@@ -1,5 +1,5 @@
 import React from "react";
-import MyPageHeader from "./MyPageHeader";
+import Header2 from "../../components/common/Header2";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
@@ -88,13 +88,13 @@ export default function SeeRecruiter() {
   `;
   return (
     <>
-      <MyPageHeader componentName={"봉사 모집자 보기"} />
+      <Header2 componentName={"봉사 모집자 보기"} />
       <TopSpace></TopSpace>
       <SeeRecruiterContainer>
         <RecruiterUserName>함께봉사 님</RecruiterUserName>
         <SendMaillBtn>
           <FontAwesomeIcon icon={faPaperPlane} />
-          &nbsp; 쪽지 보내기
+          &nbsp; 쪽지 쓰기
         </SendMaillBtn>
         <VolRegion>
           <LeftBox>봉사활동 지역</LeftBox>
@@ -132,7 +132,7 @@ export default function SeeRecruiter() {
         <RecruiterUserName>함께봉사 님</RecruiterUserName>
         <SendMaillBtn>
           <FontAwesomeIcon icon={faPaperPlane} />
-          &nbsp; 쪽지 보내기
+          &nbsp; 쪽지 쓰기
         </SendMaillBtn>
         <VolRegion>
           <LeftBox>봉사활동 지역</LeftBox>

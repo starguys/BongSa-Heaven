@@ -1,5 +1,5 @@
 import React from "react";
-import MyPageHeader from "./MyPageHeader";
+import Header2 from "../../components/common/Header2";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
@@ -91,7 +91,7 @@ export default function UserMyPage() {
   `;
   return (
     <>
-      <MyPageHeader componentName={"마이페이지"} />
+      <Header2 componentName={"마이페이지"} />
       <MyNameContainer>
         <MyNameText>로켓봉사단님 어서오세요.</MyNameText>
         <MynameMaill>

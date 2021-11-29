@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 
-export default function MyPageHeader(props) {
+export default function Header2(props) {
   const HeaderContainer = styled.div`
     width: 100%;
     height: 64px;

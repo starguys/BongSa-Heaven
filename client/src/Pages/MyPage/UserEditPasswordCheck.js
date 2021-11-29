@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import Header2 from "../../components/common/Header2";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -63,11 +65,7 @@ export default function UserEditPasswordCheck() {
   `;
   return (
     <>
-      <Header>
-        <IconBox>
-          <FontAwesomeIcon icon={faTimes} className="Xicon" />
-        </IconBox>
-      </Header>
+      <Header2 />
       <PassCheckTitle>비밀번호 재확인</PassCheckTitle>
       <PassCheckText>
         회원의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 입력해 주시기

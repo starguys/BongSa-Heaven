@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Header2 from "../../components/common/Header2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -64,12 +65,7 @@ const CancelButton = styled.div`
 export default function CrewBoardDelete() {
   return (
     <>
-      <Header>
-        <HeaderText>쪽지 보내기</HeaderText>
-        <IconBox>
-          <FontAwesomeIcon icon={faTimes} />
-        </IconBox>
-      </Header>
+      <Header2 />
       <DeleteBoxTitleBox>쪽지를 전송하시겠습니까?</DeleteBoxTitleBox>
       <SelectBox>
         <DeleteButton>확인</DeleteButton>

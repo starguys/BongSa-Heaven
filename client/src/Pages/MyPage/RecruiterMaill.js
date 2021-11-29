@@ -1,7 +1,7 @@
 import React from "react";
 import Header2 from "../../components/common/Header2";
 import styled from "styled-components";
-export default function UserMaill() {
+export default function RecruiterMaill() {
   const MaillTitleContainer = styled.div`
     margin-top: 27px;
     height: 21px;

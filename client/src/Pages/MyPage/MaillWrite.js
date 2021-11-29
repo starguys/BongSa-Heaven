@@ -1,93 +1,141 @@
 import React from "react";
-import MyPageHeader from "./MyPageHeader";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
+import Header2 from "../../components/common/Header2";
+import MaillWriteTop from "../../components/Mypages/MaillWriteTop";
+import MaillWriteMain from "../../components/Mypages/MaillWriteMain";
+import MaillWriteBottom from "../../components/Mypages/MaillWriteBottom";
+
 export default function UserMaill() {
-  const UserMaillContainer = styled.div`
-    width: 100%;
-  `;
-  const UserMaillWhoSend = styled.div`
-    width: 100%;
-    height: 7%;
+  const MaillTitleContainer = styled.div`
+    margin-top: 27px;
+    height: 33px;
+    width: 375px;
     display: flex;
-    align-items: center;
+    border-bottom: 1px solid #f2f2f2;
   `;
-  const UserMaillWhoSendText = styled.div`
-    height: 100%;
-    width: 23%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  `;
-  const UserMaillWhoSendInput = styled.input`
-    margin-right: 3%;
-  `;
-  const UserMaillWhoSendBtn = styled.button`
-    border: 0;
-    height: 55%;
-    width: 20%;
+  const MaillTitleCancle = styled.button`
+    margin-left: 36px;
+    background: #f7f7f7;
+    width: 65px;
+    height: 22px;
+    border-radius: 4px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
     font-size: 12px;
-  `;
-
-  const UserMaillNickCheckContainer = styled.span`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `;
-  const UserMaillNickCheckTextTrue = styled.span``;
-  const UserMaillNickCheckTextFalse = styled.span``;
-
-  const UserMaillSend = styled.div`
-    border-bottom: solid 1px rgb(0, 0, 0, 0.4);
-    width: 100%;
-    height: 8%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  `;
-
-  const UserMaillCancleBtn = styled.button`
+    line-height: 14px;
+    text-align: center;
+    color: #000000;
     border: 0;
-    height: 75%;
-    width: 20%;
-    margin-left: 3%;
   `;
-  const UserMaillSendBtn = styled.button`
+  const MaillTitleText = styled.div`
+    margin-left: 31px;
+    width: 111px;
+    height: 21px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    /* identical to box height */
+    text-align: center;
+    color: #448b76;
+  `;
+  const MaillTitleBtn = styled.button`
+    margin-left: 31px;
+    width: 90px;
+    height: 22px;
+    background: #ff7676;
+    border-radius: 4px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #000000;
     border: 0;
-    height: 75%;
-    width: 20%;
-    margin-right: 3%;
   `;
-
-  const UserMaillMessage = styled.div`
-    border-bottom: solid 1px rgb(0, 0, 0, 0.4);
+  const MaillTitleBtnSpan = styled.span`
+    color: #ffffff;
+    margin-left: 7px;
+  `;
+  const MaillNickCheckContainer = styled.div`
+    margin-left: 39px;
+    margin-top: 10px;
+    width: 332px;
+    height: 42px;
+  `;
+  const MaillNickCheckTop = styled.div`
     width: 100%;
-    height: 30%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  `;
-
-  const UserMaillMessageContents = styled.div`
-    width: 75%;
-    height: 100%;
-  `;
-  const UserMaillMessageInput = styled.input`
-    width: 80%;
-    height: 70%;
-  `;
-
-  const UserMaillMessageContentsText = styled.div`
-    border: solid 1px black;
-    width: 90;
     height: 50%;
-    padding-top: 5px;
-    padding-left: 5px;
+    display: flex;
+    align-items: center;
+  `;
+  const MaillNickCheckTopWho = styled.div`
+    width: 60px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #000000;
+  `;
+  const MaillNickCheckTopNameInput = styled.div`
+    width: 160px;
+    height: 22px;
+    background: #ffffff;
+    box-shadow: 0px 2px 11px 4px rgba(0, 0, 0, 0.05);
+  `;
+  const MaillNickCheckTopNameCheckBtn = styled.button`
+    margin-left: 14px;
+    width: 90px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+
+    color: #000000;
+    border: 0;
+  `;
+
+  const MaillNickCheckBottom = styled.div`
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+  `;
+  const MaillNickCheckBottomText = styled.div`
+    margin-left: 60px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #000000;
+  `;
+  const MaillWriteInput = styled.input`
+    margin-top: 12px;
+    margin-left: 36px;
+    background: #ffffff;
+    box-shadow: 0px 2px 11px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    width: 317px;
+    height: 196px;
+    border: 0;
   `;
   return (
     <>
-      <MyPageHeader componentName={"쪽지"} />
-      <span>PRpls..</span>
+      <Header2 componentName={"쪽지"} />
+      <MaillWriteTop />
+      <MaillWriteMain />
+      <MaillWriteBottom />
     </>
   );
 }
