@@ -3,6 +3,7 @@ import axios from "axios";
 import kakaologo from "./kakaologo.png";
 import google from "./google.png";
 import "../App.css";
+import Upload from './uploading'
 
 axios.defaults.withCredentials = true;
 export default function App() {
@@ -108,6 +109,8 @@ export default function App() {
 
   return (
     <div className="test_box">
+      
+      <Upload />
       <div className="test_box_box">
         <input
           type="email"
@@ -168,6 +171,7 @@ export default function App() {
         <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=498bc95ff9c33f89e4cff4ef0775b24b&redirect_uri=http://localhost:3000/auth/kakao">
           <img src={kakaologo} alt="kakao"></img>
         </a>
+
       </div>
       <button className="multer">이미지를 올려보자!</button>
     </div>
