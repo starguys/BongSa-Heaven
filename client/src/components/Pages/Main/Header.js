@@ -6,38 +6,30 @@ import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 
 export default function Header() {
   const HeaderContainer = styled.div`
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    top: 0%;
-    bottom: 93.57%;
-
+    width: 100%;
+    height: 64px;
     background: #ffd5d5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   `;
 
   const HeaderLogIconLeft = styled.div`
-    position: absolute;
-    width: 23px;
-    height: 15px;
-    left: 13px;
-    top: 28px;
+    margin-left: 15px;
+    width: 24px;
+    height: 24px;
   `;
 
   const HeaderLogIconRight = styled.div`
-    position: absolute;
+    margin-right: 15px;
     width: 24px;
     height: 24px;
-    left: 337px;
-    top: 24px;
   `;
 
   const LogoImg = styled.img`
-    position: absolute;
     width: 34px;
     height: 23px;
-    left: 170px;
-    top: 23px;
   `;
 
   return (

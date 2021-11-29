@@ -5,30 +5,29 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 
 export default function MyPageHeader(props) {
-  const MyPageHeaderContainer = styled.div`
-    background-color: rgb(0, 0, 0, 0.4);
+  const HeaderContainer = styled.div`
     width: 100%;
-    height: 15%;
+    height: 64px;
+    background: #ffd5d5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
+    justify-content: space-between;
   `;
 
-  const MyPageHeaderLeftIcon = styled.div`
-    height: 15%;
-    width: 20%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  const HeaderLogIconLeft = styled.div`
+    margin-left: 15px;
+    width: 24px;
+    height: 24px;
   `;
 
-  const MyPageHeaderRightIcon = styled.div`
-    height: 15%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+  const HeaderLogIconRight = styled.div`
+    margin-right: 15px;
+    width: 24px;
+    height: 24px;
   `;
 
-  const MyPageHeaderText = styled.div`
+  const HeaderText = styled.div`
     height: 15%;
     width: 60%;
     display: flex;
@@ -39,15 +38,15 @@ export default function MyPageHeader(props) {
 
   return (
     <>
-      <MyPageHeaderContainer>
-        <MyPageHeaderLeftIcon>
+      <HeaderContainer>
+        <HeaderLogIconLeft>
           <FontAwesomeIcon icon={faChevronLeft} className="HeaderIcon" />
-        </MyPageHeaderLeftIcon>
-        <MyPageHeaderText>{props.componentName}</MyPageHeaderText>
-        <MyPageHeaderRightIcon>
+        </HeaderLogIconLeft>
+        <HeaderText>{props.componentName}</HeaderText>
+        <HeaderLogIconRight>
           <FontAwesomeIcon icon={faUserCircle} className="HeaderIcon" />
-        </MyPageHeaderRightIcon>
-      </MyPageHeaderContainer>
+        </HeaderLogIconRight>
+      </HeaderContainer>
     </>
   );
 }

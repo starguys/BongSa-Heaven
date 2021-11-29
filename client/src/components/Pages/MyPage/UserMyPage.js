@@ -5,125 +5,106 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 export default function UserMyPage() {
-  const MyPageContainer = styled.div`
-    background-color: rgb(0, 0, 0, 0.2);
-    height: 63%;
+  const MyNameContainer = styled.div`
+    margin-left: 22px;
+    margin-top: 36px;
+    margin-bottom: 48px;
+    width: 331px;
+    height: 135px;
+    background: #ffffff;
+    box-shadow: 0px 2px 11px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
     display: flex;
-    flex-direction: column;
-  `;
-
-  const MyPageWeleComeBox = styled.div`
-    background-color: white;
-    margin-top: 8%;
-    margin-left: 3%;
-    width: 94%;
-    height: 25%;
-    display: flex;
-  `;
-
-  const MyPageWeleComeBoxName = styled.div`
-    width: 70%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
     align-items: center;
-  `;
-  const MyPageWeleComeBoxMaill = styled.div`
-    width: 30%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    justify-content: space-around;
   `;
 
-  const MyPageWeleComeBoxMaillIcon = styled.div`
-    height: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+  const MyNameText = styled.div`
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
   `;
-  const MyPageWeleComeBoxMaillText = styled.div`
-    margin-top: 2%;
+
+  const MynameMaill = styled.div`
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+  `;
+
+  const MynameMaillSpan = styled.span`
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
   `;
 
   const SeeRecruiterBtn = styled.button`
-    border: solid 1px black;
-    margin-top: 8%;
-    margin-left: 3%;
-    width: 94%;
-    height: 10%;
+    margin-left: 24px;
+    margin-bottom: 14px;
+    width: 327px;
+    height: 29px;
+    background: #ff7676;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #ffffff;
+    border: 0;
+  `;
+  const InfoEditBtn = styled.button`
+    margin-bottom: 24px;
+    margin-left: 24px;
+    width: 327px;
+    height: 29px;
+    background: #ff7676;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #ffffff;
+    border: 0;
   `;
 
-  const UserEditBtn = styled.button`
-    border: solid 1px black;
-    margin-top: 5%;
-    margin-left: 3%;
-    width: 94%;
-    height: 10%;
-  `;
-
-  const VolInfoHidden = styled.div`
-    margin-top: 5%;
-    margin-left: 3%;
-    width: 94%;
-    height: 7%;
+  const HiddenVolContainer = styled.div`
+    margin-left: 24px;
+    margin-bottom: 30px;
+    width: 325px;
+    height: 29px;
     display: flex;
-
     justify-content: space-between;
-  `;
-
-  const VolInfoHiddenText = styled.div`
-    display: flex;
-
     align-items: center;
   `;
-
-  const VolInfoHiddenToggle = styled.div`
-    border: solid 1px black;
-    width: 25%;
-    height: 100%;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
+  const HiddenVolToggle = styled.div`
+    width: 65px;
+    height: 29px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 14.5px;
   `;
-
-  const VolInfoHiddenToggleBall = styled.div`
-    background-color: blue;
-    margin: 5%;
-    width: 30%;
-    height: 80%;
-    border-radius: 100%;
-    opacity: 0.6;
-  `;
-
   return (
     <>
       <MyPageHeader componentName={"마이페이지"} />
-      <MyPageContainer>
-        <MyPageWeleComeBox>
-          <MyPageWeleComeBoxName>
-            로켓봉사단님 어서오세요.
-          </MyPageWeleComeBoxName>
-          <MyPageWeleComeBoxMaill>
-            <MyPageWeleComeBoxMaillIcon>
-              <FontAwesomeIcon
-                icon={faEnvelope}
-                className="MyPage_Maill_Icon"
-              />
-            </MyPageWeleComeBoxMaillIcon>
-            <MyPageWeleComeBoxMaillText>쪽지함</MyPageWeleComeBoxMaillText>
-          </MyPageWeleComeBoxMaill>
-        </MyPageWeleComeBox>
-        <SeeRecruiterBtn>봉사모집자 보기</SeeRecruiterBtn>
-        <UserEditBtn>회원정보 수정하기</UserEditBtn>
-        <VolInfoHidden>
-          <VolInfoHiddenText>봉사희망정보 숨기기</VolInfoHiddenText>
-          <VolInfoHiddenToggle>
-            <VolInfoHiddenToggleBall></VolInfoHiddenToggleBall>
-          </VolInfoHiddenToggle>
-        </VolInfoHidden>
-      </MyPageContainer>
+      <MyNameContainer>
+        <MyNameText>로켓봉사단님 어서오세요.</MyNameText>
+        <MynameMaill>
+          <FontAwesomeIcon icon={faEnvelope} className="MyPageIcon" />
+          <MynameMaillSpan>쪽지함</MynameMaillSpan>
+        </MynameMaill>
+      </MyNameContainer>
+      <SeeRecruiterBtn>봉사모집자 보기</SeeRecruiterBtn>
+      <InfoEditBtn>회원정보 수정하기</InfoEditBtn>
+      <HiddenVolContainer>
+        <span>봉사희망정보 숨기기</span>
+        <HiddenVolToggle></HiddenVolToggle>
+      </HiddenVolContainer>
     </>
   );
 }
