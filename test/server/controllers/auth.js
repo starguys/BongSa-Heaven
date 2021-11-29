@@ -1,5 +1,6 @@
 require("dotenv").config();
 const crypto = require("crypto");
+const qs = require("qs");
 const User = require("../models/User");
 const axios = require("axios");
 const {
@@ -78,6 +79,7 @@ module.exports = {
   signinControl: async (req, res) => {
     // 1. 이메일과 패스드가 담긴 바디를 받는다
     // 2. 암호에 소금쳐서 다시 찾아낸다
+
     const { email, password } = req.body;
     const salt = await User.findOne({ email: email }).select({
       _id: 0,
@@ -240,5 +242,28 @@ module.exports = {
 
   googleControl: async (req, res) => {
     return res.send();
+  },
+
+  kakao: async (req, res) => {
+    // console.log(req.body);
+    const token = req.body.accessToken;
+
+    axios({
+      method: "GET",
+      url: "https://kapi.kakao.com/v2/user/me",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((result) => {
+        console.log(result.data);
+        // res.status(200).json({ data: result.data });
+      })
+
+      .catch((err) => {
+        console.log("err");
+      });
+
+    return res.send("T.T");
   },
 };
