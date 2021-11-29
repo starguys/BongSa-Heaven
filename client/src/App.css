@@ -1,0 +1,124 @@
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.DevHeader_box_btn {
+  text-decoration: none;
+}
+
+.DevHeader_box {
+  display: flex;
+}
+
+.DevHeader_box_btn {
+  border: solid 1px black;
+  margin: 0.5px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.DevHeader_box_btn:hover {
+  background-color: gray;
+}
+.DevFooter_btn {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+#footer_div {
+  background: #f1f1f1;
+  width: 100%;
+  height: 118px;
+
+  display: flex;
+}
+
+#footer_leftbox {
+  width: 50%;
+}
+
+#footer_rightbox {
+  width: 50%;
+}
+
+.footer_gitid1 {
+  width: 100%;
+  height: 70%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.footer_gitid2 {
+  width: 100%;
+  height: 30%;
+  box-sizing: border-box;
+  margin-left: 34px;
+}
+.footer_gitid3 {
+  width: 100%;
+  height: 70%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.footer_gitid4 {
+  width: 100%;
+  height: 30%;
+  box-sizing: border-box;
+  margin-left: 24px;
+}
+
+.footer_font {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  color: #494949;
+}
+
+.footer_signInOut {
+  background-color: yellow;
+  width: 100%;
+  height: 7%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 23px;
+}
+
+.HeaderIcon {
+  font-size: 25px;
+}
+
+.MyPage_Maill_Icon {
+  font-size: 50px;
+}
+
+.EditIcon {
+  font-size: 50px;
+}
+
+.MyPageIcon {
+  width: 45px;
+  height: 32px;
+  font-size: 32px;
+}
+
+.Xicon {
+  font-size: 34px;
+}
