@@ -31,22 +31,21 @@ export default function CrewBoardList() {
 
   return (
     <>
-    
-        <Wrapper>
-          <Header2 componentName="봉사단 게시판"/>
-          {isLoading ? 
-          <>
-          <Loading/>
-          </>
-          :
-          <>
-            <Card/>
-            <Card/>
-            <Card/>
-          </>
-          }
-          <Pagination/>
-        </Wrapper>
+      <Wrapper>
+        <Header2 componentName="봉사단 게시판"/>
+        {isLoading ? 
+        <>
+        <Loading/>
+        </>
+        :
+        <>
+          <Card/>
+          <Card/>
+          <Card/>
+        </>
+        }
+        <Pagination/>
+      </Wrapper>
     </>
   );
 }

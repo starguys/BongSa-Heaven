@@ -13,11 +13,14 @@ export default function Upload() {
     setContent(e.target.files[0]);
   };
   const onSubmit = e => {
-    e.preventDefault();
+    // e.preventDefault();
     const formData = new FormData();
     formData.append("img", content); 
+
+    const config = { headers: {'content-type': 'multipart/form-data'}}
+
     axios
-      .post("/upload", formData)
+      .post("/upload", formData, config)
       .then(res => {
         const { fileName } = res.data;
         console.log(fileName);
@@ -46,4 +49,4 @@ export default function Upload() {
     </>
   )
 
-        }
+}
