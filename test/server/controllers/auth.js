@@ -178,6 +178,9 @@ module.exports = {
       }
     }
   },
+  googleControl: async (req, res) => {
+    res.send();
+  },
 
   kakaoControl: async (req, res) => {
     // console.log(req.body);
