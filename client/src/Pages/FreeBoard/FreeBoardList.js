@@ -13,8 +13,8 @@ const Headerspace = styled.div`
   padding: 40px 0px 40px 0px;
   display: flex;
   align-items: center;
-  justify-content: center;
-`;
+  justify-content: center;`
+;
 
 export default function FreeBoardList() {
   const [isLoading, CheckLoading] = useState(true);
