@@ -4,48 +4,6 @@ import styled from 'styled-components'
 import  { useState, useRef, useEffect } from 'react';
 import { Route } from "react-router-dom";
 import axios from 'axios';
-const InputBox = styled.div`
-  background-color: #FFD4D4;
-  width: 100%;
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-`
-
-const SignInWhiteBox = styled.div`
-  background-color: white;
-  width: 90%;
-  display:flex;
-  justify-content: center;
-  border-radius: 20px;
-  padding: 15px 0px 15px 0px;
-  margin: 8px 0px 8px 0px;
-`
-const SignInWhiteInput = styled.input`
-  width: 90%;
-  border: none;
-
-  ::placeholder {
-    font-size: 15px;
-  }
-`
-const CheckingPossibleOrNotBox = styled.div`
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px;
-`
-const PossibleOrNot = styled.div`
-  display: flex;
-  align-items: center;
-  opacity: 0.5;
-  margin-left: 5vw;
-`
-
-
-
 
 
 
@@ -70,6 +28,17 @@ export default function SignInInput() {
     e.preventDefault();
     console.log(e.target.value)
     setPassword(e.target.value)
+  }
+  const handleLoginRequest = (e) =>{
+   console.log('로그인 리퀘스트')
+   //유효성 검사 
+   if(!email){
+     console.log('이메일을 입력해주세요')
+   }
+
+
+     
+
   }
 
   return (

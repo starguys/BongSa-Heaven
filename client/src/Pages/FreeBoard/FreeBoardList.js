@@ -2,13 +2,19 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
+import Header2 from "../../components/common/Header2";
+import Loading from "../../components/common/Loading";
+import Contents from "../../components/CrewBoard/Card";
+import Pagination from "../../components/common/Pagination";
+
+const Headerspace = styled.div`
 
   width: 100%;
   padding: 40px 0px 40px 0px;
   display: flex;
   align-items: center;
-  justify-content: center;
-`;
+  justify-content: center;`
+;
 
 
 
@@ -24,22 +30,7 @@ export default function FreeBoardList() {
   });
 
   return (
-    <>
-      <Header>
-        <FontAwesomeIcon icon={faBars} className="HeaderIcon" />
-        <HeaderText>
-          <LogoBox>
-            <Logo src="./image/logo2.png"></Logo>
-          </LogoBox>
-        </HeaderText>
-        <IconBox>
-          <MypageIcon src="./image/Mypage.png"></MypageIcon>
-        </IconBox>
-      </Header>
-      <Headerspace></Headerspace>
-
-
-      <>
+     <>
         <Header2 componentName="자유 게시판"/>
         <Headerspace>
         </Headerspace>
@@ -48,9 +39,8 @@ export default function FreeBoardList() {
         <>
         <Loading/>
         </>
-      ) : (
+        : 
         <>
-
         <Contents/>
         <Contents/>
         <Contents/>
@@ -60,7 +50,6 @@ export default function FreeBoardList() {
         <Contents/>
         </>
         }
-
         <Pagination/>
       </>
   );
