@@ -56,13 +56,7 @@ const KakaoTest = () => {
 
   return (
     <>
-      <button onClick={GoHome}>삼보 후퇴 일보 전진</button>
       <KakaoLogin responseKakao={responseKakao} />
-      <button onClick={getKakaoToken}>야 이년아</button>
-      <h3>{url}</h3>
-      <h3>{arr}</h3>
-      <h3>{arr[1]}</h3>
-      <h3>{authorizationCode}</h3>
     </>
   );
 };

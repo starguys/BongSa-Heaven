@@ -179,74 +179,7 @@ module.exports = {
     }
   },
 
-  imageControl: async (req, res) => {
-    return res.send("이미지 잘 와요!");
-  },
-
   kakaoControl: async (req, res) => {
-    return res.send();
-  },
-
-  kakaocallbackControl: async (req, res) => {
-    const { query } = req;
-    const { code } = query;
-    const url = `https://kauth.kakao.com/oauth/token`;
-    console.log(code);
-    let tokenResponse;
-    try {
-      tokenResponse = await axios({
-        method: "POST",
-        url,
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-        },
-        data: qs.stringify({
-          grant_type: "authorization_code",
-          client_id: "498bc95ff9c33f89e4cff4ef0775b24b",
-          client_secret: "QjZ2FD3SkoyxD8OpwoujmqL31PWFNX0Z",
-          redirect_uri: "http://localhost:8080/auth/kakao/callback",
-          code,
-        }),
-      });
-    } catch (error) {
-      return res.json(error.data);
-    }
-
-    console.info("==== tokenResponse.data ====");
-    console.log(tokenResponse.data);
-
-    const { access_token } = tokenResponse.data;
-
-    let userResponse;
-
-    try {
-      userResponse = await axios({
-        method: "GET",
-        url: "https://kapi.kakao.com/v2/user/me",
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      });
-    } catch (error) {
-      return res.json(error.data);
-    }
-
-    console.info("==== userResponse.data ====");
-    console.log(userResponse.data);
-
-    const authData = {
-      ...tokenResponse.data,
-      ...userResponse.data,
-    };
-    console.log(authData);
-    res.redirect("/");
-  },
-
-  googleControl: async (req, res) => {
-    return res.send();
-  },
-
-  kakao: async (req, res) => {
     // console.log(req.body);
     const token = req.body.accessToken;
     let userResponse;

@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 import axios from "axios";
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:8080/auth/image";
 
 export default function Upload() {
   const [content, setContent] = useState("");
   const [uploadedImg, setUploadedImg] = useState({
     fileName: "",
-    fillPath: ""
-  })
+    fillPath: "",
+  });
 
-  const onChange = e => {
+  const onChange = (e) => {
     setContent(e.target.files[0]);
   };
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     // e.preventDefault();
     const formData = new FormData();
-    formData.append("img", content); 
+    formData.append("img", content);
 
-    const config = { headers: {'content-type': 'multipart/form-data'}}
+    const config = { headers: { "content-type": "multipart/form-data" } };
 
     axios
-      .post("/upload", formData, config)
-      .then(res => {
+      .post("http://localhost:8080/auth/image", formData, config)
+      .then((res) => {
         const { fileName } = res.data;
         console.log(fileName);
         setUploadedImg({ fileName, filePath: `${BASE_URL}/img/${fileName}` });
         alert("The file is successfully uploaded");
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   };
@@ -47,6 +47,5 @@ export default function Upload() {
         <button type="submit">Upload</button>
       </form>
     </>
-  )
-
+  );
 }
