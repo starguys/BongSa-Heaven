@@ -3,7 +3,7 @@
 ##  LOGO : 사랑, 희생 그리고 당신. 
 > 세 가지가 모여 더 나은 사회를 만듭니다.
 
-![logo2](https://user-images.githubusercontent.com/83863101/143883479-9ae18281-c220-428b-948d-aa62a2e2be4d.png)
+![image](https://user-images.githubusercontent.com/84559872/144054147-eb0423cd-cb5a-4432-9fb6-8403f93e8483.png)
 
 ### 봉사자, 봉사 구인자들의 통합 공간
 봉사할 곳을 찾고 있지만, 찾지 못하고 계신가요?
