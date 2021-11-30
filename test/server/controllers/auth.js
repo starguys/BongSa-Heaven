@@ -179,10 +179,12 @@ module.exports = {
     }
   },
 
+  imageControl: async (req, res) => {
+    return res.send("이미지 잘 와요!");
+  },
+
   kakaoControl: async (req, res) => {
-    const kakaoAuthUrl =
-      "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=498bc95ff9c33f89e4cff4ef0775b24b&redirect_uri=http://localhost:8080/auth/kakao/callback";
-    return res.redirect(kakaoAuthUrl);
+    return res.send();
   },
 
   kakaocallbackControl: async (req, res) => {
@@ -247,23 +249,55 @@ module.exports = {
   kakao: async (req, res) => {
     // console.log(req.body);
     const token = req.body.accessToken;
-
-    axios({
-      method: "GET",
-      url: "https://kapi.kakao.com/v2/user/me",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((result) => {
-        console.log(result.data);
-        // res.status(200).json({ data: result.data });
-      })
-
-      .catch((err) => {
-        console.log("err");
+    let userResponse;
+    try {
+      userResponse = await axios({
+        method: "GET",
+        url: "https://kapi.kakao.com/v2/user/me",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+    } catch {
+      console.log("err");
+    }
+    const userNick = userResponse.data.properties.nickname;
+    const userKakao = userResponse.data.id;
 
-    return res.send("T.T");
+    const query = { kakao_id: userKakao, nickname: userNick };
+    const existUser = await User.findOne(query);
+
+    if (existUser) {
+      const accessToken = generateAccessToken({ userKakao, userNick });
+      const refreshToken = generateRefreshToken({ userKakao, userNick });
+      return res
+        .cookie("refreshToken", refreshToken, { httpOnly: true })
+        .status(200)
+        .send({ accessToken: accessToken, message: "kakao-login 성공!" });
+    }
+    if (!existUser) {
+      const newUser = {
+        email: "",
+        password: "",
+        kakao_id: userKakao,
+        nickname: userNick,
+        sex: "",
+        want_region: "",
+        want_vol: "",
+        age: "",
+        salt: "",
+      };
+      const insertDb = new User(newUser).save();
+      if (!insertDb) {
+        return res.status(500).send({ message: "싸장님 서버 이상해" });
+      } else {
+        const accessToken = generateAccessToken({ userKakao, userNick });
+        const refreshToken = generateRefreshToken({ userKakao, userNick });
+        return res
+          .cookie("refreshToken", refreshToken, { httpOnly: true })
+          .status(200)
+          .send({ accessToken: accessToken, message: "kakao singup 성공!" });
+      }
+    }
   },
 };
