@@ -1,6 +1,6 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
-
+import styled from "styled-components";
+import { useHistory } from "react-router";
 
   const Cardbox = styled.div`
   display:flex;
@@ -58,23 +58,28 @@ const PublishedDate = styled.div`
 
 export default function Card() {
 
+
+  const history = useHistory();
+
+  const GotoCard = () => history.push("/CrewBoardContents");
+
   return (
     <>
-      <Cardbox> 
-      <ImageBox>
-        <Img src="https://dimg.donga.com/wps/NEWS/IMAGE/2019/10/10/97803507.1.jpg"/>
-      </ImageBox>
-      <Describe>
-        <SayHello>
-        &nbsp;&nbsp; 힘이필요한 모든 봉사를 찾아가는 봉사단!
-        </SayHello>
-        <VolunteersName>
-        &nbsp; 힘쎈봉사단
-        </VolunteersName>
-        <PublishedDate>
-        &nbsp;&nbsp;&nbsp;&nbsp; 2021.11.21
-        </PublishedDate>
-      </Describe>
+      <Cardbox onClick={GotoCard}> 
+        <ImageBox>
+          <Img src="https://dimg.donga.com/wps/NEWS/IMAGE/2019/10/10/97803507.1.jpg"/>
+        </ImageBox>
+        <Describe>
+          <SayHello>
+          &nbsp;&nbsp; 힘이필요한 모든 봉사를 찾아가는 봉사단!
+          </SayHello>
+          <VolunteersName>
+          &nbsp; 힘쎈봉사단
+          </VolunteersName>
+          <PublishedDate>
+          &nbsp;&nbsp;&nbsp;&nbsp; 2021.11.21
+          </PublishedDate>
+        </Describe>
       </Cardbox>
     </>
   )

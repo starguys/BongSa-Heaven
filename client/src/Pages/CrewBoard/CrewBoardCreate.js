@@ -1,11 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-
-import { faPaperPlane } from "@fortawesome/free-regular-svg-icons"; 
 import Header2 from "../../components/common/Header2";
-import CreateButton from "../../components/CrewBoard/CreateButton";
+import Input from "../../components/common/Input";
+import CreateButton from "../../components/common/CreateButton";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -15,8 +12,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: auto;
-  `
-
+`
 
 const CreateBox = styled.div`
   background-color: white;
@@ -29,34 +25,7 @@ const CreateBox = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
-const CreateBoxTitleBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const CreateBoxTitle = styled.input`
-  display: flex;
-  justify-content: flex;
-  align-items: center;
-  width: 80%;
-  border: 0px;
-  border-bottom: solid gray 1px;
-  opacity: 0.5;
-`;
-const CreateBoxintroBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const CreateBoxintro = styled.input`
-  display: flex;
-  justify-content: flex;
-  align-items: center;
-  width: 80%;
-  border: 0px;
-  border-bottom: solid gray 1px;
-  opacity: 0.5;
-`;
+
 const CreateBoxContentsBox = styled.div`
   display: flex;
   justify-content: center;
@@ -82,25 +51,16 @@ export default function CrewBoardCreate() {
   return (
     <>
       <Wrapper>
-
         <Header2 componentName="글 작성하기"/>
-        <CreateBox>
-          <CreateBoxTitleBox>
-            <CreateBoxTitle placeholder="제목"></CreateBoxTitle>
-          </CreateBoxTitleBox>
-        </CreateBox>
-        <CreateBox>
-          <CreateBoxintroBox>
-            <CreateBoxintro placeholder="봉사단 한줄 소개글"></CreateBoxintro>
-          </CreateBoxintroBox>
-        </CreateBox>
-        <CreateBox>
-          <CreateBoxContentsBox>
-            <CreateBoxContents placeholder="내용을 입력하세요."></CreateBoxContents>
-          </CreateBoxContentsBox>
-        </CreateBox>
-
-        <CreateButton/>
+          <Input text="봉사단 이름"/>
+          <Input text="봉사단 한줄 소개글"/>
+          <CreateBox>
+            <CreateBoxContentsBox>
+              <CreateBoxContents placeholder="내용을 입력해주세요.">        
+              </CreateBoxContents>
+            </CreateBoxContentsBox>
+          </CreateBox>
+        <CreateButton create="/CrewBoardList" cancel="/CrewBoardList"/>
       </Wrapper>
     </>
   );

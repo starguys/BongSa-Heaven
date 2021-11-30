@@ -1,5 +1,6 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { useHistory } from "react-router";
 
 const ImgUploadBox = styled.div`
   display: flex;
@@ -51,17 +52,23 @@ const CompleteButton = styled.div`
 `
 
 
-export default function CreateButton() {
+export default function CreateButton(props) {
+
+  const history = useHistory();
+  const Create = (url) => history.push(url);
+  const Cancel = (url) => history.push(url);
+
+
   return (
     <>
       <ImgUploadBox>
         <ImgUploadButton>이미지 업로드</ImgUploadButton>
       </ImgUploadBox>
       <SelectBox>
-        <CancelButton>
+        <CancelButton onClick={() => Cancel(props.cancel)}>
           취소
         </CancelButton>
-        <CompleteButton>
+        <CompleteButton onClick={() => Create(props.create)}>
           작성 완료
         </CompleteButton>
       </SelectBox>
