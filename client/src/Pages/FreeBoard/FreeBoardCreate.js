@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import styled from 'styled-components' 
 import Header2 from "../../components/common/Header2";
 import Input from "../../components/common/Input";
@@ -37,7 +38,7 @@ const CreateBoxContents = styled.textarea`
   justify-content: flex;
   align-items: center;
   width: 80%;
-  height: 400px;
+  height: 200px;
   font-size: 12px;
   border: 0px;
   opacity: 0.5;
@@ -47,8 +48,27 @@ const CreateBoxContents = styled.textarea`
   }
 `;
 
+const ContentsBoxImgBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 15px 0 30px 0;
+`;
+const Img = styled.img`
+  width: 80%;
+  object-fit: cover;
+  opacity: 0.5;
+  border-radius: 10px;
+`;
+
+
 
 export default function FreeBoardCreate() {
+
+  const [fileImage, setFileImage] = useState("");
+
   return (
     <>
       <Wrapper>
@@ -58,8 +78,15 @@ export default function FreeBoardCreate() {
           <CreateBoxContentsBox>
             <CreateBoxContents placeholder="내용을 입력하세요."></CreateBoxContents>
           </CreateBoxContentsBox>
+          <ContentsBoxImgBox>
+            <Img src={fileImage} alt="수정할 이미지 자리"/>
+          </ContentsBoxImgBox>
         </CreateBox>
-        <CreateButton create="/FreeBoardList" cancel="/FreeBoardList" />
+        <CreateButton 
+          create="/FreeBoardList" 
+          cancel="/FreeBoardList" 
+          setFileImage={setFileImage}
+        />
       </Wrapper>
     </>
   );

@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useState } from "react";
+import axios from 'axios';
 
 const CommentList = styled.div`
   flex-direction: column;
@@ -70,10 +72,24 @@ const CommentInputButton = styled.div`
 
 
 export default function Comment() {
+
+  const [commentValue, setCommentValue] = useState("")
+
+  const makeComment = (e) => {
+    setCommentValue(e.target.value)
+    console.log(commentValue)
+  }
+
+  const saveComment = () => {
+    // axios("http://localhost:8080/comment/register",{})
+    setCommentValue("")
+  }
+
+
   return (
     <>
       <CommentList>
-
+        
         <CommentBox>
           <CommentWriter>
             작성자A
@@ -110,10 +126,10 @@ export default function Comment() {
 
       <CommentInputBox>
         <CommentInput> 
-          <CommentInputContents placeholder="내용을 입력하세요.">
+          <CommentInputContents placeholder="내용을 입력하세요." onChange={makeComment} value={commentValue}>
           </CommentInputContents>
         </CommentInput>
-        <CommentInputButton>댓 글<br />달 기</CommentInputButton>
+        <CommentInputButton onClick={saveComment}>댓 글<br />달 기</CommentInputButton>
       </CommentInputBox>
     </>
   );

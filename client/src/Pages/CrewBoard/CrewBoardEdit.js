@@ -1,7 +1,9 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import EditButton from "../../components/common/EditButton";
+
 
 const Wrapper = styled.div`
   width: 100%;
@@ -74,6 +76,9 @@ const Img = styled.img`
 `;
 
 export default function CrewBoardEdit() {
+
+  const [fileImage, setFileImage] = useState("");
+
   return (
     <>
       <Wrapper>
@@ -87,11 +92,14 @@ export default function CrewBoardEdit() {
           </ContentsBoxWriterBox>
           <ContentsBoxContents placeholder="수정할 글 내용"></ContentsBoxContents>
           <ContentsBoxImgBox>
-            수정할 이미지 자리
-            <Img src="https://dimg.donga.com/wps/NEWS/IMAGE/2019/10/10/97803507.1.jpg" />
+            <Img src={fileImage} alt="수정할 이미지 자리"/>
           </ContentsBoxImgBox>
         </ContentsBox>
-        <EditButton edit="/CrewBoardContents" cancel="/CrewBoardContents"/>
+        <EditButton 
+          edit="/CrewBoardContents" 
+          cancel="/CrewBoardContents"
+          setFileImage={setFileImage}
+        />
       </Wrapper>
     </>
   );

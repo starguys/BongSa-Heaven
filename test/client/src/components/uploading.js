@@ -21,7 +21,7 @@ export default function Upload() {
 
     axios
       .post("http://localhost:8080/auth/image", formData, config)
-      .then((res) => {
+      .then(res => {
         const { fileName } = res.data;
         console.log(fileName);
         setUploadedImg({ fileName, filePath: `${BASE_URL}/img/${fileName}` });
