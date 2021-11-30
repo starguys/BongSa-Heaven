@@ -1,6 +1,6 @@
 # BongSa-Heaven
 
-##  LOGO => 따뜻함, 마음 그리고 당신 세 가지의 다른 마음이 모여서 따뜻한 사회를 만듭니다.
+##  LOGO => 따뜻함, 마음 그리고 당신 세 아름다움이 모여 따뜻한 사회를 만듭니다.
 
 ![logo2](https://user-images.githubusercontent.com/83863101/143883479-9ae18281-c220-428b-948d-aa62a2e2be4d.png)
 
