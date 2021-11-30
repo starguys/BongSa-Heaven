@@ -177,12 +177,6 @@ export default function App() {
           <img src={google} alt="google" width="300"></img>
         </a>
       </div>
-      <div className="kakao">
-        <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=$498bc95ff9c33f89e4cff4ef0775b24b&redirect_uri=http://localhost:3000/KakaoTest">
-          <img src={kakaologo} alt="kakao"></img>
-        </a>
-      </div>
-      <button className="multer">이미지를 올려보자!</button>
       <button onClick={GoKakaoTest}>카카오 멸망전</button>
       <Route exact path="/KakaoTest" component={KakaoTest} />
       <Route exact path="/KakoKill" component={KakaoKill} />
