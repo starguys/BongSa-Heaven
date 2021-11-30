@@ -10,20 +10,19 @@ const userSchema = new Schema({
   ],
   email: {
     type: String,
-    required: true,
-    unique: true,
   },
   nickname: {
     type: String,
     required: true,
   },
+  kakao_id: {
+    type: String,
+  },
   password: {
     type: String,
-    minlength: 5,
   },
   salt: {
     type: String,
-    minlength: 5,
   },
   sex: {
     type: String,

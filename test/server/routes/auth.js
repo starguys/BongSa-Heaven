@@ -7,8 +7,10 @@ router.post("/signout", controller.signoutControl);
 router.get("/nickcheck", controller.nickcheckControl);
 router.get("/refreshtoken", controller.refreshtokenControl);
 
-router.get("/kakao", controller.kakaoControl);
+router.post("/kakao", controller.kakao);
 router.post("/kakao/callback", controller.kakaocallbackControl);
 router.post("/google", controller.googleControl);
+
+router.post("/image", controller.imageControl);
 
 module.exports = router;
