@@ -20,7 +20,7 @@ export default function Upload() {
     const config = { headers: {'content-type': 'multipart/form-data'}}
 
     axios
-      .post("/upload", formData, config)
+      .post("http://localhost:8080/auth/image", formData, config)
       .then(res => {
         const { fileName } = res.data;
         console.log(fileName);

@@ -2,6 +2,7 @@ import React from "react";
 import styled from 'styled-components'
 import { useHistory } from "react-router";
 
+
 const ImgUploadBox = styled.div`
   display: flex;
   justify-content: center;
@@ -17,6 +18,9 @@ const ImgUploadButton = styled.div`
   align-items: center;
   padding: 20px 80px 20px 80px;
   border-radius: 20px;
+`
+const ImgUpload= styled.input`
+  display:none;
 `
 const SelectBox = styled.div`
   display: flex;
@@ -53,15 +57,23 @@ const CompleteButton = styled.div`
 
 
 export default function EditButton(props) {
+  
+  const saveFileImage = (e) => { 
+    props.setFileImage(URL.createObjectURL(e.target.files[0])); };
 
   const history = useHistory();
   const Edit = (url) => history.push(url);
   const Cancel = (url) => history.push(url);
 
+
   return (
     <>
-      <ImgUploadBox>
-        <ImgUploadButton>이미지 업로드</ImgUploadButton>
+      <ImgUploadBox >
+        <label for="imgUpload">
+          <ImgUploadButton>
+            이미지 업로드
+          </ImgUploadButton>
+        </label>
       </ImgUploadBox>
       <SelectBox>
         <CancelButton onClick={() => Cancel(props.cancel)}>
@@ -71,6 +83,9 @@ export default function EditButton(props) {
           수정 완료
         </CompleteButton>
       </SelectBox>
+      {/* display:none 상태 */}
+      <ImgUpload id="imgUpload" onChange={saveFileImage} type="file" aceept="image/*"/>
+      {/* display:none 상태 */}
     </>
   );
 }

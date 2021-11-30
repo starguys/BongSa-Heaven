@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import styled from 'styled-components'
 import Header2 from "../../components/common/Header2";
 import EditButton from "../../components/common/EditButton";
@@ -76,6 +77,9 @@ const Img = styled.img`
 
 
 export default function FreeBoardEdit() {
+
+  const [fileImage, setFileImage] = useState("");
+
   return (
     <>
       <Wrapper>
@@ -92,10 +96,14 @@ export default function FreeBoardEdit() {
           </ContentsBoxContents>
           <ContentsBoxImgBox>
             수정할 이미지 자리
-            <Img src="https://cdn.notefolio.net/img/6f/97/6f9787b975c70fbda92d195bba79cd3490c57a4beebe2da510a1579fc542fa48_v1.jpg"/>
+            <Img src={fileImage} />
           </ContentsBoxImgBox>
         </ContentsBox>
-        <EditButton edit="/FreeBoardContents" cancel="/FreeBoardContents"/>
+        <EditButton 
+          edit="/FreeBoardContents" 
+          cancel="/FreeBoardContents"
+          setFileImage={setFileImage}
+        />
       </Wrapper>
     </>
   );
