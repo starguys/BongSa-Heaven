@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components'
+import { useHistory } from "react-router";
 
 const DeleteBoxTitleBox = styled.div`
   display: flex;
@@ -43,16 +44,21 @@ const CancelButton = styled.div`
 
 
 export default function DeleteCheck(props) {
+
+  const history = useHistory();
+  const Delete = (url) => history.push(url);
+  const Cancel = (url) => history.push(url);
+
   return (
     <>
      <DeleteBoxTitleBox>
         해당 {props.contents}을 삭제하시겠습니까?
       </DeleteBoxTitleBox>
       <SelectBox>
-        <DeleteButton>
+        <DeleteButton onClick={() => Delete(props.delete)}>
           삭제
         </DeleteButton>
-        <CancelButton>
+        <CancelButton onClick={() => Cancel(props.cancel)}>
           취소
         </CancelButton>
       </SelectBox>

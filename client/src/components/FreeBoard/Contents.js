@@ -1,6 +1,6 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
-
+import styled from "styled-components";
+import { useHistory } from "react-router";
 
 const ContentsList = styled.div`
   background-color: white;
@@ -34,9 +34,14 @@ const ContentsTitle = styled.div`
 `
 export default function Contents() {
 
+
+  const history = useHistory();
+
+  const GotoContents = () => history.push("/FreeBoardContents");
+
   return (
     <>
-      <ContentsList>
+      <ContentsList onClick={GotoContents}>
         <ContentsBox>
           <ContentsTitle>
           안녕하세요 여기가 그 자유로운 게시판인가요?

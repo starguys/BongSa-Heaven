@@ -1,9 +1,8 @@
 import React from "react";
+import { useState } from "react";
 import styled from 'styled-components'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Header2 from "../../components/common/Header2";
-import EditButton from "../../components/CrewBoard/EditButton";
+import EditButton from "../../components/common/EditButton";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -24,6 +23,7 @@ const ContentsBox = styled.div`
   padding: 20px 0px 20px 0px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 30px;
 `
 const ContentsBoxTitleBox = styled.div`
   display: flex;
@@ -77,6 +77,9 @@ const Img = styled.img`
 
 
 export default function FreeBoardEdit() {
+
+  const [fileImage, setFileImage] = useState("");
+
   return (
     <>
       <Wrapper>
@@ -93,10 +96,14 @@ export default function FreeBoardEdit() {
           </ContentsBoxContents>
           <ContentsBoxImgBox>
             수정할 이미지 자리
-            <Img src="https://cdn.notefolio.net/img/6f/97/6f9787b975c70fbda92d195bba79cd3490c57a4beebe2da510a1579fc542fa48_v1.jpg"/>
+            <Img src={fileImage} />
           </ContentsBoxImgBox>
         </ContentsBox>
-        <EditButton/>
+        <EditButton 
+          edit="/FreeBoardContents" 
+          cancel="/FreeBoardContents"
+          setFileImage={setFileImage}
+        />
       </Wrapper>
     </>
   );

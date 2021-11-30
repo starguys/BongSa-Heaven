@@ -1,8 +1,9 @@
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Header2 from "../../components/common/Header2";
+import EditButton from "../../components/common/EditButton";
+
 
 const Wrapper = styled.div`
   width: 100%;
@@ -12,11 +13,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: auto;
-
 `
-
-
-
 const ContentsBox = styled.div`
   background-color: white;
   width: 80%;
@@ -26,6 +23,7 @@ const ContentsBox = styled.div`
   padding: 20px 0px 20px 0px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 30px;
 `;
 const ContentsBoxTitleBox = styled.div`
   display: flex;
@@ -77,60 +75,13 @@ const Img = styled.img`
   border-radius: 10px;
 `;
 
-const ImgUploadBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  margin: 30px 0px 15px 0px;
-`;
-const ImgUploadButton = styled.div`
-  background-color: #ff7676;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 80px 20px 80px;
-  border-radius: 20px;
-`;
-const SelectBox = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 80%;
-  margin: 15px 0px 15px 0px;
-`;
-const CancelButton = styled.div`
-  background-color: white;
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35%;
-  padding: 20px 0px 20px 0px;
-  margin-right: 10px;
-  margin-bottom: 20px;
-  border-radius: 20px;
-  border: 1px solid #000000;
-`;
-const CompleteButton = styled.div`
-  background-color: #ff7676;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35%;
-  padding: 20px 0px 20px 0px;
-  margin-left: 10px;
-  margin-bottom: 20px;
-  border-radius: 20px;
-`;
-
 export default function CrewBoardEdit() {
+
+  const [fileImage, setFileImage] = useState("");
+
   return (
     <>
       <Wrapper>
-
         <Header2 componentName="글 수정하기"/>
         <ContentsBox>
           <ContentsBoxTitleBox>
@@ -141,17 +92,14 @@ export default function CrewBoardEdit() {
           </ContentsBoxWriterBox>
           <ContentsBoxContents placeholder="수정할 글 내용"></ContentsBoxContents>
           <ContentsBoxImgBox>
-            수정할 이미지 자리
-            <Img src="https://dimg.donga.com/wps/NEWS/IMAGE/2019/10/10/97803507.1.jpg" />
+            <Img src={fileImage} alt="수정할 이미지 자리"/>
           </ContentsBoxImgBox>
         </ContentsBox>
-        <ImgUploadBox>
-          <ImgUploadButton>이미지 업로드</ImgUploadButton>
-        </ImgUploadBox>
-        <SelectBox>
-          <CancelButton>취소</CancelButton>
-          <CompleteButton>수정 완료</CompleteButton>
-        </SelectBox>
+        <EditButton 
+          edit="/CrewBoardContents" 
+          cancel="/CrewBoardContents"
+          setFileImage={setFileImage}
+        />
       </Wrapper>
     </>
   );
