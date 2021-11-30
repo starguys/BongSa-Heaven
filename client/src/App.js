@@ -42,11 +42,37 @@ import CrewBoardList from "./Pages/CrewBoard/CrewBoardList";
 
 export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [accessToken, setAccessToken] =  useState('')
+
+  const [userInfo, setUserInfo] = useState({
+    username:'',
+    nickname:'',
+    password:'',
+    imgUrl:'',
+    want_region:'',
+    want_vol: '',
+    gender:'',
+    age:''
+
+
+  })
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
   };
 
+  const handleLogout = () =>{
+    localStorage.clear()
+    setIsLogin(false);
+  }
+  const handleLogin =(token) =>{
+    setAccessToken(token);
+
+    if(token){
+      setIsLogin(true)
+    }
+  }
   return (
     <div id="app_div">
       {isDevHeader ? <DevHeader /> : null}
@@ -54,8 +80,21 @@ export default function App() {
       {/* Sign */}
       <Route exact path="/RecruiterSignUp" component={RecruiterSignUp} />
       <Route exact path="/SignUp" component={SignUp} />
-      <Route exact path="/SignIn" component={SignIn} />
-      <Route exact path="/UserSignUp" component={UserSignUp} />
+      <Route exact path="/SignIn" render={()=>(<SignIn
+        accessToken={accessToken}
+        isLogin={isLogin}
+        handleLogin={handleLogin}
+        handlelogout = {handleLogout}
+        userInfo = {userInfo}
+
+
+        /> )} />
+      <Route exact path="/UserSignUp" render={()=>(<UserSignUp
+      userInfo={userInfo}
+      
+
+      
+      />)} />
       {/* MyPage */}
       <Route exact path="/MaillWrite" component={MaillWrite} />
       <Route exact path="/MaillWriteCheck" component={MaillWriteCheck} />
