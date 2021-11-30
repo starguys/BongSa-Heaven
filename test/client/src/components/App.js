@@ -178,7 +178,7 @@ export default function App() {
         </a>
       </div>
       <div className="kakao">
-        <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=498bc95ff9c33f89e4cff4ef0775b24b&redirect_uri=http://localhost:3000/auth/kakao">
+        <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=$498bc95ff9c33f89e4cff4ef0775b24b&redirect_uri=http://localhost:3000/KakaoTest">
           <img src={kakaologo} alt="kakao"></img>
         </a>
       </div>
