@@ -11,8 +11,8 @@ const ContentsBox = styled.div`
   flex-direction: column;
   border-radius: 20px;
   padding: 20px 0px 20px 0px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
   margin-top: 30px;
 `
 const ContentsBoxTitleBox = styled.div`
@@ -26,6 +26,12 @@ const ContentsBoxTitle = styled.div`
   width: 80%;
   border-bottom: solid gray 1px;
   font-size: 12px;
+ 
+  @media screen and (min-width: 1024px) {
+    font-size: 24px;
+    margin-top: 20px;
+
+  }
 `
 const ContentsBoxWriterBox = styled.div`
   display: flex;
@@ -39,6 +45,14 @@ const ContentsBoxWriter = styled.div`
   align-items: center;
   width: 20%;
   margin: 0px 5px 0px 18px;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 24px;
+    padding-left: 8vw;
+    justify-content: flex-start;
+    width: 10%;
+    margin: 0px;
+  }
 `
 
 const ContentsBoxAdjustBox = styled.div`
@@ -46,6 +60,10 @@ const ContentsBoxAdjustBox = styled.div`
   justify-content: flex-end;
   align-items: center;
   width: 60%;
+
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
 `
 
 const ContentsBoxAdjust = styled.div`
@@ -57,24 +75,51 @@ const ContentsBoxAdjust = styled.div`
   padding: 10px;
   border-radius: 20px;
 `
+
+const ContentsBoxAdjust2 = styled.div`
+
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
+  color: #FF7676;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 8vw;
+`;
+
 const ContentsBoxContents = styled.div`
   width: 80%;  
   margin: 15px auto 40px auto;
   font-size: 12px;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 16px;
+  }
 `
 const ContentsBoxImgBox = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-width: 100%;
-margin: 15px 0 30px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 15px 0 30px 0;
+
+  @media screen and (min-width: 1024px) {
+    align-items: flex-start;
+  }
 `
 const Img = styled.img`
   width: 80%;
   object-fit: cover;
   opacity: 0.5;
   border-radius: 10px;
+
+  @media screen and (min-width: 1024px) {
+    max-width: 60%;
+    max-height: 60%;
+    padding-left: 8vw;
+  }
 `
 
 const ContentsBoxDeleteBox = styled.div`
@@ -83,11 +128,21 @@ const ContentsBoxDeleteBox = styled.div`
   align-items: center;
   justify-content: flex-end;
 
+  @media screen and (min-width: 1024px) {
+    justify-content: flex-start;
+    margin: 20px 0px 20px 0px;
+  }
+
 `
 const ContentsBoxDeleteButton = styled.div`
   color: #D80000;
   opacity: 0.5;
   padding-right: 25px;
+
+  @media screen and (min-width: 1024px) {
+    margin-left: 1vw;
+    color: gray;
+  }
 `
 
 
@@ -97,6 +152,7 @@ export default function Writing() {
 
   const Gotoedit = () => history.push("/FreeBoardEdit");
   const Gotodelete = () => history.push("/FreeBoardDelete");
+  const GotoMailWrite = () => history.push("/MaillWrite");
 
   return (
     <>
@@ -108,7 +164,7 @@ export default function Writing() {
         </ContentsBoxTitleBox>
         <ContentsBoxWriterBox>
           <ContentsBoxWriter>작성자A</ContentsBoxWriter>
-          <FontAwesomeIcon icon={faPaperPlane} />
+          <FontAwesomeIcon icon={faPaperPlane} onClick={GotoMailWrite}/>
           <ContentsBoxAdjustBox>
             <ContentsBoxAdjust onClick={Gotoedit}>
               수정하기
@@ -127,6 +183,9 @@ export default function Writing() {
         <Img src="https://cdn.notefolio.net/img/6f/97/6f9787b975c70fbda92d195bba79cd3490c57a4beebe2da510a1579fc542fa48_v1.jpg"/>
         </ContentsBoxImgBox>
         <ContentsBoxDeleteBox>
+          <ContentsBoxAdjust2 onClick={Gotoedit}>
+            수정
+          </ContentsBoxAdjust2>
           <ContentsBoxDeleteButton onClick={Gotodelete}>삭제</ContentsBoxDeleteButton>
         </ContentsBoxDeleteBox>
       </ContentsBox>
