@@ -19,6 +19,9 @@ export default function Header2(props) {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media screen and (min-width: 37.5rem) {
+      display: none;
+    }
   `;
 
   const HeaderLogIconLeft = styled.div`

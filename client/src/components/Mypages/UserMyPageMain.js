@@ -19,6 +19,10 @@ export default function UserMyPageMain() {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    @media screen and (min-width: 37.5rem) {
+      width: 760px;
+      height: 330px;
+    }
   `;
   const MyNameText = styled.div`
     font-family: Roboto;
@@ -27,12 +31,16 @@ export default function UserMyPageMain() {
     font-size: 18px;
     line-height: 21px;
     color: #000000;
+    @media screen and (min-width: 37.5rem) {
+      font-size: 36px;
+    }
   `;
   const MynameMaill = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   `;
   const MynameMaillSpan = styled.span`
     font-family: Roboto;
@@ -40,6 +48,9 @@ export default function UserMyPageMain() {
     font-weight: normal;
     font-size: 12px;
     line-height: 14px;
+    @media screen and (min-width: 37.5rem) {
+      font-size: 24px;
+    }
   `;
 
   const handleMaillBox = () => {

@@ -6,7 +6,10 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
 
-export default function Header() {
+export default function Header(props) {
+  const isSignIn = props.isLogin;
+  const isUserLogin = props.isUser;
+  console.log(isSignIn);
   const history = useHistory();
   const isLogin = false;
   const isRecruiter = false;
@@ -20,10 +23,11 @@ export default function Header() {
     align-items: center;
     justify-content: space-between;
     @media screen and (max-width: 37.5rem) {
-      background: #ffd5d5;
+      display: none;
     }
     @media screen and (min-width: 37.5rem) {
-      display: none;
+      border-bottom: 1px solid #ffd4d4;
+      justify-content: center;
     }
   `;
 
@@ -91,6 +95,7 @@ export default function Header() {
       width: 34px;
       height: 23px;
       margin-left: 2%;
+      cursor: pointer;
     }
   `;
   const HeaderName = styled.span`
@@ -102,28 +107,12 @@ export default function Header() {
     line-height: 27px;
     display: flex;
     align-items: center;
-
     color: #ff7676;
+    cursor: pointer;
   `;
-  const HeaderSignIn = styled.button`
+  const HeaderSignInOut = styled.button`
     margin-right: 3%;
     border: 0;
-    background-color: white;
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 23px;
-    line-height: 27px;
-    display: flex;
-    align-items: center;
-
-    color: #448b76;
-  `;
-  const HeaderSignUp = styled.button`
-    margin-right: 3%;
-    border: 0;
-
     background-color: white;
     font-family: Roboto;
     font-style: normal;
@@ -132,8 +121,33 @@ export default function Header() {
     line-height: 27px;
     display: flex;
     align-items: center;
-
+    cursor: pointer;
     color: #448b76;
+    border: solid 2px white;
+    &:hover {
+      border-bottom: solid 2px #448b76;
+      transition: 0.5s;
+    }
+  `;
+
+  const HeaderSignUpMyPage = styled.button`
+    margin-right: 3%;
+    border: 0;
+    background-color: white;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 23px;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #448b76;
+    border: solid 2px white;
+    &:hover {
+      border-bottom: solid 2px #448b76;
+      transition: 0.5s;
+    }
   `;
 
   const GoMyPage = () => {
@@ -141,6 +155,21 @@ export default function Header() {
     isRecruiter
       ? history.push("/RecruiterMyPage")
       : history.push("/UserMyPage");
+  };
+  const GoHome = () => {
+    history.push("/");
+  };
+  const GoSignIn = () => {
+    history.push("/SignIn");
+  };
+  const GoSignUp = () => {
+    history.push("/SignUp");
+  };
+  const GoUserMyPage = () => {
+    history.push("/UserMyPage");
+  };
+  const GoRecruiterMyPage = () => {
+    history.push("/RecruiterMyPage");
   };
 
   return (
@@ -163,12 +192,30 @@ export default function Header() {
         </HeaderLogIconRight>
         <WebHeaderContainer>
           <WebHeaderLeft>
-            <WebLogoImg src="/image/logo2.png" />
-            <HeaderName>봉사천국</HeaderName>
+            <WebLogoImg src="/image/logo2.png" onClick={GoHome} />
+            <HeaderName onClick={GoHome}>봉사천국</HeaderName>
           </WebHeaderLeft>
           <WebHeaderRight>
-            <HeaderSignIn>로그인</HeaderSignIn>
-            <HeaderSignUp>회원가입</HeaderSignUp>
+            {isSignIn ? (
+              <HeaderSignInOut>로그아웃</HeaderSignInOut>
+            ) : (
+              <HeaderSignInOut onClick={GoSignIn}>로그인</HeaderSignInOut>
+            )}
+            {isSignIn ? (
+              isUserLogin ? (
+                <HeaderSignUpMyPage onClick={GoUserMyPage}>
+                  마이 페이지
+                </HeaderSignUpMyPage>
+              ) : (
+                <HeaderSignUpMyPage onClick={GoRecruiterMyPage}>
+                  마이 페이지
+                </HeaderSignUpMyPage>
+              )
+            ) : (
+              <HeaderSignUpMyPage onClick={GoSignUp}>
+                회원가입
+              </HeaderSignUpMyPage>
+            )}
           </WebHeaderRight>
         </WebHeaderContainer>
       </HeaderContainer>
