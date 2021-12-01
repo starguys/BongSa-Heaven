@@ -179,12 +179,23 @@ module.exports = {
     }
   },
   googleControl: async (req, res) => {
-    res.send();
+    const code = req.body.authorization;
+    // 인가코드를 구글에 전송하여 회원 정보를 받아냄
+    await axios.get(
+      `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${code}`,
+      {
+        headers: {
+          authorization: `token ${code}`,
+          accept: "application/json",
+        },
+      }
+    );
   },
 
   kakaoControl: async (req, res) => {
     // console.log(req.body);
     const token = req.body.accessToken;
+    console.log(token);
     let userResponse;
     try {
       userResponse = await axios({
@@ -206,6 +217,7 @@ module.exports = {
     if (existUser) {
       const accessToken = generateAccessToken({ userKakao, userNick });
       const refreshToken = generateRefreshToken({ userKakao, userNick });
+
       return res
         .cookie("refreshToken", refreshToken, { httpOnly: true })
         .status(200)
@@ -213,15 +225,12 @@ module.exports = {
     }
     if (!existUser) {
       const newUser = {
-        email: "",
-        password: "",
         kakao_id: userKakao,
         nickname: userNick,
         sex: "",
         want_region: "",
         want_vol: "",
         age: "",
-        salt: "",
       };
       const insertDb = new User(newUser).save();
       if (!insertDb) {
