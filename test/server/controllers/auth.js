@@ -213,7 +213,7 @@ module.exports = {
     }
     if (!existUser) {
       const newUser = {
-        email: "",
+        email: null,
         password: "",
         kakao_id: userKakao,
         nickname: userNick,
