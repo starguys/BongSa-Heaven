@@ -19,6 +19,11 @@ export default function UserMyPage() {
     line-height: 21px;
     color: #ffffff;
     border: 0;
+    @media screen and (min-width: 37.5rem) {
+      width: 760px;
+      height: 71px;
+      cursor: pointer;
+    }
   `;
   const InfoEditBtn = styled.button`
     margin-bottom: 24px;
@@ -33,6 +38,11 @@ export default function UserMyPage() {
     line-height: 21px;
     color: #ffffff;
     border: 0;
+    @media screen and (min-width: 37.5rem) {
+      width: 760px;
+      height: 71px;
+      cursor: pointer;
+    }
   `;
 
   const HiddenVolContainer = styled.div`
@@ -43,7 +53,13 @@ export default function UserMyPage() {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media screen and (min-width: 37.5rem) {
+      width: 760px;
+      height: 71px;
+      align-items: flex-start;
+    }
   `;
+
   const HiddenVolToggle = styled.div`
     width: 65px;
     height: 29px;
@@ -51,6 +67,15 @@ export default function UserMyPage() {
     border: 1px solid #000000;
     box-sizing: border-box;
     border-radius: 14.5px;
+  `;
+  const WebContainer = styled.div`
+    @media screen and (min-width: 37.5rem) {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   `;
 
   const GoSeeRecruiter = () => {
@@ -62,17 +87,19 @@ export default function UserMyPage() {
   return (
     <>
       <Header2 componentName={"마이페이지"} />
-      <UserMyPageMain />
-      <SeeRecruiterBtn onClick={GoSeeRecruiter}>
-        봉사모집자 보기
-      </SeeRecruiterBtn>
-      <InfoEditBtn onClick={GoUserEditPasswordCheck}>
-        회원정보 수정하기
-      </InfoEditBtn>
-      <HiddenVolContainer>
-        <span>봉사희망정보 숨기기</span>
-        <HiddenVolToggle></HiddenVolToggle>
-      </HiddenVolContainer>
+      <WebContainer>
+        <UserMyPageMain />
+        <SeeRecruiterBtn onClick={GoSeeRecruiter}>
+          봉사모집자 보기
+        </SeeRecruiterBtn>
+        <InfoEditBtn onClick={GoUserEditPasswordCheck}>
+          회원정보 수정하기
+        </InfoEditBtn>
+        <HiddenVolContainer>
+          <span>봉사희망정보 숨기기</span>
+          <HiddenVolToggle></HiddenVolToggle>
+        </HiddenVolContainer>
+      </WebContainer>
     </>
   );
 }
