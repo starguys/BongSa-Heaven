@@ -1,7 +1,21 @@
 import React from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 
 export default function BestCrew() {
+  const history = useHistory();
+  const MainCrewBoardContainer = styled.div`
+    @media screen and (max-width: 37.5rem) {
+    }
+    @media screen and (min-width: 37.5rem) {
+      width: 1080px;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+    }
+  `;
+
   const CrewBoardBestTitle = styled.div`
     width: 133px;
     height: 24px;
@@ -32,6 +46,26 @@ export default function BestCrew() {
     border-radius: 10px;
     margin: 0px 5px;
   `;
+  const CrewBoardImageMore = styled.img`
+    @media screen and (min-width: 37.5rem) {
+      width: 165px;
+      height: 138px;
+      border-radius: 10px;
+      margin: 0px 5px;
+    }
+    @media screen and (max-width: 37.5rem) {
+      display: none;
+    }
+  `;
+
+  const CrewBoardMoreBtnContainer = styled.div`
+    @media screen and (min-width: 37.5rem) {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  `;
 
   const CrewBoardMoreBtn = styled.button`
     width: 340px;
@@ -44,16 +78,34 @@ export default function BestCrew() {
     font-weight: normal;
     font-size: 16px;
     line-height: 23px;
+    cursor: pointer;
+    @media screen and (min-width: 37.5rem) {
+      width: 100%;
+      border: 0;
+    }
   `;
 
+  const GoCrewBoardList = () => {
+    history.push("/CrewBoardList");
+  };
   return (
     <>
-      <CrewBoardBestTitle>Best Top 10</CrewBoardBestTitle>
-      <CrewBoardImageContainer>
-        <CrewBoardImage src="/image-dummy/vol1.jpeg" />
-        <CrewBoardImage src="/image-dummy/vol2.jpeg" />
-      </CrewBoardImageContainer>
-      <CrewBoardMoreBtn>더 많은 봉사단 보기</CrewBoardMoreBtn>
+      <MainCrewBoardContainer>
+        <CrewBoardBestTitle>Best Top 10</CrewBoardBestTitle>
+        <CrewBoardImageContainer>
+          <CrewBoardImage src="/image-dummy/vol1.jpeg" />
+          <CrewBoardImage src="/image-dummy/vol2.jpeg" />
+          <CrewBoardImageMore src="/image-dummy/vol2.jpeg" />
+          <CrewBoardImageMore src="/image-dummy/vol2.jpeg" />
+          <CrewBoardImageMore src="/image-dummy/vol2.jpeg" />
+          <CrewBoardImageMore src="/image-dummy/vol2.jpeg" />
+        </CrewBoardImageContainer>
+        <CrewBoardMoreBtnContainer>
+          <CrewBoardMoreBtn onClick={GoCrewBoardList}>
+            더 많은 봉사단 보기
+          </CrewBoardMoreBtn>
+        </CrewBoardMoreBtnContainer>
+      </MainCrewBoardContainer>
     </>
   );
 }

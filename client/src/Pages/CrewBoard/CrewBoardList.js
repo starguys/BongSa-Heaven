@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import Header2 from "../../components/common/Header2";
+import DesktopTitle from "../../components/common/DesktopTitle";
 import Loading from "../../components/common/Loading";
 import Card from "../../components/CrewBoard/Card";
 import Pagination from "../../components/common/Pagination";
@@ -16,6 +17,34 @@ const Wrapper = styled.div`
   flex-direction: column;
   overflow: auto;
 `
+
+const Cards =styled.div`
+
+@media screen and (min-width: 1024px) {
+  width: 80%;
+  margin: auto;
+  display: flex;
+}
+`
+
+const BigCard =styled.div`
+
+@media screen and (min-width: 1024px) {
+  width: 60%;
+  margin: auto;
+  font-size: 20px;
+}
+
+`
+
+const LeftCards =styled.div`
+
+@media screen and (min-width: 1024px) {
+  width: 40%;
+  margin: auto;
+}
+`
+
 
 
 export default function CrewBoardList() {
@@ -39,9 +68,16 @@ export default function CrewBoardList() {
         </>
         :
         <>
-          <Card/>
-          <Card/>
-          <Card/>
+          <DesktopTitle title="봉사단 게시판"/>
+          <Cards>
+            <BigCard>
+              <Card/>
+            </BigCard>
+            <LeftCards>
+              <Card/>
+              <Card/>
+            </LeftCards>
+          </Cards>
         </>
         }
         <Pagination/>

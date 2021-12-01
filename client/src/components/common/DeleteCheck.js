@@ -8,6 +8,11 @@ const DeleteBoxTitleBox = styled.div`
   align-items: center;
   padding: 50px;
   color: red;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 20px
+  }
+
 `
 const SelectBox = styled.div`
   display: flex;
@@ -22,11 +27,16 @@ const DeleteButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35%;
+  width: 100px;
   padding: 20px 0px 20px 0px;
   margin-right: 20px;
   margin-bottom: 300px;
   border-radius: 20px;
+
+  @media screen and (min-width: 1024px) {
+    width: 150px;
+    font-size: 20px
+  }
 `
 const CancelButton = styled.div`
   background-color : white;
@@ -35,11 +45,16 @@ const CancelButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35%;
+  width: 100px;
   padding: 20px 0px 20px 0px;
   margin-left: 20px;
   margin-bottom: 300px;
   border-radius: 20px;
+
+  @media screen and (min-width: 1024px) {
+    width: 150px;
+    font-size: 20px
+  }
 `
 
 

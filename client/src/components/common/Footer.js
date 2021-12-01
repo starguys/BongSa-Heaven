@@ -13,6 +13,9 @@ export default function Footer() {
     color: white;
     height: 64px;
     width: 100%;
+    @media screen and (min-width: 37.5rem) {
+      display: none;
+    }
   `;
   const FooterImg = styled.img`
     width: 34px;
@@ -31,6 +34,9 @@ export default function Footer() {
     margin-bottom: 25px;
     margin-left: 17px;
     color: #171717;
+    @media screen and (min-width: 37.5rem) {
+      margin-left: 40%;
+    }
   `;
 
   const FooterTeamName = styled.span`
@@ -40,10 +46,16 @@ export default function Footer() {
   const FooterGrid1Span = styled.span`
     margin-bottom: 9px;
     margin-left: 34px;
+    @media screen and (min-width: 37.5rem) {
+      margin-left: 40%;
+    }
   `;
   const FooterGrid3Span = styled.span`
     margin-bottom: 9px;
     margin-left: 24px;
+    @media screen and (min-width: 37.5rem) {
+      font-size: 24px;
+    }
   `;
 
   const FooterPosition = styled.div``;

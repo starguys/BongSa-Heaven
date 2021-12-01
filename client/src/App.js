@@ -39,62 +39,66 @@ import CrewBoardCreate from "./Pages/CrewBoard/CrewBoardCreate";
 import CrewBoardDelete from "./Pages/CrewBoard/CrewBoardDelete";
 import CrewBoardEdit from "./Pages/CrewBoard/CrewBoardEdit";
 import CrewBoardList from "./Pages/CrewBoard/CrewBoardList";
+import Header5 from "./components/common/Header5";
 
 export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
-  const [accessToken, setAccessToken] =  useState('')
+  const [isLogin, setIsLogin] = useState(true);
+  const [isUser, setIsUser] = useState(true);
+  const [accessToken, setAccessToken] = useState("");
 
   const [userInfo, setUserInfo] = useState({
-    username:'',
-    nickname:'',
-    password:'',
-    imgUrl:'',
-    want_region:'',
-    want_vol: '',
-    gender:'',
-    age:''
-
-
-  })
+    username: "",
+    nickname: "",
+    password: "",
+    imgUrl: "",
+    want_region: "",
+    want_vol: "",
+    gender: "",
+    age: "",
+  });
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
   };
 
-  const handleLogout = () =>{
-    localStorage.clear()
+  const handleLogout = () => {
+    localStorage.clear();
     setIsLogin(false);
-  }
-  const handleLogin =(token) =>{
+  };
+  const handleLogin = (token) => {
     setAccessToken(token);
 
-    if(token){
-      setIsLogin(true)
+    if (token) {
+      setIsLogin(true);
     }
-  }
+  };
   return (
     <div id="app_div">
+      <Header5 isLogin={isLogin} isUser={isUser} />
       {isDevHeader ? <DevHeader /> : null}
       <Route exact path="/" component={MainPage} />
       {/* Sign */}
       <Route exact path="/RecruiterSignUp" component={RecruiterSignUp} />
       <Route exact path="/SignUp" component={SignUp} />
-      <Route exact path="/SignIn" render={()=>(<SignIn
-        accessToken={accessToken}
-        isLogin={isLogin}
-        handleLogin={handleLogin}
-        handlelogout = {handleLogout}
-        userInfo = {userInfo}
-
-
-        /> )} />
-      <Route exact path="/UserSignUp" render={()=>(<UserSignUp
-      userInfo={userInfo}
-      
-
-      
-      />)} />
+      <Route
+        exact
+        path="/SignIn"
+        render={() => (
+          <SignIn
+            accessToken={accessToken}
+            isLogin={isLogin}
+            handleLogin={handleLogin}
+            handlelogout={handleLogout}
+            userInfo={userInfo}
+          />
+        )}
+      />
+      <Route
+        exact
+        path="/UserSignUp"
+        render={() => <UserSignUp userInfo={userInfo} />}
+      />
       {/* MyPage */}
       <Route exact path="/MaillWrite" component={MaillWrite} />
       <Route exact path="/MaillWriteCheck" component={MaillWriteCheck} />

@@ -227,10 +227,13 @@ module.exports = {
       const newUser = {
         kakao_id: userKakao,
         nickname: userNick,
+<<<<<<< HEAD
         sex: "",
         want_region: "",
         want_vol: "",
         age: "",
+=======
+>>>>>>> 8b2fc578690d0ae925bd0fbf0f456a608e28ede7
       };
       const insertDb = new User(newUser).save();
       if (!insertDb) {
