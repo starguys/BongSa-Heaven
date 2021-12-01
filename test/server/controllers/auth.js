@@ -213,15 +213,8 @@ module.exports = {
     }
     if (!existUser) {
       const newUser = {
-        email: "",
-        password: "",
         kakao_id: userKakao,
         nickname: userNick,
-        sex: "",
-        want_region: "",
-        want_vol: "",
-        age: "",
-        salt: "",
       };
       const insertDb = new User(newUser).save();
       if (!insertDb) {

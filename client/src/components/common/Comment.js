@@ -10,8 +10,8 @@ const CommentList = styled.div`
   border-radius: 20px;
   background-color: white;
   padding: 10px 0px 15px 0px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
 `
 const CommentBox = styled.div`
   display: flex;
@@ -19,15 +19,25 @@ const CommentBox = styled.div`
   width: 100%;
   border-bottom: dashed gray 1px;
   padding: 20px 0px;
+  @media screen and (min-width: 1024px) {
+    padding: 30px 0px;
+  }
 `
 const CommentWriter = styled.span`
   margin-left: 25px;
+  @media screen and (min-width: 1024px) {
+    font-size: 24px;
+  }
 `;
 
 const CommentDate = styled.span`
   margin-left: 30px;
   font-size: 14px;
   opacity: 0.5;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 20px;
+  }
 `
 
 const CommentContents = styled.div`
@@ -35,6 +45,10 @@ const CommentContents = styled.div`
   align-items: center;
   margin: 10px 0px 0px 25px;
   font-size: 12px;
+  @media screen and (min-width: 1024px) {
+    font-size: 16px;
+    margin-top: 20px;
+  }
 `
 
 const CommentInputBox = styled.div`
@@ -43,16 +57,33 @@ const CommentInputBox = styled.div`
   height: 100px;
   display: flex;
   margin: 30px 0px 60px 0px;
+
+  @media screen and (min-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-end;
+    height: 300px;
+  }
 `
 const CommentInput = styled.div`
   width: 70%;
   height: 90%;
   margin: 30px 0px 30px 0px;
+  @media screen and (min-width: 1024px) {
+    width: 100%;
+    height: 100%;
+  }
+  
 `
 const CommentInputContents = styled.input`
   width: 100%;
   height: 90%;
   display: flex;
+
+  @media screen and (min-width: 1024px) {
+    ::placeholder {
+      font-size: 16px;
+    } 
+  }
 `
 
 const CommentInputButton = styled.div`
@@ -65,8 +96,16 @@ const CommentInputButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 17px;
+  font-size: 16px;
   margin: 30px 0px 30px 20px;
+  @media screen and (min-width: 1024px) {
+   
+    margin: 0px 0px 30px 20px;
+    width: 15%;
+    font-size: 20px;
+    height: 80%;
+    line-height: 120%;
+  }
 `
 
 

@@ -2,7 +2,9 @@ import React from "react";
 import { useState } from "react";
 import styled from 'styled-components'
 import Header2 from "../../components/common/Header2";
+import DesktopTitle from "../../components/common/DesktopTitle";
 import EditButton from "../../components/common/EditButton";
+import EditButton2 from "../../components/common/EditButton2";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -21,8 +23,8 @@ const ContentsBox = styled.div`
   flex-direction: column;
   border-radius: 20px;
   padding: 20px 0px 20px 0px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
   margin-top: 30px;
 `
 const ContentsBoxTitleBox = styled.div`
@@ -38,6 +40,10 @@ const ContentsBoxTitle = styled.input`
   font-size: 14px;
   border: none;
   border-bottom: solid gray 1px;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 20px
+  }
 `
 const ContentsBoxWriterBox = styled.div`
   display: flex;
@@ -51,6 +57,10 @@ const ContentsBoxWriter = styled.div`
   margin: 0px auto 0px auto;
   border: none;
   color: #448B76;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 20px
+  }
 `
 
 const ContentsBoxContents = styled.textarea`
@@ -58,6 +68,15 @@ const ContentsBoxContents = styled.textarea`
   height: 10vh;
   margin: 15px auto 40px auto;
   border: none;
+
+  @media screen and (min-width: 1024px) {
+
+    font-size: 16px;
+
+    ::placeholder {
+      font-size: 16px;
+    }
+  }
 `
 const ContentsBoxImgBox = styled.div`
   display: flex;
@@ -83,20 +102,25 @@ export default function FreeBoardEdit() {
   return (
     <>
       <Wrapper>
-        <Header2 componentName="글 수정하기"/>  
+        <Header2 componentName="글 수정하기"/> 
+        <DesktopTitle title="글 수정하기"/>
+        <EditButton2 
+            create="/CrewBoardList" 
+            cancel="/CrewBoardList"
+            setFileImage={setFileImage}
+        />
         <ContentsBox>
           <ContentsBoxTitleBox>
-            <ContentsBoxTitle placeholder="수정할 글 제목.">
+            <ContentsBoxTitle placeholder="수정할 글 제목">
             </ContentsBoxTitle>
           </ContentsBoxTitleBox>
           <ContentsBoxWriterBox>
             <ContentsBoxWriter>글 작성자</ContentsBoxWriter>
           </ContentsBoxWriterBox>
-          <ContentsBoxContents placeholder="수정할 글 내용들.">
-          </ContentsBoxContents>
+            <ContentsBoxContents placeholder="수정할 글 내용들">
+            </ContentsBoxContents>
           <ContentsBoxImgBox>
-            수정할 이미지 자리
-            <Img src={fileImage} />
+            <Img src={fileImage} alt="수정할 이미지 자리"/>
           </ContentsBoxImgBox>
         </ContentsBox>
         <EditButton 

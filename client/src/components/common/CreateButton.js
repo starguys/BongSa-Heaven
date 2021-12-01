@@ -8,6 +8,10 @@ const ImgUploadBox = styled.div`
   align-items: center;
   width: 80%;
   margin: 30px 0px 15px 0px;
+
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
 `
 const ImgUploadButton = styled.div`
   background-color : #FF7676;
@@ -28,6 +32,10 @@ const SelectBox = styled.div`
   align-items: center;
   width: 80%;
   margin: 15px 0px 15px 0px;
+
+  @media screen and (min-width: 1024px) {
+    justify-content: flex-end;
+  }
 `
 const CancelButton = styled.div`
   background-color : white;
@@ -35,12 +43,16 @@ const CancelButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35%;
+  width: 100px;
   padding: 20px 0px 20px 0px;
   margin-right: 10px;
   margin-bottom: 20px;
   border-radius: 20px;
   border: 1px solid #000000;
+
+  @media screen and (min-width: 1024px) {
+
+  }
 `
 const CompleteButton = styled.div`
   background-color : #FF7676;
@@ -48,11 +60,15 @@ const CompleteButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35%;
+  width: 100px;
   padding: 20px 0px 20px 0px;
   margin-left: 10px;
   margin-bottom: 20px;
   border-radius: 20px;
+
+  @media screen and (min-width: 1024px) {
+
+  }
 `
 
 
