@@ -11,18 +11,23 @@ const {
 
 module.exports = {
   registerControl: async (req, res) => {
-    // const token = req.headers.authorizaiton;
+    const token = req.headers.authorizaiton;
+
     const { email, description, crew, shorts_description, title } = req.body;
+    console.log(req.haders);
+    console.log(req.headers["authorizaiton"], "AUth");
+    console.log(req.headers.Authorizaiton, "auth");
+    console.log(req.body);
     //token 이 헤더로들어오고 토큰이 존재하면
-    // if (!token) {
-    //   res.status(401).send("인증 이 필요합니다");
-    // }
-    // const accessTokenData = isAuthorized(token);
+    if (!token) {
+      return res.status(401).send("인증 이 필요합니다");
+    }
+    const accessTokenData = isAuthorized(token);
 
     //accesstokendata verify 결과
-    // const userInfo = await User.findOne({ email: accessTokenData.email });
+    const userInfo = await User.findOne({ email: accessTokenData.email });
 
-    // console.log(userInfo);
+    console.log(userInfo);
 
     //user가 있다면 게시판 작성
     Board.insertMany({
@@ -49,9 +54,12 @@ module.exports = {
     res.status(200).send(boardList);
   },
   editControl: async (req, res) => {
-    return res.send("edit ok!");
+    const { email, description, crew, shorts_description, title } = req.bod;
+
+    //제목, 글, 다변경 가능
   },
   deleteControl: async (req, res) => {
+    Board.DeleteOne();
     return res.send("delete ok!");
   },
 };

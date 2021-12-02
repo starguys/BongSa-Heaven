@@ -122,7 +122,7 @@ const SignUpButton = styled.div`
   font-size: 25px;
 `;
 
-export default function SignIn({ accessToken, handleLogin, handlelog }) {
+export default function SignIn({ accessToken, handleLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -153,9 +153,7 @@ export default function SignIn({ accessToken, handleLogin, handlelog }) {
       setErrorMessage("비밀번호 입력해주세요");
     } else if (!email && !password) {
       setErrorMessage("이메일과 비밀번호를 입력하세요.");
-    }
-
-    if (email && password) {
+    } else if (email && password) {
       axios
         .post(
           "http://localhost:8080/auth/signin",
@@ -163,16 +161,14 @@ export default function SignIn({ accessToken, handleLogin, handlelog }) {
           {
             headers: {
               "Content-Type": "application/json",
-              authorizaiton: accessToken,
             },
           }
         )
         .then((res) => {
-          //post요청후 받은 토큰을 헤더로보내고
+          console.log(res.data);
           //로컬스토리지에저장,메인으로 복귀
-          handleLogin(res.data.data.accessToken);
-          localStorage.setItem(res.data.data.accessToken);
-          history.push("/");
+          handleLogin(res.data.accessToken);
+          localStorage.setItem("accessToken", res.data.accessToken);
         });
     }
   };
@@ -218,9 +214,7 @@ export default function SignIn({ accessToken, handleLogin, handlelog }) {
         </CheckingPossibleOrNotBox>
 
         <CompleteBox>
-          <CompleteButton onKeyUp={onKeyPress} onClick={handleLoginRequest}>
-            로그인
-          </CompleteButton>
+          <CompleteButton onClick={handleLoginRequest}>로그인</CompleteButton>
         </CompleteBox>
         <CompleteBox>
           <CompleteButton>카카오</CompleteButton>

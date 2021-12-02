@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import styled from 'styled-components' 
+import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
 import Input from "../../components/common/Input";
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: auto;
-`
+`;
 
 const CreateBox = styled.div`
   background-color: white;
@@ -62,7 +62,6 @@ const CreateBoxContents = styled.textarea`
   }
 `;
 
-
 const ContentsBoxImgBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -78,46 +77,47 @@ const Img = styled.img`
   border-radius: 10px;
 `;
 
-
-
 export default function FreeBoardCreate() {
-
   const [fileImage, setFileImage] = useState("");
 
   const registerTest = () => {
-    axios.post("http://localhost:8080/board/register", {}, {
-    headers: {
-      authorization: "tempToken",
-      "Content-Type": "application/json",
-    },
-    withCredentials: true,
-  })
-  console.log("register token Test!!!!!!!")
-  }
+    axios.post(
+      "http://localhost:8080/board/register",
+      {},
 
+      {
+        headers: {
+          Authorization: `Barer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+    console.log("register token Test!!!!!!!");
+  };
 
   return (
     <>
       <Wrapper>
-        <Header2 componentName="글 작성하기"/>
-        <DesktopTitle title="글 작성하기"/>
-        <CreateButton2 
-            create="/CrewBoardList" 
-            cancel="/CrewBoardList"
-            setFileImage={setFileImage}
-          />
-        <Input text="제목"/>
+        <Header2 componentName="글 작성하기" />
+        <DesktopTitle title="글 작성하기" />
+        <CreateButton2
+          create="/CrewBoardList"
+          cancel="/CrewBoardList"
+          setFileImage={setFileImage}
+        />
+        <Input text="제목" />
         <CreateBox>
           <CreateBoxContentsBox>
             <CreateBoxContents placeholder="내용을 입력하세요."></CreateBoxContents>
           </CreateBoxContentsBox>
           <ContentsBoxImgBox>
-            <Img src={fileImage} alt="수정할 이미지 자리"/>
+            <Img src={fileImage} alt="수정할 이미지 자리" />
           </ContentsBoxImgBox>
         </CreateBox>
-        <CreateButton 
-          // create="/FreeBoardList" 
-          cancel="/FreeBoardList" 
+        <CreateButton
+          // create="/FreeBoardList"
+          cancel="/FreeBoardList"
           setFileImage={setFileImage}
           registerTest={registerTest}
         />
