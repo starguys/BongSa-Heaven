@@ -10,6 +10,6 @@ module.exports = () => {
       useUnifiedTopology: true,
       useFindAndModify: false,
     })
-    .then(() => console.log(`mongoDB connected`))
-    .catch((err) => console.error(`failed connection cause ${err}`));
+    .then(() => console.log(`mongoDB connected`));
+  // .catch((err) => console.error(`failed connection cause ${err}`));
 };
