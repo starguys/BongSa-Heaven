@@ -1,11 +1,7 @@
 import React from "react";
-import styled from 'styled-components'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import  { useState, useRef, useEffect } from 'react';
-import {useHistory } from "react-router-dom";
-import axios from 'axios';
+import styled from "styled-components";
 
+import { useHistory } from "react-router-dom";
 
 const Header = styled.div`
   display: flex;
@@ -100,21 +96,14 @@ const RecruiterButtonSubtitle = styled.div`
   margin-top: 20px;
 `;
 
-export default function SignUp({
-
-  
-}
-) {
+export default function SignUp({}) {
   const history = useHistory();
-  const movetToUserSignUp = (e) =>{
-    history.push('/UserSignUp')
-  }
-  const movetToRecruiterSignUp = (e) =>{
-    history.push('/RecruiterSignUp')
-  }
-
-
-
+  const movetToUserSignUp = (e) => {
+    history.push("/UserSignUp");
+  };
+  const movetToRecruiterSignUp = (e) => {
+    history.push("/RecruiterSignUp");
+  };
 
   return (
     <>
@@ -130,11 +119,15 @@ export default function SignUp({
       <SignupSpace></SignupSpace>
       <SelectBox>
         <GeneralButton>
-          <GeneralButtonTitle onClick={movetToUserSignUp} >일반 회원</GeneralButtonTitle>
+          <GeneralButtonTitle onClick={movetToUserSignUp}>
+            일반 회원
+          </GeneralButtonTitle>
           <GeneralButtonSubtitle>봉사를 희망하는 회원</GeneralButtonSubtitle>
         </GeneralButton>
         <RecruiterButton>
-          <RecruiterButtonTitle onClick={movetToRecruiterSignUp}>봉사 모집자</RecruiterButtonTitle>
+          <RecruiterButtonTitle onClick={movetToRecruiterSignUp}>
+            봉사 모집자
+          </RecruiterButtonTitle>
           <RecruiterButtonSubtitle>봉사자를 찾는 회원</RecruiterButtonSubtitle>
         </RecruiterButton>
       </SelectBox>

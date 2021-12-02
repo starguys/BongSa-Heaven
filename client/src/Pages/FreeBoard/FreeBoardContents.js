@@ -1,7 +1,6 @@
 import React from "react";
-import axios from "axios";
 
-import styled from 'styled-components'
+import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
 import Writing from "../../components/FreeBoard/Writing";
@@ -12,26 +11,21 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: #ffffff;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   overflow: auto;
-`
-
-
+`;
 
 export default function FreeBoardContents() {
-
-
-
   return (
     <>
       <Wrapper>
-       <Header2 componentName="게시글 보기"/>
-       <DesktopTitle title="게시글 보기"/>
-       <Writing/>
-        <List backtoList="/FreeBoardList"/>
-       <Comment/>
+        <Header2 componentName="게시글 보기" />
+        <DesktopTitle title="게시글 보기" />
+        <Writing />
+        <List backtoList="/FreeBoardList" />
+        <Comment />
       </Wrapper>
     </>
   );
