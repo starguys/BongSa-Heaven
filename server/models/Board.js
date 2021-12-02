@@ -3,22 +3,26 @@ const Schema = mongoose.Schema;
 
 const boardSchema = new Schema(
   {
-    // user_id: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "User",
-    //   unique: true,
-    // },
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    image: {
+      type: Array,
+    },
+
     title: {
       type: String,
     },
     description: {
       type: String,
     },
-    // comments: [
-    //   {
-    //     ref: "Comment",
-    //   },
-    // ],
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
     crew: {
       type: Boolean,
       default: false,

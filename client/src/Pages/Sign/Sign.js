@@ -1,10 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { useHistory } from "react-router";
+import Header3 from "../../components/common/Header3";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -14,23 +11,20 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: auto;
+  @media screen and (min-width: 37.5rem) {
+    background-color: white;
+  }
 `;
-const Header = styled.div`
+
+const MainContainer = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100%;
-  padding: 30px 0px 20px 0px;
-`;
-const HeaderText = styled.div`
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-`;
-const IconBox = styled.div`
-  right: 5vw;
+  flex-direction: column;
+
+  @media screen and (min-width: 37.5rem) {
+    margin-top: 65px;
+    width: 1080px;
+  }
 `;
 
 const LogoBox = styled.div`
@@ -40,18 +34,13 @@ const LogoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (min-width: 37.5rem) {
+    display: none;
+  }
 `;
 const Logo = styled.img`
   width: 60%;
   object-fit: cover;
-`;
-const InputBox = styled.div`
-  background-color: #ffd4d4;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
 `;
 
 const SignInWhiteBox = styled.div`
@@ -66,60 +55,34 @@ const SignInWhiteBox = styled.div`
 const SignInWhiteInput = styled.input`
   width: 90%;
   border: none;
+  @media screen and (min-width: 37.5rem) {
+    border: solid 1px black;
+    width: 40%;
+    height: 40px;
+  }
 
   ::placeholder {
-    font-size: 15px;
   }
-`;
-const CheckingPossibleOrNotBox = styled.div`
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px;
-`;
-const PossibleOrNot = styled.div`
-  display: flex;
-  align-items: center;
-  opacity: 0.5;
-  margin-left: 5vw;
 `;
 
 const CompleteBox = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 80%;
-  margin: 10px 0px 10px 0px;
+  margin: 10px 0px 30px 0px;
 `;
 const CompleteButton = styled.div`
+  margin-bottom: 15px;
   background-color: #ff7676;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  padding: 15px;
+  padding: 20px 80px 20px 80px;
   border-radius: 5px;
-  font-size: 20px;
-`;
-const SignUpBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  margin: 30px 0px 100px 0px;
-`;
-const SignUpButton = styled.div`
-  background-color: #ff7676;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-  padding: 15px;
-  border-radius: 5px;
-  font-size: 25px;
+  width: 110px;
 `;
 
 export default function SignIn({ accessToken, handleLogin }) {
@@ -140,7 +103,7 @@ export default function SignIn({ accessToken, handleLogin }) {
     setPassword(e.target.value);
   };
   const onKeyPress = (e) => {
-    if (window.event.keyCode === 13) {
+    if (window.event.keyCode == 13) {
       console.log("눌러");
       handleLoginRequest();
     }
@@ -179,54 +142,39 @@ export default function SignIn({ accessToken, handleLogin }) {
 
   return (
     <>
+      <Header3 />
       <Wrapper>
-        <Header>
-          <HeaderText></HeaderText>
-          <IconBox>
-            <FontAwesomeIcon icon={faTimes} />
-          </IconBox>
-        </Header>
-        <LogoBox>
-          <Logo src="./image/logo2.png"></Logo>
-        </LogoBox>
-        <InputBox>
-          <SignInWhiteBox>
-            <SignInWhiteInput
-              type="email"
-              placeholder="아이디(이메일)"
-              onChange={handleEmail}
-            >
-              {/* {errorMessage} */}
-            </SignInWhiteInput>
-          </SignInWhiteBox>
+        <MainContainer>
+          <LogoBox>
+            <Logo src="./image/logo2.png"></Logo>
+          </LogoBox>
 
-          <SignInWhiteBox>
-            <SignInWhiteInput
-              type="password"
-              placeholder="비밀번호"
-              onChange={handlePassword}
-            ></SignInWhiteInput>
-          </SignInWhiteBox>
-        </InputBox>
+          <InputBox>
+            <SignInWhiteBox>
+              <SignInWhiteInput
+                type="email"
+                placeholder="아이디(이메일)"
+                onChange={handleEmail}
+              >
+                {/* {errorMessage} */}
+              </SignInWhiteInput>
+            </SignInWhiteBox>
 
-        <CheckingPossibleOrNotBox>
-          <PossibleOrNot>{errorMessage}</PossibleOrNot>
-        </CheckingPossibleOrNotBox>
-
-        <CompleteBox>
-          <CompleteButton onClick={handleLoginRequest}>로그인</CompleteButton>
-        </CompleteBox>
-        <CompleteBox>
-          <CompleteButton>카카오</CompleteButton>
-        </CompleteBox>
-        <CompleteBox>
-          <CompleteButton>구글</CompleteButton>
-        </CompleteBox>
-        <SignUpBox>
-          <SignUpButton onClick={moveToSignUP} user>
-            회원 가입
-          </SignUpButton>
-        </SignUpBox>
+            <SignInWhiteBox>
+              <SignInWhiteInput
+                type="password"
+                placeholder="비밀번호"
+                onChange={handlePassword}
+              ></SignInWhiteInput>
+            </SignInWhiteBox>
+          </InputBox>
+          <CompleteBox>
+            <CompleteButton onClick={GoMyPage}>로그인</CompleteButton>
+            <CompleteButton onClick={GoMyPage}>구글</CompleteButton>
+            <CompleteButton onClick={GoMyPage}>카카오</CompleteButton>
+            <CompleteButton onClick={GoMyPage}>회원가입</CompleteButton>
+          </CompleteBox>
+        </MainContainer>
       </Wrapper>
     </>
   );

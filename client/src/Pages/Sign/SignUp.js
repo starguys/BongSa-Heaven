@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { useHistory } from "react-router-dom";
-
+import Header2 from "../../components/common/Header2";
 const Header = styled.div`
   display: flex;
   background-color: #ffd4d4;
@@ -96,7 +96,7 @@ const RecruiterButtonSubtitle = styled.div`
   margin-top: 20px;
 `;
 
-export default function SignUp({}) {
+export default function SignUp() {
   const history = useHistory();
   const movetToUserSignUp = (e) => {
     history.push("/UserSignUp");
@@ -107,15 +107,8 @@ export default function SignUp({}) {
 
   return (
     <>
-      <Header>
-        <IconBox>
-          <BackIcon src="./image/back.png"></BackIcon>
-        </IconBox>
-        <HeaderText>회원 가입</HeaderText>
-        {/* <IconBox>
-          <FontAwesomeIcon icon={faTimes} />
-        </IconBox> */}
-      </Header>
+      <Header2 componentName={"회원가입"} />
+
       <SignupSpace></SignupSpace>
       <SelectBox>
         <GeneralButton>

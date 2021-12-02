@@ -5,5 +5,5 @@ router.post("/register", controller.registerControl);
 router.get("/list", controller.listControl);
 router.patch("/edit", controller.editControl);
 router.delete("/delete", controller.deleteControl);
-
+//image 업로드
 module.exports = router;

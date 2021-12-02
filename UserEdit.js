@@ -57,9 +57,6 @@ const SignUpWhiteBox = styled.div`
   border-radius: 20px;
   padding: 15px 0px 15px 0px;
   margin: 8px 0px 8px 0px;
-  @media screen and (min-width: 37.5rem) {
-    padding: 1px 0px 1px 0;
-  }
 `;
 const SignUpWhiteInput = styled.input`
   width: 90%;

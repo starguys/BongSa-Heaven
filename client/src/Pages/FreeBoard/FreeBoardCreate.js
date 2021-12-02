@@ -32,7 +32,6 @@ const CreateBox = styled.div`
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
   }
-  
 `;
 
 const CreateBoxContentsBox = styled.div`
@@ -81,8 +80,8 @@ export default function FreeBoardCreate() {
   const [fileImage, setFileImage] = useState("");
 
   const registerTest = () => {
-    axios.post(
-      "http://localhost:8080/board/register",
+    axios.get(
+      "http://localhost:8080/board/list",
       {},
 
       {

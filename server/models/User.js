@@ -6,6 +6,7 @@ const userSchema = new Schema({
     {
       ref: "Board",
       type: mongoose.Schema.Types.ObjectId,
+      unique: true,
     },
   ],
   email: {

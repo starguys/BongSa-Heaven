@@ -108,6 +108,7 @@ module.exports = {
         // 4. 있다면 뭐뭐 줄래? => token 전달!{ email, nickname }
         if (userInfo) {
           const { email, nickname } = userInfo;
+
           const accessToken = generateAccessToken({ email, nickname });
           const refreshToken = generateRefreshToken({ email, nickname });
           // const issueDate = new Date();
