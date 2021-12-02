@@ -1,56 +1,37 @@
 import React from "react";
 import styled from "styled-components";
-import Header3 from "../../components/common/Header3";
+import Header2 from "../../components/common/Header2";
+import DesktopTitle from "../../components/common/DesktopTitle";
+import Check from "../../components/common/Check";
 
-const DeleteBoxTitleBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 50px;
-  color: red;
-`;
-const SelectBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 15px 0px 15px 0px;
-`;
-const DeleteButton = styled.div`
-  background-color: #ff7676;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35%;
-  padding: 20px 0px 20px 0px;
-  margin-right: 20px;
-  margin-bottom: 300px;
-  border-radius: 20px;
-`;
-const CancelButton = styled.div`
-  background-color: white;
-  color: black;
-  border: solid black 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35%;
-  padding: 20px 0px 20px 0px;
-  margin-left: 20px;
-  margin-bottom: 300px;
-  border-radius: 20px;
+const ContentsBox = styled.div`
+  @media screen and (min-width: 1024px) {
+    margin: auto;
+    background-color: white;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px 20px 0px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 `;
 
-export default function RecruiterDelete() {
+export default function FreeBoardDelete() {
   return (
     <>
-      <Header3 />
-      <DeleteBoxTitleBox>회원탈퇴를 하시겠습니까?</DeleteBoxTitleBox>
-      <SelectBox>
-        <DeleteButton>탈퇴</DeleteButton>
-        <CancelButton>취소</CancelButton>
-      </SelectBox>
+      <Header2 componentName="회원탈퇴" />
+      <DesktopTitle title="회원탈퇴" />
+      <ContentsBox>
+        <Check
+          contents="회원탈퇴를 하시겠습니까?"
+          delete="/"
+          cancel="/RecruiterEdit"
+          leftBtn="회원탈퇴"
+        />
+      </ContentsBox>
     </>
   );
 }
