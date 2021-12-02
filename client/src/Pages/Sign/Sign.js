@@ -1,72 +1,68 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import  { useState, useRef, useEffect } from 'react';
-import { Route,useHistory } from "react-router-dom";
-import axios from 'axios';
-
-
-
+import { useState, useRef, useEffect } from "react";
+import { Route, useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #FFD4D4;
-  display:flex;
+  background-color: #ffd4d4;
+  display: flex;
   flex-direction: column;
   align-items: center;
   overflow: auto;
-`
+`;
 const Header = styled.div`
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   padding: 30px 0px 20px 0px;
-`
+`;
 const HeaderText = styled.div`
   width: 80%;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 24px;
-`
+`;
 const IconBox = styled.div`
   right: 5vw;
-`
+`;
 
 const LogoBox = styled.div`
   width: 80%;
   margin: 10px 0px 50px 0px;
-  background-color: #FFD4D4;
-  display:flex;
+  background-color: #ffd4d4;
+  display: flex;
   justify-content: center;
   align-items: center;
-
-`
+`;
 const Logo = styled.img`
   width: 60%;
   object-fit: cover;
-`
+`;
 const InputBox = styled.div`
-  background-color: #FFD4D4;
+  background-color: #ffd4d4;
   width: 100%;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10px;
-`
+`;
 
 const SignInWhiteBox = styled.div`
   background-color: white;
   width: 90%;
-  display:flex;
+  display: flex;
   justify-content: center;
   border-radius: 20px;
   padding: 15px 0px 15px 0px;
   margin: 8px 0px 8px 0px;
-`
+`;
 const SignInWhiteInput = styled.input`
   width: 90%;
   border: none;
@@ -74,20 +70,20 @@ const SignInWhiteInput = styled.input`
   ::placeholder {
     font-size: 15px;
   }
-`
+`;
 const CheckingPossibleOrNotBox = styled.div`
   width: 80%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 10px;
-`
+`;
 const PossibleOrNot = styled.div`
   display: flex;
   align-items: center;
   opacity: 0.5;
   margin-left: 5vw;
-`
+`;
 
 const CompleteBox = styled.div`
   display: flex;
@@ -95,9 +91,9 @@ const CompleteBox = styled.div`
   align-items: center;
   width: 80%;
   margin: 10px 0px 10px 0px;
-`
+`;
 const CompleteButton = styled.div`
-  background-color : #FF7676;
+  background-color: #ff7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -106,16 +102,16 @@ const CompleteButton = styled.div`
   padding: 15px;
   border-radius: 5px;
   font-size: 20px;
-`
+`;
 const SignUpBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 80%;
   margin: 30px 0px 100px 0px;
-`
+`;
 const SignUpButton = styled.div`
-  background-color : #FF7676;
+  background-color: #ff7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -124,83 +120,74 @@ const SignUpButton = styled.div`
   padding: 15px;
   border-radius: 5px;
   font-size: 25px;
-`
+`;
 
+export default function SignIn({ accessToken, handleLogin, handlelog }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-export default function SignIn({
-accessToken,
-handleLogin,
-handlelog
-}) {
-  const [email,setEmail] = useState('')
-  const [password,setPassword] =useState('')
-  const [errorMessage, setErrorMessage] = useState('');
+  const history = useHistory();
+  //로그인 버튼을 클릭햇을때 메인으로 이동하고 로그인 상태여야하고,
 
-  
-   const history = useHistory();
-  //로그인 버튼을 클릭햇을때 메인으로 이동하고 로그인 상태여야하고, 
-
-  const handleEmail = (e) =>{
- 
-    console.log(e.target.value)
-    setEmail(e.target.value)
-  }
-  const handlePassword =(e) =>{
+  const handleEmail = (e) => {
+    console.log(e.target.value);
+    setEmail(e.target.value);
+  };
+  const handlePassword = (e) => {
     e.preventDefault();
-    console.log(e.target.value)
-    setPassword(e.target.value)
-  }
+    console.log(e.target.value);
+    setPassword(e.target.value);
+  };
   const onKeyPress = (e) => {
     if (window.event.keyCode == 13) {
-      console.log('눌러')
+      console.log("눌러");
       handleLoginRequest();
     }
   };
-  const handleLoginRequest = async (e) =>{
-   //유효성 검사 
-   if(!email){
-   setErrorMessage('이메일을 입력해주세요')
-   }
-   else if(!password){
-    setErrorMessage('비밀번호 입력해주세요')
-   }else if (!email && !password) {
-    setErrorMessage('이메일과 비밀번호를 입력하세요.');
-  }
+  const handleLoginRequest = async (e) => {
+    //유효성 검사
+    if (!email) {
+      setErrorMessage("이메일을 입력해주세요");
+    } else if (!password) {
+      setErrorMessage("비밀번호 입력해주세요");
+    } else if (!email && !password) {
+      setErrorMessage("이메일과 비밀번호를 입력하세요.");
+    }
 
-  if(email&&password){
- axios
-    .post('http://localhost:8080/auth/signin',
-    {email:email,password:password},
-    {headers:{
-      'Content-Type': 'application/json',
-      authorizaiton: accessToken}
-  },
-  ).then((res)=>{
-    //post요청후 받은 토큰을 헤더로보내고
-    //로컬스토리지에저장,메인으로 복귀
-    handleLogin(res.data.data.accessToken)
-    localStorage.setItem(res.data.data.accessToken)
-    history.push('/')
-    
-  })
-
-
-  }
-
-  }
+    if (email && password) {
+      axios
+        .post(
+          "http://localhost:8080/auth/signin",
+          { email: email, password: password },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorizaiton: accessToken,
+            },
+          }
+        )
+        .then((res) => {
+          //post요청후 받은 토큰을 헤더로보내고
+          //로컬스토리지에저장,메인으로 복귀
+          handleLogin(res.data.data.accessToken);
+          localStorage.setItem(res.data.data.accessToken);
+          history.push("/");
+        });
+    }
+  };
   //로그인창에서 이동
-  const moveToSignUP =() =>{
-   history.push('/signup')
-  }
+  const moveToSignUP = () => {
+    history.push("/signup");
+  };
 
   return (
     <>
       <Wrapper>
         <Header>
-          <HeaderText>
-          </HeaderText>
+          <HeaderText></HeaderText>
           <IconBox>
-           <FontAwesomeIcon icon={faTimes} />
+            <FontAwesomeIcon icon={faTimes} />
           </IconBox>
         </Header>
         <LogoBox>
@@ -208,33 +195,32 @@ handlelog
         </LogoBox>
         <InputBox>
           <SignInWhiteBox>
-            <SignInWhiteInput 
-             type='email'
+            <SignInWhiteInput
+              type="email"
               placeholder="아이디(이메일)"
-               onChange = {handleEmail}
-              >
-                {/* {errorMessage} */}
+              onChange={handleEmail}
+            >
+              {/* {errorMessage} */}
             </SignInWhiteInput>
-        
           </SignInWhiteBox>
-      
+
           <SignInWhiteBox>
-            <SignInWhiteInput  type='password' placeholder="비밀번호" onChange ={handlePassword}>
-            </SignInWhiteInput>
-         
+            <SignInWhiteInput
+              type="password"
+              placeholder="비밀번호"
+              onChange={handlePassword}
+            ></SignInWhiteInput>
           </SignInWhiteBox>
-        
-      
         </InputBox>
-        
+
         <CheckingPossibleOrNotBox>
-        
           <PossibleOrNot>{errorMessage}</PossibleOrNot>
-       
         </CheckingPossibleOrNotBox>
-        
+
         <CompleteBox>
-          <CompleteButton onKeyUp={onKeyPress} onClick={handleLoginRequest}>로그인</CompleteButton>
+          <CompleteButton onKeyUp={onKeyPress} onClick={handleLoginRequest}>
+            로그인
+          </CompleteButton>
         </CompleteBox>
         <CompleteBox>
           <CompleteButton>카카오</CompleteButton>
@@ -243,10 +229,9 @@ handlelog
           <CompleteButton>구글</CompleteButton>
         </CompleteBox>
         <SignUpBox>
-          <SignUpButton 
-          onClick={moveToSignUP}
-          user
-          >회원 가입</SignUpButton>
+          <SignUpButton onClick={moveToSignUP} user>
+            회원 가입
+          </SignUpButton>
         </SignUpBox>
       </Wrapper>
     </>

@@ -8,6 +8,6 @@ router.get("/nickcheck", controller.nickcheckControl);
 router.get("/refreshtoken", controller.refreshtokenControl);
 
 router.post("/kakao", controller.kakaoControl);
-router.post("/google", controller.googleControl);
+router.get("/google", controller.googleControl);
 
 module.exports = router;

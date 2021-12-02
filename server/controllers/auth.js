@@ -14,17 +14,17 @@ module.exports = {
     const { email, nickname, password, sex, want_region, want_vol, age } =
       req.body;
 
-    if (
-      !email ||
-      !nickname ||
-      !password ||
-      !sex ||
-      !want_region ||
-      !want_vol ||
-      !age
-    ) {
-      return res.status(400).send("모든 항목을 입력해주세요");
-    }
+    // if (
+    //   !email ||
+    //   !nickname ||
+    //   !password ||
+    //   !sex ||
+    //   !want_region ||
+    //   !want_vol ||
+    //   !age
+    // ) {
+    //   return res.status(400).send("모든 항목을 입력해주세요");
+    // }
 
     // 2. 들어왔다면 db에 있는지 조회 있다면 돌려보냄
     const userDb = { email: email };
