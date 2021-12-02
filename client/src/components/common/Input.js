@@ -12,6 +12,10 @@ const InputBox = styled.div`
   margin: 10px 0px 10px 0px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
+
+  @media screen and (min-width: 37.5rem) {
+    width: 1080px;
+  }
 `;
 
 const InputTextBox = styled.div`

@@ -10,7 +10,7 @@ const ContentsBox = styled.div`
 @media screen and (min-width: 37.5rem) {
   margin: auto;
   background-color: white;
-  width: 80%;
+  width: 1080px;
   display:flex;
   flex-direction: column;
   padding: 20px 0px 20px 0px;

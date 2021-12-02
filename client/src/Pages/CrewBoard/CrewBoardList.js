@@ -3,8 +3,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
-import DesktopTitle from "../../components/common/DesktopTitle";
 import Loading from "../../components/common/Loading";
+import CreateLink from "../../components/common/CreateLink";
+import CreateLink2 from "../../components/common/CreateLink2";
 import Card from "../../components/CrewBoard/Card";
 import Pagination from "../../components/common/Pagination";
 
@@ -15,30 +16,69 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow: auto;
-`;
+`
 
-const Cards = styled.div`
-  @media screen and (min-width: 37.5rem) {
-    width: 80%;
-    margin: auto;
-    display: flex;
-  }
-`;
+const TitleBox = styled.div`
+width: 1080px;
+margin: auto;
+display: flex;
+`
 
-const BigCard = styled.div`
-  @media screen and (min-width: 37.5rem) {
-    width: 60%;
-    margin: auto;
-    font-size: 20px;
-  }
-`;
+const Title = styled.div`
+display: none;
 
-const LeftCards = styled.div`
+@media screen and (min-width: 37.5rem) {
+width: 768px;
+margin-top: 50px;
+display: flex;
+align-items: center;
+font-weight: bold;
+font-size: 24px;
+
+}
+`
+const LinkBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+
   @media screen and (min-width: 37.5rem) {
-    width: 40%;
-    margin: auto;
+    display: none; 
   }
-`;
+`
+
+
+
+const Cards =styled.div`
+
+@media screen and (min-width: 37.5rem) {
+  width: 1110px;
+  margin: auto;
+  margin-bottom: 50px;
+  display: flex;
+}
+`
+
+const BigCard =styled.div`
+
+@media screen and (min-width: 37.5rem) {
+  width: 60%;
+  margin: auto;
+  font-size: 20px;
+}
+
+`
+
+const LeftCards =styled.div`
+
+@media screen and (min-width: 37.5rem) {
+  width: 40%;
+  margin: auto;
+}
+`
+
+
 
 export default function CrewBoardList() {
   const [isLoading, CheckLoading] = useState(true);
@@ -54,26 +94,32 @@ export default function CrewBoardList() {
   return (
     <>
       <Wrapper>
-        <Header2 componentName="봉사단 게시판" />
-        {isLoading ? (
-          <>
-            <Loading />
-          </>
-        ) : (
-          <>
-            <DesktopTitle title="봉사단 게시판" />
-            <Cards>
-              <BigCard>
-                <Card />
-              </BigCard>
-              <LeftCards>
-                <Card />
-                <Card />
-              </LeftCards>
-            </Cards>
-          </>
-        )}
-        <Pagination />
+        <Header2 componentName="봉사단 게시판"/>
+        <LinkBox>
+          <CreateLink2 create="/CrewBoardCreate"/>
+        </LinkBox>
+        {isLoading ? 
+        <>
+        <Loading/>
+        </>
+        :
+        <>
+          <TitleBox>
+            <Title>봉사단 게시판</Title>
+            <CreateLink create="/CrewBoardCreate"/>
+          </TitleBox>
+          <Cards>
+            <BigCard>
+              <Card/>
+            </BigCard>
+            <LeftCards>
+              <Card/>
+              <Card/>
+            </LeftCards>
+          </Cards>
+        </>
+        }
+        <Pagination/>
       </Wrapper>
     </>
   );

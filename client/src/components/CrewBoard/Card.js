@@ -9,7 +9,7 @@ import { useHistory } from "react-router";
   align-items: center;
   width: 80%;
   margin: auto;
-  margin-top: 5vh;
+  margin-top: 3vh;
 `
 
 const ImageBox = styled.div`

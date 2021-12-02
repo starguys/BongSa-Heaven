@@ -35,6 +35,7 @@ const SelectBox = styled.div`
 
   @media screen and (min-width: 37.5rem) {
     justify-content: flex-end;
+    width: 1080px;
   }
 `
 const CancelButton = styled.div`

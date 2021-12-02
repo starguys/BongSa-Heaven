@@ -12,6 +12,7 @@ const ImgUploadBox = styled.div`
 
   @media screen and (min-width: 37.5rem) {
     display: none;
+    width: 1080px;
   }
 `
 const ImgUploadButton = styled.div`
@@ -35,6 +36,7 @@ const SelectBox = styled.div`
 
   @media screen and (min-width: 37.5rem) {
     justify-content: flex-end;
+    width: 1080px;
   }
 `
 

@@ -5,11 +5,12 @@ const ImgUploadBox = styled.div`
  display: none;
 
  @media screen and (min-width: 37.5rem) {
-  width: 80%;
+  width: 1080px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   margin: 15px 0px 15px 0px;
+
 }
 `
 
