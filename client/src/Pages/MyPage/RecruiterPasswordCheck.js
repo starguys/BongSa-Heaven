@@ -73,8 +73,8 @@ export default function RecruiterEditPasswordCheck() {
     }
   `;
 
-  const GoUserEdit = () => {
-    history.push("/UserEdit");
+  const GoRecruiterEdit = () => {
+    history.push("/RecruiterEdit");
   };
   return (
     <>
@@ -87,7 +87,7 @@ export default function RecruiterEditPasswordCheck() {
           주시기 바랍니다.
         </PassCheckText>
         <PasswordCheckInput placeholder="password" />
-        <CheckBtn onClick={GoUserEdit}>확인</CheckBtn>
+        <CheckBtn onClick={GoRecruiterEdit}>확인</CheckBtn>
         {/* </PasswordCheckContainerDiv> */}
       </PasswordCheckContainer>
     </>
