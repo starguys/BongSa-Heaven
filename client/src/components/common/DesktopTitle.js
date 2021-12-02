@@ -6,7 +6,7 @@ const Title = styled.div`
   display: none;
   
   @media screen and (min-width: 37.5rem) {
-    width: 80%;
+    width: 1080px;
     margin: auto;
     margin-top: 50px;
     display: flex;

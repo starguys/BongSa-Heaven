@@ -26,6 +26,10 @@ const ContentsBox = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-top: 30px;
+
+  @media screen and (min-width: 37.5rem) {
+    width: 1080px;
+  }
 `;
 const ContentsBoxTitleBox = styled.div`
   display: flex;

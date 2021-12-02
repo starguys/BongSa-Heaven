@@ -8,6 +8,10 @@ const ListBox = styled.div`
   width: 80%;
   display:flex;
   padding: 10px;
+
+  @media screen and (min-width: 37.5rem) {
+    width: 1080px;
+  }
 `;
 const ListButton = styled.div`
   background-color: #FF7676;

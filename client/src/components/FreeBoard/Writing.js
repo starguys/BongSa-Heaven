@@ -14,6 +14,10 @@ const ContentsBox = styled.div`
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   margin-top: 30px;
+
+  @media screen and (min-width: 37.5rem) {
+    width: 1080px;
+  }
 `
 const ContentsBoxTitleBox = styled.div`
   display: flex;
@@ -26,6 +30,7 @@ const ContentsBoxTitle = styled.div`
   width: 80%;
   border-bottom: solid gray 1px;
   font-size: 12px;
+  padding-bottom: 10px;
 
   @media screen and (min-width: 37.5rem) {
     font-size: 20px;
@@ -51,7 +56,7 @@ const ContentsBoxWriter = styled.div`
     padding-left: 8vw;
     justify-content: flex-start;
     width: 15%;
-    margin: 0px;
+    margin: 5px 0px 5px 0px;
   }
 `
 

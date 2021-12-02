@@ -3,24 +3,48 @@ import { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
-import DesktopTitle from "../../components/common/DesktopTitle";
 import Loading from "../../components/common/Loading";
+import CreateLink from "../../components/common/CreateLink";
+import CreateLink2 from "../../components/common/CreateLink2";
 import Contents from "../../components/FreeBoard/Contents";
 import Pagination from "../../components/common/Pagination";
+
 
 const Headerspace = styled.div`
   background-color: #FFB1B1;
   width: 100%;
-  padding: 40px 0px 40px 0px;
+  padding: 20px 0px 20px 0px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   
     @media screen and (min-width: 37.5rem) {
       display: none;
     }
   }
   `
+
+  const TitleBox = styled.div`
+    width: 1080px;
+    margin: auto;
+    display: flex;
+  `
+
+
+  const Title = styled.div`
+  display: none;
+  
+  @media screen and (min-width: 37.5rem) {
+    width: 768px;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 24px;
+
+  }
+`
+
 
 
 
@@ -29,7 +53,7 @@ const ContentsBox = styled.div`
   @media screen and (min-width: 37.5rem) {
     margin: auto;
     background-color: white;
-    width: 80%;
+    width: 1080px;
     display:flex;
     flex-direction: column;
     padding: 20px 0px 20px 0px;
@@ -40,6 +64,10 @@ const ContentsBox = styled.div`
   }
 }
 `
+
+
+
+
 
 export default function FreeBoardList() {
   const [isLoading, CheckLoading] = useState(true);
@@ -59,7 +87,9 @@ export default function FreeBoardList() {
   return (
     <>
       <Header2 componentName="자유 게시판" />
-      <Headerspace></Headerspace>
+      <Headerspace>
+        <CreateLink2 create="/FreeBoardCreate"/>
+      </Headerspace>
 
       {isLoading ? 
         <>
@@ -67,7 +97,10 @@ export default function FreeBoardList() {
         </>
         : 
         <>
-          <DesktopTitle title="자유 게시판"/>
+        <TitleBox>
+          <Title>자유 게시판</Title>
+          <CreateLink create="/FreeBoardCreate"/>
+        </TitleBox>
           <ContentsBox>
             <Contents />
             <Contents />
