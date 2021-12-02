@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+// import axios from "axios"
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import Loading from "../../components/common/Loading";
@@ -72,10 +73,17 @@ const ContentsBox = styled.div`
 export default function FreeBoardList() {
   const [isLoading, CheckLoading] = useState(true);
 
+  // const [freeBoardinfo, setFreeBoardinfo] = useState([]);
+
   const loadingHandler = () => {
     CheckLoading(false);
   };
 
+  // const getFreeBoardList = () => {
+  //   axios.get("http://localhost:8080/board/info")
+  //   .then((res) => setFreeBoardinfo(res.data))
+  //   .catch((err) => console.log(err))
+  // }
 
   useEffect(() => {
     setTimeout(() => loadingHandler(), 1000);
