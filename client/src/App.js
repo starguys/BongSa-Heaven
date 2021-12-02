@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 import "./App.css";
 import "./css/Reset.css";
 
@@ -43,8 +43,8 @@ import Header5 from "./components/common/Header5";
 
 export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
-  const [isUser, setIsUser] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+  const [isUser, setIsUser] = useState(false);
   const [accessToken, setAccessToken] = useState("");
 
   const [userInfo, setUserInfo] = useState({
@@ -57,6 +57,7 @@ export default function App() {
     gender: "",
     age: "",
   });
+  const history = useHistory();
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
@@ -71,6 +72,7 @@ export default function App() {
 
     if (token) {
       setIsLogin(true);
+      history.push("/");
     }
   };
   return (
