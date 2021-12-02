@@ -17,11 +17,12 @@ const ImageBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 500px;
-  border: solid 1px black;
+
 `
 const Img = styled.img`
   width: 100%;
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   object-fit: cover;
 `
 
@@ -29,38 +30,50 @@ const Describe = styled.div`
   display:flex;
   flex-direction: column;
   width: 100%;
-  max-width: 500px;
-  height: 80px;
+  height: 50px;
   background-color: white;
-  border: solid 1px black;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   
   @media screen and (min-width: 37.5rem) {
-    height: 100px;
+    height: 80px;
   }
 `
 
 const SayHello = styled.div`
   height: 30%;
   display: flex;
-  font-size: 14px;
+  font-size: 10px;
   align-items: flex-end;
+  margin-left: 2vw;
 
+  @media screen and (min-width: 37.5rem) {
+    font-size: 14px;
+  }
 `
 const VolunteersName = styled.div`
-  height: 50%;
+  height: 40%;
   display: flex;
+  font-size: 12px;
   align-items: center;
   color: #448B76;
+  margin-left: 2vw;
 
+  @media screen and (min-width: 37.5rem) {
+    font-size: 16px;
+  }
 `
 const PublishedDate = styled.div`
-  height: 20%;
+  height: 30%;
   display: flex;
   align-items: center;
   opacity: 0.5;
-  font-size: 12px;
+  font-size: 8px;
+  margin-left: 2vw;
 
+  @media screen and (min-width: 37.5rem) {
+    font-size: 12px;
+  }
 `
 
 export default function Card() {
@@ -78,13 +91,13 @@ export default function Card() {
         </ImageBox>
         <Describe>
           <SayHello>
-          &nbsp;&nbsp; 힘이 필요한 모든 봉사를 찾아가는 봉사단!
+          힘이 필요한 모든 봉사를 찾아가는 봉사단!
           </SayHello>
           <VolunteersName>
-          &nbsp; 힘쎈봉사단
+          힘쎈봉사단
           </VolunteersName>
           <PublishedDate>
-          &nbsp;&nbsp;&nbsp;&nbsp; 2021.11.21
+          2021.11.21
           </PublishedDate>
         </Describe>
       </Cardbox>

@@ -31,6 +31,7 @@ const ContentsBoxTitle = styled.div`
   border-bottom: solid gray 1px;
   font-size: 12px;
   padding-bottom: 10px;
+  border-bottom: solid gray 1px;
 
   @media screen and (min-width: 37.5rem) {
     font-size: 20px;
@@ -100,6 +101,7 @@ const ContentsBoxContents = styled.div`
 
   @media screen and (min-width: 37.5rem) {
     font-size: 16px;
+    margin-left: 8vw;
   }
 `
 const ContentsBoxImgBox = styled.div`
@@ -107,12 +109,12 @@ const ContentsBoxImgBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 80%;
   margin: 15px 0 30px 0;
 
   @media screen and (min-width: 37.5rem) {
     align-items: flex-start;
-    margin: auto;
+    margin-left: 8vw;
   }
 `
 const Img = styled.img`
@@ -124,7 +126,6 @@ const Img = styled.img`
   @media screen and (min-width: 37.5rem) {
     max-width: 60%;
     max-height: 60%;
-    padding-left: 8vw;
   }
 `
 
