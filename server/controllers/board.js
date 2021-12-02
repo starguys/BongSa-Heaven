@@ -50,13 +50,7 @@ module.exports = {
   editControl: async (req, res) => {
     const { email, description, crew, shorts_description, title } = req.body;
 
-    //{바꾸고 싶은값},{바뀌는값}
-
-    //     ).catch(err=>{
-    //       console.log(err)
-    //     })
-
-    //제목, 글, 다변경 가능
+    Board.updateOne({ description: description });
   },
   deleteControl: async (req, res) => {
     Board.DeleteOne();
