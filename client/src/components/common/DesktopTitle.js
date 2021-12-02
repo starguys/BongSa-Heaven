@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Title = styled.div`
   display: none;
   
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     width: 80%;
     margin: auto;
     margin-top: 50px;

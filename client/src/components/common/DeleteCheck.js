@@ -9,7 +9,7 @@ const DeleteBoxTitleBox = styled.div`
   padding: 50px;
   color: red;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     font-size: 20px
   }
 
@@ -33,7 +33,7 @@ const DeleteButton = styled.div`
   margin-bottom: 300px;
   border-radius: 20px;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     width: 150px;
     font-size: 20px
   }
@@ -51,7 +51,7 @@ const CancelButton = styled.div`
   margin-bottom: 300px;
   border-radius: 20px;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     width: 150px;
     font-size: 20px
   }

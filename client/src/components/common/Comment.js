@@ -19,13 +19,15 @@ const CommentBox = styled.div`
   width: 100%;
   border-bottom: dashed gray 1px;
   padding: 20px 0px;
-  @media screen and (min-width: 1024px) {
+
+  @media screen and (min-width: 37.5rem) {
     padding: 30px 0px;
   }
 `
 const CommentWriter = styled.span`
   margin-left: 25px;
-  @media screen and (min-width: 1024px) {
+  
+  @media screen and (min-width: 37.5rem) {
     font-size: 24px;
   }
 `;
@@ -35,7 +37,7 @@ const CommentDate = styled.span`
   font-size: 14px;
   opacity: 0.5;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     font-size: 20px;
   }
 `
@@ -45,7 +47,7 @@ const CommentContents = styled.div`
   align-items: center;
   margin: 10px 0px 0px 25px;
   font-size: 12px;
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     font-size: 16px;
     margin-top: 20px;
   }
@@ -58,7 +60,7 @@ const CommentInputBox = styled.div`
   display: flex;
   margin: 30px 0px 60px 0px;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     flex-direction: column;
     align-items: flex-end;
     height: 300px;
@@ -68,7 +70,7 @@ const CommentInput = styled.div`
   width: 70%;
   height: 90%;
   margin: 30px 0px 30px 0px;
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     width: 100%;
     height: 100%;
   }
@@ -79,7 +81,7 @@ const CommentInputContents = styled.input`
   height: 90%;
   display: flex;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     ::placeholder {
       font-size: 16px;
     } 
@@ -98,7 +100,7 @@ const CommentInputButton = styled.div`
   align-items: center;
   font-size: 16px;
   margin: 30px 0px 30px 20px;
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
    
     margin: 0px 0px 30px 20px;
     width: 15%;

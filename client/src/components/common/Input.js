@@ -27,7 +27,7 @@ const InputText = styled.input`
   border: 0px;
   border-bottom: solid gray 1px;
   opacity: 0.5;
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     font-size: 20px
   }
 `;

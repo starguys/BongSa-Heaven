@@ -10,7 +10,7 @@ const ImgUploadBox = styled.div`
   width: 80%;
   margin: 30px 0px 15px 0px;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     display: none;
   }
 `
@@ -33,7 +33,7 @@ const SelectBox = styled.div`
   width: 80%;
   margin: 15px 0px 15px 0px;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     justify-content: flex-end;
   }
 `
@@ -51,7 +51,7 @@ const CancelButton = styled.div`
   border-radius: 20px;
   border: 1px solid #000000;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
 
   }
 `
@@ -67,7 +67,7 @@ const CompleteButton = styled.div`
   margin-bottom: 20px;
   border-radius: 20px;
   
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
 
   }
 `

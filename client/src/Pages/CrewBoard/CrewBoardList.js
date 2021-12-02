@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 
 const Cards =styled.div`
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 37.5rem) {
   width: 80%;
   margin: auto;
   display: flex;
@@ -29,7 +29,7 @@ const Cards =styled.div`
 
 const BigCard =styled.div`
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 37.5rem) {
   width: 60%;
   margin: auto;
   font-size: 20px;
@@ -39,7 +39,7 @@ const BigCard =styled.div`
 
 const LeftCards =styled.div`
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 37.5rem) {
   width: 40%;
   margin: auto;
 }

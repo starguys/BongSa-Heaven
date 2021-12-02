@@ -16,8 +16,9 @@ const Headerspace = styled.div`
   align-items: center;
   justify-content: center;
   
-  @media screen and (min-width: 1024px) {
-    display: none;
+    @media screen and (min-width: 37.5rem) {
+      display: none;
+    }
   }
   `
 
@@ -25,17 +26,18 @@ const Headerspace = styled.div`
 
 const ContentsBox = styled.div`
 
-@media screen and (min-width: 1024px) {
-  margin: auto;
-  background-color: white;
-  width: 80%;
-  display:flex;
-  flex-direction: column;
-  padding: 20px 0px 20px 0px;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 15px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  @media screen and (min-width: 37.5rem) {
+    margin: auto;
+    background-color: white;
+    width: 80%;
+    display:flex;
+    flex-direction: column;
+    padding: 20px 0px 20px 0px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 }
 `
 
@@ -46,9 +48,13 @@ export default function FreeBoardList() {
     CheckLoading(false);
   };
 
+
   useEffect(() => {
     setTimeout(() => loadingHandler(), 1000);
   });
+
+
+
 
   return (
     <>

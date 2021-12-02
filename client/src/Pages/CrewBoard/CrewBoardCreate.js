@@ -48,7 +48,7 @@ const CreateBoxContents = styled.textarea`
     font-size: 12px;
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
   ::placeholder {
     font-size: 16px;
   }
