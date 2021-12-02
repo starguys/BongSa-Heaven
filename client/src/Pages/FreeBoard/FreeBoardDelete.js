@@ -7,7 +7,7 @@ import DeleteCheck from "../../components/common/DeleteCheck";
 
 const ContentsBox = styled.div`
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 37.5rem) {
   margin: auto;
   background-color: white;
   width: 80%;

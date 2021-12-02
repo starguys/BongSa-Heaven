@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { useState } from "react";
 import styled from 'styled-components' 
 import Header2 from "../../components/common/Header2";
@@ -48,7 +49,7 @@ const CreateBoxContents = styled.textarea`
     font-size: 12px;
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     ::placeholder {
       font-size: 16px;
     }
@@ -77,6 +78,18 @@ export default function FreeBoardCreate() {
 
   const [fileImage, setFileImage] = useState("");
 
+  const registerTest = () => {
+    axios.post("http://localhost:8080/board/register", {}, {
+    headers: {
+      authorization: "tempToken",
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  })
+  console.log("register token Test!!!!!!!")
+  }
+
+
   return (
     <>
       <Wrapper>
@@ -97,9 +110,10 @@ export default function FreeBoardCreate() {
           </ContentsBoxImgBox>
         </CreateBox>
         <CreateButton 
-          create="/FreeBoardList" 
+          // create="/FreeBoardList" 
           cancel="/FreeBoardList" 
           setFileImage={setFileImage}
+          registerTest={registerTest}
         />
       </Wrapper>
     </>

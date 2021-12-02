@@ -40,7 +40,7 @@ const ContentsBoxTitle = styled.input`
   border: none;
   border-bottom: solid gray 1px;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     font-size: 20px
   }
 `;
@@ -57,7 +57,7 @@ const ContentsBoxWriter = styled.div`
   border: none;
   color: #448b76;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     font-size: 20px
   }
 `;
@@ -69,7 +69,7 @@ const ContentsBoxContents = styled.textarea`
   border: none;
   font-size: 12px;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     font-size: 16px;
 
     ::placeholder {

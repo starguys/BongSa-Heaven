@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+
 import styled from 'styled-components'
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
@@ -19,6 +21,9 @@ const Wrapper = styled.div`
 
 
 export default function FreeBoardContents() {
+
+
+
   return (
     <>
       <Wrapper>

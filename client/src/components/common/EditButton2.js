@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const ImgUploadBox = styled.div`
  display: none;
 
-@media screen and (min-width: 1024px) {
+ @media screen and (min-width: 37.5rem) {
   width: 80%;
   display: flex;
   justify-content: flex-end;

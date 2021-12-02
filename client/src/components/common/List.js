@@ -20,7 +20,7 @@ const ListButton = styled.div`
   margin: 10px;
   border-radius: 20px;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     background-color: #FF7676;
     color: white;
     display: flex;

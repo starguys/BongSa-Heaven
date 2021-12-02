@@ -26,9 +26,9 @@ const ContentsBoxTitle = styled.div`
   width: 80%;
   border-bottom: solid gray 1px;
   font-size: 12px;
- 
-  @media screen and (min-width: 1024px) {
-    font-size: 24px;
+
+  @media screen and (min-width: 37.5rem) {
+    font-size: 20px;
     margin-top: 20px;
 
   }
@@ -46,11 +46,11 @@ const ContentsBoxWriter = styled.div`
   width: 20%;
   margin: 0px 5px 0px 18px;
 
-  @media screen and (min-width: 1024px) {
-    font-size: 24px;
+  @media screen and (min-width: 37.5rem) {
+    font-size: 20px;
     padding-left: 8vw;
     justify-content: flex-start;
-    width: 10%;
+    width: 15%;
     margin: 0px;
   }
 `
@@ -61,7 +61,7 @@ const ContentsBoxAdjustBox = styled.div`
   align-items: center;
   width: 60%;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     display: none;
   }
 `
@@ -77,15 +77,15 @@ const ContentsBoxAdjust = styled.div`
 `
 
 const ContentsBoxAdjust2 = styled.div`
-
-  @media screen and (max-width: 1024px) {
-    display: none;
+  display: none;
+  
+  @media screen and (min-width: 37.5rem) {
+    color: #FF7676;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8vw;
   }
-  color: #FF7676;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 8vw;
 `;
 
 const ContentsBoxContents = styled.div`
@@ -93,7 +93,7 @@ const ContentsBoxContents = styled.div`
   margin: 15px auto 40px auto;
   font-size: 12px;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     font-size: 16px;
   }
 `
@@ -105,8 +105,9 @@ const ContentsBoxImgBox = styled.div`
   width: 100%;
   margin: 15px 0 30px 0;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     align-items: flex-start;
+    margin: auto;
   }
 `
 const Img = styled.img`
@@ -115,7 +116,7 @@ const Img = styled.img`
   opacity: 0.5;
   border-radius: 10px;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     max-width: 60%;
     max-height: 60%;
     padding-left: 8vw;
@@ -128,7 +129,7 @@ const ContentsBoxDeleteBox = styled.div`
   align-items: center;
   justify-content: flex-end;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     justify-content: flex-start;
     margin: 20px 0px 20px 0px;
   }
@@ -137,9 +138,9 @@ const ContentsBoxDeleteBox = styled.div`
 const ContentsBoxDeleteButton = styled.div`
   color: #D80000;
   opacity: 0.5;
-  padding-right: 25px;
+  padding-right: 8vw;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 37.5rem) {
     margin-left: 1vw;
     color: gray;
   }
