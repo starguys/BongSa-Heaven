@@ -10,7 +10,7 @@ const PaginationBox = styled.div`
     color: black;
     padding: 1rem;
   }
-`
+`;
 
 export default function Pagination() {
   return (
@@ -25,5 +25,5 @@ export default function Pagination() {
         <a href="#">&raquo;</a> */}
       </PaginationBox>
     </>
-  )
+  );
 }

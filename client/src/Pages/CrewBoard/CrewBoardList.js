@@ -9,7 +9,6 @@ import CreateLink2 from "../../components/common/CreateLink2";
 import Card from "../../components/CrewBoard/Card";
 import Pagination from "../../components/common/Pagination";
 
-
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -82,15 +81,15 @@ const LeftCards =styled.div`
 
 
 export default function CrewBoardList() {
-
-  const [isLoading, CheckLoading] = useState(true)
+  const [isLoading, CheckLoading] = useState(true);
 
   const loadingHandler = () => {
-    CheckLoading(false)
+    CheckLoading(false);
   };
 
   useEffect(() => {
-    setTimeout(() => loadingHandler(), 1000)})
+    setTimeout(() => loadingHandler(), 1000);
+  });
 
   return (
     <>

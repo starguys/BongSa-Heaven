@@ -26,10 +26,10 @@ const CommentBox = styled.div`
   @media screen and (min-width: 37.5rem) {
     padding: 30px 0px;
   }
-`
+`;
 const CommentWriter = styled.span`
   margin-left: 25px;
-  
+
   @media screen and (min-width: 37.5rem) {
     font-size: 24px;
   }
@@ -43,7 +43,7 @@ const CommentDate = styled.span`
   @media screen and (min-width: 37.5rem) {
     font-size: 20px;
   }
-`
+`;
 
 const CommentContents = styled.div`
   display: flex;
@@ -54,7 +54,7 @@ const CommentContents = styled.div`
     font-size: 16px;
     margin-top: 20px;
   }
-`
+`;
 
 const CommentInputBox = styled.div`
   margin-top: 8px;
@@ -70,7 +70,7 @@ const CommentInputBox = styled.div`
     align-items: flex-end;
     height: 300px;
   }
-`
+`;
 const CommentInput = styled.div`
   width: 70%;
   height: 90%;
@@ -79,8 +79,7 @@ const CommentInput = styled.div`
     width: 100%;
     height: 100%;
   }
-  
-`
+`;
 const CommentInputContents = styled.input`
   width: 100%;
   height: 90%;
@@ -89,13 +88,13 @@ const CommentInputContents = styled.input`
   @media screen and (min-width: 37.5rem) {
     ::placeholder {
       font-size: 16px;
-    } 
+    }
   }
-`
+`;
 
 const CommentInputButton = styled.div`
-  background-color : #FF7676;
-  color: #FFFFFF;
+  background-color: #ff7676;
+  color: #ffffff;
   line-height: 23px;
   width: 22%;
   height: 90%;
@@ -106,52 +105,30 @@ const CommentInputButton = styled.div`
   font-size: 16px;
   margin: 30px 0px 30px 20px;
   @media screen and (min-width: 37.5rem) {
-   
     margin: 0px 0px 30px 20px;
     width: 15%;
     font-size: 20px;
     height: 80%;
     line-height: 120%;
   }
-`
-
-
+`;
 
 export default function Comment() {
-
-  const [commentValue, setCommentValue] = useState("")
+  const [commentValue, setCommentValue] = useState("");
 
   const makeComment = (e) => {
-    setCommentValue(e.target.value)
-    console.log(commentValue)
-  }
+    setCommentValue(e.target.value);
+    console.log(commentValue);
+  };
 
   const saveComment = () => {
     // axios("http://localhost:8080/comment/register",{})
-    setCommentValue("")
-  }
-
+    setCommentValue("");
+  };
 
   return (
     <>
       <CommentList>
-        
-        <CommentBox>
-          <CommentWriter>
-            작성자A
-            <CommentDate>2021.11.21</CommentDate>
-          </CommentWriter>
-          <CommentContents>정말 좋은 봉사단인것 같아요!</CommentContents>
-        </CommentBox>
-
-        <CommentBox>
-          <CommentWriter>
-            작성자A
-            <CommentDate>2021.11.21</CommentDate>
-          </CommentWriter>
-          <CommentContents>정말 좋은 봉사단인것 같아요!</CommentContents>
-        </CommentBox>
-        
         <CommentBox>
           <CommentWriter>
             작성자A
@@ -168,14 +145,34 @@ export default function Comment() {
           <CommentContents>정말 좋은 봉사단인것 같아요!</CommentContents>
         </CommentBox>
 
+        <CommentBox>
+          <CommentWriter>
+            작성자A
+            <CommentDate>2021.11.21</CommentDate>
+          </CommentWriter>
+          <CommentContents>정말 좋은 봉사단인것 같아요!</CommentContents>
+        </CommentBox>
+
+        <CommentBox>
+          <CommentWriter>
+            작성자A
+            <CommentDate>2021.11.21</CommentDate>
+          </CommentWriter>
+          <CommentContents>정말 좋은 봉사단인것 같아요!</CommentContents>
+        </CommentBox>
       </CommentList>
 
       <CommentInputBox>
-        <CommentInput> 
-          <CommentInputContents placeholder="내용을 입력하세요." onChange={makeComment} value={commentValue}>
-          </CommentInputContents>
+        <CommentInput>
+          <CommentInputContents
+            placeholder="내용을 입력하세요."
+            onChange={makeComment}
+            value={commentValue}
+          ></CommentInputContents>
         </CommentInput>
-        <CommentInputButton onClick={saveComment}>댓 글<br />달 기</CommentInputButton>
+        <CommentInputButton onClick={saveComment}>
+          댓 글<br />달 기
+        </CommentInputButton>
       </CommentInputBox>
     </>
   );

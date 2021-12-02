@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useState, useRef, useEffect } from "react";
-import { Route, useHistory } from "react-router-dom";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const Wrapper = styled.div`
@@ -140,7 +140,7 @@ export default function SignIn({ accessToken, handleLogin, handlelog }) {
     setPassword(e.target.value);
   };
   const onKeyPress = (e) => {
-    if (window.event.keyCode == 13) {
+    if (window.event.keyCode === 13) {
       console.log("눌러");
       handleLoginRequest();
     }

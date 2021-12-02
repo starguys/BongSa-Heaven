@@ -1,9 +1,14 @@
 import React from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
-export default function Users() {
+export default function Recruiters(props) {
+  const history = useHistory();
+  const { ShowRecruiter, idx } = props;
+  console.log(ShowRecruiter);
+
   const SeeRecruiterContainer = styled.div`
     margin-bottom: 13px;
     margin-left: 17.5px;
@@ -81,25 +86,28 @@ export default function Users() {
     font-size: 16px;
     line-height: 19px;
   `;
+  const GoMaillWrite = () => {
+    history.push("/MaillWrite");
+  };
   return (
     <>
       <SeeRecruiterContainer>
-        <RecruiterUserName>함께봉사 님</RecruiterUserName>
-        <SendMaillBtn>
+        <RecruiterUserName>{ShowRecruiter.name} 님</RecruiterUserName>
+        <SendMaillBtn onClick={GoMaillWrite}>
           <FontAwesomeIcon icon={faPaperPlane} />
           &nbsp; 쪽지 쓰기
         </SendMaillBtn>
         <VolRegion>
           <LeftBox>봉사활동 지역</LeftBox>
-          <RightBox>영등포구</RightBox>
+          <RightBox>{ShowRecruiter.vol_region}</RightBox>
         </VolRegion>
         <VolType>
           <LeftBox>봉사활동 종류</LeftBox>
-          <RightBox>노인돌봄</RightBox>
+          <RightBox>{ShowRecruiter.vol_type}</RightBox>
         </VolType>
         <RecruiterGroupName>
           <LeftBox>기관명/ 봉사단체 이름</LeftBox>
-          <RightBox>봉사1515</RightBox>
+          <RightBox>{ShowRecruiter.vol_name}</RightBox>
         </RecruiterGroupName>
       </SeeRecruiterContainer>
     </>
