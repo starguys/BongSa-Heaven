@@ -14,7 +14,8 @@ module.exports = {
     if (!authorization) {
       return null;
     }
-    const token = authorization; // `Bearer ${Authorization}`
+    const token = authorization.split(" ")[1]; // `Bearer ${Authorization}`
+    console.log(token);
     try {
       return verify(token, process.env.ACCESS_SECRET);
     } catch (err) {
