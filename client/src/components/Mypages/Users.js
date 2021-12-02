@@ -1,9 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
 export default function Recruiters() {
+  const history = useHistory();
   const SeeRecruiterContainer = styled.div`
     margin-bottom: 13px;
     margin-left: 17.5px;
@@ -81,11 +84,14 @@ export default function Recruiters() {
     font-size: 16px;
     line-height: 19px;
   `;
+  const GoMaillWrite = () => {
+    history.push("/MaillWrite");
+  };
   return (
     <>
       <SeeRecruiterContainer>
         <RecruiterUserName>함께봉사 님</RecruiterUserName>
-        <SendMaillBtn>
+        <SendMaillBtn onClick={GoMaillWrite}>
           <FontAwesomeIcon icon={faPaperPlane} />
           &nbsp; 쪽지 쓰기
         </SendMaillBtn>

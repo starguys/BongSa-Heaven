@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import Header2 from "../../components/common/Header2";
@@ -6,6 +6,14 @@ import UserMyPageMain from "../../components/Mypages/UserMyPageMain";
 
 export default function UserMyPage() {
   const history = useHistory();
+  const [isChecked, setIsChecked] = useState(true);
+  const handleSwitch = () => {
+    if (isChecked) {
+      setTimeout(setIsChecked(false), 100);
+    } else {
+      setTimeout(setIsChecked(true), 100);
+    }
+  };
   const SeeRecruiterBtn = styled.button`
     margin-left: 24px;
     margin-bottom: 14px;
@@ -60,14 +68,9 @@ export default function UserMyPage() {
     }
   `;
 
-  const HiddenVolToggle = styled.div`
-    width: 65px;
-    height: 29px;
-    background: rgba(0, 0, 0, 0.1);
-    border: 1px solid #000000;
-    box-sizing: border-box;
-    border-radius: 14.5px;
-  `;
+  const HiddenVolToogleInput = styled.input``;
+  const HiddenVolToogleLabel = styled.label``;
+  const HiddenVolToogleBall = styled.span``;
   const WebContainer = styled.div`
     @media screen and (min-width: 37.5rem) {
       width: 100%;
@@ -97,7 +100,13 @@ export default function UserMyPage() {
         </InfoEditBtn>
         <HiddenVolContainer>
           <span>봉사희망정보 숨기기</span>
-          <HiddenVolToggle></HiddenVolToggle>
+          <HiddenVolToogleLabel
+            className="switch-button"
+            onClick={handleSwitch}
+          >
+            <HiddenVolToogleInput type="checkbox" checked={isChecked} />
+            <HiddenVolToogleBall className="onoff-switch" />
+          </HiddenVolToogleLabel>
         </HiddenVolContainer>
       </WebContainer>
     </>

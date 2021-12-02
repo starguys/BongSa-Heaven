@@ -7,20 +7,31 @@ export default function SeeUsers() {
   const TopSpace = styled.div`
     height: 43px;
   `;
+  const SeeContainer = styled.div`
+    @media screen and (min-width: 37.5rem) {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+    }
+  `;
 
   return (
     <>
       <Header2 componentName={"봉사자 보기"} />
       <TopSpace></TopSpace>
-      <Users />
-      <Users />
-      <Users />
-      <Users />
-      <Users />
-      <Users />
-      <Users />
-      <Users />
-      <Users />
+      <SeeContainer>
+        <Users />
+        <Users />
+        <Users />
+        <Users />
+        <Users />
+        <Users />
+        <Users />
+        <Users />
+        <Users />
+      </SeeContainer>
     </>
   );
 }
