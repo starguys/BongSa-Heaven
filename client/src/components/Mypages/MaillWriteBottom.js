@@ -1,15 +1,28 @@
 import React from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
 export default function MaillWriteBottom() {
+  const history = useHistory();
   const MaillTitleContainer = styled.div`
     margin-top: 27px;
     height: 33px;
     width: 375px;
     display: flex;
     border-bottom: 1px solid #f2f2f2;
+    @media screen and (min-width: 37.5rem) {
+      width: 100%;
+      justify-content: center;
+    }
+  `;
+  const MaillTitleContainerDiv = styled.div`
+    display: flex;
+    @media screen and (min-width: 37.5rem) {
+      width: 1080px;
+      justify-content: space-between;
+    }
   `;
   const MaillTitleCancle = styled.button`
     margin-left: 36px;
@@ -25,6 +38,7 @@ export default function MaillWriteBottom() {
     text-align: center;
     color: #000000;
     border: 0;
+    cursor: pointer;
   `;
   const MaillTitleText = styled.div`
     margin-left: 31px;
@@ -53,21 +67,35 @@ export default function MaillWriteBottom() {
     text-align: center;
     color: #000000;
     border: 0;
+    @media screen and (min-width: 37.5rem) {
+      margin-right: 3%;
+      cursor: pointer;
+    }
   `;
   const MaillTitleBtnSpan = styled.span`
     color: #ffffff;
     margin-left: 7px;
   `;
 
+  const GoBack = () => {
+    history.goBack();
+  };
+
+  const GoMaillWriteCheck = () => {
+    history.push("/MaillWriteCheck");
+  };
+
   return (
     <>
       <MaillTitleContainer>
-        <MaillTitleCancle>취소</MaillTitleCancle>
-        <MaillTitleText></MaillTitleText>
-        <MaillTitleBtn>
-          <FontAwesomeIcon icon={faPaperPlane} />
-          <MaillTitleBtnSpan>쪽지 보내기</MaillTitleBtnSpan>
-        </MaillTitleBtn>
+        <MaillTitleContainerDiv>
+          <MaillTitleCancle onClick={GoBack}>취소</MaillTitleCancle>
+          <MaillTitleText></MaillTitleText>
+          <MaillTitleBtn onClick={GoMaillWriteCheck}>
+            <FontAwesomeIcon icon={faPaperPlane} />
+            <MaillTitleBtnSpan>쪽지 보내기</MaillTitleBtnSpan>
+          </MaillTitleBtn>
+        </MaillTitleContainerDiv>
       </MaillTitleContainer>
     </>
   );

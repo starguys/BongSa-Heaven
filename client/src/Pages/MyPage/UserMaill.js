@@ -11,7 +11,25 @@ export default function UserMaill() {
     height: 21px;
     width: 375px;
     display: flex;
+    @media screen and (min-width: 37.5rem) {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
   `;
+  const MaillTitleContainerDiv = styled.div`
+    @media screen and (min-width: 37.5rem) {
+      margin-right: 3%;
+      width: 1080px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    @media screen and (max-width: 37.5rem) {
+      display: flex;
+      justify-content: flex-end;
+    }
+  `;
+
   const MaillTitleText = styled.div`
     margin-left: 132px;
     width: 111px;
@@ -39,6 +57,7 @@ export default function UserMaill() {
     text-align: center;
     color: #000000;
     border: 0;
+    cursor: pointer;
   `;
 
   const MaillDeleteContainer = styled.div`
@@ -47,6 +66,17 @@ export default function UserMaill() {
     height: 40px;
     display: flex;
     align-items: center;
+    @media screen and (min-width: 37.5rem) {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  `;
+  const MaillDeleteContainerDiv = styled.div`
+    @media screen and (min-width: 37.5rem) {
+      margin-left: 8%;
+      width: 1080px;
+    }
   `;
   const MaillDeleteInput = styled.input`
     margin-left: 24px;
@@ -74,6 +104,22 @@ export default function UserMaill() {
     background: #ff7676;
     border-radius: 44px;
     border: 0;
+    cursor: pointer;
+  `;
+
+  const WebMaillContainer = styled.div`
+    @media screen and (min-width: 37.5rem) {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  `;
+  const WebMaillContainerDiv = styled.div`
+    @media screen and (min-width: 37.5rem) {
+      width: 1080px;
+      margin-left: 8%;
+    }
   `;
 
   const GoMaillWrite = () => {
@@ -84,17 +130,25 @@ export default function UserMaill() {
     <>
       <Header2 componentName={"쪽지"} />
       <MaillTitleContainer>
-        <MaillTitleText>받은 쪽지함</MaillTitleText>
-        <MaillTitleBtn onClick={GoMaillWrite}>쪽지 쓰기</MaillTitleBtn>
+        <MaillTitleContainerDiv>
+          <MaillTitleText>받은 쪽지함</MaillTitleText>
+          <MaillTitleBtn onClick={GoMaillWrite}>쪽지 쓰기</MaillTitleBtn>
+        </MaillTitleContainerDiv>
       </MaillTitleContainer>
       <MaillDeleteContainer>
-        <MaillDeleteInput type="checkbox" />
-        <MaillDeleteBtn>삭제</MaillDeleteBtn>
+        <MaillDeleteContainerDiv>
+          <MaillDeleteInput type="checkbox" />
+          <MaillDeleteBtn>삭제</MaillDeleteBtn>
+        </MaillDeleteContainerDiv>
       </MaillDeleteContainer>
-      <MaillList />
-      <MaillList />
-      <MaillList />
-      <MaillList />
+      <WebMaillContainer>
+        <WebMaillContainerDiv>
+          <MaillList />
+          <MaillList />
+          <MaillList />
+          <MaillList />
+        </WebMaillContainerDiv>
+      </WebMaillContainer>
     </>
   );
 }

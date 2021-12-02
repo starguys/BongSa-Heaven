@@ -12,7 +12,22 @@ export default function MaillWriteTop() {
     width: 375px;
     display: flex;
     border-bottom: 1px solid #f2f2f2;
+    @media screen and (min-width: 37.5rem) {
+      width: 100%;
+      justify-content: center;
+      border: 0;
+    }
   `;
+  const MaillTitleContainerDiv = styled.div`
+    @media screen and (min-width: 37.5rem) {
+      width: 1080px;
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 3%;
+    }
+    display: flex;
+  `;
+
   const MaillTitleCancle = styled.button`
     margin-left: 36px;
     background: #f7f7f7;
@@ -27,6 +42,9 @@ export default function MaillWriteTop() {
     text-align: center;
     color: #000000;
     border: 0;
+    @media screen and (min-width: 37.5rem) {
+      display: none;
+    }
   `;
   const MaillTitleText = styled.div`
     margin-left: 31px;
@@ -55,6 +73,7 @@ export default function MaillWriteTop() {
     text-align: center;
     color: #000000;
     border: 0;
+    cursor: pointer;
   `;
   const MaillTitleBtnSpan = styled.span`
     color: #ffffff;
@@ -63,16 +82,21 @@ export default function MaillWriteTop() {
   const GoBack = () => {
     history.goBack();
   };
+  const GoMaillWriteCheck = () => {
+    history.push("/MaillWriteCheck");
+  };
 
   return (
     <>
       <MaillTitleContainer>
-        <MaillTitleCancle onClick={GoBack}>취소</MaillTitleCancle>
-        <MaillTitleText>쪽지 쓰기</MaillTitleText>
-        <MaillTitleBtn onClick={GoBack}>
-          <FontAwesomeIcon icon={faPaperPlane} />
-          <MaillTitleBtnSpan>쪽지 보내기</MaillTitleBtnSpan>
-        </MaillTitleBtn>
+        <MaillTitleContainerDiv>
+          <MaillTitleCancle onClick={GoBack}>취소</MaillTitleCancle>
+          <MaillTitleText>쪽지 쓰기</MaillTitleText>
+          <MaillTitleBtn onClick={GoMaillWriteCheck}>
+            <FontAwesomeIcon icon={faPaperPlane} />
+            <MaillTitleBtnSpan>쪽지 보내기</MaillTitleBtnSpan>
+          </MaillTitleBtn>
+        </MaillTitleContainerDiv>
       </MaillTitleContainer>
     </>
   );

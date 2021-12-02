@@ -117,7 +117,7 @@ export default function Header(props) {
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
-    font-size: 23px;
+    font-size: 14px;
     line-height: 27px;
     display: flex;
     align-items: center;
@@ -137,7 +137,7 @@ export default function Header(props) {
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
-    font-size: 23px;
+    font-size: 14px;
     line-height: 27px;
     display: flex;
     align-items: center;

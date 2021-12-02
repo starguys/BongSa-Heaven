@@ -6,6 +6,9 @@ export default function MaillList() {
     margin-left: 8px;
     width: 359px;
     height: 168px;
+    @media screen and (min-width: 37.5rem) {
+      width: 100%;
+    }
   `;
   const MaillContentsUserName = styled.div`
     margin-top: 12px;
@@ -23,7 +26,7 @@ export default function MaillList() {
   `;
   const MaillContentsMain = styled.div`
     margin-top: 12px;
-    width: 359px;
+    width: 100%;
     height: 100px;
     display: flex;
     align-items: center;
@@ -38,20 +41,38 @@ export default function MaillList() {
     border-radius: 4px;
   `;
   const MaillCOntentsMainText = styled.div`
-    margin-left: 10px;
-    width: 280px;
-    height: 100px;
-    background: #ffffff;
-    box-shadow: 0px 2px 11px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
-    padding: 12px;
-    box-sizing: border-box;
-    color: #000000;
+    @media screen and (min-width: 37.5rem) {
+      margin-left: 10px;
+      width: 90%;
+      height: 100px;
+      background: #ffffff;
+      box-shadow: 0px 2px 11px 4px rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 16px;
+      padding: 12px;
+      box-sizing: border-box;
+      color: #000000;
+    }
+    @media screen and (max-width: 37.5rem) {
+      margin-left: 10px;
+      width: 280px;
+      height: 100px;
+      background: #ffffff;
+      box-shadow: 0px 2px 11px 4px rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 16px;
+      padding: 12px;
+      box-sizing: border-box;
+      color: #000000;
+    }
   `;
   return (
     <>
