@@ -2,15 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  board: [
-    {
-      ref: "Board",
-      type: mongoose.Schema.Types.ObjectId,
-    },
-  ],
+  _id: Schema.Types.ObjectId,
   email: {
     type: String,
-    // unique: true,
   },
   nickname: {
     type: String,
