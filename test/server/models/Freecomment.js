@@ -14,7 +14,7 @@ const freecommentSchema = new Schema({
     required: true,
   },
   comment: String,
-});
+}, { timestamps: true });
 
 // boardSchema.plugin(findOrCreate);
 module.exports = mongoose.model("Freecomment", freecommentSchema);
