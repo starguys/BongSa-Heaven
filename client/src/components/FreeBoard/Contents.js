@@ -32,7 +32,7 @@ const ContentsTitle = styled.div`
   align-items: center;
   margin: 0px 0px 10px 20px;
 `
-export default function Contents() {
+export default function Contents( {title, writer, date} ) {
 
 
   const history = useHistory();
@@ -44,11 +44,11 @@ export default function Contents() {
       <ContentsList onClick={GotoContents}>
         <ContentsBox>
           <ContentsTitle>
-          안녕하세요 여기가 그 자유로운 게시판인가요?
+          안녕하세요 여기가 그 자유로운 게시판인가요?{title}
           </ContentsTitle>
           <ContentsWriter>
-            작성자A
-            <ContentsDate>2021.11.21</ContentsDate>
+            작성자A{writer}
+            <ContentsDate>2021.11.21{date}</ContentsDate>
           </ContentsWriter>
         </ContentsBox>
       </ContentsList>

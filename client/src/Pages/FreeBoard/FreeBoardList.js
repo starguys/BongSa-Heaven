@@ -73,11 +73,22 @@ const ContentsBox = styled.div`
 export default function FreeBoardList() {
   const [isLoading, CheckLoading] = useState(true);
 
-  // const [freeBoardinfo, setFreeBoardinfo] = useState([]);
+  const [freeBoardinfo, setFreeBoardinfo] = useState([]);
+ 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(10);
+
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+
+  const currentPosts = freeBoardinfo.slice(indexOfFirstPost, indexOfLastPost);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const loadingHandler = () => {
     CheckLoading(false);
   };
+
+   
 
   // const getFreeBoardList = () => {
   //   axios.get("http://localhost:8080/board/info")
@@ -85,9 +96,16 @@ export default function FreeBoardList() {
   //   .catch((err) => console.log(err))
   // }
 
+
+
+  // const target = freeBoardinfo.slice(start, end);
+
+
+
   useEffect(() => {
     setTimeout(() => loadingHandler(), 1000);
   });
+
 
 
 
@@ -110,6 +128,16 @@ export default function FreeBoardList() {
           <CreateLink create="/FreeBoardCreate"/>
         </TitleBox>
           <ContentsBox>
+            {currentPosts &&
+              currentPosts.length > 0 &&
+              currentPosts.map((board, index) => (
+                <Contents
+                  key={index}
+                  title={board.title}
+                  writer={board.writer}
+                  date={board.date}
+                />
+              ))}
             <Contents />
             <Contents />
             <Contents />
@@ -120,7 +148,11 @@ export default function FreeBoardList() {
           </ContentsBox>
         </>
       }
-      <Pagination />
+      <Pagination 
+        postPerPage={postPerPage}
+        totalPosts={freeBoardinfo.length}
+        paginate={paginate}
+      />
     </>
   );
 }

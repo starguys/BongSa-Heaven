@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import axios from "axios";
 import Header3 from "../../components/common/Header3";
 import axios from "axios";
 
@@ -150,16 +150,6 @@ export default function SignIn({ accessToken, handleLogin }) {
           <LogoBox>
             <Logo src="./image/logo2.png"></Logo>
           </LogoBox>
-
-          <SignInWhiteBox>
-            <SignInWhiteInput
-              type="email"
-              placeholder="아이디(이메일)"
-              onChange={handleEmail}
-            >
-              {/* {errorMessage} */}
-            </SignInWhiteInput>
-          </SignInWhiteBox>
 
 
           <SignInWhiteBox>
