@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { useHistory } from "react-router-dom";
 import Header2 from "../../components/common/Header2";
+import axios from "axios";
 const Header = styled.div`
   display: flex;
   background-color: #ffd4d4;
@@ -98,10 +99,10 @@ const RecruiterButtonSubtitle = styled.div`
 
 export default function SignUp() {
   const history = useHistory();
-  const movetToUserSignUp = (e) => {
+  const movetToUserSignUp = () => {
     history.push("/UserSignUp");
   };
-  const movetToRecruiterSignUp = (e) => {
+  const movetToRecruiterSignUp = () => {
     history.push("/RecruiterSignUp");
   };
 
@@ -117,6 +118,7 @@ export default function SignUp() {
           </GeneralButtonTitle>
           <GeneralButtonSubtitle>봉사를 희망하는 회원</GeneralButtonSubtitle>
         </GeneralButton>
+
         <RecruiterButton>
           <RecruiterButtonTitle onClick={movetToRecruiterSignUp}>
             봉사 모집자

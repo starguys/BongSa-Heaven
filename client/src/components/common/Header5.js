@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,10 +7,12 @@ import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header(props) {
+  // const [isSignIn, setIsSignIn] = useState(props.isLogin);
   const isSignIn = props.isLogin;
   const isUserLogin = props.isUser;
   console.log(isSignIn);
   const history = useHistory();
+
   const isLogin = false;
   const isRecruiter = false;
 
