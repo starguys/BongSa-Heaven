@@ -1,4 +1,6 @@
 import React from "react";
+import { useState } from "react";
+import axios from "axios"
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import Header3 from "../../components/common/Header3";
@@ -149,7 +151,7 @@ export default function SignIn({ accessToken, handleLogin }) {
             <Logo src="./image/logo2.png"></Logo>
           </LogoBox>
 
-          <InputBox>
+
             <SignInWhiteBox>
               <SignInWhiteInput
                 type="email"
@@ -167,12 +169,12 @@ export default function SignIn({ accessToken, handleLogin }) {
                 onChange={handlePassword}
               ></SignInWhiteInput>
             </SignInWhiteBox>
-          </InputBox>
+
           <CompleteBox>
-            <CompleteButton onClick={GoMyPage}>로그인</CompleteButton>
-            <CompleteButton onClick={GoMyPage}>구글</CompleteButton>
-            <CompleteButton onClick={GoMyPage}>카카오</CompleteButton>
-            <CompleteButton onClick={GoMyPage}>회원가입</CompleteButton>
+            <CompleteButton onClick={moveToSignUP}>로그인</CompleteButton>
+            <CompleteButton onClick={moveToSignUP}>구글</CompleteButton>
+            <CompleteButton onClick={moveToSignUP}>카카오</CompleteButton>
+            <CompleteButton onClick={moveToSignUP}>회원가입</CompleteButton>
           </CompleteBox>
         </MainContainer>
       </Wrapper>
