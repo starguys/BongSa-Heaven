@@ -1,6 +1,5 @@
 require("dotenv").config();
 const crypto = require("crypto");
-const qs = require("qs");
 const User = require("../models/User");
 const axios = require("axios");
 const {
@@ -13,8 +12,17 @@ const {
 module.exports = {
   signupControl: async (req, res) => {
     // 1. req.body 제대로 들어왔는지 확인 아니면 돌려보냄
-    const { email, nickname, password, sex, want_region, want_vol, age } =
-      req.body;
+    const {
+      email,
+      nickname,
+      password,
+      sex,
+      want_region,
+      want_vol,
+      age,
+      company,
+      iscompany,
+    } = req.body;
 
     if (
       !email ||
@@ -23,7 +31,8 @@ module.exports = {
       !want_region ||
       !want_vol ||
       !sex ||
-      !age
+      !age ||
+      !iscompany
     ) {
       return res.status(400).send("모든 항목을 입력해주세요");
     }
@@ -60,6 +69,9 @@ module.exports = {
                 want_vol: want_vol,
                 age: age,
                 salt: salt,
+                company: company,
+                iscompany: iscompany,
+                isopen: true,
               };
               const insertDb = new User(newUser).save();
               if (!insertDb) {
@@ -144,8 +156,6 @@ module.exports = {
       return res.status(500).send({ message: "서버 이상해" });
     }
   },
-
-  
 
   refreshtokenControl: async (req, res) => {
     const refreshTokenData = checkRefreshToken(req);
