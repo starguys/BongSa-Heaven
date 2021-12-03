@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
+import axios from "axios";
 import Header3 from "../../components/common/Header3";
 
 const Wrapper = styled.div`
@@ -149,30 +150,28 @@ export default function SignIn({ accessToken, handleLogin }) {
             <Logo src="./image/logo2.png"></Logo>
           </LogoBox>
 
-          <InputBox>
-            <SignInWhiteBox>
-              <SignInWhiteInput
-                type="email"
-                placeholder="아이디(이메일)"
-                onChange={handleEmail}
-              >
-                {/* {errorMessage} */}
-              </SignInWhiteInput>
-            </SignInWhiteBox>
+          <SignInWhiteBox>
+            <SignInWhiteInput
+              type="email"
+              placeholder="아이디(이메일)"
+              onChange={handleEmail}
+            >
+              {/* {errorMessage} */}
+            </SignInWhiteInput>
+          </SignInWhiteBox>
 
-            <SignInWhiteBox>
-              <SignInWhiteInput
-                type="password"
-                placeholder="비밀번호"
-                onChange={handlePassword}
-              ></SignInWhiteInput>
-            </SignInWhiteBox>
-          </InputBox>
+          <SignInWhiteBox>
+            <SignInWhiteInput
+              type="password"
+              placeholder="비밀번호"
+              onChange={handlePassword}
+            ></SignInWhiteInput>
+          </SignInWhiteBox>
           <CompleteBox>
-            <CompleteButton onClick={GoMyPage}>로그인</CompleteButton>
-            <CompleteButton onClick={GoMyPage}>구글</CompleteButton>
-            <CompleteButton onClick={GoMyPage}>카카오</CompleteButton>
-            <CompleteButton onClick={GoMyPage}>회원가입</CompleteButton>
+            <CompleteButton onClick={moveToSignUP}>로그인</CompleteButton>
+            <CompleteButton onClick={moveToSignUP}>구글</CompleteButton>
+            <CompleteButton onClick={moveToSignUP}>카카오</CompleteButton>
+            <CompleteButton onClick={moveToSignUP}>회원가입</CompleteButton>
           </CompleteBox>
         </MainContainer>
       </Wrapper>

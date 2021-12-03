@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
 
@@ -142,12 +142,19 @@ export default function Header() {
       ? history.push("/RecruiterMyPage")
       : history.push("/UserMyPage");
   };
+  const GoMap = () => {
+    history.push("/Map");
+  };
 
   return (
     <>
       <HeaderContainer>
         <HeaderLogIconLeft>
-          <FontAwesomeIcon icon={faBars} className="HeaderIcon" />
+          <FontAwesomeIcon
+            icon={faMapMarkerAlt}
+            className="HeaderIcon"
+            onClick={GoMap}
+          />
         </HeaderLogIconLeft>
         <LogoImg src="/image/logo2.png" />
         <HeaderLogIconRight>

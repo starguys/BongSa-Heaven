@@ -11,6 +11,9 @@ body {
 #root {
   height: 100%;
 }
+#app_div {
+  height: 100%;
+}
 
 .DevHeader_box_btn {
   text-decoration: none;
