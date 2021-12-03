@@ -5,6 +5,7 @@ import Header3 from "../../components/common/Header3";
 import { useState, useRef, useEffect } from "react";
 import { Route, useHistory } from "react-router-dom";
 import axios from "axios";
+import { faLastfmSquare } from "@fortawesome/free-brands-svg-icons";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -187,16 +188,18 @@ const CompleteButton = styled.div`
   width: 110px;
 `;
 
-export default function UserEdit() {
+export default function UserSignUp(company) {
   const history = useHistory();
 
   const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [nickname, setNicname] = useState("");
   const [want_region, setWant_region] = useState("");
   const [want_vol, setWant_vol] = useState("");
-  const [sex, setSex] = useState("남자");
+  const [sex, setSex] = useState("");
+  const [isNick, setIsNick] = useState(false);
   const [age, setAge] = useState("");
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passErrorMessage, setPassErrorMessage] = useState("");
@@ -207,26 +210,23 @@ export default function UserEdit() {
   const [signUp, setIsSignUp] = useState(false);
 
   //청소년 청년 장년 클릭시 해당 정보를 가져온다.
-  const teenInput = useRef();
-  const adultInput = useRef();
-  const seniorInput = useRef();
 
   const handleEmail = (e) => {
     console.log(e.target.value);
     setEmail(e.target.value);
   };
   const handlePassword = (e) => {
-    console.log(e.target.value);
+    console.log(e.target.value, "pass");
     setPassword(e.target.value);
   };
   const handlePasswordCheck = (e) => {
-    console.log(e.target.value);
+    console.log(e.target.value, "확인");
     setPasswordCheck(e.target.value);
   };
 
   const handleNickname = (e) => {
     //setName적용된후
-
+    console.log(nickname);
     setNicname(e.target.value);
 
     // validateNickname(e.target.vlaue)
@@ -241,27 +241,31 @@ export default function UserEdit() {
     setWant_vol(e.target.value);
   };
   //성별을 다룬다.
-  const handleMan = () => {
-    setSex("남자");
-    console.log(sex);
+  const handleSex = (key) => (e) => {
+    console.log(sex, e.target);
+    console.log(key);
+    if (key === "man") {
+      setSex("남자");
+    } else if (key === "woman") {
+      //여자 고르면서 남자 없앰
+
+      setSex("여자");
+    }
   };
-  const handleWoman = () => {
-    setSex("여자");
-    console.log(sex);
-  };
+
   // 나이를 다룬다.
-  const handleTeen = () => {
-    setSex(teenInput.current.textContent);
-    console.log(teenInput.current.textContent);
+  const handleAge = (key) => (e) => {
+    console.log(key, age);
+
+    if (key === "teen") {
+      setAge("청소년");
+    } else if (key === "adult") {
+      setAge("청년");
+    } else if (key === "senior") {
+      setAge("장년");
+    }
   };
-  const handleAdult = () => {
-    setSex(adultInput.current.textContent);
-    console.log(adultInput.current.textContent);
-  };
-  const handleSenior = () => {
-    setSex(seniorInput.current.textContent);
-    console.log(seniorInput.current.textContent);
-  };
+
   //이메일 검증
   const validateEmail = (email) => {
     //이메일 형식어야한다.
@@ -270,32 +274,36 @@ export default function UserEdit() {
 
     if (!regEmail.test(email)) {
       setEmailErrorMessage("이메일 형식이 아닙니다");
+      return false;
     } else {
       setEmailErrorMessage("");
+      return true;
     }
   };
   // 비밀번호 검증
-  const validatePassword = (password, passwordCheck) => {
-    //8자이상 16자이하 의 숫자, 문자, 특수문자 조합
-    //동일한 비밀번호 입력
-
-    const regPassword =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]/;
-
+  const validateCheckPassword = (password, passwordCheck) => {
     if (password !== passwordCheck) {
       setPassCheckErrorMessage("동일한 비밀번호를 입력해주세요");
+      return false;
+    } else {
+      setPassCheckErrorMessage("");
+      return true;
     }
-    const min = 8;
-    const max = 16;
-    if (password.length > min || password.length < max) {
-      setPassErrorMessage("8~16자 입력해주세요");
-    }
-    if (regPassword.test(password)) {
+  };
+  const validatePassword = (password) => {
+    // 8자이상 16자이하 의 숫자, 문자, 특수문자 조합
+
+    const regPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+
+    if (!regPassword.test(password)) {
       setPassErrorMessage(
-        "영문,특수문자(1개이상),숫자(1개이상) 조합하여 입력해주세요"
+        "비밀번호를 8~16자, 숫자, 특수문자,영어를 혼합해주세요"
       );
+      return false;
     } else {
       setPassErrorMessage("");
+
+      return true;
     }
   };
   //닉네임 검증
@@ -304,26 +312,31 @@ export default function UserEdit() {
     //닉네임 중복 체크
     const max = 8;
     const min = 2;
-    console.log("validate", String(nickname).length);
+    console.log("validate", nickname.length);
 
     if (nickname.length < min || nickname.length > max) {
-      console.log("2이상 8이하");
+      console.log("1이하, 9이상");
       setNickCheckErrorMessage("닉네임은 2~8 자 입력해주세요");
+      return false;
     } else {
       setNickCheckErrorMessage("");
+      console.log("2이상 8이하");
+
+      return true;
       //2->1 로갈때 가 문제
       //9->7까지 문제
       //1->0 일때 문제 x
-      console.log("1이하, 9이상");
     }
   };
+
   //닉네임 중복체크를 해야한다.
   const handleNicknameCheck = () => {
-    validateNickname(nickname);
+    // validateNickname(nickname);
     //버튼을 눌럿을시 내가 입력한 handlenick과
     //db에 있는 nick과 일치하는지 확인
-    if (nickname) {
-      // validateNickname(nickname);
+    const valideNickname = validateNickname(nickname);
+    // console.log(s);
+    if (nickname && valideNickname) {
       axios
         .post(
           "http://localhost:8080/auth/nickcheck",
@@ -337,25 +350,51 @@ export default function UserEdit() {
           }
         )
         .then((res) => {
-          if (nickname !== res.data.data && validateNickname(nickname)) {
+          console.log("통과");
+          if (nickname !== res.data.data) {
             setNickCheckErrorMessage("사용 가능한 닉네임 입니다.");
-          } else {
+            setIsNick(true);
           }
         })
         .catch(() => {
+          console.log("일치하는값 들어옴");
           setNickCheckErrorMessage("중복된 닉네임 입니다.");
+          setIsNick(false);
         });
     }
+    setIsNick(false);
   };
   //최종 회원가입을 눌렀을때
-  const handleSignUpRequest = async () => {
+  const handleSignUpRequest = () => {
     console.log("클릭했어");
-    const validEmail = validateEmail(email);
-    const validPassword = validatePassword(password, passwordCheck);
-    // const validNickname =validateNickname(nickname)
 
+    const validPassword = validatePassword(password);
+    const checkPassword = validateCheckPassword(password, passwordCheck);
+    const valideEmail = validateEmail(email);
+    // const validNickname = validateNickname(nickname);
+    console.log(
+      // validNickname,
+      isNick,
+      validPassword,
+      checkPassword,
+      valideEmail,
+      want_vol,
+      want_region,
+      age,
+      sex
+    );
+    // validateEmail(email);
     //모든 유효성 검사 통과가 되었다면 회원가입 가능
-    if (validEmail && validPassword) {
+    if (
+      valideEmail &&
+      isNick &&
+      checkPassword &&
+      validPassword &&
+      want_vol &&
+      want_region &&
+      age &&
+      sex
+    ) {
       axios
         .post(
           "http://localhost:8080/auth/signup",
@@ -367,10 +406,12 @@ export default function UserEdit() {
             want_region: want_region,
             age: age,
             sex: sex,
+            is_company: false,
           },
           { headers: { "Content-Type": "application/json" } }
         )
         .then((res) => {
+          console.log("통과");
           setIsSignUp(true);
           history.push("/SignIn");
         })
@@ -397,6 +438,9 @@ export default function UserEdit() {
               placeholder="아이디(이메일)"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
+          <CheckingPossibleOrNotBox>
+            <PossibleOrNot>{emailErrorMessage}</PossibleOrNot>
+          </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handleNickname}
@@ -415,12 +459,18 @@ export default function UserEdit() {
               placeholder="비밀번호"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
+          <CheckingPossibleOrNotBox>
+            <PossibleOrNot>{passErrorMessage}</PossibleOrNot>
+          </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handlePasswordCheck}
               placeholder="비밀번호 확인"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
+          <CheckingPossibleOrNotBox>
+            <PossibleOrNot>{passCheckErrorMessage}</PossibleOrNot>
+          </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handleWantReigon}
@@ -433,26 +483,21 @@ export default function UserEdit() {
               placeholder="희망 봉사 활동"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
+
           <SelectSexBox>
-            <SelectSexButton value={sex} onClick={handleMan}>
+            <SelectSexButton onClick={handleSex("man")}>
               <SexImageBox src="./image/young-man.png"></SexImageBox>
             </SelectSexButton>
 
-            <SelectSexButton defaultValue="여자" onClick={handleWoman}>
+            <SelectSexButton onClick={handleSex("woman")}>
               <SexImageBox src="./image/young-woman.png"></SexImageBox>
             </SelectSexButton>
           </SelectSexBox>
 
           <SelectBox>
-            <AgeButton onClick={handleTeen} ref={teenInput}>
-              청소년
-            </AgeButton>
-            <AgeButton onClick={handleAdult} ref={adultInput}>
-              청년
-            </AgeButton>
-            <AgeButton onClick={handleSenior} ref={seniorInput}>
-              장년
-            </AgeButton>
+            <AgeButton onClick={handleAge("teen")}>청소년</AgeButton>
+            <AgeButton onClick={handleAge("adult")}>청년</AgeButton>
+            <AgeButton onClick={handleAge("senior")}>장년</AgeButton>
           </SelectBox>
 
           <CompleteBox>

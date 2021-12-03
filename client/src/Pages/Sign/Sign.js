@@ -150,7 +150,12 @@ export default function SignIn({ accessToken, handleLogin }) {
           <LogoBox>
             <Logo src="./image/logo2.png"></Logo>
           </LogoBox>
-
+          <SignInWhiteBox>
+            <SignInWhiteInput
+              placeholder="아이디(이메일)"
+              onChange={handleEmail}
+            ></SignInWhiteInput>
+          </SignInWhiteBox>
 
           <SignInWhiteBox>
             <SignInWhiteInput
@@ -160,9 +165,8 @@ export default function SignIn({ accessToken, handleLogin }) {
             ></SignInWhiteInput>
           </SignInWhiteBox>
 
-
           <CompleteBox>
-            <CompleteButton onClick={moveToSignUP}>로그인</CompleteButton>
+            <CompleteButton onClick={handleLoginRequest}>로그인</CompleteButton>
             <CompleteButton onClick={moveToSignUP}>구글</CompleteButton>
             <CompleteButton onClick={moveToSignUP}>카카오</CompleteButton>
             <CompleteButton onClick={moveToSignUP}>회원가입</CompleteButton>

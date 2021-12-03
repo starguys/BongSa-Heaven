@@ -80,8 +80,8 @@ export default function FreeBoardCreate() {
   const [fileImage, setFileImage] = useState("");
 
   const registerTest = () => {
-    axios.get(
-      "http://localhost:8080/board/list",
+    axios.post(
+      "http://localhost:8080/board/register",
       {},
 
       {
