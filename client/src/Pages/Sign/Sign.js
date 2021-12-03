@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import axios from "axios";
 import Header3 from "../../components/common/Header3";
+import axios from "axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -160,6 +161,7 @@ export default function SignIn({ accessToken, handleLogin }) {
             </SignInWhiteInput>
           </SignInWhiteBox>
 
+
           <SignInWhiteBox>
             <SignInWhiteInput
               type="password"
@@ -167,6 +169,8 @@ export default function SignIn({ accessToken, handleLogin }) {
               onChange={handlePassword}
             ></SignInWhiteInput>
           </SignInWhiteBox>
+
+
           <CompleteBox>
             <CompleteButton onClick={moveToSignUP}>로그인</CompleteButton>
             <CompleteButton onClick={moveToSignUP}>구글</CompleteButton>
