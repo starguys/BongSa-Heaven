@@ -5,6 +5,14 @@ import DesktopTitle from "../../components/common/DesktopTitle";
 import DeleteCheck from "../../components/common/DeleteCheck";
 
 
+const Wrapper = styled.div`
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
 const ContentsBox = styled.div`
 
 @media screen and (min-width: 37.5rem) {
@@ -25,11 +33,13 @@ const ContentsBox = styled.div`
 export default function CrewBoardDelete() {
   return (
     <>
-      <Header2 componentName="삭제"/>
-      <DesktopTitle title="삭제"/>
-      <ContentsBox>
-        <DeleteCheck contents="모집글" delete="/CrewBoardList" cancel="/CrewBoardContents" />
-      </ContentsBox>
+      <Wrapper>
+        <Header2 componentName="삭제"/>
+        <DesktopTitle title="삭제"/>
+        <ContentsBox>
+          <DeleteCheck contents="모집글" delete="/CrewBoardList" cancel="/CrewBoardContents" />
+        </ContentsBox>
+      </Wrapper>
     </>
   );
 }

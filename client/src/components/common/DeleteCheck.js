@@ -22,6 +22,7 @@ const SelectBox = styled.div`
   margin: 15px 0px 15px 0px;
 `
 const DeleteButton = styled.div`
+  cursor: pointer;
   background-color : #FF7676;
   color: white;
   display: flex;
@@ -39,6 +40,7 @@ const DeleteButton = styled.div`
   }
 `
 const CancelButton = styled.div`
+  cursor: pointer;
   background-color : white;
   color: black;
   border: solid black 1px;

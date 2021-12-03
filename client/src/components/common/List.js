@@ -14,6 +14,7 @@ const ListBox = styled.div`
   }
 `;
 const ListButton = styled.div`
+  cursor: pointer;
   background-color: #FF7676;
   color: white;
   display: flex;

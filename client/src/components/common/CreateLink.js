@@ -22,6 +22,7 @@ const LinkButton = styled.div`
   display: none;
 
   @media screen and (min-width: 37.5rem) {
+    cursor: pointer;
     background-color : #FF7676;
     color: white;
     display: flex;

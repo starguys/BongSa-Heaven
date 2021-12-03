@@ -6,10 +6,6 @@ const PaginationBox = styled.ul`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  a {
-    color: black;
-    padding: 1rem;
-  }
 `;
 
 const PageNumber = styled.li`
@@ -17,10 +13,7 @@ const PageNumber = styled.li`
 
 const PageButton = styled.button`
   cursor: pointer;
-  font-size: 2rem;
-  color: ${props => props.theme.uiColorOrange};
-  margin: 0 0.3rem;
-  padding: 0;
+  font-size: 1.5rem;
   border: none;
   background: none;
 `;
@@ -37,18 +30,11 @@ export default function Pagination(
   return (
     <>
       <PaginationBox>
-        {pageNumbers.map(number => (
-          <PageNumber key={number}>
-            <PageButton onClick={() => paginate(number)}>{number}</PageButton>
+        {pageNumbers.map(pageNumber => (
+          <PageNumber key={pageNumber}>
+            <PageButton onClick={() => paginate(pageNumber)}>{pageNumber}</PageButton>
           </PageNumber>
         ))}
-        {/* <a href="#">&laquo;</a>
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">&raquo;</a> */}
       </PaginationBox>
     </>
   );

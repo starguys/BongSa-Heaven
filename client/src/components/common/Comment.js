@@ -77,7 +77,7 @@ const CommentInput = styled.div`
   margin: 30px 0px 30px 0px;
   @media screen and (min-width: 37.5rem) {
     width: 100%;
-    height: 100%;
+    height: 180px;
   }
 `;
 const CommentInputContents = styled.input`
@@ -88,11 +88,13 @@ const CommentInputContents = styled.input`
   @media screen and (min-width: 37.5rem) {
     ::placeholder {
       font-size: 16px;
+      box-sizing: border-box;
     }
   }
 `;
 
 const CommentInputButton = styled.div`
+  cursor: pointer;
   background-color: #ff7676;
   color: #ffffff;
   line-height: 23px;
@@ -104,11 +106,12 @@ const CommentInputButton = styled.div`
   align-items: center;
   font-size: 16px;
   margin: 30px 0px 30px 20px;
+
   @media screen and (min-width: 37.5rem) {
     margin: 0px 0px 30px 20px;
     width: 15%;
     font-size: 20px;
-    height: 80%;
+    height: 120px;
     line-height: 120%;
   }
 `;

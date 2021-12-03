@@ -8,12 +8,10 @@ import EditButton2 from "../../components/common/EditButton2";
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
   background-color: white;
   display:flex;
   flex-direction: column;
   align-items: center;
-  overflow: auto;
 `
 
 const ContentsBox = styled.div`

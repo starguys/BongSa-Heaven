@@ -74,6 +74,7 @@ const ContentsBoxAdjustBox = styled.div`
 `
 
 const ContentsBoxAdjust = styled.div`
+  cursor: pointer;
   background-color: #FF7676;
   color: white;
   display: flex;
@@ -87,6 +88,7 @@ const ContentsBoxAdjust2 = styled.div`
   display: none;
 
   @media screen and (min-width: 37.5rem) {
+    cursor: pointer;
     color: #FF7676;
     display: flex;
     justify-content: center;
@@ -143,6 +145,7 @@ const ContentsBoxDeleteBox = styled.div`
 
 `;
 const ContentsBoxDeleteButton = styled.div`
+  cursor: pointer;
   color: #D80000;
   opacity: 0.5;
   padding-right: 8vw;

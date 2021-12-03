@@ -152,10 +152,14 @@ export default function SignIn({ accessToken, handleLogin }) {
           </LogoBox>
           <SignInWhiteBox>
             <SignInWhiteInput
+              type="email"
               placeholder="아이디(이메일)"
               onChange={handleEmail}
-            ></SignInWhiteInput>
+            >
+              {/* {errorMessage} */}
+            </SignInWhiteInput>
           </SignInWhiteBox>
+
 
           <SignInWhiteBox>
             <SignInWhiteInput
