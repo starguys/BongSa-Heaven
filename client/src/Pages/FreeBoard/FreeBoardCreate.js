@@ -10,12 +10,10 @@ import CreateButton2 from "../../components/common/CreateButton2";
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
   background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: auto;
 `;
 
 const CreateBox = styled.div`

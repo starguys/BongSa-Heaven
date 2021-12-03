@@ -150,6 +150,15 @@ export default function SignIn({ accessToken, handleLogin }) {
           <LogoBox>
             <Logo src="./image/logo2.png"></Logo>
           </LogoBox>
+          <SignInWhiteBox>
+            <SignInWhiteInput
+              type="email"
+              placeholder="아이디(이메일)"
+              onChange={handleEmail}
+            >
+              {/* {errorMessage} */}
+            </SignInWhiteInput>
+          </SignInWhiteBox>
 
 
           <SignInWhiteBox>

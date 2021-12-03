@@ -9,7 +9,7 @@ import CreateLink from "../../components/common/CreateLink";
 import CreateLink2 from "../../components/common/CreateLink2";
 import Contents from "../../components/FreeBoard/Contents";
 import Pagination from "../../components/common/Pagination";
-
+import FreeBoardListDummy from "../../dummy/FreeBoardListDummy";
 
 const Headerspace = styled.div`
   background-color: #FFB1B1;
@@ -45,9 +45,6 @@ const Headerspace = styled.div`
 
   }
 `
-
-
-
 
 const ContentsBox = styled.div`
 
@@ -98,12 +95,11 @@ export default function FreeBoardList() {
 
 
 
-  // const target = freeBoardinfo.slice(start, end);
-
-
-
   useEffect(() => {
     setTimeout(() => loadingHandler(), 1000);
+    // 임시 더미 파일 적용
+    setFreeBoardinfo(FreeBoardListDummy)
+    // 임시 더미 파일 적용
   });
 
 
@@ -138,13 +134,6 @@ export default function FreeBoardList() {
                   date={board.date}
                 />
               ))}
-            <Contents />
-            <Contents />
-            <Contents />
-            <Contents />
-            <Contents />
-            <Contents />
-            <Contents />
           </ContentsBox>
         </>
       }

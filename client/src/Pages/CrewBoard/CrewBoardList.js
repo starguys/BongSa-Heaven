@@ -9,14 +9,13 @@ import CreateLink from "../../components/common/CreateLink";
 import CreateLink2 from "../../components/common/CreateLink2";
 import Card from "../../components/CrewBoard/Card";
 import Pagination from "../../components/common/Pagination";
+import CrewBoardListDummy from "../../dummy/CrewBoardListDummy";
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  overflow: auto;
 `
 
 const TitleBox = styled.div`
@@ -83,7 +82,19 @@ const LeftCards =styled.div`
 export default function CrewBoardList() {
   const [isLoading, CheckLoading] = useState(true);
 
-  // const [crewBoardinfo, setcrewBoardinfo] = useState([]);
+  const [crewBoardinfo, setcrewBoardinfo] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(3);
+
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+
+  const currentPosts = crewBoardinfo.slice(indexOfFirstPost, indexOfLastPost);
+
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
 
   const loadingHandler = () => {
     CheckLoading(false);
@@ -97,6 +108,9 @@ export default function CrewBoardList() {
 
   useEffect(() => {
     setTimeout(() => loadingHandler(), 1000);
+      // 임시 더미 파일 적용
+    setcrewBoardinfo(CrewBoardListDummy)
+      // 임시 더미 파일 적용
   });
 
   return (
@@ -117,17 +131,57 @@ export default function CrewBoardList() {
             <CreateLink create="/CrewBoardCreate"/>
           </TitleBox>
           <Cards>
+          {currentPosts &&
+          currentPosts.length > 0 &&
+            <>   
             <BigCard>
-              <Card/>
+              <Card
+                  key={0}
+                  img={currentPosts[0].img}
+                  helloMessage={currentPosts[0].helloMessage}
+                  writer={currentPosts[0].writer}
+                  date={currentPosts[0].date}
+                />
             </BigCard>
             <LeftCards>
-              <Card/>
-              <Card/>
+              {currentPosts.length === 2 ?
+              <Card
+                  key={1}
+                  img={currentPosts[1].img}
+                  helloMessage={currentPosts[1].helloMessage}
+                  writer={currentPosts[1].writer}
+                  date={currentPosts[1].date}
+              /> : null
+              }
+              {currentPosts.length === 3 ?
+              <>
+              <Card
+                key={1}
+                img={currentPosts[1].img}
+                helloMessage={currentPosts[1].helloMessage}
+                writer={currentPosts[1].writer}
+                date={currentPosts[1].date}
+              />
+              <Card
+                key={2}
+                img={currentPosts[2].img}
+                helloMessage={currentPosts[2].helloMessage}
+                writer={currentPosts[2].writer}
+                date={currentPosts[2].date}
+              />
+              </>
+              : null}
             </LeftCards>
+          </>
+          }
           </Cards>
         </>
         }
-        <Pagination/>
+        <Pagination
+          postPerPage={postPerPage}
+          totalPosts={crewBoardinfo.length}
+          paginate={paginate}
+        />
       </Wrapper>
     </>
   );

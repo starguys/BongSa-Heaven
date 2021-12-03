@@ -16,6 +16,7 @@ const ImgUploadBox = styled.div`
   }
 `
 const ImgUploadButton = styled.div`
+  cursor: pointer;
   background-color : #FF7676;
   color: white;
   display: flex;
@@ -41,6 +42,7 @@ const SelectBox = styled.div`
 `
 
 const CancelButton = styled.div`
+  cursor: pointer;
   background-color : white;
   color: black;
   display: flex;
@@ -58,6 +60,7 @@ const CancelButton = styled.div`
   }
 `
 const CompleteButton = styled.div`
+  cursor: pointer;
   background-color : #FF7676;
   color: white;
   display: flex;

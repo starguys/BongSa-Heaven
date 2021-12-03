@@ -5,6 +5,7 @@ import { useHistory } from "react-router";
 
 const LinkButton = styled.div`
 
+  cursor: pointer;
   background-color : #FF7676;
   color: white;
   display: flex;

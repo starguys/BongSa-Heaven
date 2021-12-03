@@ -7,7 +7,6 @@ const Title = styled.div`
   
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
-    margin: auto;
     margin-top: 50px;
     display: flex;
     align-items: center;

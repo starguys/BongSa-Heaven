@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 
   const Cardbox = styled.div`
+  cursor: pointer;
   display:flex;
   flex-direction: column;
   justify-content: center;
@@ -76,7 +77,7 @@ const PublishedDate = styled.div`
   }
 `
 
-export default function Card() {
+export default function Card( {img, helloMessage, writer, date} ) {
 
 
   const history = useHistory();
@@ -87,17 +88,17 @@ export default function Card() {
     <>
       <Cardbox onClick={GotoCard}> 
         <ImageBox>
-          <Img src="https://dimg.donga.com/wps/NEWS/IMAGE/2019/10/10/97803507.1.jpg"/>
+          <Img src={img}/>
         </ImageBox>
         <Describe>
           <SayHello>
-          힘이 필요한 모든 봉사를 찾아가는 봉사단!
+          {helloMessage}
           </SayHello>
           <VolunteersName>
-          힘쎈봉사단
+          {writer}
           </VolunteersName>
           <PublishedDate>
-          2021.11.21
+          {date}
           </PublishedDate>
         </Describe>
       </Cardbox>

@@ -10,6 +10,7 @@ const ContentsList = styled.div`
 `;
 
 const ContentsBox = styled.div`
+  cursor: pointer;  
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -44,11 +45,11 @@ export default function Contents( {title, writer, date} ) {
       <ContentsList onClick={GotoContents}>
         <ContentsBox>
           <ContentsTitle>
-          안녕하세요 여기가 그 자유로운 게시판인가요?{title}
+          {title}
           </ContentsTitle>
           <ContentsWriter>
-            작성자A{writer}
-            <ContentsDate>2021.11.21{date}</ContentsDate>
+            {writer}
+            <ContentsDate>{date}</ContentsDate>
           </ContentsWriter>
         </ContentsBox>
       </ContentsList>
