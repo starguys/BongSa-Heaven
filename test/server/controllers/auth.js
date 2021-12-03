@@ -20,9 +20,9 @@ module.exports = {
       !email ||
       !nickname ||
       !password ||
-      !sex ||
       !want_region ||
       !want_vol ||
+      !sex ||
       !age
     ) {
       return res.status(400).send("모든 항목을 입력해주세요");
@@ -88,7 +88,6 @@ module.exports = {
     if (salt === null) {
       return res.status(404).send({ message: "이메일 및 비밀번호 다시 쳐봐" });
     }
-    console.log("===salt.salt===", salt.salt);
 
     // 2. 유저db 에서 이메일이 있는지 확인한다;
     crypto.pbkdf2(
@@ -99,7 +98,6 @@ module.exports = {
       "sha512",
       async (err, key) => {
         const hardPass = key.toString("base64");
-        console.log("===hardPass===", hardPass);
         const query = { email: email, password: hardPass };
         const userInfo = await User.findOne(query);
         // 3. 없다면 404 돌려보냄
@@ -108,11 +106,16 @@ module.exports = {
             .status(404)
             .send({ message: "싸장님 이메일 및 비밀번호 확인해!" });
         }
-        // 4. 있다면 뭐뭐 줄래? => token 전달!{ email, nickname }
+        // 4. 있다면 뭐뭐 줄래? => token 전달!{ email, nickname, user_id }
         if (userInfo) {
           const { email, nickname } = userInfo;
-          const accessToken = generateAccessToken({ email, nickname });
-          const refreshToken = generateRefreshToken({ email, nickname });
+          const user_id = userInfo._id;
+          const accessToken = generateAccessToken({ email, nickname, user_id });
+          const refreshToken = generateRefreshToken({
+            email,
+            nickname,
+            user_id,
+          });
           // const issueDate = new Date();
           // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
           // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
@@ -142,18 +145,7 @@ module.exports = {
     }
   },
 
-  nickcheckControl: async (req, res) => {
-    // 1. 닉네임을 받는다
-    const query = { nickname: req.body.nickname };
-    // 2. db에서 닉네임을 검색한다
-    const existNick = await User.find(query);
-    // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
-    if (existNick) {
-      return res.status(409).send({ message: "싸장님 닉네임 이미 있어" });
-    } else {
-      return res.status(200).send({ message: "싸장님 좋은 닉네임!" });
-    }
-  },
+  
 
   refreshtokenControl: async (req, res) => {
     const refreshTokenData = checkRefreshToken(req);
