@@ -1,4 +1,8 @@
 module.exports = {
+  checkuserControl: async (req, res) => {
+    return res.send("checkuser ok!");
+  },
+
   registerControl: async (req, res) => {
     return res.send("register ok!");
   },
