@@ -41,6 +41,8 @@ import CrewBoardEdit from "./Pages/CrewBoard/CrewBoardEdit";
 import CrewBoardList from "./Pages/CrewBoard/CrewBoardList";
 import Header5 from "./components/common/Header5";
 
+import Map from "./Pages/Map/Map";
+
 export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -136,7 +138,9 @@ export default function App() {
       <Route exact path="/CrewBoardDelete" component={CrewBoardDelete} />
       <Route exact path="/CrewBoardEdit" component={CrewBoardEdit} />
       <Route exact path="/CrewBoardList" component={CrewBoardList} />
+      <Route exact path="/Map" component={Map} />
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
+
       <Footer />
     </div>
   );

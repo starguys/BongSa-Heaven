@@ -110,6 +110,25 @@ export default function Header(props) {
     color: #ff7676;
     cursor: pointer;
   `;
+  const HeaderMap = styled.button`
+    margin-right: 3%;
+    border: 0;
+    background-color: white;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #448b76;
+    border: solid 2px white;
+    &:hover {
+      border-bottom: solid 2px #448b76;
+      transition: 0.5s;
+    }
+  `;
   const HeaderSignInOut = styled.button`
     margin-right: 3%;
     border: 0;
@@ -171,6 +190,9 @@ export default function Header(props) {
   const GoRecruiterMyPage = () => {
     history.push("/RecruiterMyPage");
   };
+  const GoMap = () => {
+    history.push("/Map");
+  };
 
   return (
     <>
@@ -196,6 +218,8 @@ export default function Header(props) {
             <HeaderName onClick={GoHome}>봉사천국</HeaderName>
           </WebHeaderLeft>
           <WebHeaderRight>
+            <HeaderMap onClick={GoMap}>봉사지도</HeaderMap>
+
             {isSignIn ? (
               <HeaderSignInOut>로그아웃</HeaderSignInOut>
             ) : (
