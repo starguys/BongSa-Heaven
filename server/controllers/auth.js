@@ -144,12 +144,15 @@ module.exports = {
     // 1. 닉네임을 받는다
     const query = { nickname: req.body.nickname };
     // 2. db에서 닉네임을 검색한다
-    const existNick = await User.find(query);
+    const existNick = await User.findOne(query);
+    console.log(existNick);
     // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
     if (existNick) {
       return res.status(409).send({ message: "싸장님 닉네임 이미 있어" });
     } else {
-      return res.status(200).send({ message: "싸장님 좋은 닉네임!" });
+      return res
+        .status(200)
+        .send({ data: existNick, message: "싸장님 좋은 닉네임!" });
     }
   },
 

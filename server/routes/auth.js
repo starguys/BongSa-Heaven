@@ -4,7 +4,7 @@ const controller = require("../controllers/auth");
 router.post("/signin", controller.signinControl);
 router.post("/signup", controller.signupControl);
 router.post("/signout", controller.signoutControl);
-router.get("/nickcheck", controller.nickcheckControl);
+router.post("/nickcheck", controller.nickcheckControl);
 router.get("/refreshtoken", controller.refreshtokenControl);
 
 //refresh 로 acceess 교환
