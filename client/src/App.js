@@ -43,32 +43,28 @@ import Header5 from "./components/common/Header5";
 
 import Map from "./Pages/Map/Map";
 
-export default function App() {
+export default function App(handlelogout) {
   const [isDevHeader, setIsDevHeader] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [isUser, setIsUser] = useState(false);
   const [accessToken, setAccessToken] = useState("");
 
-  const [userInfo, setUserInfo] = useState({
-    username: "",
-    nickname: "",
-    password: "",
-    imgUrl: "",
-    want_region: "",
-    want_vol: "",
-    gender: "",
-    age: "",
-  });
+  // const [userInfo, setUserInfo] = useState({
+  //   username: "",
+  //   nickname: "",
+  //   password: "",
+  //   imgUrl: "",
+  //   want_region: "",
+  //   want_vol: "",
+  //   gender: "",
+  //   age: "",
+  // });
   const history = useHistory();
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
   };
 
-  const handleLogout = () => {
-    localStorage.clear();
-    setIsLogin(false);
-  };
   const handleLogin = (token) => {
     setAccessToken(token);
 
@@ -77,9 +73,17 @@ export default function App() {
       history.push("/");
     }
   };
+  // const handleLogout = () => {
+  //   localStorage.clear();
+  //   const deleteCookie = function (name) {
+  //     document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
+  //   };
+  //   setIsLogIn(false);
+  //   deleteCookie("refreshToken");
+  // };
   return (
     <div id="app_div">
-      <Header5 isLogin={isLogin} isUser={isUser} />
+      <Header5 isLogin={isLogin} isUser={isUser} onClick={handlelogout} />
       {isDevHeader ? <DevHeader /> : null}
       <Route exact path="/" component={MainPage} />
       {/* Sign */}
@@ -93,16 +97,11 @@ export default function App() {
             accessToken={accessToken}
             isLogin={isLogin}
             handleLogin={handleLogin}
-            handlelogout={handleLogout}
-            userInfo={userInfo}
+            // handlelogout={handleLogout}
           />
         )}
       />
-      <Route
-        exact
-        path="/UserSignUp"
-        render={() => <UserSignUp userInfo={userInfo} />}
-      />
+      <Route exact path="/UserSignUp" component={UserSignUp} />
       {/* MyPage */}
       <Route exact path="/MaillWrite" component={MaillWrite} />
       <Route exact path="/MaillWriteCheck" component={MaillWriteCheck} />

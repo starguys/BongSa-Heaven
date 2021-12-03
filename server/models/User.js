@@ -38,6 +38,13 @@ const userSchema = new Schema({
   age: {
     type: String,
   },
+  is_company: {
+    type: Boolean,
+  },
+  is_open: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 // userSchema.plugin(findOrCreate);
