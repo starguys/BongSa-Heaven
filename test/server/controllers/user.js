@@ -29,6 +29,8 @@ module.exports = {
   editControl: async (req, res) => {
     // 1. 토큰으로 user_id 확인
     // 2. req.body로 받는 정보들?
+    // 2-1. password가 64자리면? => 비번 변경 아님 pwassword: password + salt
+    // 2-2. password 64자리 아니면 => 비번 변경 맞음 password: newPassword + new salt
     // 3. 업데이트
     const {
       email,
@@ -43,57 +45,85 @@ module.exports = {
       isopen,
     } = req.body;
 
-    crypto.randomBytes(64, (err, buf) => {
-      if (err) {
-        console.log(err);
-        return;
+    if (password.length > 30) {
+      const userData = isAuthorized(req, res);
+      if (userData) {
+        const userInfo = await User.findById(userData.user_id).exec();
+        if (!userInfo) {
+          res.status(401).send({ message: "싸장님 정보 없어!" });
+        }
+        if (userInfo) {
+          const editUser = {
+            email: email,
+            password: password,
+            nickname: nickname,
+            sex: sex,
+            want_region: want_region,
+            want_vol: want_vol,
+            age: age,
+            company: company,
+            iscompany: iscompany,
+            isopen: isopen,
+          };
+          await User.findById(userData.user_id).updateMany(editUser).exec();
+          res.status(200).send({ message: "싸장님 정보 변경 완료!" });
+        }
       } else {
-        const salt = buf.toString("base64");
-        crypto.pbkdf2(
-          password,
-          salt,
-          110011,
-          64,
-          "sha512",
-          async (err, key) => {
-            if (err) {
-              console.log(err);
-              return;
-            } else {
-              const newPassword = key.toString("base64");
-              const userData = isAuthorized(req, res);
-              if (userData) {
-                const userInfo = await User.findById(userData.user_id).exec();
-                if (!userInfo) {
-                  res.status(401).send({ message: "싸장님 정보 없어!" });
-                }
-                if (userInfo) {
-                  const editUser = {
-                    email: email,
-                    password: newPassword,
-                    nickname: nickname,
-                    sex: sex,
-                    want_region: want_region,
-                    want_vol: want_vol,
-                    age: age,
-                    salt: salt,
-                    company: company,
-                    iscompany: iscompany,
-                    isopen: isopen,
-                  };
-                  await User.findById(userData.user_id)
-                    .updateMany(editUser)
-                    .exec();
-                  res.status(200).send({ message: "싸장님 정보 변경 완료!" });
-                }
+        res.status(500).send({ message: "서버 이상해!" });
+      }
+    } else {
+      crypto.randomBytes(64, (err, buf) => {
+        if (err) {
+          console.log(err);
+          return;
+        } else {
+          const newSalt = buf.toString("base64");
+          crypto.pbkdf2(
+            password,
+            newSalt,
+            110011,
+            64,
+            "sha512",
+            async (err, key) => {
+              if (err) {
+                console.log(err);
+                return;
               } else {
-                res.status(500).send({ message: "서버 이상해!" });
+                const newPassword = key.toString("base64");
+                const userData = isAuthorized(req, res);
+                if (userData) {
+                  const userInfo = await User.findById(userData.user_id).exec();
+                  if (!userInfo) {
+                    res.status(401).send({ message: "싸장님 정보 없어!" });
+                  }
+                  if (userInfo) {
+                    const editUser = {
+                      email: email,
+                      password: newPassword,
+                      nickname: nickname,
+                      sex: sex,
+                      want_region: want_region,
+                      want_vol: want_vol,
+                      age: age,
+                      salt: newSalt,
+                      company: company,
+                      iscompany: iscompany,
+                      isopen: isopen,
+                    };
+                    await User.findById(userData.user_id)
+                      .updateMany(editUser)
+                      .exec();
+                    res.status(200).send({ message: "싸장님 정보 변경 완료!" });
+                  }
+                } else {
+                  res.status(500).send({ message: "서버 이상해!" });
+                }
               }
             }
-          }
-        );
-      }
-    });
+          );
+        }
+      });
+    }
   },
   passwordControl: async (req, res) => {
     // 1. 유저확인
