@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -196,6 +197,29 @@ export default function Header(props) {
     history.push("/Map");
   };
 
+  const LogOut = () => {
+
+    axios
+    .post(
+      "http://localhost:8080/auth/signout",
+      {},
+      {
+        headers: {
+          "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((res) => {
+      console.log(res.data.message);
+      localStorage.removeItem("accessToken");
+      props.setIsLogin(false)
+    })
+    .catch((err) => console.log(err))
+
+  }
+
+
   return (
     <>
       <HeaderContainer>
@@ -223,7 +247,7 @@ export default function Header(props) {
             <HeaderMap onClick={GoMap}>봉사지도</HeaderMap>
 
             {isSignIn ? (
-              <HeaderSignInOut>로그아웃</HeaderSignInOut>
+              <HeaderSignInOut onClick={LogOut}>로그아웃</HeaderSignInOut>
             ) : (
               <HeaderSignInOut onClick={GoSignIn}>로그인</HeaderSignInOut>
             )}

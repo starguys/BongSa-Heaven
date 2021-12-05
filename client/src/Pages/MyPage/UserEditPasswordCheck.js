@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import Header4 from "../../components/common/Header4";
@@ -72,6 +72,9 @@ export default function UserEditPasswordCheck() {
       margin-left: 0px;
     }
   `;
+  const [password, setPassword] = useState("")
+
+  // const passwordCheck
 
   const GoUserEdit = () => {
     history.push("/UserEdit");
