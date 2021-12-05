@@ -29,8 +29,8 @@ module.exports = {
   editControl: async (req, res) => {
     // 1. 토큰으로 user_id 확인
     // 2. req.body로 받는 정보들?
-    // 2-1. password가 64자리면? => 비번 변경 아님 pwassword: password + salt
-    // 2-2. password 64자리 아니면 => 비번 변경 맞음 password: newPassword + new salt
+    // 2-1. password가 30자리 이상=> 비번 변경 아님 pwassword: password + salt
+    // 2-2. password 30자리 미만 => 비번 변경 맞음 password: newPassword + new salt
     // 3. 업데이트
     const {
       email,

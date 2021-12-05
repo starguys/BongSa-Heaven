@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const crewcommentSchema = new Schema(
   {
-    _id: Schema.Types.ObjectId,
     user_id: {
       type: Schema.Types.ObjectId,
       ref: "User",
