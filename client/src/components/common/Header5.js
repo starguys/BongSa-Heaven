@@ -237,6 +237,7 @@ export default function Header(props) {
               onClick={GoMyPage}
             />
           )}
+          
         </HeaderLogIconRight>
         <WebHeaderContainer>
           <WebHeaderLeft>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Route, useHistory } from "react-router-dom";
 import "./App.css";
 import "./css/Reset.css";
-
+import axios from "axios";
 import Footer from "./components/common/Footer";
 import DevHeader from "./components/DevHeader";
 import DevFooter from "./components/DevFooter";
@@ -49,16 +49,7 @@ export default function App(handlelogout) {
   const [isUser, setIsUser] = useState(false);
   const [accessToken, setAccessToken] = useState("");
 
-  // const [userInfo, setUserInfo] = useState({
-  //   username: "",
-  //   nickname: "",
-  //   password: "",
-  //   imgUrl: "",
-  //   want_region: "",
-  //   want_vol: "",
-  //   gender: "",
-  //   age: "",
-  // });
+ 
   const history = useHistory();
 
   const handleDevHeader = () => {
@@ -73,14 +64,7 @@ export default function App(handlelogout) {
       history.push("/");
     }
   };
-  // const handleLogout = () => {
-  //   localStorage.clear();
-  //   const deleteCookie = function (name) {
-  //     document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
-  //   };
-  //   setIsLogIn(false);
-  //   deleteCookie("refreshToken");
-  // };
+
   return (
     <div id="app_div">
       <Header5 isLogin={isLogin} isUser={isUser} setIsLogin={setIsLogin} onClick={handlelogout} />
@@ -117,7 +101,16 @@ export default function App(handlelogout) {
       <Route exact path="/SeeRecruiter" component={SeeRecruiter} />
       <Route exact path="/SeeUser" component={SeeUser} />
       <Route exact path="/UserDelete" component={UserDelete} />
-      <Route exact path="/UserEdit" component={UserEdit} />
+      <Route
+        exact
+        path="/UserEdit"
+        render={() => (
+          <UserEdit
+
+          // handlelogout={handleLogout}
+          />
+        )}
+      />
       <Route
         exact
         path="/UserEditPasswordCheck"

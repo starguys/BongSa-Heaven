@@ -11,6 +11,8 @@ module.exports = {
     if (!userData) {
       res.status(401).send({ message: "싸장님 가입부터 해주세요!" });
     }
+
+    console.log(userData)
     if (userData) {
       const userInfo = await User.findById(userData.user_id);
       if (!userInfo) {

@@ -112,8 +112,10 @@ module.exports = {
         if (userInfo) {
           const { email, nickname } = userInfo;
           const user_id = userInfo._id;
+
           const accessToken = generateAccessToken({ email, nickname, user_id  });
           const refreshToken = generateRefreshToken({ email, nickname, user_id });
+
           // const issueDate = new Date();
           // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
           // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
@@ -170,8 +172,9 @@ module.exports = {
         return res.status(500).send({ message: "뭔가가 이상하다" });
       } else {
         const { email, nickname } = userInfo;
-        const accessToken = generateAccessToken({ email, nickname });
-        const refreshToken = generateRefreshToken({ email, nickname });
+        const user_id = userInfo._id;
+        const accessToken = generateAccessToken({ email, nickname, user_id });
+        const refreshToken = generateRefreshToken({ email, nickname, user_id });
         // const issueDate = new Date();
         // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
         // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
