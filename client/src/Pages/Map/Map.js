@@ -1,9 +1,11 @@
 /* global kakao */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 export default function KakaoMap() {
+  const [isMarkClick, setIsMarkClick] = useState(false);
+  const [post, setPost] = useState([]);
   const history = useHistory();
   useEffect(() => {
     let container = document.getElementById("map");
@@ -17,6 +19,10 @@ export default function KakaoMap() {
     };
 
     let map = new window.kakao.maps.Map(container, options);
+    let mapTypeControl = new kakao.maps.MapTypeControl();
+    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+    let zoomControl = new kakao.maps.ZoomControl();
+    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
     let positions = [
       {
@@ -40,9 +46,16 @@ export default function KakaoMap() {
         vol_type: "바른언어길잡이",
         company_name: "언어폭력단",
       },
+      {
+        title: "함께봉사",
+        latlng: new kakao.maps.LatLng(37.49748253337715, 127.02340828615611),
+        region: "영등포구",
+        vol_type: "노인돌봄",
+        company_name: "봉사1515",
+      },
     ];
 
-    for (let i = 0; i < positions.length; i++) {
+    for (let i = 1; i < positions.length; i++) {
       let imageSrc =
           "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커이미지의 주소입니다
         imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
@@ -62,28 +75,33 @@ export default function KakaoMap() {
       });
       marker.setMap(map);
 
-      let Content = `
-      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #fff; border: 1px solid #e0dde1; border-radius: 0.313rem; width: 100%; height: 100%; padding: 10px; margin-bottom: 200px; cursor: pointer;">
+      let content = `
+      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #fff; border: 1px solid #e0dde1; border-radius: 0.313rem; width: 100%;  padding: 10px; margin-bottom: 200px; cursor: pointer;" >
       <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 300; font-size: 1rem; margin-bottom: 5px;">${positions[i].title}</span>
       <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 100; font-size: 0.9rem;margin-bottom: 4px;">봉사활동 : ${positions[i].region}</span>
       <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 100; font-size: 0.9rem;margin-bottom: 4px;">봉사활동 : ${positions[i].vol_type}</span>
       <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 100; font-size: 0.9rem;">기관명 : ${positions[i].company_name}</span>
-      </div>
-      `;
-      // console.log(positions[i].latlng);
+      <a href=http://localhost:3000/maillwrite>
+        <button style="margin-top:5%; border:solid 1px black; background-color:white;" href=http://localhost:3000/maillwrite>쪽지 보내기</button>
+        </a>
+        </div>
+        `;
 
-      var customOverlay = new window.kakao.maps.CustomOverlay({
+      let customOverlay = new window.kakao.maps.CustomOverlay({
         position: marker.getPosition(),
-        content: Content,
+        content: content,
         map: map,
+        clickable: true,
       });
       customOverlay.setMap(map);
-      kakao.maps.event.addListener(marker, "click", function () {
-        // 마커 위에 인포윈도우를 표시합니다
-        console.log("hi");
-        history.push("/");
-      });
+
+      // kakao.maps.event.addListener(marker, "click", function () {
+      //   console.log("hi");
+      //   console.log(post);
+      //   console.log(...positions);
+      // });
     }
+
     /* 
     let marker = new kakao.maps.Marker({
       positions: map.getCenter(),
