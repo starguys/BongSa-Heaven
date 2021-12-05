@@ -12,7 +12,7 @@ module.exports = {
       res.status(401).send({ message: "싸장님 가입부터 해주세요!" });
     }
 
-    console.log(userData);
+
     if (userData) {
       const userInfo = await User.findById(userData.user_id);
       if (!userInfo) {
@@ -125,6 +125,8 @@ module.exports = {
             return res.status(404).send({ message: "비밀번호가 다릅니다!!" });
           }
 
+
+
           if (userInfo) {
             return res.status(200).send({ message: "비밀번호 정확합니다!" });
 
@@ -140,14 +142,19 @@ module.exports = {
     // 2. 없으면 돌려보내고 있으면 삭제
     const userData = isAuthorized(req, res);
     if (!userData) {
+
       return res.status(401).send({ message: "싸장님 가입부터 해야 탈퇴가 가능해!" });
     }
+ 
     if (userData) {
       const userInfo = await User.findById(userData.user_id).remove().exec();
       if (!userInfo) {
+
       return res.status(404).send({ message: "탈퇴가 이루어지지 않았어요!" });
       } else {
        return res.status(200).send({ message: "봉사천국 안뇽~ 담에 또 봐요~" });
+
+
       }
     }
   },

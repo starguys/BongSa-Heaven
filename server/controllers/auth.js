@@ -58,6 +58,9 @@ module.exports = {
                 want_vol: want_vol,
                 age: age,
                 salt: salt,
+                company: company,
+                iscompany: iscompany,
+                isopen: true,
               };
               const insertDb = new User(newUser).save();
               if (!insertDb) {
@@ -109,12 +112,10 @@ module.exports = {
         if (userInfo) {
           const { email, nickname } = userInfo;
           const user_id = userInfo._id;
-          const accessToken = generateAccessToken({ email, nickname, user_id });
-          const refreshToken = generateRefreshToken({
-            email,
-            nickname,
-            user_id,
-          });
+
+          const accessToken = generateAccessToken({ email, nickname, user_id  });
+          const refreshToken = generateRefreshToken({ email, nickname, user_id });
+
           // const issueDate = new Date();
           // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
           // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
