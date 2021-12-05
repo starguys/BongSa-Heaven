@@ -4,14 +4,14 @@ const Schema = mongoose.Schema;
 
 const freeboardSchema = new Schema(
   {
-    // user_id: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    // },
+    user_id: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     title: String,
     description: String,
-    images: String,
+    images: Array,
     // free_comments: {
     //   type: [freecommentSchema],
     //   default: [],

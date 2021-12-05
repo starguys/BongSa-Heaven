@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const crewboardSchema = new Schema(
   {
-    _id: Schema.Types.ObjectId,
     user_id: {
       type: Schema.Types.ObjectId,
       ref: "User",
@@ -13,10 +12,10 @@ const crewboardSchema = new Schema(
     title: String,
     descreption: String,
     images: String,
-    crew_comments: {
-      type: [crewcommentSchema],
-      default: [],
-    },
+    // crew_comments: {
+    //   type: [crewcommentSchema],
+    //   default: [],
+    // },
   },
   { timestamps: true }
 );
