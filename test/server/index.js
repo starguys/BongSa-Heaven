@@ -11,6 +11,7 @@ const DB = require("./config/config");
 const boardRouter = require("./routes/board");
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
+const commentRouter = require("./routes/comment");
 
 //use modules
 app.use(express.json());
@@ -30,6 +31,7 @@ DB();
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
 app.use("/board", boardRouter);
+app.use("/comment", commentRouter);
 
 // app.post("/images", controller.imageControl);
 

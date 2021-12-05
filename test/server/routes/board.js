@@ -3,6 +3,7 @@ const controller = require("../controllers/board");
 
 router.post("/fbregister", controller.fbregisterControl);
 router.get("/fblist", controller.fblistControl);
+router.post("/fbinfo", controller.fbinfoControl);
 router.patch("/fbedit", controller.fbeditControl);
 router.delete("/fbdelete", controller.fbdeleteControl);
 
