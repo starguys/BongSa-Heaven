@@ -9,12 +9,10 @@ import { faLastfmSquare } from "@fortawesome/free-brands-svg-icons";
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
   background-color: #ffd4d4;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: auto;
   @media screen and (min-width: 37.5rem) {
     background-color: white;
   }

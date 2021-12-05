@@ -58,6 +58,9 @@ module.exports = {
                 want_vol: want_vol,
                 age: age,
                 salt: salt,
+                company: company,
+                iscompany: iscompany,
+                isopen: true,
               };
               const insertDb = new User(newUser).save();
               if (!insertDb) {
@@ -108,9 +111,9 @@ module.exports = {
         // 4. 있다면 뭐뭐 줄래? => token 전달!{ email, nickname }
         if (userInfo) {
           const { email, nickname } = userInfo;
-
-          const accessToken = generateAccessToken({ email, nickname });
-          const refreshToken = generateRefreshToken({ email, nickname });
+          const user_id = userInfo._id;
+          const accessToken = generateAccessToken({ email, nickname, user_id  });
+          const refreshToken = generateRefreshToken({ email, nickname, user_id });
           // const issueDate = new Date();
           // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
           // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d

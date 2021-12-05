@@ -83,7 +83,7 @@ export default function App(handlelogout) {
   // };
   return (
     <div id="app_div">
-      <Header5 isLogin={isLogin} isUser={isUser} onClick={handlelogout} />
+      <Header5 isLogin={isLogin} isUser={isUser} setIsLogin={setIsLogin} onClick={handlelogout} />
       {isDevHeader ? <DevHeader /> : null}
       <Route exact path="/" component={MainPage} />
       {/* Sign */}
