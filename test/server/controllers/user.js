@@ -9,10 +9,8 @@ module.exports = {
     // 2. 유저 정보를 보내준다.
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.status(401).send({ message: "싸장님 가입부터 해주세요!" });
+      return res.status(401).send({ message: "싸장님 가입부터 해주세요!" });
     }
-
-    console.log(userData)
     if (userData) {
       const userInfo = await User.findById(userData.user_id);
       if (!userInfo) {
@@ -177,18 +175,6 @@ module.exports = {
       } else {
         res.status(200).send({ message: "봉사천국 안뇽~ 담에 또 봐요~" });
       }
-    }
-  },
-  nickcheckControl: async (req, res) => {
-    // 1. 닉네임을 받는다
-    // 2. db에서 닉네임을 검색한다
-    const query = { nickname: req.body.nickname };
-    const existNick = await User.findOne(query);
-    // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
-    if (existNick) {
-      return res.status(409).send({ message: "싸장님 닉네임 이미 있어" });
-    } else {
-      return res.status(200).send({ message: "싸장님 좋은 닉네임!" });
     }
   },
 };

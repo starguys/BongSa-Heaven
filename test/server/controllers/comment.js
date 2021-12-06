@@ -46,7 +46,7 @@ module.exports = {
         return res.send({ message: "싸장님 회원 맞아?? 빨리 가입 해" });
       }
       if (userData) {
-        console.log("===userData===", userData);
+        // console.log("===userData===", userData);
         await Freeboard.findById(req.body.freeboard_id)
           .find({ freecomment_id: req.body.freecomment_id })
           .then((doc) => {
@@ -79,10 +79,17 @@ module.exports = {
       console.log("===userData.user_id===", userData.user_id);
       console.log("===req.body.freecomment_id===", req.body.freecomment_id);
       console.log("===req.body.freeboard_id===", req.body.freeboard_id);
-      await Freeboard.findById(req.body.freeboard_id)
-        .populate("freecomments.user_id")
-
-        .exec()
+      // await Freeboard.aggregate([
+      //   {
+      //     freecomments: {
+      //       $match: {
+      //         _id: req.body.freecomment_id,
+      //         user_id: userData.user_id,
+      //       },
+      //     },
+      //   },
+      // ])
+        .unwind("freecomments")
         .then((doc) => {
           console.log("===doc===", doc);
           res.status(200).send({ message: "싸장님 댓글 수정 완료~" });
