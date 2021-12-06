@@ -518,7 +518,7 @@ export default function RecruiterEdit() {
       })
 
       .then((res) => {
-        console.log(res.data.data.email);
+        console.log(res.data.data);
 
         setUserInfo({
           email: res.data.data.email,
@@ -526,9 +526,9 @@ export default function RecruiterEdit() {
           password: res.data.data.password,
           want_region: res.data.data.want_region,
           want_vol: res.data.data.want_vol,
-          gender: res.data.data.gender,
-          age: res.data.data.age,
-          company: res.data.company,
+
+          company: res.data.data.company,
+
         });
       })
 
@@ -563,6 +563,8 @@ export default function RecruiterEdit() {
     getUserInfoHandler();
   }, []);
 
+
+
   return (
     <>
       <Header3 />
@@ -573,10 +575,12 @@ export default function RecruiterEdit() {
           </LogoBox>
           <EditEmaill>현재 이메일 : {userInfo.email} </EditEmaill>
           <SignUpWhiteBox>
+
             <SignUpWhiteInput
               onChange={handleChange("nickname")}
               placeholder="닉네임"
             ></SignUpWhiteInput>
+
           </SignUpWhiteBox>
           <CheckingPossibleOrNotBox>
             <PossibleOrNot>사용 가능</PossibleOrNot>
@@ -585,6 +589,7 @@ export default function RecruiterEdit() {
             </CheckingPossibleOrNotButton>
           </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
+
             <SignUpWhiteInput
               onChange={handleChange("password")}
               placeholder="비밀번호"
@@ -613,6 +618,7 @@ export default function RecruiterEdit() {
               onChange={handleChange("company")}
               placeholder="기관명/봉사모집단체이름"
             ></SignUpWhiteInput>
+
           </SignUpWhiteBox>
           <CompleteBox>
             <CompleteButton onClick={userInfoEditHandler}>

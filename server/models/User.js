@@ -31,10 +31,13 @@ const userSchema = new Schema({
   age: {
     type: String,
   },
-  is_company: {
+  company: {
+    type: String,
+  },
+  iscompany: {
     type: Boolean,
   },
-  is_open: {
+  isopen: {
     type: Boolean,
     default: true,
   },

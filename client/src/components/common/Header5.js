@@ -163,11 +163,11 @@ import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
     }
   `;
 
-  export default function Header( {isLogin, setIsLogin} ) {
+  export default function Header( {isLogin, setIsLogin, isUserLogin} ) {
   
     const history = useHistory();
   
-    const [isUserLogin, setIsUserLogin] = useState("user")
+
 
   const GoMyPage = () => {
     isUserLogin === "user"
@@ -216,32 +216,13 @@ import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
   }
 
   useEffect(() => {
-    console.log("???",localStorage.getItem('accessToken'))
 
     if(localStorage.getItem('accessToken')) {
-
-      axios
-      .get(
-        "http://localhost:8080/user/info",
-        {
-          headers: {
-            "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        if(!res.data.data.age) {
-          setIsUserLogin("recruiter")
-        }
-
-      })
-      .catch((err) => {
-        console.log("응 안돼~",err)
-      })
+      setIsLogin(true)
     } 
+    console.log(isLogin)
     console.log(isUserLogin)
-  }, [isLogin])
+  }, [isLogin, isUserLogin])
 
 
   return (
