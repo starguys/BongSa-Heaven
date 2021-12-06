@@ -139,7 +139,7 @@ module.exports = {
       const checkPassword = req.body.password;
       const salt = await User.findById(userData.user_id).exec();
       if (salt === null) {
-        return res.status(404).send({ message: "회원정보 등록부터 해주세요!" });
+        return res.status(400).send({ message: "회원정보 등록부터 해주세요!" });
       }
       crypto.pbkdf2(
         checkPassword,

@@ -1,4 +1,6 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import Header3 from "../../components/common/Header3";
@@ -235,9 +237,6 @@ export default function RecruiterEdit() {
   const [isNick, setIsNick] = useState(false);
 
 
-  const GoUserDelete = () => {
-    history.push("/UserDelete");
-  };
   //새로운 성별
 
   const handleChange = (key) => (e) => {

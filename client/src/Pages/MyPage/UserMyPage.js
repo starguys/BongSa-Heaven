@@ -72,28 +72,33 @@ const WebContainer = styled.div`
   }
 `;
 
-export default function UserMyPage() {
- 
-  const history = useHistory();
-  const [isChecked, setIsChecked] = useState(true);
-  const handleSwitch = () => {
-    if (isChecked) {
-      setTimeout(setIsChecked(false), 100);
-    } else {
-      setTimeout(setIsChecked(true), 100);
-    }
-  };
-  const [userInfo, setUserInfo] = useState({
-    email: "",
-    nickname: "",
-    password: "",
-    passwordCheck: "",
-    imgUrl: "",
-    want_region: "",
-    want_vol: "",
-    age: "",
-    sex: "",
-  });
+
+
+  
+
+  export default function UserMyPage() {
+    const history = useHistory();
+    const [isChecked, setIsChecked] = useState(true);
+    const handleSwitch = () => {
+      if (isChecked) {
+        setTimeout(setIsChecked(false), 100);
+      } else {
+        setTimeout(setIsChecked(true), 100);
+      }
+    };
+
+    const [userInfo, setUserInfo] = useState({
+      email: "",
+      nickname: "",
+      password: "",
+      passwordCheck: "",
+      imgUrl: "",
+      want_region: "",
+      want_vol: "",
+      age: "",
+      sex: "",
+    });
+
   const GoSeeRecruiter = () => {
     history.push("/SeeRecruiter");
   };

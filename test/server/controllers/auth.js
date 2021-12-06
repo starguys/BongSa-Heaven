@@ -23,7 +23,7 @@ module.exports = {
       company,
       iscompany,
     } = req.body;
-
+    
     if (
       !email ||
       !nickname ||

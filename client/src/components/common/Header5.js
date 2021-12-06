@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useHistory } from "react-router";
@@ -7,15 +7,6 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
 
-export default function Header(props) {
-  // const [isSignIn, setIsSignIn] = useState(props.isLogin);
-  const isSignIn = props.isLogin;
-  const isUserLogin = props.isUser;
-  console.log(isSignIn);
-  const history = useHistory();
-
-  const isLogin = false;
-  const isRecruiter = false;
 
   const HeaderContainer = styled.div`
     width: 100%;
@@ -172,11 +163,16 @@ export default function Header(props) {
     }
   `;
 
+  export default function Header( {isLogin, setIsLogin} ) {
+  
+    const history = useHistory();
+  
+    const [isUserLogin, setIsUserLogin] = useState("user")
+
   const GoMyPage = () => {
-    console.log("hi");
-    isRecruiter
-      ? history.push("/RecruiterMyPage")
-      : history.push("/UserMyPage");
+    isUserLogin === "user"
+      ? history.push("/UserMyPage")
+      : history.push("/RecruiterMyPage");
   };
   const GoHome = () => {
     history.push("/");
@@ -211,13 +207,41 @@ export default function Header(props) {
       }
     )
     .then((res) => {
-      console.log(res.data.message);
       localStorage.removeItem("accessToken");
-      props.setIsLogin(false)
+      setIsLogin(false)
+      GoHome()
     })
     .catch((err) => console.log(err))
 
   }
+
+  useEffect(() => {
+    console.log("???",localStorage.getItem('accessToken'))
+
+    if(localStorage.getItem('accessToken')) {
+
+      axios
+      .get(
+        "http://localhost:8080/user/info",
+        {
+          headers: {
+            "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        if(!res.data.data.age) {
+          setIsUserLogin("recruiter")
+        }
+
+      })
+      .catch((err) => {
+        console.log("응 안돼~",err)
+      })
+    } 
+    console.log(isUserLogin)
+  }, [isLogin])
 
 
   return (
@@ -247,13 +271,13 @@ export default function Header(props) {
           <WebHeaderRight>
             <HeaderMap onClick={GoMap}>봉사지도</HeaderMap>
 
-            {isSignIn ? (
+            {isLogin ? (
               <HeaderSignInOut onClick={LogOut}>로그아웃</HeaderSignInOut>
             ) : (
               <HeaderSignInOut onClick={GoSignIn}>로그인</HeaderSignInOut>
             )}
-            {isSignIn ? (
-              isUserLogin ? (
+            {isLogin ? (
+              isUserLogin === "user" ? (
                 <HeaderSignUpMyPage onClick={GoUserMyPage}>
                   마이 페이지
                 </HeaderSignUpMyPage>

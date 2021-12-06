@@ -1,10 +1,8 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import Header4 from "../../components/common/Header4";
-
-export default function UserEditPasswordCheck() {
-  const history = useHistory();
 
   const PasswordCheckContainer = styled.div`
     @media screen and (min-width: 37.5rem) {
@@ -72,13 +70,53 @@ export default function UserEditPasswordCheck() {
       margin-left: 0px;
     }
   `;
-  const [password, setPassword] = useState("")
 
-  // const passwordCheck
 
-  const GoUserEdit = () => {
-    history.push("/UserEdit");
-  };
+  export default function UserEditPasswordCheck() {
+
+    const history = useHistory();
+    const GoUserEdit = () => {
+      history.push("/UserEdit");
+    };
+
+
+    const [passwordToCheck, setPasswordToCheck] = useState("");
+    const [passwordIsNotRight, setPasswordIsNotRight] = useState("");
+
+    const handlePassword = (e) => {
+      console.log(e.target.value);
+      setPasswordToCheck(e.target.value);
+    }
+  
+    const passwordChecking = () => {
+      axios.post("http://localhost:8080/user/password",
+      {password: passwordToCheck},
+      {
+        headers: {
+          "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
+          "Content-Type": "application/json",
+  
+        },
+      })
+      .then((res) => {
+        GoUserEdit(); 
+        console.log(res.data.message)
+      })
+      .catch((err) => {
+        console.log(err.response.status)
+
+      if(err.response.status === 404) {
+        setPasswordIsNotRight("비밀번호가 일치하지 않습니다.")
+      } 
+      else if (err.response.status === 401) {
+        setPasswordIsNotRight("회원정보가 등록되어 있지 않습니다. 먼저 등록부터 해주세요.")
+      }
+
+      })
+  
+    };
+
+
   return (
     <>
       <Header4 />
@@ -86,11 +124,11 @@ export default function UserEditPasswordCheck() {
         {/* <PasswordCheckContainerDiv> */}
         <PassCheckTitle>비밀번호 재확인</PassCheckTitle>
         <PassCheckText>
-          회원의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 입력해
+          회원의 정보를 안전하게 보호하기 위해,<br/> 비밀번호를 다시 한번 입력해
           주시기 바랍니다.
         </PassCheckText>
-        <PasswordCheckInput placeholder="password" />
-        <CheckBtn onClick={GoUserEdit}>확인</CheckBtn>
+        <PasswordCheckInput type="password" placeholder="password" onChange={handlePassword}/>
+        <CheckBtn onClick={passwordChecking}>확인</CheckBtn>
         {/* </PasswordCheckContainerDiv> */}
       </PasswordCheckContainer>
     </>

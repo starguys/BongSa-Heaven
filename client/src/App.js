@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Route, useHistory } from "react-router-dom";
+import { Route } from "react-router-dom";
 import "./App.css";
 import "./css/Reset.css";
-import axios from "axios";
 import Footer from "./components/common/Footer";
 import DevHeader from "./components/DevHeader";
 import DevFooter from "./components/DevFooter";
@@ -44,35 +43,20 @@ import Header5 from "./components/common/Header5";
 import Map from "./Pages/Map/Map";
 import MapRegister from "./Pages/Map/MapRegister";
 
-export default function App(handlelogout) {
+export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
-  const [isUser, setIsUser] = useState(false);
-  const [accessToken, setAccessToken] = useState("");
-
-  const history = useHistory();
+  const [isLogin, setIsLogin] = useState(false);
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
   };
 
-  const handleLogin = (token) => {
-    setAccessToken(token);
 
-    if (token) {
-      setIsLogin(true);
-      history.push("/");
-    }
-  };
+
 
   return (
     <div id="app_div">
-      <Header5
-        isLogin={isLogin}
-        isUser={isUser}
-        setIsLogin={setIsLogin}
-        onClick={handlelogout}
-      />
+      <Header5 isLogin={isLogin} setIsLogin={setIsLogin}/>
       {isDevHeader ? <DevHeader /> : null}
       <Route exact path="/" component={MainPage} />
       {/* Sign */}
@@ -82,12 +66,7 @@ export default function App(handlelogout) {
         exact
         path="/SignIn"
         render={() => (
-          <SignIn
-            accessToken={accessToken}
-            isLogin={isLogin}
-            handleLogin={handleLogin}
-            // handlelogout={handleLogout}
-          />
+          <SignIn setIsLogin={setIsLogin}/>
         )}
       />
       <Route exact path="/UserSignUp" component={UserSignUp} />

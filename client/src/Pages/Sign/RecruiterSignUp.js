@@ -440,6 +440,7 @@ export default function UserEdit() {
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handlePassword}
+              type="password"
               placeholder="비밀번호"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
@@ -449,6 +450,7 @@ export default function UserEdit() {
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handlePasswordCheck}
+              type="password"
               placeholder="비밀번호 확인"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>

@@ -4,10 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
-export default function Recruiters(props) {
-  const history = useHistory();
-  const { ShowRecruiter, idx } = props;
-  console.log(ShowRecruiter);
+
 
   const SeeRecruiterContainer = styled.div`
     margin-bottom: 13px;
@@ -86,6 +83,12 @@ export default function Recruiters(props) {
     font-size: 16px;
     line-height: 19px;
   `;
+
+  export default function Recruiters(props) {
+    const history = useHistory();
+    const { ShowRecruiter, idx } = props;
+    console.log(ShowRecruiter);
+    
   const GoMaillWrite = () => {
     history.push("/MaillWrite");
   };

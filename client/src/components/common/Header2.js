@@ -6,10 +6,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
 
-export default function Header2(props) {
-  const history = useHistory();
-  const isLogin = false;
-  const isRecruiter = false;
+
 
   const HeaderContainer = styled.div`
     width: 100%;
@@ -44,6 +41,11 @@ export default function Header2(props) {
     align-items: center;
     font-size: 24px;
   `;
+  
+  export default function Header2(props) {
+    const history = useHistory();
+    const isLogin = false;
+    const isRecruiter = false;
 
   const GoBack = () => {
     history.goBack();

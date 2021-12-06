@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
-export default function Footer() {
-  const history = useHistory();
-  const [isLogin, setIsLogin] = useState(false);
+
   const LogInOut = styled.div`
     background: #ffd5d5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
@@ -60,6 +59,12 @@ export default function Footer() {
 
   const FooterPosition = styled.div``;
 
+  export default function Footer() {
+
+    const history = useHistory();
+
+    const [isLogin, setIsLogin] = useState(false);
+    
   const GoSignIn = () => {
     history.push("/SignIn");
   };
@@ -68,11 +73,42 @@ export default function Footer() {
     history.push("/");
   };
 
+  const LogOut = () => {
+
+    axios
+    .post(
+      "http://localhost:8080/auth/signout",
+      {},
+      {
+        headers: {
+          "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((res) => {
+      localStorage.removeItem("accessToken");
+      setIsLogin(false)
+      GoHome()
+    })
+    .catch((err) => console.log(err))
+
+  }
+
+  useEffect(() => {
+    console.log(localStorage.getItem('accessToken'))
+    if(localStorage.getItem('accessToken')) {
+    
+      setIsLogin(true)
+    }
+  })
+
+
   return (
     <>
       <FooterPosition>
         {isLogin ? (
-          <LogInOut className="footer_signInOut" onClick={GoHome}>
+          <LogInOut className="footer_signInOut" onClick={() => {GoHome(); LogOut()}}>
             로그아웃
           </LogInOut>
         ) : (

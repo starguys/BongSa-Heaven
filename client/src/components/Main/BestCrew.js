@@ -2,8 +2,7 @@ import React from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 
-export default function BestCrew() {
-  const history = useHistory();
+
   const MainCrewBoardContainer = styled.div`
     @media screen and (max-width: 37.5rem) {
     }
@@ -84,6 +83,8 @@ export default function BestCrew() {
       border: 0;
     }
   `;
+  export default function BestCrew() {
+    const history = useHistory();
 
   const GoCrewBoardList = () => {
     history.push("/CrewBoardList");

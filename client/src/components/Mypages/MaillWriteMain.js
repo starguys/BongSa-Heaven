@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function MaillWriteMain() {
+
   const MaillNickCheckContainer = styled.div`
     margin-left: 39px;
     margin-top: 10px;
@@ -111,6 +111,7 @@ export default function MaillWriteMain() {
       justify-content: center;
     }
   `;
+  export default function MaillWriteMain() {
   return (
     <>
       <MaillNickCheckContainer>

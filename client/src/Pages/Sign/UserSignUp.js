@@ -454,6 +454,7 @@ export default function UserSignUp() {
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handlePassword}
+              type="password"
               placeholder="비밀번호"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
@@ -463,6 +464,7 @@ export default function UserSignUp() {
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handlePasswordCheck}
+              type="password"
               placeholder="비밀번호 확인"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
