@@ -113,6 +113,9 @@ export default function DevHeader() {
         <div className="DevHeader_box_btn">
           <Link to="/Map">Map</Link>
         </div>
+        <div className="DevHeader_box_btn">
+          <Link to="/MapRegister">MapRegister</Link>
+        </div>
       </div>
     </>
   );
