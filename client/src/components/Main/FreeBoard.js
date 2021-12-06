@@ -3,8 +3,7 @@ import { useHistory } from "react-router";
 import styled from "styled-components";
 import FreeBoardList from "./FreeBoardList";
 
-export default function FreeBoard() {
-  const history = useHistory();
+
   const MainFreeBoardContianer = styled.div`
     display: flex;
     justify-content: center;
@@ -34,6 +33,8 @@ export default function FreeBoard() {
   const FreeBoardTittle = styled.span`
     cursor: pointer;
   `;
+  export default function FreeBoard() {
+    const history = useHistory();
 
   const GoFreeBoradList = () => {
     history.push("/FreeBoardList");

@@ -6,10 +6,7 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
 
-export default function Header() {
-  const history = useHistory();
-  const isLogin = false;
-  const isRecruiter = false;
+
 
   const HeaderContainer = styled.div`
     width: 100%;
@@ -135,6 +132,11 @@ export default function Header() {
 
     color: #448b76;
   `;
+  
+  export default function Header() {
+    const history = useHistory();
+    const isLogin = false;
+    const isRecruiter = false;
 
   const GoMyPage = () => {
     console.log("hi");

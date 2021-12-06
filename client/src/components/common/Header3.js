@@ -4,8 +4,7 @@ import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-export default function Header3(props) {
-  const history = useHistory();
+
   const HeaderContainer = styled.div`
     width: 100%;
     height: 64px;
@@ -39,6 +38,8 @@ export default function Header3(props) {
     align-items: center;
     font-size: 24px;
   `;
+  export default function Header3(props) {
+    const history = useHistory();
 
   const GoBack = () => history.goBack();
 

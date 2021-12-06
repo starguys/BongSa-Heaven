@@ -4,9 +4,7 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-
-export default function RecruiterMyPageMain() {
-  const history = useHistory();
+import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 
   const MyNameContainer = styled.div`
     margin-left: 22px;
@@ -54,7 +52,13 @@ export default function RecruiterMyPageMain() {
     }
   `;
 
+
+  export default function RecruiterMyPageMain() {
+  const history = useHistory();
+
+  const [isLogin, setIsLogin] = useState(true);
   const [myname, setMyname] = useState("")
+
 
   const handleMaillBox = () => {
     console.log("hi");
@@ -74,30 +78,42 @@ export default function RecruiterMyPageMain() {
       }
     )
     .then((res) => {
-      console.log("res.data.data.nickname",res.data.data.nickname)
+      // console.log("res.data.data.nickname",res.data.data.nickname)
       setMyname(res.data.data.nickname)
     })
     .catch((err) => {
-      console.log("응 안돼~")
+      console.log("응 안돼~",err)
     })
 
   }
 
-  useEffect(() => {
+  const isNotLogin = () => history.push("/");
 
-    getUserInfo()
-    console.log("hi")
-  })
+  useEffect(() => {
+    if(localStorage.getItem('accessToken')) {
+      getUserInfo()
+    } else {
+      setIsLogin(false)
+    }
+  }, [])
+
+  
 
   return (
     <>
-      <MyNameContainer>
-        <MyNameText>{myname}님 어서오세요.</MyNameText>
-        <MynameMaill onClick={handleMaillBox}>
-          <FontAwesomeIcon icon={faEnvelope} className="MyPageIcon" />
-          <MynameMaillSpan>쪽지함</MynameMaillSpan>
-        </MynameMaill>
-      </MyNameContainer>
+      {isLogin ?
+      <>
+        <MyNameContainer>
+          <MyNameText>{myname}님 어서오세요.</MyNameText>
+          <MynameMaill onClick={handleMaillBox}>
+            <FontAwesomeIcon icon={faEnvelope} className="MyPageIcon" />
+            <MynameMaillSpan>쪽지함</MynameMaillSpan>
+          </MynameMaill>
+        </MyNameContainer>
+      </>
+      : 
+      isNotLogin()
+      }
     </>
   );
 }

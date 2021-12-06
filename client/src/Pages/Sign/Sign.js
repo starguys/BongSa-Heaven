@@ -85,7 +85,7 @@ const CompleteButton = styled.div`
   width: 110px;
 `;
 
-export default function SignIn({ accessToken, handleLogin }) {
+export default function SignIn( {setIsLogin} ) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -102,9 +102,9 @@ export default function SignIn({ accessToken, handleLogin }) {
     console.log(e.target.value);
     setPassword(e.target.value);
   };
-  const onKeyPress = (e) => {
+  const onKeyPress = () => {
     if (window.event.keyCode == 13) {
-      console.log("눌러");
+      console.log("enter키로 로그인");
       handleLoginRequest();
     }
   };
@@ -128,11 +128,16 @@ export default function SignIn({ accessToken, handleLogin }) {
           }
         )
         .then((res) => {
-          console.log(res.data);
           //로컬스토리지에저장,메인으로 복귀
-          handleLogin(res.data.accessToken);
           localStorage.setItem("accessToken", res.data.accessToken);
-        });
+          setIsLogin(true)
+          history.push("/");
+        })
+        .catch((err) => {
+          console.log(err)
+          setErrorMessage("아이디 혹은 비밀번호가 일치하지 않습니다.");
+        })
+
     }
   };
   //로그인창에서 이동
@@ -148,14 +153,13 @@ export default function SignIn({ accessToken, handleLogin }) {
           <LogoBox>
             <Logo src="./image/logo2.png"></Logo>
           </LogoBox>
+
           <SignInWhiteBox>
             <SignInWhiteInput
               type="email"
               placeholder="아이디(이메일)"
               onChange={handleEmail}
-            >
-              {/* {errorMessage} */}
-            </SignInWhiteInput>
+            ></SignInWhiteInput>
           </SignInWhiteBox>
 
 
@@ -164,11 +168,19 @@ export default function SignIn({ accessToken, handleLogin }) {
               type="password"
               placeholder="비밀번호"
               onChange={handlePassword}
+              onKeyUp={onKeyPress}
             ></SignInWhiteInput>
           </SignInWhiteBox>
 
+          {errorMessage}
+
           <CompleteBox>
-            <CompleteButton onClick={handleLoginRequest}>로그인</CompleteButton>
+            <CompleteButton 
+            onClick={handleLoginRequest}
+
+            >
+              로그인
+            </CompleteButton>
             <CompleteButton onClick={moveToSignUP}>구글</CompleteButton>
             <CompleteButton onClick={moveToSignUP}>카카오</CompleteButton>
             <CompleteButton onClick={moveToSignUP}>회원가입</CompleteButton>

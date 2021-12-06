@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-export default function MaillList() {
+
   const MaillContentsComponent = styled.div`
     margin-top: 21px;
     margin-left: 8px;
@@ -74,6 +74,7 @@ export default function MaillList() {
       color: #000000;
     }
   `;
+  export default function MaillList() {
   return (
     <>
       <MaillContentsComponent>

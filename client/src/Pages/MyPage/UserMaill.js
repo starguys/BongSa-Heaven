@@ -4,8 +4,7 @@ import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import MaillList from "../../components/Mypages/MaillList";
 
-export default function UserMaill() {
-  const history = useHistory();
+
   const MaillTitleContainer = styled.div`
     margin-top: 27px;
     height: 21px;
@@ -121,6 +120,8 @@ export default function UserMaill() {
       margin-left: 8%;
     }
   `;
+  export default function UserMaill() {
+    const history = useHistory();
 
   const GoMaillWrite = () => {
     history.push("/MaillWrite");

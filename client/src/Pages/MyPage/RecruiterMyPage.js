@@ -5,8 +5,7 @@ import styled from "styled-components";
 
 import RecruiterMyPageMain from "../../components/Mypages/RecruiterMyPageMain";
 
-export default function UserMyPage() {
-  const history = useHistory();
+
   const MyNameContainer = styled.div`
     margin-left: 22px;
     margin-top: 36px;
@@ -92,6 +91,8 @@ export default function UserMyPage() {
       align-items: center;
     }
   `;
+  export default function UserMyPage() {
+    const history = useHistory();
   const GoSeeUsers = () => {
     history.push("/SeeUser");
   };

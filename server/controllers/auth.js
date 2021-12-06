@@ -11,7 +11,7 @@ const {
 module.exports = {
   signupControl: async (req, res) => {
     // 1. req.body 제대로 들어왔는지 확인 아니면 돌려보냄
-    const { email, nickname, password, sex, want_region, want_vol, age } =
+    const { email, nickname, password, sex, want_region, want_vol, age , company, iscompany, } =
       req.body;
 
     // if (

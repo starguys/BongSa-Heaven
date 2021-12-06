@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
-export default function MaillWriteBottom() {
-  const history = useHistory();
+
+
   const MaillTitleContainer = styled.div`
     margin-top: 27px;
     height: 33px;
@@ -77,6 +77,8 @@ export default function MaillWriteBottom() {
     margin-left: 7px;
   `;
 
+  export default function MaillWriteBottom() {
+  const history = useHistory();
   const GoBack = () => {
     history.goBack();
   };

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function FreeBoardList() {
-  const FreeBoardList = styled.div`
+
+  const FreeBoardListdiv = styled.div`
     border-bottom: solid 1px #f2f2f2;
     margin-top: 26px;
     margin-left: 17px;
@@ -43,10 +43,11 @@ export default function FreeBoardList() {
     display: flex;
     align-items: center;
   `;
+  export default function FreeBoardList() {
 
   return (
     <>
-      <FreeBoardList>
+      <FreeBoardListdiv>
         <FreeBoardListTitle>
           안녕하세요 여기가 그 자유로운 게시판인가요?
         </FreeBoardListTitle>
@@ -56,7 +57,7 @@ export default function FreeBoardList() {
             2021.11.23
           </FreeBoardListTitleBottomDate>
         </FreeBoardListTitleBottom>
-      </FreeBoardList>
+      </FreeBoardListdiv>
     </>
   );
 }

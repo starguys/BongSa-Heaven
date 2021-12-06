@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-
-export default function UserMyPageMain() {
-  const history = useHistory();
 
   const MyNameContainer = styled.div`
     margin-left: 22px;
@@ -53,20 +51,65 @@ export default function UserMyPageMain() {
     }
   `;
 
+  export default function UserMyPageMain() {
+    const history = useHistory();
+
+  const [isLogin, setIsLogin] = useState(true);
+  const [myname, setMyname] = useState("")
+
   const handleMaillBox = () => {
     console.log("hi");
     history.push("/UserMaill");
   };
 
+  const getUserInfo = () => {
+
+    axios
+    .get(
+      "http://localhost:8080/user/info",
+      {
+        headers: {
+          "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((res) => {
+      console.log("res.data.data.nickname",res.data.data.nickname)
+      setMyname(res.data.data.nickname)
+    })
+    .catch((err) => {
+      console.log("응 안돼~",err)
+    })
+
+  }
+
+  const isNotLogin = () => history.push("/");
+
+  useEffect(() => {
+
+    if(localStorage.getItem('accessToken')) {
+      getUserInfo()
+    } else {
+      setIsLogin(false)
+    }
+  }, [])
+
   return (
     <>
+    {isLogin ?
+    <>
       <MyNameContainer>
-        <MyNameText>로켓봉사단님 어서오세요.</MyNameText>
+        <MyNameText>{myname}님 어서오세요.</MyNameText>
         <MynameMaill onClick={handleMaillBox}>
           <FontAwesomeIcon icon={faEnvelope} className="MyPageIcon" />
           <MynameMaillSpan>쪽지함</MynameMaillSpan>
         </MynameMaill>
       </MyNameContainer>
     </>
+    : 
+    isNotLogin()
+    }
+  </>
   );
 }

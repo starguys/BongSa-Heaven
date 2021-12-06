@@ -4,16 +4,7 @@ import { useHistory } from "react-router";
 import Header2 from "../../components/common/Header2";
 import UserMyPageMain from "../../components/Mypages/UserMyPageMain";
 
-export default function UserMyPage() {
-  const history = useHistory();
-  const [isChecked, setIsChecked] = useState(true);
-  const handleSwitch = () => {
-    if (isChecked) {
-      setTimeout(setIsChecked(false), 100);
-    } else {
-      setTimeout(setIsChecked(true), 100);
-    }
-  };
+
   const SeeRecruiterBtn = styled.button`
     margin-left: 24px;
     margin-bottom: 14px;
@@ -81,6 +72,16 @@ export default function UserMyPage() {
     }
   `;
 
+  export default function UserMyPage() {
+    const history = useHistory();
+    const [isChecked, setIsChecked] = useState(true);
+    const handleSwitch = () => {
+      if (isChecked) {
+        setTimeout(setIsChecked(false), 100);
+      } else {
+        setTimeout(setIsChecked(true), 100);
+      }
+    };
   const GoSeeRecruiter = () => {
     history.push("/SeeRecruiter");
   };
