@@ -1,7 +1,6 @@
 require("dotenv").config();
 const crypto = require("crypto");
 const User = require("../models/User");
-const axios = require("axios");
 const {
   generateAccessToken,
   generateRefreshToken,
@@ -23,19 +22,6 @@ module.exports = {
       company,
       iscompany,
     } = req.body;
-    
-    if (
-      !email ||
-      !nickname ||
-      !password ||
-      !want_region ||
-      !want_vol ||
-      !sex ||
-      !age ||
-      !iscompany
-    ) {
-      return res.status(400).send("모든 항목을 입력해주세요");
-    }
 
     // 2. 들어왔다면 db에 있는지 조회 있다면 돌려보냄
     const userDb = { email: email };
@@ -167,9 +153,9 @@ module.exports = {
       if (!userInfo) {
         return res.status(500).send({ message: "뭔가가 이상하다" });
       } else {
-        const { email, nickname } = userInfo;
-        const accessToken = generateAccessToken({ email, nickname });
-        const refreshToken = generateRefreshToken({ email, nickname });
+        const { email, nickname, user_id } = userInfo;
+        const accessToken = generateAccessToken({ email, nickname, user_id });
+        const refreshToken = generateRefreshToken({ email, nickname, user_id });
         // const issueDate = new Date();
         // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
         // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
@@ -180,6 +166,20 @@ module.exports = {
       }
     }
   },
+
+  nickcheckControl: async (req, res) => {
+    // 1. 닉네임을 받는다
+    // 2. db에서 닉네임을 검색한다
+    const query = { nickname: req.body.nickname };
+    const existNick = await User.findOne(query);
+    // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
+    if (existNick) {
+      return res.status(409).send({ message: "싸장님 닉네임 이미 있어" });
+    } else {
+      return res.status(200).send({ message: "싸장님 좋은 닉네임!" });
+    }
+  },
+
   googleControl: async (req, res) => {
     res.send();
   },

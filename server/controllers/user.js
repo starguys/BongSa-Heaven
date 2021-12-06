@@ -117,8 +117,7 @@ module.exports = {
                       .exec();
                     res.status(200).send({ message: "싸장님 정보 변경 완료!" });
                   }
-                } 
-                else {
+                } else {
                   res.status(500).send({ message: "서버 이상해!" });
                 }
               }

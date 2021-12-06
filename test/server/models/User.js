@@ -36,12 +36,12 @@ const userSchema = new Schema({
   company: {
     type: String,
   },
-
   iscompany: {
     type: Boolean,
   },
   isopen: {
     type: Boolean,
+    default: true,
   },
 });
 
