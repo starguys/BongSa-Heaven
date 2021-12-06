@@ -211,7 +211,6 @@ export default function RecruiterEdit() {
     history.push("/UserDelete");
   };
 
-
   const [userInfo, setUserInfo] = useState({
     email: "",
     nickname: "",
@@ -220,8 +219,7 @@ export default function RecruiterEdit() {
     imgUrl: "",
     want_region: "",
     want_vol: "",
-    age: "",
-    sex: "",
+    company: "",
   });
   const [newPass, setNewPass] = useState({
     password: "",
@@ -235,7 +233,6 @@ export default function RecruiterEdit() {
   const [nickCheckErrorMessage, setNickCheckErrorMessage] = useState("");
   // setUserInfo({ ...userInfo, [key]: e.target.value });
   const [isNick, setIsNick] = useState(false);
-
 
   //새로운 성별
 
@@ -425,8 +422,7 @@ export default function RecruiterEdit() {
 
             want_region: userInfo.want_region,
             want_vol: userInfo.want_vol,
-            sex: userInfo.sex,
-            age: userInfo.age,
+            company: userInfo.company,
           },
           {
             headers: {
@@ -457,6 +453,7 @@ export default function RecruiterEdit() {
             want_vol: userInfo.want_vol,
             sex: userInfo.sex,
             age: userInfo.age,
+            company: userInfo.company,
           },
           {
             headers: {
@@ -484,8 +481,8 @@ export default function RecruiterEdit() {
 
           want_region: userInfo.want_region,
           want_vol: userInfo.want_vol,
-          sex: userInfo.sex,
-          age: userInfo.age,
+
+          company: userInfo.company,
         },
         {
           headers: {
@@ -529,7 +526,9 @@ export default function RecruiterEdit() {
           password: res.data.data.password,
           want_region: res.data.data.want_region,
           want_vol: res.data.data.want_vol,
+
           company: res.data.data.company,
+
         });
       })
 
@@ -565,7 +564,7 @@ export default function RecruiterEdit() {
   }, []);
 
 
-  
+
   return (
     <>
       <Header3 />
@@ -574,31 +573,57 @@ export default function RecruiterEdit() {
           <LogoBox>
             <Logo src="./image/logo2.png"></Logo>
           </LogoBox>
-          <EditEmaill>현재 이메일 : kimcoding@codestate.com</EditEmaill>
+          <EditEmaill>현재 이메일 : {userInfo.email} </EditEmaill>
           <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="새로운 닉네임" value={userInfo.nickname}></SignUpWhiteInput>
+
+            <SignUpWhiteInput
+              onChange={handleChange("nickname")}
+              placeholder="닉네임"
+            ></SignUpWhiteInput>
+
           </SignUpWhiteBox>
           <CheckingPossibleOrNotBox>
             <PossibleOrNot>사용 가능</PossibleOrNot>
-            <CheckingPossibleOrNotButton>중복 확인</CheckingPossibleOrNotButton>
+            <CheckingPossibleOrNotButton onClick={handleNicknameCheck}>
+              중복 확인
+            </CheckingPossibleOrNotButton>
           </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
-            <SignUpWhiteInput type="password" placeholder="비밀번호"></SignUpWhiteInput>
+
+            <SignUpWhiteInput
+              onChange={handleChange("password")}
+              placeholder="비밀번호"
+            ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
-            <SignUpWhiteInput type="password" placeholder="비밀번호 확인"></SignUpWhiteInput>
+            <SignUpWhiteInput
+              onChange={handleChange("passwordCheck")}
+              placeholder="비밀번호 확인"
+            ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="봉사활동 지역" value={userInfo.want_region}></SignUpWhiteInput>
+            <SignUpWhiteInput
+              onChange={handleChange("want_region")}
+              placeholder="봉사활동 지역"
+            ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="봉사활동" value={userInfo.want_vol}></SignUpWhiteInput>
+            <SignUpWhiteInput
+              onChange={handleChange("want_vol")}
+              placeholder="봉사활동"
+            ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="기관명/봉사모집단체이름" value={userInfo.company}></SignUpWhiteInput>
+            <SignUpWhiteInput
+              onChange={handleChange("company")}
+              placeholder="기관명/봉사모집단체이름"
+            ></SignUpWhiteInput>
+
           </SignUpWhiteBox>
           <CompleteBox>
-            <CompleteButton onClick={GoMyPage}>수정완료 완료</CompleteButton>
+            <CompleteButton onClick={userInfoEditHandler}>
+              수정완료 완료
+            </CompleteButton>
             <DeleteBtn onClick={GoUserDelete}>회원탈퇴</DeleteBtn>
           </CompleteBox>
         </MainContainer>

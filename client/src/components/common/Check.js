@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-
+import axios from "axios";
 const DeleteBoxTitleBox = styled.div`
   display: flex;
   justify-content: center;
@@ -63,11 +63,39 @@ export default function Check(props) {
   const Delete = (url) => history.push(url);
   const Cancel = (url) => history.push(url);
 
+  const userWithdrawalHandler = () => {
+    // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
+
+    axios
+      .delete(
+        "http://localhost:8080/user/withdrawal",
+
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            "Content-Type": "applicaton/json",
+          },
+        }
+      )
+      .then((res) => {
+// 쿠키삭제, accesstoken삭제
+  const deleteCookie = function(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+}
+deleteCookie('name');
+        localStorage.clear()
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <DeleteBoxTitleBox>{props.contents}</DeleteBoxTitleBox>
       <SelectBox>
-        <DeleteButton onClick={() => Delete(props.delete)}>
+        <DeleteButton userWithdrawalHandler={userWithdrawalHandler}>
           {props.leftBtn}
         </DeleteButton>
         <CancelButton onClick={() => Cancel(props.cancel)}>취소</CancelButton>

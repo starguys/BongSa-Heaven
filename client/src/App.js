@@ -52,23 +52,25 @@ export default function App() {
     setIsDevHeader(!isDevHeader);
   };
 
-
-
-
   return (
     <div id="app_div">
+
       <Header5 isLogin={isLogin} setIsLogin={setIsLogin} isUserLogin={isUserLogin} />
+
       {isDevHeader ? <DevHeader /> : null}
       <Route exact path="/" component={MainPage} />
       {/* Sign */}
+
       <Route exact path="/RecruiterSignUp" component={RecruiterSignUp} />
       <Route exact path="/SignUp" component={SignUp} />
       <Route
         exact
         path="/SignIn"
+
         render={() => (
           <SignIn setIsLogin={setIsLogin} setIsUserLogin={setIsUserLogin}/>
         )}
+
       />
       <Route exact path="/UserSignUp" component={UserSignUp} />
       {/* MyPage */}

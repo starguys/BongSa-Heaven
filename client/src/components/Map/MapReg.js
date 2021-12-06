@@ -115,14 +115,19 @@ export default function MapReg() {
           let contentBottom = document.createElement("div");
           contentBottom.className = "ContentBottom";
 
+
           let contTentMiddleText = document.createElement("span");
           contTentMiddleText.className = "contTentMiddleText";
           contTentMiddleText.innerHTML = "위치를 등록하시겠습니까?";
+
 
           let regBtn = document.createElement("button");
           regBtn.innerHTML = "등록하기";
           regBtn.className = "RegBtn";
           regBtn.onclick = function () {
+
+
+            
             console.log(selectedMarker.n);
             // overlay.setMap(null);
           };
