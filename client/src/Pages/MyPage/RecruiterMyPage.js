@@ -64,11 +64,30 @@ import RecruiterMyPageMain from "../../components/Mypages/RecruiterMyPageMain";
     }
   `;
   const InfoEditBtn = styled.button`
-    margin-bottom: 24px;
+    margin-bottom: 14px;
     margin-left: 24px;
     width: 327px;
     height: 29px;
     background: #ff7676;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #ffffff;
+    border: 0;
+    @media screen and (min-width: 37.5rem) {
+      width: 760px;
+      height: 71px;
+      cursor: pointer;
+    }
+  `;
+  const MapRegister = styled.button`
+    margin-bottom: 24px;
+    margin-left: 24px;
+    width: 327px;
+    height: 29px;
+    background: #448b76;
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -99,6 +118,9 @@ import RecruiterMyPageMain from "../../components/Mypages/RecruiterMyPageMain";
   const GoUserEditPasswordCheck = () => {
     history.push("/RecruiterPasswordCheck");
   };
+  const GoMapRegister = () => {
+    history.push("/MapRegister");
+  };
 
   return (
     <>
@@ -109,6 +131,7 @@ import RecruiterMyPageMain from "../../components/Mypages/RecruiterMyPageMain";
         <InfoEditBtn onClick={GoUserEditPasswordCheck}>
           회원정보 수정하기
         </InfoEditBtn>
+        <MapRegister onClick={GoMapRegister}>지도등록 하기</MapRegister>
       </WebContainer>
     </>
   );

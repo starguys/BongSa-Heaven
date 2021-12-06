@@ -41,6 +41,7 @@ import CrewBoardList from "./Pages/CrewBoard/CrewBoardList";
 import Header5 from "./components/common/Header5";
 
 import Map from "./Pages/Map/Map";
+import MapRegister from "./Pages/Map/MapRegister";
 
 export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
@@ -114,6 +115,7 @@ export default function App() {
       <Route exact path="/CrewBoardEdit" component={CrewBoardEdit} />
       <Route exact path="/CrewBoardList" component={CrewBoardList} />
       <Route exact path="/Map" component={Map} />
+      <Route exact path="/MapRegister" component={MapRegister} />
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
 
       <Footer />

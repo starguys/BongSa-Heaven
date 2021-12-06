@@ -186,7 +186,7 @@ const CompleteButton = styled.div`
   width: 110px;
 `;
 
-export default function UserSignUp(company) {
+export default function UserSignUp() {
   const history = useHistory();
 
   const [email, setEmail] = useState("");

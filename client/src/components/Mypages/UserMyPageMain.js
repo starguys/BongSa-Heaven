@@ -52,6 +52,18 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
   `;
 
   export default function UserMyPageMain() {
+
+      // const [userInfo, setUserInfo] = useState({
+  //   email: "",
+  //   nickname: "",
+  //   password: "",
+  //   passwordCheck: "",
+  //   imgUrl: "",
+  //   want_region: "",
+  //   want_vol: "",
+  //   age: "",
+  //   sex: "",
+  // });
     const history = useHistory();
 
   const [isLogin, setIsLogin] = useState(true);
