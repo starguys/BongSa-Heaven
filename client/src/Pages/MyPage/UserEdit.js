@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import Header3 from "../../components/common/Header3";

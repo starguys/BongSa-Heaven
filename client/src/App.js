@@ -46,6 +46,7 @@ import MapRegister from "./Pages/Map/MapRegister";
 export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [isUserLogin, setIsUserLogin] = useState("user")
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
@@ -56,7 +57,7 @@ export default function App() {
 
   return (
     <div id="app_div">
-      <Header5 isLogin={isLogin} setIsLogin={setIsLogin}/>
+      <Header5 isLogin={isLogin} setIsLogin={setIsLogin} isUserLogin={isUserLogin} />
       {isDevHeader ? <DevHeader /> : null}
       <Route exact path="/" component={MainPage} />
       {/* Sign */}
@@ -66,7 +67,7 @@ export default function App() {
         exact
         path="/SignIn"
         render={() => (
-          <SignIn setIsLogin={setIsLogin}/>
+          <SignIn setIsLogin={setIsLogin} setIsUserLogin={setIsUserLogin}/>
         )}
       />
       <Route exact path="/UserSignUp" component={UserSignUp} />

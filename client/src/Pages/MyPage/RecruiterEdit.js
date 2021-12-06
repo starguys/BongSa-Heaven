@@ -521,7 +521,7 @@ export default function RecruiterEdit() {
       })
 
       .then((res) => {
-        console.log(res.data.data.email);
+        console.log(res.data.data);
 
         setUserInfo({
           email: res.data.data.email,
@@ -529,8 +529,7 @@ export default function RecruiterEdit() {
           password: res.data.data.password,
           want_region: res.data.data.want_region,
           want_vol: res.data.data.want_vol,
-          gender: res.data.data.gender,
-          age: res.data.data.age,
+          company: res.data.data.company,
         });
       })
 
@@ -566,6 +565,7 @@ export default function RecruiterEdit() {
   }, []);
 
 
+  
   return (
     <>
       <Header3 />
@@ -576,26 +576,26 @@ export default function RecruiterEdit() {
           </LogoBox>
           <EditEmaill>현재 이메일 : kimcoding@codestate.com</EditEmaill>
           <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="닉네임"></SignUpWhiteInput>
+            <SignUpWhiteInput placeholder="새로운 닉네임" value={userInfo.nickname}></SignUpWhiteInput>
           </SignUpWhiteBox>
           <CheckingPossibleOrNotBox>
             <PossibleOrNot>사용 가능</PossibleOrNot>
             <CheckingPossibleOrNotButton>중복 확인</CheckingPossibleOrNotButton>
           </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="비밀번호"></SignUpWhiteInput>
+            <SignUpWhiteInput type="password" placeholder="비밀번호"></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="비밀번호 확인"></SignUpWhiteInput>
+            <SignUpWhiteInput type="password" placeholder="비밀번호 확인"></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="봉사활동 지역"></SignUpWhiteInput>
+            <SignUpWhiteInput placeholder="봉사활동 지역" value={userInfo.want_region}></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="봉사활동"></SignUpWhiteInput>
+            <SignUpWhiteInput placeholder="봉사활동" value={userInfo.want_vol}></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="기관명/봉사모집단체이름"></SignUpWhiteInput>
+            <SignUpWhiteInput placeholder="기관명/봉사모집단체이름" value={userInfo.company}></SignUpWhiteInput>
           </SignUpWhiteBox>
           <CompleteBox>
             <CompleteButton onClick={GoMyPage}>수정완료 완료</CompleteButton>
