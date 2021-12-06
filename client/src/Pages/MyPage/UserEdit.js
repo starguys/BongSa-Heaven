@@ -533,28 +533,7 @@ export default function UserEdit() {
       });
   };
 
-  const userWithdrawalHandler = () => {
-    // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
-
-    axios
-      .delete(
-        "http://localhost:8080/user/withdrawal",
-
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            "Content-Type": "applicaton/json",
-          },
-        }
-      )
-      .then((res) => {
-        history.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+ 
   useEffect(() => {
     getUserInfoHandler();
   }, []);
@@ -623,7 +602,7 @@ export default function UserEdit() {
             <CompleteButton onClick={userInfoEditHandler}>
               수정완료 완료
             </CompleteButton>
-            <CompleteButton onClick={userWithdrawalHandler}>
+            <CompleteButton onClick={GoUserDelete}>
               회원탈퇴
             </CompleteButton>
           </CompleteBox>

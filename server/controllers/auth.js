@@ -23,6 +23,7 @@ module.exports = {
       iscompany,
     } = req.body;
 
+    console.log("req.body",req.body)
     // if (
     //   !email ||
     //   !nickname ||
@@ -71,6 +72,7 @@ module.exports = {
                 iscompany: iscompany,
                 isopen: true,
               };
+              console.log(newUser)
               const insertDb = new User(newUser).save();
               if (!insertDb) {
                 return res.status(500).send({ message: "싸장님 서버 이상해" });

@@ -14,7 +14,7 @@ const DummyInput = styled.input`
   display: none;
 `;
 export default function MapReg() {
-  const [value, setValue] = useState("코드스테이츠");
+  const [value, setValue] = useState("강남");
   const [btnValue, setBtnValue] = useState("");
 
   useEffect(() => {
@@ -91,6 +91,7 @@ export default function MapReg() {
 
       for (var i = 0; i < places.length; i++) {
         // 마커를 생성하고 지도에 표시합니다
+
         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
           marker = addMarker(placePosition, i),
           itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
@@ -109,15 +110,24 @@ export default function MapReg() {
 
           let contentTop = document.createElement("div");
           contentTop.className = "ContentTop";
-          contentTop.innerHTML = "위치를 등록하시겠습니까?";
+          contentTop.innerHTML = `${title}`;
 
           let contentBottom = document.createElement("div");
           contentBottom.className = "ContentBottom";
+
+
+          let contTentMiddleText = document.createElement("span");
+          contTentMiddleText.className = "contTentMiddleText";
+          contTentMiddleText.innerHTML = "위치를 등록하시겠습니까?";
+
 
           let regBtn = document.createElement("button");
           regBtn.innerHTML = "등록하기";
           regBtn.className = "RegBtn";
           regBtn.onclick = function () {
+
+
+            
             console.log(selectedMarker.n);
             // overlay.setMap(null);
           };
@@ -129,10 +139,22 @@ export default function MapReg() {
             overlay.setMap(null);
           };
           content.appendChild(contentTop);
+          content.appendChild(contTentMiddleText);
           content.appendChild(contentBottom);
 
           contentBottom.appendChild(regBtn);
           contentBottom.appendChild(cancleBtn);
+
+          window.kakao.maps.event.addListener(marker, "click", function () {
+            if (document.getElementsByClassName("ContentOverlay").length > 0) {
+              console.log("im a lot ~");
+              overlay.setMap(null);
+            }
+            console.log(
+              document.getElementsByClassName("ContentOverlay").length,
+              "length"
+            );
+          });
 
           let overlay = new kakao.maps.CustomOverlay({
             content: content,
@@ -143,10 +165,15 @@ export default function MapReg() {
             xAnchor: 0.5,
           });
           overlay.setMap(null);
+
           window.kakao.maps.event.addListener(marker, "click", function () {
-            overlay.setMap(map);
+            setTimeout(() => {
+              overlay.setMap(map);
+            }, 100);
+
             selectedMarker = marker;
             console.log("hi", selectedMarker.n);
+            console.log("hi", title);
           });
 
           itemEl.onmouseover = function () {

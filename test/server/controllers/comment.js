@@ -89,11 +89,11 @@ module.exports = {
       //     },
       //   },
       // ])
-        .unwind("freecomments")
-        .then((doc) => {
-          console.log("===doc===", doc);
-          res.status(200).send({ message: "싸장님 댓글 수정 완료~" });
-        });
+      // .unwind("freecomments")
+      // .then((doc) => {
+      //   console.log("===doc===", doc);
+      //   res.status(200).send({ message: "싸장님 댓글 수정 완료~" });
+      // });
     }
   },
 
