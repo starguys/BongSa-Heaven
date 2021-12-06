@@ -3,7 +3,7 @@ import Header2 from "../../components/common/Header2";
 import styled from "styled-components";
 import Users from "../../components/Mypages/Users";
 
-export default function SeeUsers() {
+
   const TopSpace = styled.div`
     height: 43px;
   `;
@@ -16,6 +16,10 @@ export default function SeeUsers() {
       align-items: center;
     }
   `;
+export default function SeeUsers() {
+//open인 고개만 보옂준다.
+
+
 
   return (
     <>

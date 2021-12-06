@@ -11,8 +11,17 @@ const {
 module.exports = {
   signupControl: async (req, res) => {
     // 1. req.body 제대로 들어왔는지 확인 아니면 돌려보냄
-    const { email, nickname, password, sex, want_region, want_vol, age } =
-      req.body;
+    const {
+      email,
+      nickname,
+      password,
+      sex,
+      want_region,
+      want_vol,
+      age,
+      company,
+      iscompany,
+    } = req.body;
 
     // if (
     //   !email ||
@@ -113,8 +122,12 @@ module.exports = {
           const { email, nickname } = userInfo;
           const user_id = userInfo._id;
 
-          const accessToken = generateAccessToken({ email, nickname, user_id  });
-          const refreshToken = generateRefreshToken({ email, nickname, user_id });
+          const accessToken = generateAccessToken({ email, nickname, user_id });
+          const refreshToken = generateRefreshToken({
+            email,
+            nickname,
+            user_id,
+          });
 
           // const issueDate = new Date();
           // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h

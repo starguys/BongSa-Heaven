@@ -210,57 +210,96 @@ export default function UserEdit() {
     imgUrl: "",
     want_region: "",
     want_vol: "",
-    gender: "",
     age: "",
+    sex: "",
+  });
+  const [newPass, setNewPass] = useState({
+    password: "",
+    asswordCheck: "",
   });
 
-  const [password, setPassword] = useState("");
-  const [checkPassword, setCheckPassword] = useState("");
   //errorMessage
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passErrorMessage, setPassErrorMessage] = useState("");
   const [passCheckErrorMessage, setPassCheckErrorMessage] = useState("");
   const [nickCheckErrorMessage, setNickCheckErrorMessage] = useState("");
+  // setUserInfo({ ...userInfo, [key]: e.target.value });
+  const [isNick, setIsNick] = useState(false);
 
   const history = useHistory();
-  const GoMyPage = () => {
-    history.push("/UserMyPage");
-  };
+
   const GoUserDelete = () => {
     history.push("/UserDelete");
   };
+  //새로운 성별
 
-  //비밀번호를 바꾸는경우
-  //정보를 바꾸는 경우
-  const userInfoEditHandler = (key) => (e) => {
-    //onChange에 의해 변하는값.
+  const handleChange = (key) => (e) => {
+    // 비밀번호, 닉네임은 새로 만들고 , 나머지는 기존 userInfo 변경?
+    //유저 정보 변경시 새로운 데이터가 들어옴
+
+    //userinfo에서 성별을 바꾸는 방법
+
     setUserInfo({ ...userInfo, [key]: e.target.value });
 
-    //password ===passwordcheck가 되어야함
+    if (key === "man") {
+      setUserInfo({ ...userInfo, ["sex"]: "남자" });
+    } else if (key === "woman") {
+      setUserInfo({ ...userInfo, ["sex"]: "여자" });
+    }
+    if (key === "teen") {
+      setUserInfo({ ...userInfo, ["age"]: "청소년 " });
+    } else if (key === "adult") {
+      setUserInfo({ ...userInfo, ["age"]: "청년" });
+    } else if (key === "senior") {
+      setUserInfo({ ...userInfo, ["age"]: "장년" });
+    }
 
-    //닉네임만 바꾸는경우
-    //비밀번호만 바꾸는경우
-    //성별, 나이, 봉사희망지역, 희망 봉사
+    console.log(userInfo);
+    if (key === "password") {
+      setNewPass({ ...newPass, [key]: e.target.value });
+    } else if (key === "passwordCheck") {
+      setNewPass({ ...newPass, [key]: e.target.value });
+    }
 
-    //바꾸는 값
+    // if (key === "newnickname") {
+    //   console.log(newUserInfo);
+    //   setNewUserInfo({ ...newUserInfo, [key]: e.target.value });
+    // }
 
-    //password가 존재하지 않는다.
-    //password를 입력하지 않으면 비밀번호를 변경하지 않겠다.
-
-    axios
-      .patch("http://localhost:8080/user/edit", {
-        password: userInfo.password,
-        passwordCheck: userInfo.passwordCheck,
-        nickname: userInfo.nickname,
-        want_region: userInfo.want_region,
-        wnat_vol: userInfo.want_vol,
-        age: userInfo.age,
-        sex: userInfo.sex,
-      })
-      .then((res) => {
-        console.log(res.data.data);
-      });
+    // if (key === "newSex") {
+    //   console.log(newUserInfo);
+    //   setNewUserInfo({ ...newUserInfo, [key]: "남자" });
+    // } else if (key === "newSex") {
+    //   console.log(newUserInfo);
+    //   setNewUserInfo({ ...newUserInfo, [key]: "여자" });
+    // }
   };
+  const validateCheckPassword = (password, passwordCheck) => {
+    if (password !== passwordCheck) {
+      setPassCheckErrorMessage("동일한 비밀번호를 입력해주세요");
+      return false;
+    } else {
+      setPassCheckErrorMessage("");
+      return true;
+    }
+  };
+  const validatePassword = (password) => {
+    // 8자이상 16자이하 의 숫자, 문자, 특수문자 조합
+
+    const regPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+
+    if (!regPassword.test(password)) {
+      setPassErrorMessage(
+        "비밀번호를 8~16자, 숫자, 특수문자,영어를 혼합해주세요"
+      );
+      return false;
+    } else {
+      setPassErrorMessage("");
+
+      return true;
+    }
+  };
+
   const validateNickname = (nickname) => {
     //닉네임은 자릿수 제한만 두기로 한다.
     //닉네임 중복 체크
@@ -282,7 +321,188 @@ export default function UserEdit() {
       //1->0 일때 문제 x
     }
   };
-  const userInfoHandler = () => {
+
+  const handleNicknameCheck = () => {
+    //userInfo 는 주어진 값
+    //handleChange에 의해 변한값 따로
+    // validateNickname(nickname);
+    //버튼을 눌럿을시 내가 입력한 handlenick과
+    //db에 있는 nick과 일치하는지 확인
+    const valideNickname = validateNickname(userInfo.nickname);
+
+    // console.log(s);
+    if (userInfo.nickname && valideNickname) {
+      axios
+        .post(
+          "http://localhost:8080/auth/nickcheck",
+          {
+            nickname: userInfo.nickname,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          console.log("통과");
+          if (userInfo.nickname !== res.data.data) {
+            setNickCheckErrorMessage("사용 가능한 닉네임 입니다.");
+            setIsNick(true);
+          }
+        })
+        .catch(() => {
+          console.log("일치하는값 들어옴");
+          setNickCheckErrorMessage("중복된 닉네임 입니다.");
+          setIsNick(false);
+        });
+    }
+    setIsNick(false);
+  };
+  const userInfoEditHandler = () => {
+    const validPassword = validatePassword(newPass.password);
+    const validNickname = validateNickname(userInfo.nickname);
+    const validCheckPassword = validateCheckPassword(
+      newPass.password,
+      newPass.passwordCheck
+    );
+
+    console.log(validNickname, validPassword, validCheckPassword, isNick);
+    //유저정보 변경은 어떻게 이루어지는가?
+    //닉네임만 바꾸는 경우  userinfo를 onchange로 변화시키면 값읃 얻을수 있다.
+
+    console.log(userInfo);
+    //비밀번호랑 닉네임 같이 바꾸는 경우
+    //비밀번호만 바꾸는경우
+    //닉네임만 바꾸는 경우
+    //그외 나머지를 바꾸는 경우
+
+    //비밀번호를 바꾸는 경우 비밀번호 유효성검사, 비밀번호가 같아야지 비밀번호를 바꿀수 있다.
+    if (validPassword && validCheckPassword) {
+      console.log("비번 변경");
+      axios
+        .patch(
+          "http://localhost:8080/user/edit",
+          {
+            email: userInfo.email,
+            password: newPass.password,
+            want_region: userInfo.want_region,
+            want_vol: userInfo.want_vol,
+            sex: userInfo.sex,
+            age: userInfo.age,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            "Contetn-Type ": "appliaction/json",
+          }
+        )
+        .then((res) => {
+          console.log(res.data.data);
+          history.push("/UserMyPage");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    //닉유효성검사 + 중복체크 통과
+    if (validNickname && isNick) {
+      console.log("닉네임 변경");
+      axios
+        .patch(
+          "http://localhost:8080/user/edit",
+          {
+            email: userInfo.email,
+            nickname: userInfo.nickname,
+            password: userInfo.password,
+
+            want_region: userInfo.want_region,
+            want_vol: userInfo.want_vol,
+            sex: userInfo.sex,
+            age: userInfo.age,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            "Contetn-Type ": "appliaction/json",
+          }
+        )
+        .then((res) => {
+          console.log(res.data.data);
+          history.push("/UserMyPage");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    //비번 닉네임 동시에 바꾸는 경우
+    if (validNickname && isNick && validPassword && validCheckPassword) {
+      axios
+        .patch(
+          "http://localhost:8080/user/edit",
+          {
+            email: userInfo.email,
+            nickname: userInfo.nickname,
+            password: newPass.password,
+
+            want_region: userInfo.want_region,
+            want_vol: userInfo.want_vol,
+            sex: userInfo.sex,
+            age: userInfo.age,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            "Contetn-Type ": "appliaction/json",
+          }
+        )
+        .then((res) => {
+          console.log(res.data.data);
+          history.push("/UserMyPage");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    //비번 제외 닉네임 제외하고 바꾸는 경우
+    axios
+      .patch(
+        "http://localhost:8080/user/edit",
+        {
+          email: userInfo.email,
+          nickname: userInfo.nickname,
+          password: newPass.password,
+
+          want_region: userInfo.want_region,
+          want_vol: userInfo.want_vol,
+          sex: userInfo.sex,
+          age: userInfo.age,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          "Contetn-Type ": "appliaction/json",
+        }
+      )
+      .then((res) => {
+        console.log(res.data.data);
+        history.push("/UserMyPage");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    //닉네임 비번 외에는 유효성 검증 필요 없고 그냥 바꿀수 있음.
+
+    //password를 바꾸고 싶다면, 유효성검증,이 통과되어야함
+    // if(va)
+  };
+
+  const getUserInfoHandler = () => {
     console.log(localStorage.getItem("accessToken"));
     //비밀번호, 닉네임, 등등 바꾸는 경우
 
@@ -312,8 +532,31 @@ export default function UserEdit() {
         console.log(err);
       });
   };
+
+  const userWithdrawalHandler = () => {
+    // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
+
+    axios
+      .delete(
+        "http://localhost:8080/user/withdrawal",
+
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            "Content-Type": "applicaton/json",
+          },
+        }
+      )
+      .then((res) => {
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
-    userInfoHandler();
+    getUserInfoHandler();
   }, []);
   return (
     <>
@@ -326,47 +569,63 @@ export default function UserEdit() {
           <EditEmaill>현재 이메일 : {userInfo.email}</EditEmaill>
           <SignUpWhiteBox>
             <SignUpWhiteInput
-              value={userInfo.nickname}
+              onChange={handleChange("nickname")}
+              defaultValue={userInfo.nickname}
               placeholder="닉네임"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <CheckingPossibleOrNotBox>
             <PossibleOrNot>사용 가능</PossibleOrNot>
-            <CheckingPossibleOrNotButton>중복 확인</CheckingPossibleOrNotButton>
+            <CheckingPossibleOrNotButton onClick={handleNicknameCheck}>
+              중복 확인
+            </CheckingPossibleOrNotButton>
           </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="비밀번호"></SignUpWhiteInput>
-          </SignUpWhiteBox>
-          <SignUpWhiteBox>
-            <SignUpWhiteInput placeholder="비밀번호 확인"></SignUpWhiteInput>
+            <SignUpWhiteInput
+              onChange={handleChange("password")}
+              placeholder="비밀번호"
+            ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
-              value={userInfo.want_region}
+              onChange={handleChange("passwordCheck")}
+              placeholder="비밀번호 확인"
+            ></SignUpWhiteInput>
+          </SignUpWhiteBox>
+          <SignUpWhiteBox>
+            <SignUpWhiteInput
+              onChange={handleChange("want_region")}
+              defaultValue={userInfo.want_region}
               placeholder="희망 봉사 지역"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
-              value={userInfo.want_vol}
+              onChange={handleChange("want_vol")}
+              defaultValue={userInfo.want_vol}
               placeholder="희망 봉사 활동"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SelectSexBox>
-            <SelectSexButton>
+            <SelectSexButton onClick={handleChange("man")}>
               <SexImageBox src="./image/young-man.png"></SexImageBox>
             </SelectSexButton>
-            <SelectSexButton>
+            <SelectSexButton onClick={handleChange("woman")}>
               <SexImageBox src="./image/young-woman.png"></SexImageBox>
             </SelectSexButton>
           </SelectSexBox>
           <SelectBox>
-            <AgeButton>청소년</AgeButton>
-            <AgeButton>청년</AgeButton>
-            <AgeButton>장년</AgeButton>
+            <AgeButton onClick={handleChange("teen")}>청소년</AgeButton>
+            <AgeButton onClick={handleChange("adult")}>청년</AgeButton>
+            <AgeButton onClick={handleChange("senior")}>장년</AgeButton>
           </SelectBox>
           <CompleteBox>
-            <CompleteButton onClick={GoMyPage}>수정완료 완료</CompleteButton>
+            <CompleteButton onClick={userInfoEditHandler}>
+              수정완료 완료
+            </CompleteButton>
+            <CompleteButton onClick={userWithdrawalHandler}>
+              회원탈퇴
+            </CompleteButton>
           </CompleteBox>
         </MainContainer>
       </Wrapper>
