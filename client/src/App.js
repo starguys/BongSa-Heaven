@@ -42,14 +42,14 @@ import CrewBoardList from "./Pages/CrewBoard/CrewBoardList";
 import Header5 from "./components/common/Header5";
 
 import Map from "./Pages/Map/Map";
+import MapRegister from "./Pages/Map/MapRegister";
 
 export default function App(handlelogout) {
   const [isDevHeader, setIsDevHeader] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [isUser, setIsUser] = useState(false);
   const [accessToken, setAccessToken] = useState("");
 
- 
   const history = useHistory();
 
   const handleDevHeader = () => {
@@ -67,7 +67,12 @@ export default function App(handlelogout) {
 
   return (
     <div id="app_div">
-      <Header5 isLogin={isLogin} isUser={isUser} setIsLogin={setIsLogin} onClick={handlelogout} />
+      <Header5
+        isLogin={isLogin}
+        isUser={isUser}
+        setIsLogin={setIsLogin}
+        onClick={handlelogout}
+      />
       {isDevHeader ? <DevHeader /> : null}
       <Route exact path="/" component={MainPage} />
       {/* Sign */}
@@ -131,6 +136,7 @@ export default function App(handlelogout) {
       <Route exact path="/CrewBoardEdit" component={CrewBoardEdit} />
       <Route exact path="/CrewBoardList" component={CrewBoardList} />
       <Route exact path="/Map" component={Map} />
+      <Route exact path="/MapRegister" component={MapRegister} />
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
 
       <Footer />
