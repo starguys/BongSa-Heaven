@@ -113,11 +113,14 @@ export default function MapReg() {
 
           let contentBottom = document.createElement("div");
           contentBottom.className = "ContentBottom";
-
+        //등록 버튼을 클릭하엿을때 좌표가 등록, 정보가 등록
           let regBtn = document.createElement("button");
           regBtn.innerHTML = "등록하기";
           regBtn.className = "RegBtn";
           regBtn.onclick = function () {
+
+
+            
             console.log(selectedMarker.n);
             // overlay.setMap(null);
           };
