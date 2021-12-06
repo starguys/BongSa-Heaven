@@ -206,7 +206,7 @@ body {
 .map_wrap {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 80%;
 }
 #menu_wrap {
   position: absolute;
@@ -360,7 +360,14 @@ body {
 
 .ContentBottom {
   width: 100%;
-  height: 70%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contTentMiddleText {
+  width: 100%;
+  height: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
