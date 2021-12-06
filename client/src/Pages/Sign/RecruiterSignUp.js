@@ -371,7 +371,8 @@ export default function UserEdit() {
       checkPassword,
       valideEmail,
       want_vol,
-      want_region
+      want_region,
+      company
     );
     // validateEmail(email);
     //모든 유효성 검사 통과가 되었다면 회원가입 가능
@@ -381,7 +382,8 @@ export default function UserEdit() {
       checkPassword &&
       validPassword &&
       want_vol &&
-      want_region
+      want_region &&
+      company
     ) {
       axios
         .post(
@@ -392,7 +394,9 @@ export default function UserEdit() {
             nickname: nickname,
             want_vol: want_vol,
             want_region: want_region,
-            is_company: true,
+            company: company,
+            iscompany: true,
+
           },
           { headers: { "Content-Type": "application/json" } }
         )
