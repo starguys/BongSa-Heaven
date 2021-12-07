@@ -122,9 +122,12 @@ export default function MapReg() {
           let regBtn = document.createElement("button");
           regBtn.innerHTML = "등록하기";
           regBtn.className = "RegBtn";
+          //버튼 클릭시 데이터를 담아서 maker로 찍는다.
+          //버튼 클릭시 좌표를 등록한다.
           regBtn.onclick = function () {
+
             console.log(selectedMarker.n);
-            // overlay.setMap(null);
+          
           };
           let cancleBtn = document.createElement("button");
           cancleBtn.innerHTML = "취소";
@@ -386,6 +389,7 @@ export default function MapReg() {
     console.log(btnValue);
   };
   const ChangeBtnValue = () => {};
+
   return (
     <div class="map_wrap">
       <KakaoMap id="map"></KakaoMap>

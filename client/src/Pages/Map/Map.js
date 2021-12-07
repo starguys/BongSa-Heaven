@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
+
 const KakaoMapContainer = styled.div`
   display: flex;
   width: 100%;
@@ -17,31 +18,16 @@ const MapKakao = styled.div`
   height: 100%;
 `;
 export default function KakaoMap() {
-  const [userInfo, setUserInfo] = useState({
-    wnat_region: "",
-    want_volL: "",
-    company: "",
-  });
+
   const [isMarkClick, setIsMarkClick] = useState(false);
   const [post, setPost] = useState([]);
   const history = useHistory();
 
-  //getUserInfHandler =>company 정보를 가져와서 마커에 찍을수 있게한다.
-  //마커에는 위치 내가찍은 위치도 들어가야한다.
-  // const getCompanyInfoHandler =() => {
-  // Axios.get('http://localhost:8080/user/info',{headers:{
-  //   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-  //   'Content-Type':'application/json'
-  // }
-  // })
-  // .then(res =>{
-  //   setUserInfo({want_region})
-  // })
-  // }
 
-  const getLocationHandler = () => {};
 
   useEffect(() => {
+
+
     let container = document.getElementById("map");
 
     let options = {
@@ -99,7 +85,7 @@ export default function KakaoMap() {
         imageSize,
         imageOption
       );
-
+      //마커를 찍는다.
       let marker = new kakao.maps.Marker({
         position: positions[i].latlng,
         title: positions[i].title,
@@ -198,6 +184,7 @@ export default function KakaoMap() {
       // 마커 위에 인포윈도우를 표시합니다
       infowindow.open(map, marker);
     });*/
+    
   }, []);
 
   return (
