@@ -101,6 +101,11 @@ body {
   color: #494949;
 }
 
+.GitIcon:hover {
+  transition: 0.5s;
+  color: #448b76;
+}
+
 @media screen and (min-width: 37.5rem) {
   .footer_font {
     font-family: Roboto;
@@ -379,4 +384,40 @@ body {
 
 .CancleBtn {
   margin: 8px;
+}
+
+.contentMain {
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 230px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contentTitle {
+  width: 100%;
+
+  font-size: 22px;
+  font-weight: bold;
+  border-bottom: solid 2px rgb(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 3%;
+}
+
+.contentRegion {
+  font-size: 14px;
+  margin: 2%;
+}
+.contentVolType {
+  font-size: 14px;
+  margin: 2%;
+}
+.contentName {
+  font-size: 14px;
+  margin: 2%;
 }
