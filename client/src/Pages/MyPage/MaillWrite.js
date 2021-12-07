@@ -6,13 +6,11 @@ import MaillWriteBottom from "../../components/Mypages/MaillWriteBottom";
 import { useHistory, useLocation } from "react-router-dom";
 
 export default function UserMaill() {
-  const location = useLocation();
-  const Title = location.state.positions.title;
   return (
     <>
       <Header2 componentName={"쪽지"} />
       <MaillWriteTop />
-      <MaillWriteMain Title={Title} />
+      <MaillWriteMain />
       <MaillWriteBottom />
     </>
   );
