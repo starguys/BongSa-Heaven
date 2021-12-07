@@ -140,10 +140,10 @@ export default function SignIn({ setIsLogin, setIsUserLogin }) {
               },
             })
             .then((res) => {
-              if (res.data.data.iscompany !== undefined) {
-                console.log("res.data.data.iscompany", res.data.data.iscompany);
-                setIsUserLogin("recruiter");
-                setIsLogin(true);
+              console.log("res.data.data.iscompany",res.data.data.iscompany)
+              if(res.data.data.iscompany !== undefined) {
+                setIsUserLogin("recruiter")
+                setIsLogin(true)
                 history.push("/");
               } else {
                 setIsLogin(true);

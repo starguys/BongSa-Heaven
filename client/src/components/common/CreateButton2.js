@@ -39,7 +39,7 @@ export default function CreateButton(props) {
   return (
     <>
       <ImgUploadBox >
-        <label for="imgUpload">
+        <label htmlFor="imgUpload">
           <ImgUploadButton>
             이미지 업로드
           </ImgUploadButton>

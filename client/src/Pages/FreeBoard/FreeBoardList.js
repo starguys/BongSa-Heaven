@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-// import axios from "axios"
+import axios from "axios"
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import Loading from "../../components/common/Loading";
@@ -9,7 +9,6 @@ import CreateLink from "../../components/common/CreateLink";
 import CreateLink2 from "../../components/common/CreateLink2";
 import Contents from "../../components/FreeBoard/Contents";
 import Pagination from "../../components/common/Pagination";
-import FreeBoardListDummy from "../../dummy/FreeBoardListDummy";
 
 const Headerspace = styled.div`
   background-color: #FFB1B1;
@@ -67,8 +66,15 @@ const ContentsBox = styled.div`
 
 
 
-export default function FreeBoardList() {
+export default function FreeBoardList( {setFBcontent, currentFBcontent} ) {
+
+  
+
   const [isLoading, CheckLoading] = useState(true);
+
+  
+
+
 
   const [freeBoardinfo, setFreeBoardinfo] = useState([]);
  
@@ -85,22 +91,30 @@ export default function FreeBoardList() {
     CheckLoading(false);
   };
 
+ 
    
 
-  // const getFreeBoardList = () => {
-  //   axios.get("http://localhost:8080/board/info")
-  //   .then((res) => setFreeBoardinfo(res.data))
-  //   .catch((err) => console.log(err))
-  // }
+  const getFreeBoardList = () => {
+    axios.get("http://localhost:8080/board/fblist",
+    {
+      headers: {
+        "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => setFreeBoardinfo(res.data.data))
+    .catch((err) => console.log(err))
+  }
+
+
 
 
 
   useEffect(() => {
     setTimeout(() => loadingHandler(), 1000);
-    // 임시 더미 파일 적용
-    setFreeBoardinfo(FreeBoardListDummy)
-    // 임시 더미 파일 적용
-  });
+    getFreeBoardList()
+
+  },[]);
 
 
 
@@ -126,12 +140,15 @@ export default function FreeBoardList() {
           <ContentsBox>
             {currentPosts &&
               currentPosts.length > 0 &&
-              currentPosts.map((board, index) => (
+              currentPosts.map((board) => (
                 <Contents
-                  key={index}
+                  key={board._id}
+                  freeboard_id={board._id}
                   title={board.title}
-                  writer={board.writer}
-                  date={board.date}
+                  writer={board.user_id.nickname}
+                  date={board.createdAt.slice(0,10)+"  "+board.createdAt.slice(11,19)}
+                  setFBcontent={setFBcontent}
+                  currentFBcontent={currentFBcontent}
                 />
               ))}
           </ContentsBox>

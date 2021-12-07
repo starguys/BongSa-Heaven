@@ -15,15 +15,18 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export default function FreeBoardContents() {
+
+
+
+export default function FreeBoardContents( {currentFBcontent} ) {
   return (
     <>
       <Wrapper>
         <Header2 componentName="게시글 보기" />
         <DesktopTitle title="게시글 보기" />
-        <Writing />
-        <List backtoList="/FreeBoardList" />
-        <Comment />
+        <Writing currentFBcontent={currentFBcontent}/>
+        <List backtoList="/FreeBoardList"/>
+        <Comment currentFBcontent={currentFBcontent}/>
       </Wrapper>
     </>
   );

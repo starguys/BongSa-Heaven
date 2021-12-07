@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useHistory } from "react-router";
@@ -163,7 +163,7 @@ import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
     }
   `;
 
-  export default function Header( {isLogin, setIsLogin, isUserLogin} ) {
+  export default function Header( {isLogin, setIsLogin, isUserLogin, setIsUserLogin} ) {
   
     const history = useHistory();
   
@@ -209,6 +209,7 @@ import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
     .then((res) => {
       localStorage.removeItem("accessToken");
       setIsLogin(false)
+      setIsUserLogin("user")
       GoHome()
     })
     .catch((err) => console.log(err))

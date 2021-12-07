@@ -156,7 +156,7 @@ const ContentsBoxDeleteButton = styled.div`
 `
 
 
-export default function Writing() {
+export default function Writing({currentFBcontent}) {
 
   const history = useHistory();
 
@@ -169,11 +169,11 @@ export default function Writing() {
       <ContentsBox>
         <ContentsBoxTitleBox>
           <ContentsBoxTitle>
-            안녕하세요 여기가 그 자유로운 게시판인가요?
+            {currentFBcontent.title}
           </ContentsBoxTitle>
         </ContentsBoxTitleBox>
         <ContentsBoxWriterBox>
-          <ContentsBoxWriter>작성자A</ContentsBoxWriter>
+          <ContentsBoxWriter>{currentFBcontent.user_id}</ContentsBoxWriter>
           <FontAwesomeIcon icon={faPaperPlane} onClick={GotoMailWrite}/>
           <ContentsBoxAdjustBox>
             <ContentsBoxAdjust onClick={Gotoedit}>
