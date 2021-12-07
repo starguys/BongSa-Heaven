@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import env  from 'dotenv'
+
 import Header3 from "../../components/common/Header3";
 import { useState, useRef, useEffect } from "react";
 import { Route, useHistory } from "react-router-dom";
 import axios from "axios";
 import { faLastfmSquare } from "@fortawesome/free-brands-svg-icons";
-env.config()
+env.config();
 const Wrapper = styled.div`
   width: 100%;
   background-color: #ffd4d4;
@@ -337,7 +337,7 @@ export default function UserSignUp() {
     if (nickname && valideNickname) {
       axios
         .post(
-          `http://localhost:8080/auth/nickcheck`,
+          `${process.env.REACT_APP_API_URI}/auth/nickcheck`,
           {
             nickname: nickname,
           },
@@ -395,7 +395,7 @@ export default function UserSignUp() {
     ) {
       axios
         .post(
-          `http://localhost:8080/auth/signup`,
+          `${process.env.REACT_APP_API_URI}/auth/signup`,
           {
             email: email,
             password: password,
