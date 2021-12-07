@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-
 const InputBox = styled.div`
   background-color: white;
   width: 80%;
@@ -32,24 +31,21 @@ const InputText = styled.input`
   border-bottom: solid gray 1px;
   opacity: 0.5;
   @media screen and (min-width: 37.5rem) {
-    font-size: 20px
+    font-size: 20px;
   }
 `;
 
-
-export default function Input(props) {
-
-  const inputHandler = (e) => {
-    props.setTitle(e.target.value)
-    console.log(props.title)
-  }
+export default function Input() {
+  // const inputHandler = (e) => {
+  //   props.setTitle(e.target.value)
+  //   console.log(props.title)
+  // }
 
   return (
     <>
       <InputBox>
         <InputTextBox>
-          <InputText placeholder={props.text} onChange={inputHandler}>
-          </InputText>
+          <InputText></InputText>
         </InputTextBox>
       </InputBox>
     </>

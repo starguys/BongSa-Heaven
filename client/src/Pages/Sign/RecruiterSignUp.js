@@ -333,7 +333,7 @@ export default function UserEdit() {
     if (nickname && valideNickname) {
       axios
         .post(
-          `${process.env.REACT_APP_API_URI}/auth/nickcheck`,
+          `http://localhost:8080/auth/nickcheck`,
           {
             nickname: nickname,
           },
@@ -387,7 +387,7 @@ export default function UserEdit() {
     ) {
       axios
         .post(
-          `${process.env.REACT_APP_API_URI}/auth/signup`,
+          `http://localhost:8080/auth/signup`,
           {
             email: email,
             password: password,
