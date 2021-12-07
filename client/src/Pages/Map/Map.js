@@ -18,14 +18,9 @@ const MapKakao = styled.div`
   height: 100%;
 `;
 export default function KakaoMap() {
-  const [isMarkClick, setIsMarkClick] = useState(false);
-  const [post, setPost] = useState([]);
   const history = useHistory();
 
-
   useEffect(() => {
-
-
     let container = document.getElementById("map");
 
     let options = {
@@ -33,7 +28,7 @@ export default function KakaoMap() {
         37.49683356605109,
         127.02567025989426
       ),
-      level: 2,
+      level: 6,
     };
 
     let map = new window.kakao.maps.Map(container, options);
@@ -42,147 +37,88 @@ export default function KakaoMap() {
     let zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-    let positions = [
-      {
-        title: "함께봉사",
-        latlng: new kakao.maps.LatLng(37.49659049214025, 127.02474288398093),
-        region: "영등포구",
-        vol_type: "노인돌봄",
-        company_name: "봉사1515",
-      },
-      {
-        title: "지존봉사",
-        latlng: new kakao.maps.LatLng(37.49594654435023, 127.02340828615611),
-        region: "용산구",
-        vol_type: "길거리청소",
-        company_name: "드래곤마운틴",
-      },
-      {
-        title: "호수시인",
-        latlng: new kakao.maps.LatLng(37.49748253337715, 127.02452831523259),
-        region: "전국",
-        vol_type: "바른언어길잡이",
-        company_name: "언어폭력단",
-      },
-      {
-        title: "함께봉사",
-        latlng: new kakao.maps.LatLng(37.49748253337715, 127.02340828615611),
-        region: "영등포구",
-        vol_type: "노인돌봄",
-        company_name: "봉사1515",
-      },
-    ];
+    let positions = [{}];
 
-    for (let i = 1; i < positions.length; i++) {
-      let imageSrc = "https://ifh.cc/g/u788hh.png", // 마커이미지의 주소입니다
-        imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-        imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+    Axios.get("http://localhost:8080/map/info")
+      .then((res) => {
+        // console.log(res.data);
+        for (let i = 0; i < res.data.length; i++) {
+          positions.push({
+            title: res.data[i].user_id.nickname,
+            latlng: new kakao.maps.LatLng(res.data[i].La, res.data[i].Ma),
+            region: res.data[i].user_id.want_region,
+            vol_type: res.data[i].user_id.want_vol,
+            company_name: res.data[i].user_id.company,
+          });
+        }
+      })
+      .then((res) => {
+        for (let i = 1; i < positions.length; i++) {
+          console.log(positions[i], i);
+          let imageSrc = "https://ifh.cc/g/u788hh.png", // 마커이미지의 주소입니다
+            imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+            imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
-      let markerImage = new kakao.maps.MarkerImage(
-        imageSrc,
-        imageSize,
-        imageOption
-      );
-      //마커를 찍는다.
-      let marker = new kakao.maps.Marker({
-        position: positions[i].latlng,
-        title: positions[i].title,
-        image: markerImage,
-        clickable: true,
+          let markerImage = new kakao.maps.MarkerImage(
+            imageSrc,
+            imageSize,
+            imageOption
+          );
+          //마커를 찍는다.
+          let marker = new kakao.maps.Marker({
+            position: positions[i].latlng,
+            title: positions[i].title,
+            image: markerImage,
+            clickable: true,
+          });
+          marker.setMap(map);
+
+          let content = document.createElement("div");
+          content.className = "contentMain";
+
+          let contentTitle = document.createElement("span");
+          contentTitle.className = "contentTitle";
+          contentTitle.innerHTML = `${positions[i].title}`;
+
+          let contentRegion = document.createElement("div");
+          contentRegion.className = "contentRegion";
+          contentRegion.innerHTML = `지역: ${positions[i].region}`;
+
+          let contentVolType = document.createElement("div");
+          contentVolType.className = "contentVolType";
+          contentVolType.innerHTML = `봉사활동: ${positions[i].vol_type}`;
+
+          let contentName = document.createElement("div");
+          contentName.className = "contentName";
+          contentName.innerHTML = `기관명: ${positions[i].company_name}`;
+
+          let contentBtn = document.createElement("button");
+          contentBtn.className = "contentBtn";
+          contentBtn.innerHTML = "쪽지 보내기";
+          contentBtn.onclick = function () {
+            history.push({
+              pathname: "/maillwrite",
+              state: { positions: positions[i] },
+            });
+          };
+
+          content.appendChild(contentTitle);
+          content.appendChild(contentRegion);
+          content.appendChild(contentVolType);
+          content.appendChild(contentName);
+          content.appendChild(contentBtn);
+
+          let customOverlay = new window.kakao.maps.CustomOverlay({
+            position: marker.getPosition(),
+            content: content,
+            map: map,
+            clickable: true,
+            yAnchor: 0,
+            xAnchor: 0.5,
+          });
+          customOverlay.setMap(map);
+        }
       });
-      marker.setMap(map);
-
-      let content = document.createElement("div");
-      content.className = "contentMain";
-
-      let contentTitle = document.createElement("span");
-      contentTitle.className = "contentTitle";
-      contentTitle.innerHTML = `${positions[i].title}`;
-
-      let contentRegion = document.createElement("div");
-      contentRegion.className = "contentRegion";
-      contentRegion.innerHTML = `지역: ${positions[i].region}`;
-
-      let contentVolType = document.createElement("div");
-      contentVolType.className = "contentVolType";
-      contentVolType.innerHTML = `봉사활동: ${positions[i].vol_type}`;
-
-      let contentName = document.createElement("div");
-      contentName.className = "contentName";
-      contentName.innerHTML = `기관명: ${positions[i].company_name}`;
-
-      let contentBtn = document.createElement("button");
-      contentBtn.className = "contentBtn";
-      contentBtn.innerHTML = "쪽지 보내기";
-      contentBtn.onclick = function () {
-        history.push({
-          pathname: "/maillwrite",
-          state: { positions: positions[i] },
-        });
-      };
-
-      content.appendChild(contentTitle);
-      content.appendChild(contentRegion);
-      content.appendChild(contentVolType);
-      content.appendChild(contentName);
-      content.appendChild(contentBtn);
-
-      let customOverlay = new window.kakao.maps.CustomOverlay({
-        position: marker.getPosition(),
-        content: content,
-        map: map,
-        clickable: true,
-        yAnchor: 0,
-        xAnchor: 0.5,
-      });
-      customOverlay.setMap(map);
-
-      // kakao.maps.event.addListener(marker, "click", function () {
-      //   console.log("hi");
-      //   console.log(post);
-      //   console.log(...positions);
-      // });
-    }
-
-    /* 
-    let marker = new kakao.maps.Marker({
-      positions: map.getCenter(),
-      clickable: true,
-    });
-    marker.setMap(map);
-
-    // 지도에 클릭 이벤트를 등록합니다
-    // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-    kakao.maps.event.addListener(map, "click", function (mouseEvent) {
-      // 클릭한 위도, 경도 정보를 가져옵니다
-      var latlng = mouseEvent.latLng;
-
-      // 마커 위치를 클릭한 위치로 옮깁니다
-      marker.setPosition(latlng);
-      console.log("hi", "위도", latlng.getLat(), "경도", latlng.getLng());
-
-      //   var message = "클릭한 위치의 위도는 " + latlng.getLat() + " 이고, ";
-      //   message += "경도는 " + latlng.getLng() + " 입니다";
-
-      //   var resultDiv = document.getElementById("clickLatlng");
-      //   resultDiv.innerHTML = message;
-    });
-    // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-    var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-      iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-
-    // 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
-      content: iwContent,
-      removable: iwRemoveable,
-    });
-
-    // 마커에 클릭이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, "click", function () {
-      // 마커 위에 인포윈도우를 표시합니다
-      infowindow.open(map, marker);
-    });*/
-    
   }, []);
 
   return (
