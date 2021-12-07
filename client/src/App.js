@@ -135,6 +135,7 @@ export default function App() {
       <Route exact path="/CrewBoardDelete" component={CrewBoardDelete} />
       <Route exact path="/CrewBoardEdit" component={CrewBoardEdit} />
       <Route exact path="/CrewBoardList" component={CrewBoardList} />
+      
       <Route exact path="/Map" component={Map} />
       <Route exact path="/MapRegister" component={MapRegister} />
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
