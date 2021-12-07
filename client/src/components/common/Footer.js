@@ -58,10 +58,8 @@ const FooterGrid3Span = styled.span`
 
 const FooterPosition = styled.div``;
 
-export default function Footer() {
+export default function Footer({isLogin, setIsLogin, setIsUserLogin}) {
   const history = useHistory();
-
-  const [isLogin, setIsLogin] = useState(false);
 
   const GoSignIn = () => {
     history.push("/SignIn");
@@ -86,17 +84,17 @@ export default function Footer() {
       .then((res) => {
         localStorage.removeItem("accessToken");
         setIsLogin(false);
+        setIsUserLogin("user")
         GoHome();
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    console.log(localStorage.getItem("accessToken"));
     if (localStorage.getItem("accessToken")) {
       setIsLogin(true);
     }
-  });
+  }, [isLogin]);
 
   return (
     <>

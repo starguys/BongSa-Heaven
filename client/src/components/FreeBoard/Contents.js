@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import axios from "axios"
-import { useHistory } from "react-router";
+
 
 const ContentsList = styled.div`
   background-color: white;
@@ -34,30 +33,11 @@ const ContentsTitle = styled.div`
   align-items: center;
   margin: 0px 0px 10px 20px;
 `
-export default function Contents( {freeboard_id, title, writer, date, setFBcontent, currentFBcontent} ) {
+export default function Contents( {freeboard_id, title, writer, date, GoToFreeBoardContent} ) {
 
-  const history = useHistory();
-  const GotoContents = () => history.push("/FreeBoardContents");
+;
 
-  const GoToFreeBoardContent = (freeboard_id) => {
-    axios.post("http://localhost:8080/board/fbinfo",
-    {
-      freeboard_id: freeboard_id,
-    },
-    {
-      headers: {
-        "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
-        "Content-Type": "application/json",
-      },
-    })
-    .then((res) => {
-      console.log("res.data",res.data)
-      setFBcontent(res.data)
-      console.log("currentFBcontent",currentFBcontent)
-      GotoContents()
-    })
-    .catch((err) => console.log(err))
-  }
+ 
 
   return (
     <>

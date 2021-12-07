@@ -19,6 +19,7 @@ const Wrapper = styled.div`
 
 
 export default function FreeBoardContents( {currentFBcontent} ) {
+
   return (
     <>
       <Wrapper>
