@@ -13,8 +13,7 @@ const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
 const commentRouter = require("./routes/comment");
 const mailRouter = require("./routes/mail");
-// const mapRouter = require("/.routes/map");
-
+const mapRouter = require("./routes/map");
 
 //use modules
 app.use(express.json());
@@ -36,8 +35,7 @@ app.use("/auth", authRouter);
 app.use("/board", boardRouter);
 app.use("/comment", commentRouter);
 app.use("/mail", mailRouter);
-// app.use("/map", mapRouter);
-
+app.use("/map", mapRouter);
 
 // app.post("/images", controller.imageControl);
 
