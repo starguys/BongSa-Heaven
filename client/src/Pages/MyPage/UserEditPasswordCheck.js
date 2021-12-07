@@ -89,7 +89,7 @@ import Header4 from "../../components/common/Header4";
     }
   
     const passwordChecking = () => {
-      axios.post("http://localhost:8080/user/password",
+      axios.post(`${process.env.REACT_APP_API_URI}/user/password`,
       {password: passwordToCheck},
       {
         headers: {

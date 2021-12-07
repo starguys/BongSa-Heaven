@@ -9,6 +9,7 @@ const boardRouter = require("./routes/board");
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
 const mapRouter = require("./routes/map");
+const imageRouter = require("./routes/image");
 
 //use modules
 app.use(express.json());
@@ -17,7 +18,7 @@ app.use(
   cors({
     origin: ["http://localhost:3000"],
     credentials: true,
-    methods: ["GET", "POST", "PATCH", "DELETE"],
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
   })
 );
 app.use(cookieParser());
@@ -28,9 +29,9 @@ app.use("/user", userRouter);
 app.use("/auth", authRouter);
 app.use("/board", boardRouter);
 app.use("/map", mapRouter);
-
+app.use("/image", imageRouter);
 //server
-const PORT = process.env.REACT_APP_URI || 8080;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`      🚀 Server is starting on ${PORT}`);
 });
