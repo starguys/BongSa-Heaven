@@ -5,6 +5,10 @@ const freecommentSchema = require("./Freecomment");
 const freeboardSchema = new Schema(
   {
     like: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    like_count: {
+      type: Number,
+      default: 0,
+    },
     user_id: {
       type: Schema.Types.ObjectId,
       ref: "User",
