@@ -119,11 +119,12 @@ export default function SignIn({ setIsLogin, setIsUserLogin }) {
     } else if (email && password) {
       axios
         .post(
-          `${process.env.REACT_APP_API_URI}/auth/signin`,
+          `http://localhost:8080/auth/signin`,
           { email: email, password: password },
           {
             headers: {
               "Content-Type": "application/json",
+              withCredentials: true,
             },
           }
         )
@@ -133,17 +134,19 @@ export default function SignIn({ setIsLogin, setIsUserLogin }) {
         )
         .then((res) =>
           axios
-            .get(`${process.env.REACT_APP_API_URI}/user/info`, {
+            .get(`http://localhost:8080/user/info`, {
               headers: {
                 authorization: `Bearer ` + localStorage.getItem("accessToken"),
                 "Content-Type": "application/json",
+                withCredentials: true,
               },
             })
             .then((res) => {
-              console.log("res.data.data.iscompany",res.data.data.iscompany)
-              if(res.data.data.iscompany !== undefined) {
-                setIsUserLogin("recruiter")
-                setIsLogin(true)
+              console.log(res);
+              console.log("res.data.data.iscompany", res.data.data.iscompany);
+              if (res.data.data.iscompany !== undefined) {
+                setIsUserLogin("recruiter");
+                setIsLogin(true);
                 history.push("/");
               } else {
                 setIsLogin(true);

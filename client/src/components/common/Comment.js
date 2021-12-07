@@ -16,7 +16,7 @@ const CommentList = styled.div`
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
   }
-`
+`;
 const CommentBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,7 +65,6 @@ const CommentInputBox = styled.div`
   margin: 30px 0px 60px 0px;
 
   @media screen and (min-width: 37.5rem) {
-
     width: 1080px;
     flex-direction: column;
     align-items: flex-end;
@@ -117,39 +116,34 @@ const CommentInputButton = styled.div`
   }
 `;
 
-export default function Comment( {currentFBcontent} ) {
+export default function Comment({ currentFBcontent }) {
   const [commentValue, setCommentValue] = useState("");
-  const [myId, setMyId] = useState("")
-
+  const [myId, setMyId] = useState("");
+  const [refresh, SetRefresh] = useState(true);
 
   // console.log(currentFBcontent)
 
-    // console.log(currentFBcontent.data.freecomments)
-  
+  // console.log(currentFBcontent.data.freecomments)
+
   // console.log("currentFBcontent.data._id",currentFBcontent.data._id)
   // console.log("user_id",myId)
 
   const getUserInfo = () => {
-
     axios
-    .get(
-      "http://localhost:8080/user/info",
-      {
+      .get("http://localhost:8080/user/info", {
         headers: {
-          "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
+          authorization: `Bearer ` + localStorage.getItem("accessToken"),
           "Content-Type": "application/json",
         },
-      }
-    )
-    .then((res) => {
-      // console.log("res.data.data.nickname",res.data.data.nickname)
-      setMyId(res.data.data._id)
-    })
-    .catch((err) => {
-      console.log("응 안돼~",err)
-    })
-
-  }
+      })
+      .then((res) => {
+        // console.log("res.data.data.nickname",res.data.data.nickname)
+        setMyId(res.data.data._id);
+      })
+      .catch((err) => {
+        console.log("응 안돼~", err);
+      });
+  };
 
   const makeComment = (e) => {
     setCommentValue(e.target.value);
@@ -157,71 +151,66 @@ export default function Comment( {currentFBcontent} ) {
   };
 
   const saveComment = () => {
-    
-    axios.post("http://localhost:8080/comment/fbcommentregister",
-    {
-      user_id: myId,
-      freeboard_id: currentFBcontent.data._id,
-      comment: commentValue
-    },
-    {
-      headers: {
-        "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
-        "Content-Type": "application/json",
-      },
-    })
-    .then((res) => {
-      console.log(res.data.message)
-      setCommentValue("");
-    })
-    // .then((res) => window.location.replace("/FreeBoardContents"))
-    .catch((err) => console.log(err))
-
-
-
+    SetRefresh(!refresh);
+    console.log(refresh);
+    axios
+      .post(
+        "http://localhost:8080/comment/fbcommentregister",
+        {
+          user_id: myId,
+          freeboard_id: currentFBcontent.data._id,
+          comment: commentValue,
+        },
+        {
+          headers: {
+            authorization: `Bearer ` + localStorage.getItem("accessToken"),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data.message);
+        setCommentValue("");
+      })
+      // .then((res) => window.location.replace("/FreeBoardContents"))
+      .catch((err) => console.log(err));
   };
 
-
   useEffect(() => {
-    if(localStorage.getItem('accessToken')) {
-      getUserInfo()
-    } 
-  }, [])
-
+    if (localStorage.getItem("accessToken")) {
+      getUserInfo();
+      console.log("change change change~~");
+    }
+  }, [refresh]);
 
   return (
     <>
+      <CommentList>
+        {currentFBcontent.data === undefined
+          ? null
+          : currentFBcontent.data.freecomments.map((comment, idx) => (
+              <CommentBox key={idx}>
+                <CommentWriter>
+                  {comment.user_id.nickname}
+                  <CommentDate>{comment.createdAt}</CommentDate>
+                </CommentWriter>
+                <CommentContents>{comment.comment}</CommentContents>
+              </CommentBox>
+            ))}
+      </CommentList>
 
-        <CommentList>
-          {currentFBcontent.data === undefined ?
-          null
-          :
-          currentFBcontent.data.freecomments.map((comment, idx) =>
-          <CommentBox key={idx}>
-            <CommentWriter>
-              {comment.user_id.nickname}
-              <CommentDate>{comment.createdAt}</CommentDate>
-            </CommentWriter>
-            <CommentContents>{comment.comment}</CommentContents>
-          </CommentBox>
-          )}
-        
-        </CommentList>
-
-        <CommentInputBox>
-          <CommentInput>
-            <CommentInputContents
-              placeholder="내용을 입력하세요."
-              onChange={makeComment}
-              value={commentValue}
-            ></CommentInputContents>
-          </CommentInput>
-          <CommentInputButton onClick={saveComment}>
-            댓 글<br />달 기
-          </CommentInputButton>
-        </CommentInputBox>
-      
-
+      <CommentInputBox>
+        <CommentInput>
+          <CommentInputContents
+            placeholder="내용을 입력하세요."
+            onChange={makeComment}
+            value={commentValue}
+          ></CommentInputContents>
+        </CommentInput>
+        <CommentInputButton onClick={saveComment}>
+          댓 글<br />달 기
+        </CommentInputButton>
+      </CommentInputBox>
     </>
   );
 }

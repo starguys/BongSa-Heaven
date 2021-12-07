@@ -205,7 +205,7 @@ const DeleteBtn = styled.div`
 export default function RecruiterEdit() {
   const history = useHistory();
   const GoMyPage = () => {
-    history.push("/UserMyPage");
+    history.push("/RecruiteMyPage");
   };
   const GoUserDelete = () => {
     history.push("/UserDelete");
@@ -403,7 +403,7 @@ export default function RecruiterEdit() {
         )
         .then((res) => {
           console.log(res.data.data);
-          history.push("/UserMyPage");
+          history.push("/RecruiteMyPage");
         })
         .catch((err) => {
           console.log(err);
@@ -433,7 +433,7 @@ export default function RecruiterEdit() {
         )
         .then((res) => {
           console.log(res.data.data);
-          history.push("/UserMyPage");
+          history.push("/RecruiteMyPage");
         })
         .catch((err) => {
           console.log(err);
@@ -464,7 +464,7 @@ export default function RecruiterEdit() {
         )
         .then((res) => {
           console.log(res.data.data);
-          history.push("/UserMyPage");
+          history.push("/RecruiteMyPage");
         })
         .catch((err) => {
           console.log(err);
@@ -493,7 +493,7 @@ export default function RecruiterEdit() {
       )
       .then((res) => {
         console.log(res.data.data);
-        history.push("/UserMyPage");
+        history.push("/RecruiteMyPage");
       })
       .catch((err) => {
         console.log(err);
@@ -528,7 +528,6 @@ export default function RecruiterEdit() {
           want_vol: res.data.data.want_vol,
 
           company: res.data.data.company,
-
         });
       })
 
@@ -563,8 +562,6 @@ export default function RecruiterEdit() {
     getUserInfoHandler();
   }, []);
 
-
-
   return (
     <>
       <Header3 />
@@ -575,12 +572,10 @@ export default function RecruiterEdit() {
           </LogoBox>
           <EditEmaill>현재 이메일 : {userInfo.email} </EditEmaill>
           <SignUpWhiteBox>
-
             <SignUpWhiteInput
               onChange={handleChange("nickname")}
               placeholder="닉네임"
             ></SignUpWhiteInput>
-
           </SignUpWhiteBox>
           <CheckingPossibleOrNotBox>
             <PossibleOrNot>사용 가능</PossibleOrNot>
@@ -589,7 +584,6 @@ export default function RecruiterEdit() {
             </CheckingPossibleOrNotButton>
           </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
-
             <SignUpWhiteInput
               onChange={handleChange("password")}
               placeholder="비밀번호"
@@ -618,7 +612,6 @@ export default function RecruiterEdit() {
               onChange={handleChange("company")}
               placeholder="기관명/봉사모집단체이름"
             ></SignUpWhiteInput>
-
           </SignUpWhiteBox>
           <CompleteBox>
             <CompleteButton onClick={userInfoEditHandler}>
