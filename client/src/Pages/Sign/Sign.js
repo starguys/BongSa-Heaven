@@ -85,7 +85,7 @@ const CompleteButton = styled.div`
   width: 110px;
 `;
 
-export default function SignIn( {setIsLogin, setIsUserLogin} ) {
+export default function SignIn({ setIsLogin, setIsUserLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -127,41 +127,34 @@ export default function SignIn( {setIsLogin, setIsUserLogin} ) {
             },
           }
         )
-        .then((res) => 
+        .then((res) =>
           //로컬스토리지에 저장, 메인으로 복귀
           localStorage.setItem("accessToken", res.data.accessToken)
         )
-        .then((res) => 
-          axios 
-            .get(
-              "http://localhost:8080/user/info",
-              {
-                headers: {
-                  "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
-                  "Content-Type": "application/json",
-                },
-              }
-            )
+        .then((res) =>
+          axios
+            .get("http://localhost:8080/user/info", {
+              headers: {
+                authorization: `Bearer ` + localStorage.getItem("accessToken"),
+                "Content-Type": "application/json",
+              },
+            })
             .then((res) => {
-              if(res.data.data.iscompany) {
-                console.log("res.data.data.age",res.data.data.age)
-                setIsUserLogin("recruiter")
-                setIsLogin(true)
+              if (res.data.data.iscompany !== undefined) {
+                console.log("res.data.data.iscompany", res.data.data.iscompany);
+                setIsUserLogin("recruiter");
+                setIsLogin(true);
                 history.push("/");
               } else {
-              setIsLogin(true)
-              history.push("/");
+                setIsLogin(true);
+                history.push("/");
               }
             })
         )
         .catch((err) => {
-          console.log(err)
+          console.log(err);
           setErrorMessage("아이디 혹은 비밀번호가 일치하지 않습니다.");
         });
-      
-      
-     
-      
     }
   };
   //로그인창에서 이동
@@ -186,7 +179,6 @@ export default function SignIn( {setIsLogin, setIsUserLogin} ) {
             ></SignInWhiteInput>
           </SignInWhiteBox>
 
-
           <SignInWhiteBox>
             <SignInWhiteInput
               type="password"
@@ -199,12 +191,7 @@ export default function SignIn( {setIsLogin, setIsUserLogin} ) {
           {errorMessage}
 
           <CompleteBox>
-            <CompleteButton 
-            onClick={handleLoginRequest}
-
-            >
-              로그인
-            </CompleteButton>
+            <CompleteButton onClick={handleLoginRequest}>로그인</CompleteButton>
             <CompleteButton onClick={moveToSignUP}>구글</CompleteButton>
             <CompleteButton onClick={moveToSignUP}>카카오</CompleteButton>
             <CompleteButton onClick={moveToSignUP}>회원가입</CompleteButton>
