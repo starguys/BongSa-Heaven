@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 const CreateBox = styled.div`
   background-color: white;
@@ -25,7 +25,7 @@ const CreateBox = styled.div`
   margin: 10px 0px 10px 0px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
-  
+
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
   }
@@ -52,10 +52,10 @@ const CreateBoxContents = styled.textarea`
 
   @media screen and (min-width: 37.5rem) {
     font-size: 16px;
-  ::placeholder {
-    font-size: 16px;
+    ::placeholder {
+      font-size: 16px;
+    }
   }
-
 `;
 
 const ContentsBoxImgBox = styled.div`
@@ -73,36 +73,31 @@ const Img = styled.img`
   border-radius: 10px;
 `;
 
-
-
-
 export default function CrewBoardCreate() {
-
   const [fileImage, setFileImage] = useState("");
 
   return (
     <>
       <Wrapper>
-        <Header2 componentName="글 작성하기"/>
-        <DesktopTitle title="글 작성하기"/>
-          <CreateButton2 
-            create="/CrewBoardList" 
-            cancel="/CrewBoardList"
-            setFileImage={setFileImage}
-          />
-          <Input text="봉사단 이름"/>
-          <Input text="봉사단 한줄 소개글"/>
-          <CreateBox>
-            <CreateBoxContentsBox>
-              <CreateBoxContents placeholder="내용을 입력해주세요.">        
-              </CreateBoxContents>
-            </CreateBoxContentsBox>
-            <ContentsBoxImgBox>
-            <Img src={fileImage} alt="수정할 이미지 자리"/>
-            </ContentsBoxImgBox>
-          </CreateBox>
-        <CreateButton 
-          create="/CrewBoardList" 
+        <Header2 componentName="글 작성하기" />
+        <DesktopTitle title="글 작성하기" />
+        <CreateButton2
+          create="/CrewBoardList"
+          cancel="/CrewBoardList"
+          setFileImage={setFileImage}
+        />
+        <Input text="봉사단 이름" />
+        <Input text="봉사단 한줄 소개글" />
+        <CreateBox>
+          <CreateBoxContentsBox>
+            <CreateBoxContents placeholder="내용을 입력해주세요."></CreateBoxContents>
+          </CreateBoxContentsBox>
+          <ContentsBoxImgBox>
+            <Img src={fileImage} alt="수정할 이미지 자리" />
+          </ContentsBoxImgBox>
+        </CreateBox>
+        <CreateButton
+          create="/CrewBoardList"
           cancel="/CrewBoardList"
           setFileImage={setFileImage}
         />

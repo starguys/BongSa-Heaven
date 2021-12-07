@@ -6,6 +6,10 @@ import { useState, useRef, useEffect } from "react";
 import { Route, useHistory } from "react-router-dom";
 import axios from "axios";
 import { faLastfmSquare } from "@fortawesome/free-brands-svg-icons";
+<<<<<<< HEAD
+=======
+
+>>>>>>> dfe9a307bfe3f1504eb5afde1f6a2a72d2c4cc66
 const Wrapper = styled.div`
   width: 100%;
   background-color: #ffd4d4;
@@ -336,7 +340,7 @@ export default function UserSignUp() {
     if (nickname && valideNickname) {
       axios
         .post(
-          `${process.env.REACT_APP_API_URI}/auth/nickcheck`,
+          "http://localhost:8080/auth/nickcheck",
           {
             nickname: nickname,
           },
@@ -394,7 +398,7 @@ export default function UserSignUp() {
     ) {
       axios
         .post(
-          `${process.env.REACT_APP_API_URI}/auth/signup`,
+          `http://localhost:8080/auth/signup`,
           {
             email: email,
             password: password,
