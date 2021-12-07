@@ -96,12 +96,13 @@ export default function FreeBoardList( {GoToFreeBoardContent} ) {
 
   const getFreeBoardList = () => {
     axios.get("http://localhost:8080/board/fblist",
-    {
-      headers: {
-        "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
-        "Content-Type": "application/json",
-      },
-    })
+    // {
+    //   headers: {
+    //     "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
+    //     "Content-Type": "application/json",
+    //   },
+    // }
+    )
     .then((res) => {
       console.log(res.data.data)
       setFreeBoardinfo(res.data.data)})
