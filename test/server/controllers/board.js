@@ -45,7 +45,7 @@ module.exports = {
       .select({
         like: 1,
         title: 1,
-        image: 1,
+        images: 1,
         description: 1,
         freecomments: 1,
         createdAt: 1,

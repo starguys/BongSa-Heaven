@@ -47,16 +47,14 @@ module.exports = {
       }
       if (userData) {
         // console.log("===userData===", userData);
-        await Freeboard.findById(req.body.freeboard_id)
-          .find({ freecomment_id: req.body.freecomment_id })
-          .then((doc) => {
-            // console.log("===doc===", doc);
-            //   const fbchildcomment = {
-            //     user_id: userData.user_id,
-            //     freeboard_id: req.body.freeboard_id,
-            //     freecomment_id: req.body.freecomment_id,
-            //     childcomment: req.body.childcomment,
-          });
+        await Freeboard.findById(req.body.freeboard_id).then((doc) => {
+          // console.log("===doc===", doc);
+          //   const fbchildcomment = {
+          //     user_id: userData.user_id,
+          //     freeboard_id: req.body.freeboard_id,
+          //     freecomment_id: req.body.freecomment_id,
+          //     childcomment: req.body.childcomment,
+        });
         //   doc.freechildcomments.push(fbchildcomment);
         //   doc.save();
         res.status(200).send({ message: "싸장님 댓글 등록 완료!" });
@@ -76,24 +74,15 @@ module.exports = {
       return res.send({ message: "싸장님~ 댓글 수정 권한 없어!" });
     }
     if (userData) {
-      console.log("===userData.user_id===", userData.user_id);
-      console.log("===req.body.freecomment_id===", req.body.freecomment_id);
-      console.log("===req.body.freeboard_id===", req.body.freeboard_id);
-      // await Freeboard.aggregate([
+      // const fbcommentedit = await Freeboard.aggregate([
       //   {
-      //     freecomments: {
-      //       $match: {
-      //         _id: req.body.freecomment_id,
-      //         user_id: userData.user_id,
-      //       },
+      //     $match: {
+      //       "freecomments._id": { req.body.freecomments_id,
       //     },
       //   },
       // ])
-      // .unwind("freecomments")
-      // .then((doc) => {
-      //   console.log("===doc===", doc);
-      //   res.status(200).send({ message: "싸장님 댓글 수정 완료~" });
-      // });
+      // console.log("===fbcommentedit===", fbcommentedit);
+      return res.send("edit ok!");
     }
   },
 

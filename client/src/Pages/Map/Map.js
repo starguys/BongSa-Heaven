@@ -18,11 +18,9 @@ const MapKakao = styled.div`
   height: 100%;
 `;
 export default function KakaoMap() {
-
   const [isMarkClick, setIsMarkClick] = useState(false);
   const [post, setPost] = useState([]);
   const history = useHistory();
-
 
 
   useEffect(() => {
