@@ -115,19 +115,14 @@ export default function MapReg() {
           let contentBottom = document.createElement("div");
           contentBottom.className = "ContentBottom";
 
-
           let contTentMiddleText = document.createElement("span");
           contTentMiddleText.className = "contTentMiddleText";
           contTentMiddleText.innerHTML = "위치를 등록하시겠습니까?";
-
 
           let regBtn = document.createElement("button");
           regBtn.innerHTML = "등록하기";
           regBtn.className = "RegBtn";
           regBtn.onclick = function () {
-
-
-            
             console.log(selectedMarker.n);
             // overlay.setMap(null);
           };
@@ -145,17 +140,6 @@ export default function MapReg() {
           contentBottom.appendChild(regBtn);
           contentBottom.appendChild(cancleBtn);
 
-          window.kakao.maps.event.addListener(marker, "click", function () {
-            if (document.getElementsByClassName("ContentOverlay").length > 0) {
-              console.log("im a lot ~");
-              overlay.setMap(null);
-            }
-            console.log(
-              document.getElementsByClassName("ContentOverlay").length,
-              "length"
-            );
-          });
-
           let overlay = new kakao.maps.CustomOverlay({
             content: content,
             map: map,
@@ -167,13 +151,22 @@ export default function MapReg() {
           overlay.setMap(null);
 
           window.kakao.maps.event.addListener(marker, "click", function () {
-            setTimeout(() => {
-              overlay.setMap(map);
-            }, 100);
+            overlay.setMap(map);
+            console.log(
+              document.getElementsByClassName("ContentOverlay").length
+            );
+            if (document.getElementsByClassName("ContentOverlay").length > 1) {
+              overlay.setMap(null);
+              console.log(" IM A LOT !!!");
+            }
 
             selectedMarker = marker;
             console.log("hi", selectedMarker.n);
             console.log("hi", title);
+          });
+
+          window.kakao.maps.event.addListener(map, "click", function () {
+            overlay.setMap(null);
           });
 
           itemEl.onmouseover = function () {
@@ -342,8 +335,7 @@ export default function MapReg() {
     ];
 
     for (let i = 1; i < positions.length; i++) {
-      let imageSrc =
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커이미지의 주소입니다
+      let imageSrc = "https://ifh.cc/g/u788hh.png", // 마커이미지의 주소입니다
         imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
         imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
@@ -378,6 +370,8 @@ export default function MapReg() {
         content: content,
         map: map,
         clickable: true,
+        yAnchor: 0.6,
+        xAnchor: 0.5,
       });
       customOverlay.setMap(map);
     }

@@ -1,35 +1,45 @@
 /* global kakao */
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
+const KakaoMapContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+`;
+
+const MapKakao = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 export default function KakaoMap() {
-  const [userInfo, setUserInfo] = ({
-    wnat_region:'',
-    want_volL:'',
-    company:''
-  })
+  const [userInfo, setUserInfo] = useState({
+    wnat_region: "",
+    want_volL: "",
+    company: "",
+  });
   const [isMarkClick, setIsMarkClick] = useState(false);
   const [post, setPost] = useState([]);
   const history = useHistory();
 
-//getUserInfHandler =>company 정보를 가져와서 마커에 찍을수 있게한다.
-//마커에는 위치 내가찍은 위치도 들어가야한다.
-// const getCompanyInfoHandler =() => {
-// Axios.get('http://localhost:8080/user/info',{headers:{
-//   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-//   'Content-Type':'application/json'
-// }
-// })
-// .then(res =>{
-//   setUserInfo({want_region})
-// })
-// }
+  //getUserInfHandler =>company 정보를 가져와서 마커에 찍을수 있게한다.
+  //마커에는 위치 내가찍은 위치도 들어가야한다.
+  // const getCompanyInfoHandler =() => {
+  // Axios.get('http://localhost:8080/user/info',{headers:{
+  //   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  //   'Content-Type':'application/json'
+  // }
+  // })
+  // .then(res =>{
+  //   setUserInfo({want_region})
+  // })
+  // }
 
-const getLocationHandler =() =>{
-
-}
+  const getLocationHandler = () => {};
 
   useEffect(() => {
     let container = document.getElementById("map");
@@ -80,8 +90,7 @@ const getLocationHandler =() =>{
     ];
 
     for (let i = 1; i < positions.length; i++) {
-      let imageSrc =
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커이미지의 주소입니다
+      let imageSrc = "https://ifh.cc/g/u788hh.png", // 마커이미지의 주소입니다
         imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
         imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
@@ -99,23 +108,48 @@ const getLocationHandler =() =>{
       });
       marker.setMap(map);
 
-      let content = `
-      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #fff; border: 1px solid #e0dde1; border-radius: 0.313rem; width: 100%;  padding: 10px; margin-bottom: 200px; cursor: pointer;" >
-      <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 300; font-size: 1rem; margin-bottom: 5px;">${positions[i].title}</span>
-      <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 100; font-size: 0.9rem;margin-bottom: 4px;">봉사활동 : ${positions[i].region}</span>
-      <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 100; font-size: 0.9rem;margin-bottom: 4px;">봉사활동 : ${positions[i].vol_type}</span>
-      <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 100; font-size: 0.9rem;">기관명 : ${positions[i].company_name}</span>
-      <a href=http://localhost:3000/maillwrite>
-        <button style="margin-top:5%; border:solid 1px black; background-color:white;" href=http://localhost:3000/maillwrite>쪽지 보내기</button>
-        </a>
-        </div>
-        `;
+      let content = document.createElement("div");
+      content.className = "contentMain";
+
+      let contentTitle = document.createElement("span");
+      contentTitle.className = "contentTitle";
+      contentTitle.innerHTML = `${positions[i].title}`;
+
+      let contentRegion = document.createElement("div");
+      contentRegion.className = "contentRegion";
+      contentRegion.innerHTML = `지역: ${positions[i].region}`;
+
+      let contentVolType = document.createElement("div");
+      contentVolType.className = "contentVolType";
+      contentVolType.innerHTML = `봉사활동: ${positions[i].vol_type}`;
+
+      let contentName = document.createElement("div");
+      contentName.className = "contentName";
+      contentName.innerHTML = `기관명: ${positions[i].company_name}`;
+
+      let contentBtn = document.createElement("button");
+      contentBtn.className = "contentBtn";
+      contentBtn.innerHTML = "쪽지 보내기";
+      contentBtn.onclick = function () {
+        history.push({
+          pathname: "/maillwrite",
+          state: { positions: positions[i] },
+        });
+      };
+
+      content.appendChild(contentTitle);
+      content.appendChild(contentRegion);
+      content.appendChild(contentVolType);
+      content.appendChild(contentName);
+      content.appendChild(contentBtn);
 
       let customOverlay = new window.kakao.maps.CustomOverlay({
         position: marker.getPosition(),
         content: content,
         map: map,
         clickable: true,
+        yAnchor: 0,
+        xAnchor: 0.5,
       });
       customOverlay.setMap(map);
 
@@ -166,23 +200,11 @@ const getLocationHandler =() =>{
     });*/
   }, []);
 
-  const KakaoMapContainer = styled.div`
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
-  `;
-
-  const KakaoMap = styled.div`
-    width: 100%;
-    height: 100%;
-  `;
   return (
     <>
       <Header2 componentName={"지도"} />
       <KakaoMapContainer>
-        <KakaoMap id="map"></KakaoMap>
+        <MapKakao id="map"></MapKakao>
       </KakaoMapContainer>
     </>
   );
