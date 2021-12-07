@@ -76,22 +76,15 @@ const Img = styled.img`
 
 export default function FreeBoardCreate() {
   const [fileImage, setFileImage] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
-  const registerTest = () => {
-    axios.post(
-      "http://localhost:8080/board/register",
-      {},
 
-      {
-        headers: {
-          Authorization: `Barer ${localStorage.getItem("accessToken")}`,
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      }
-    );
-    console.log("register token Test!!!!!!!");
-  };
+
+  const inputHandler = (e) => {
+   setDescription(e.target.value)
+   console.log(description)
+  }
 
   return (
     <>
@@ -103,20 +96,22 @@ export default function FreeBoardCreate() {
           cancel="/CrewBoardList"
           setFileImage={setFileImage}
         />
-        <Input text="제목" />
+        <Input text="제목" setTitle={setTitle} title={title}/>
         <CreateBox>
           <CreateBoxContentsBox>
-            <CreateBoxContents placeholder="내용을 입력하세요."></CreateBoxContents>
+            <CreateBoxContents placeholder="내용을 입력하세요." onChange={inputHandler}></CreateBoxContents>
           </CreateBoxContentsBox>
           <ContentsBoxImgBox>
             <Img src={fileImage} alt="수정할 이미지 자리" />
           </ContentsBoxImgBox>
         </CreateBox>
         <CreateButton
-          // create="/FreeBoardList"
+          create="/FreeBoardList"
           cancel="/FreeBoardList"
           setFileImage={setFileImage}
-          registerTest={registerTest}
+          fileImage={fileImage}
+          title={title}
+          description={description}
         />
       </Wrapper>
     </>

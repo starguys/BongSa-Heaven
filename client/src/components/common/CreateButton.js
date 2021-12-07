@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import styled from 'styled-components';
 import { useHistory } from "react-router";
 
@@ -84,12 +85,29 @@ export default function CreateButton(props) {
   const history = useHistory();
   const Create = (url) => history.push(url);
   const Cancel = (url) => history.push(url);
+  
 
+  const createFreeBoard = () => {
+    axios.post("http://localhost:8080/board/fbregister",
+    {
+      title: props.title,
+      description: props.description,
+      images: "임시이미지데이터",
+    },
+    {
+      headers: {
+        "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => console.log(res.data.message,"성공!"))
+    .catch((err) => console.log(err,"응안가"))
+  }
 
   return (
     <>
       <ImgUploadBox >
-        <label for="imgUpload">
+        <label htmlFor="imgUpload">
           <ImgUploadButton>
             이미지 업로드
           </ImgUploadButton>
@@ -100,8 +118,8 @@ export default function CreateButton(props) {
           취소
         </CancelButton>
         <CompleteButton onClick={() => {
+          createFreeBoard()
           Create(props.create); 
-          props.registerTest();
         }}>
           작성 완료
         </CompleteButton>

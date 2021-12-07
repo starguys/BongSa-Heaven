@@ -47,6 +47,7 @@ export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [isUserLogin, setIsUserLogin] = useState("user")
+  const [currentFBcontent, setFBcontent] = useState("")
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
@@ -55,7 +56,7 @@ export default function App() {
   return (
     <div id="app_div">
 
-      <Header5 isLogin={isLogin} setIsLogin={setIsLogin} isUserLogin={isUserLogin} />
+      <Header5 isLogin={isLogin} setIsLogin={setIsLogin} isUserLogin={isUserLogin} setIsUserLogin={setIsUserLogin} />
 
       {isDevHeader ? <DevHeader /> : null}
       <Route exact path="/" component={MainPage} />
@@ -106,11 +107,28 @@ export default function App() {
       <Route exact path="/UserMaill" component={UserMaill} />
       <Route exact path="/UserMyPage" component={UserMyPage} />
       {/* FreeBoard */}
-      <Route exact path="/FreeBoardContents" component={FreeBoardContents} />
+      <Route 
+      exact 
+      path="/FreeBoardContents"  
+      render={() => (
+        <FreeBoardContents
+        currentFBcontent={currentFBcontent}
+        />
+      )}
+      />
       <Route exact path="/FreeBoardCreate" component={FreeBoardCreate} />
       <Route exact path="/FreeBoardDelete" component={FreeBoardDelete} />
       <Route exact path="/FreeBoardEdit" component={FreeBoardEdit} />
-      <Route exact path="/FreeBoardList" component={FreeBoardList} />
+      <Route 
+      exact 
+      path="/FreeBoardList" 
+      render={() => (
+        <FreeBoardList
+        setFBcontent={setFBcontent}
+        currentFBcontent={currentFBcontent}
+        />
+      )}
+      />
       {/* CrewBoard */}
       <Route exact path="/CrewBoardContents" component={CrewBoardContents} />
       <Route exact path="/CrewBoardCreate" component={CrewBoardCreate} />
