@@ -8,6 +8,7 @@ const DB = require("./config/config");
 const boardRouter = require("./routes/board");
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
+const mapRouter = require("./routes/map");
 
 //use modules
 app.use(express.json());
@@ -26,9 +27,10 @@ DB();
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
 app.use("/board", boardRouter);
+app.use("/map", mapRouter);
 
 //server
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.REACT_APP_URI || 8080;
 app.listen(PORT, () => {
   console.log(`      🚀 Server is starting on ${PORT}`);
 });

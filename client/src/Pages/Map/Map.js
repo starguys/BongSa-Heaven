@@ -4,34 +4,31 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
+
+const KakaoMapContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+`;
+const MapKakao = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 export default function KakaoMap() {
-  const [userInfo, setUserInfo] = ({
-    wnat_region:'',
-    want_volL:'',
-    company:''
-  })
+
   const [isMarkClick, setIsMarkClick] = useState(false);
   const [post, setPost] = useState([]);
   const history = useHistory();
 
-//getUserInfHandler =>company 정보를 가져와서 마커에 찍을수 있게한다.
-//마커에는 위치 내가찍은 위치도 들어가야한다.
-// const getCompanyInfoHandler =() => {
-// Axios.get('http://localhost:8080/user/info',{headers:{
-//   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-//   'Content-Type':'application/json'
-// }
-// })
-// .then(res =>{
-//   setUserInfo({want_region})
-// })
-// }
+ 
 
-const getLocationHandler =() =>{
-
-}
+  const getLocationHandler = () => {};
 
   useEffect(() => {
+
+
     let container = document.getElementById("map");
 
     let options = {
@@ -90,7 +87,7 @@ const getLocationHandler =() =>{
         imageSize,
         imageOption
       );
-
+      //마커를 찍는다.
       let marker = new kakao.maps.Marker({
         position: positions[i].latlng,
         title: positions[i].title,
@@ -164,25 +161,14 @@ const getLocationHandler =() =>{
       // 마커 위에 인포윈도우를 표시합니다
       infowindow.open(map, marker);
     });*/
+    
   }, []);
 
-  const KakaoMapContainer = styled.div`
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
-  `;
-
-  const KakaoMap = styled.div`
-    width: 100%;
-    height: 100%;
-  `;
   return (
     <>
       <Header2 componentName={"지도"} />
       <KakaoMapContainer>
-        <KakaoMap id="map"></KakaoMap>
+        <MapKakao id="map"></MapKakao>
       </KakaoMapContainer>
     </>
   );
