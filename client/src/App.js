@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
+import axios from "axios"
+import { useHistory } from "react-router";
 import "./App.css";
 import "./css/Reset.css";
 import Footer from "./components/common/Footer";
@@ -47,11 +49,35 @@ export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [isUserLogin, setIsUserLogin] = useState("user")
-  const [currentFBcontent, setFBcontent] = useState("")
+  const [currentFBcontent, setFBcontent] = useState({})
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
   };
+  const history = useHistory();
+  const GotoContents = () => history.push("/FreeBoardContents")
+
+  const GoToFreeBoardContent = (freeboard_id) => {
+
+    axios.post("http://localhost:8080/board/fbinfo",
+    {
+      freeboard_id: freeboard_id,
+    },
+    {
+      headers: {
+        "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      // console.log("res.data",res.data)
+      setFBcontent(res.data)
+      // console.log("currentFBcontent",currentFBcontent)
+      
+      GotoContents()
+    })
+    .catch((err) => console.log(err))
+  }
 
   return (
     <div id="app_div">
@@ -124,8 +150,7 @@ export default function App() {
       path="/FreeBoardList" 
       render={() => (
         <FreeBoardList
-        setFBcontent={setFBcontent}
-        currentFBcontent={currentFBcontent}
+        GoToFreeBoardContent={GoToFreeBoardContent}
         />
       )}
       />
@@ -140,7 +165,7 @@ export default function App() {
       <Route exact path="/MapRegister" component={MapRegister} />
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
 
-      <Footer />
+      <Footer isLogin={isLogin} setIsLogin={setIsLogin} setIsUserLogin={setIsUserLogin} />
     </div>
   );
 }

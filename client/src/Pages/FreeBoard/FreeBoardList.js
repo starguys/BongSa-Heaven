@@ -66,7 +66,7 @@ const ContentsBox = styled.div`
 
 
 
-export default function FreeBoardList( {setFBcontent, currentFBcontent} ) {
+export default function FreeBoardList( {GoToFreeBoardContent} ) {
 
   
 
@@ -102,7 +102,9 @@ export default function FreeBoardList( {setFBcontent, currentFBcontent} ) {
         "Content-Type": "application/json",
       },
     })
-    .then((res) => setFreeBoardinfo(res.data.data))
+    .then((res) => {
+      console.log(res.data.data)
+      setFreeBoardinfo(res.data.data)})
     .catch((err) => console.log(err))
   }
 
@@ -147,8 +149,7 @@ export default function FreeBoardList( {setFBcontent, currentFBcontent} ) {
                   title={board.title}
                   writer={board.user_id.nickname}
                   date={board.createdAt.slice(0,10)+"  "+board.createdAt.slice(11,19)}
-                  setFBcontent={setFBcontent}
-                  currentFBcontent={currentFBcontent}
+                  GoToFreeBoardContent={GoToFreeBoardContent}
                 />
               ))}
           </ContentsBox>

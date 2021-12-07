@@ -157,6 +157,7 @@ const ContentsBoxDeleteButton = styled.div`
 
 
 export default function Writing({currentFBcontent}) {
+  console.log(currentFBcontent.data)
 
   const history = useHistory();
 
@@ -166,39 +167,42 @@ export default function Writing({currentFBcontent}) {
 
   return (
     <>
-      <ContentsBox>
-        <ContentsBoxTitleBox>
-          <ContentsBoxTitle>
-            {currentFBcontent.title}
-          </ContentsBoxTitle>
-        </ContentsBoxTitleBox>
-        <ContentsBoxWriterBox>
-          <ContentsBoxWriter>{currentFBcontent.user_id}</ContentsBoxWriter>
-          <FontAwesomeIcon icon={faPaperPlane} onClick={GotoMailWrite}/>
-          <ContentsBoxAdjustBox>
-            <ContentsBoxAdjust onClick={Gotoedit}>
-              수정하기
-            </ContentsBoxAdjust>
-          </ContentsBoxAdjustBox>
-        </ContentsBoxWriterBox>
-        <ContentsBoxContents>
-          <br/>
-          안녕하세요 여기가 그 자유로운 게시판인가요?
-          <br/><br/>
-          생각보다 깔끔한 UI에 무릎을 탁! 치게 됩니다. 
-          <br/><br/>
-          반가워요 여러분
-        </ContentsBoxContents>
-        <ContentsBoxImgBox>
-        <Img src="https://cdn.notefolio.net/img/6f/97/6f9787b975c70fbda92d195bba79cd3490c57a4beebe2da510a1579fc542fa48_v1.jpg"/>
-        </ContentsBoxImgBox>
-        <ContentsBoxDeleteBox>
-          <ContentsBoxAdjust2 onClick={Gotoedit}>
-            수정
-          </ContentsBoxAdjust2>
-          <ContentsBoxDeleteButton onClick={Gotodelete}>삭제</ContentsBoxDeleteButton>
-        </ContentsBoxDeleteBox>
-      </ContentsBox>
+    {currentFBcontent.data === undefined ?
+    history.push("/")
+    :
+      <>
+        <ContentsBox>
+          <ContentsBoxTitleBox>
+            <ContentsBoxTitle>
+              {currentFBcontent.data.title}
+            </ContentsBoxTitle>
+          </ContentsBoxTitleBox>
+          <ContentsBoxWriterBox>
+            <ContentsBoxWriter>
+            {currentFBcontent.data.user_id.nickname}
+            </ContentsBoxWriter>
+            <FontAwesomeIcon icon={faPaperPlane} onClick={GotoMailWrite}/>
+            <ContentsBoxAdjustBox>
+              <ContentsBoxAdjust onClick={Gotoedit}>
+                수정하기
+              </ContentsBoxAdjust>
+            </ContentsBoxAdjustBox>
+          </ContentsBoxWriterBox>
+          <ContentsBoxContents>
+            {currentFBcontent.data.description}
+          </ContentsBoxContents>
+          <ContentsBoxImgBox>
+          <Img src="https://cdn.notefolio.net/img/6f/97/6f9787b975c70fbda92d195bba79cd3490c57a4beebe2da510a1579fc542fa48_v1.jpg"/>
+          </ContentsBoxImgBox>
+          <ContentsBoxDeleteBox>
+            <ContentsBoxAdjust2 onClick={Gotoedit}>
+              수정
+            </ContentsBoxAdjust2>
+            <ContentsBoxDeleteButton onClick={Gotodelete}>삭제</ContentsBoxDeleteButton>
+          </ContentsBoxDeleteBox>
+        </ContentsBox>
+      </>
+    }
     </>
   );
 }

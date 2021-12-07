@@ -221,8 +221,6 @@ import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
     if(localStorage.getItem('accessToken')) {
       setIsLogin(true)
     } 
-    console.log(isLogin)
-    console.log(isUserLogin)
   }, [isLogin, isUserLogin])
 
 
