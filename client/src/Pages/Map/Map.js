@@ -5,31 +5,29 @@ import { useHistory } from "react-router";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 export default function KakaoMap() {
-  const [userInfo, setUserInfo] = ({
-    wnat_region:'',
-    want_volL:'',
-    company:''
-  })
+  const [userInfo, setUserInfo] = {
+    wnat_region: "",
+    want_volL: "",
+    company: "",
+  };
   const [isMarkClick, setIsMarkClick] = useState(false);
   const [post, setPost] = useState([]);
   const history = useHistory();
 
-//getUserInfHandler =>company 정보를 가져와서 마커에 찍을수 있게한다.
-//마커에는 위치 내가찍은 위치도 들어가야한다.
-// const getCompanyInfoHandler =() => {
-// Axios.get('http://localhost:8080/user/info',{headers:{
-//   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-//   'Content-Type':'application/json'
-// }
-// })
-// .then(res =>{
-//   setUserInfo({want_region})
-// })
-// }
+  //getUserInfHandler =>company 정보를 가져와서 마커에 찍을수 있게한다.
+  //마커에는 위치 내가찍은 위치도 들어가야한다.
+  // const getCompanyInfoHandler =() => {
+  // Axios.get('http://localhost:8080/user/info',{headers:{
+  //   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  //   'Content-Type':'application/json'
+  // }
+  // })
+  // .then(res =>{
+  //   setUserInfo({want_region})
+  // })
+  // }
 
-const getLocationHandler =() =>{
-
-}
+  const getLocationHandler = () => {};
 
   useEffect(() => {
     let container = document.getElementById("map");
@@ -174,7 +172,7 @@ const getLocationHandler =() =>{
     height: 80%;
   `;
 
-  const KakaoMap = styled.div`
+  const MapKakao = styled.div`
     width: 100%;
     height: 100%;
   `;

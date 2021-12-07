@@ -174,8 +174,9 @@ module.exports = {
     const existNick = await User.findOne(query);
     // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
     if (existNick) {
-      return res.status(409).send({ message: "싸장님 닉네임 이미 있어" });
-    } else {
+      return res.status(201).send({ message: "싸장님 다른 닉네임 부탁해!" });
+    }
+    if (!existNick) {
       return res.status(200).send({ message: "싸장님 좋은 닉네임!" });
     }
   },

@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const controller = require("../controllers/mail");
 
-router.post("/register", controller.editControl);
-router.get("/list", controller.infoControl);
-router.delete("/withdrawal", controller.withdrawalControl);
+router.post("/mailregister", controller.mailregisterControl);
+router.get("/maillist", controller.maillistControl);
+router.delete("/maildelete", controller.maildeleteControl);
 
 module.exports = router;
