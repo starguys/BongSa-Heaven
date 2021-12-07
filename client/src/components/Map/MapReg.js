@@ -1,5 +1,6 @@
 /* global kakao */
 import React, { useEffect, useState } from "react";
+import Axios from "axios";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 
@@ -16,6 +17,8 @@ const DummyInput = styled.input`
 export default function MapReg() {
   const [value, setValue] = useState("강남");
   const [btnValue, setBtnValue] = useState("");
+  const [reRender, setRender] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     var markers = [];
@@ -62,7 +65,8 @@ export default function MapReg() {
       if (status === kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
-        console.log(data);
+        console.log(data, "data");
+
         displayPlaces(data);
 
         // 페이지 번호를 표출합니다
@@ -125,9 +129,30 @@ export default function MapReg() {
           //버튼 클릭시 데이터를 담아서 maker로 찍는다.
           //버튼 클릭시 좌표를 등록한다.
           regBtn.onclick = function () {
-
             console.log(selectedMarker.n);
-          
+            if (localStorage.getItem("accessToken")) {
+              Axios.post(
+                "http://localhost:8080/map/register",
+                {
+                  La: marker.getPosition().getLat(),
+                  Ma: marker.getPosition().getLng(),
+                },
+                {
+                  headers: {
+                    authorization:
+                      `Bearer ` + localStorage.getItem("accessToken"),
+                    "Content-Type": "application/json",
+                  },
+                }
+              )
+                .then((res) => {
+                  console.log("res");
+                  setRender(!reRender);
+                })
+                .catch((res) => {
+                  console.log("err", res.message);
+                });
+            }
           };
           let cancleBtn = document.createElement("button");
           cancleBtn.innerHTML = "취소";
@@ -153,20 +178,29 @@ export default function MapReg() {
           });
           overlay.setMap(null);
 
-          window.kakao.maps.event.addListener(marker, "click", function () {
-            overlay.setMap(map);
-            console.log(
-              document.getElementsByClassName("ContentOverlay").length
-            );
-            if (document.getElementsByClassName("ContentOverlay").length > 1) {
-              overlay.setMap(null);
-              console.log(" IM A LOT !!!");
-            }
+          window.kakao.maps.event.addListener(
+            marker,
+            "click",
+            function (mouseEvent) {
+              overlay.setMap(map);
+              console.log(
+                document.getElementsByClassName("ContentOverlay").length
+              );
+              if (
+                document.getElementsByClassName("ContentOverlay").length > 1
+              ) {
+                overlay.setMap(null);
+                console.log(" IM A LOT !!!");
+              }
 
-            selectedMarker = marker;
-            console.log("hi", selectedMarker.n);
-            console.log("hi", title);
-          });
+              selectedMarker = marker;
+              console.log("hi", selectedMarker);
+              console.log("hi", title);
+
+              console.log(marker.getPosition().getLat());
+              console.log(marker.getPosition().getLng());
+            }
+          );
 
           window.kakao.maps.event.addListener(map, "click", function () {
             overlay.setMap(null);
@@ -306,79 +340,88 @@ export default function MapReg() {
       }
     }
 
-    let positions = [
-      {
-        title: "함께봉사",
-        latlng: new kakao.maps.LatLng(37.49659049214025, 127.02474288398093),
-        region: "영등포구",
-        vol_type: "노인돌봄",
-        company_name: "봉사1515",
-      },
-      {
-        title: "지존봉사",
-        latlng: new kakao.maps.LatLng(37.49594654435023, 127.02340828615611),
-        region: "용산구",
-        vol_type: "길거리청소",
-        company_name: "드래곤마운틴",
-      },
-      {
-        title: "호수시인",
-        latlng: new kakao.maps.LatLng(37.49748253337715, 127.02452831523259),
-        region: "전국",
-        vol_type: "바른언어길잡이",
-        company_name: "언어폭력단",
-      },
-      {
-        title: "함께봉사",
-        latlng: new kakao.maps.LatLng(37.49748253337715, 127.02340828615611),
-        region: "영등포구",
-        vol_type: "노인돌봄",
-        company_name: "봉사1515",
-      },
-    ];
+    let positions = [{}];
+    Axios.get("http://localhost:8080/map/info")
+      .then((res) => {
+        // console.log(res.data);
+        for (let i = 0; i < res.data.length; i++) {
+          positions.push({
+            title: res.data[i].user_id.nickname,
+            latlng: new kakao.maps.LatLng(res.data[i].La, res.data[i].Ma),
+            region: res.data[i].user_id.want_region,
+            vol_type: res.data[i].user_id.want_vol,
+            company_name: res.data[i].user_id.company,
+          });
+        }
+      })
+      .then((res) => {
+        for (let i = 1; i < positions.length; i++) {
+          console.log(positions[i], i);
+          let imageSrc = "https://ifh.cc/g/u788hh.png", // 마커이미지의 주소입니다
+            imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+            imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
-    for (let i = 1; i < positions.length; i++) {
-      let imageSrc = "https://ifh.cc/g/u788hh.png", // 마커이미지의 주소입니다
-        imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-        imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+          let markerImage = new kakao.maps.MarkerImage(
+            imageSrc,
+            imageSize,
+            imageOption
+          );
+          //마커를 찍는다.
+          let marker = new kakao.maps.Marker({
+            position: positions[i].latlng,
+            title: positions[i].title,
+            image: markerImage,
+            clickable: true,
+          });
+          marker.setMap(map);
 
-      let markerImage = new kakao.maps.MarkerImage(
-        imageSrc,
-        imageSize,
-        imageOption
-      );
+          let content = document.createElement("div");
+          content.className = "contentMain";
 
-      let marker = new kakao.maps.Marker({
-        position: positions[i].latlng,
-        title: positions[i].title,
-        image: markerImage,
-        clickable: true,
+          let contentTitle = document.createElement("span");
+          contentTitle.className = "contentTitle";
+          contentTitle.innerHTML = `${positions[i].title}`;
+
+          let contentRegion = document.createElement("div");
+          contentRegion.className = "contentRegion";
+          contentRegion.innerHTML = `지역: ${positions[i].region}`;
+
+          let contentVolType = document.createElement("div");
+          contentVolType.className = "contentVolType";
+          contentVolType.innerHTML = `봉사활동: ${positions[i].vol_type}`;
+
+          let contentName = document.createElement("div");
+          contentName.className = "contentName";
+          contentName.innerHTML = `기관명: ${positions[i].company_name}`;
+
+          let contentBtn = document.createElement("button");
+          contentBtn.className = "contentBtn";
+          contentBtn.innerHTML = "쪽지 보내기";
+          contentBtn.onclick = function () {
+            history.push({
+              pathname: "/maillwrite",
+              state: { positions: positions[i] },
+            });
+          };
+
+          content.appendChild(contentTitle);
+          content.appendChild(contentRegion);
+          content.appendChild(contentVolType);
+          content.appendChild(contentName);
+          content.appendChild(contentBtn);
+
+          let customOverlay = new window.kakao.maps.CustomOverlay({
+            position: marker.getPosition(),
+            content: content,
+            map: map,
+            clickable: true,
+            yAnchor: 0,
+            xAnchor: 0.5,
+          });
+          customOverlay.setMap(map);
+        }
       });
-      marker.setMap(map);
-
-      let content = `
-            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #fff; border: 1px solid #e0dde1; border-radius: 0.313rem; width: 100%;  padding: 10px; margin-bottom: 200px; cursor: pointer;" >
-            <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 300; font-size: 1rem; margin-bottom: 5px;">${positions[i].title}</span>
-            <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 100; font-size: 0.9rem;margin-bottom: 4px;">봉사활동 : ${positions[i].region}</span>
-            <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 100; font-size: 0.9rem;margin-bottom: 4px;">봉사활동 : ${positions[i].vol_type}</span>
-            <span style="font-family: Gmarket Sans TTF; color: #2d2d2d; font-weight: 100; font-size: 0.9rem;">기관명 : ${positions[i].company_name}</span>
-            <a href=http://localhost:3000/maillwrite>
-              <button style="margin-top:5%; border:solid 1px black; background-color:white;" href=http://localhost:3000/maillwrite>쪽지 보내기</button>
-              </a>
-              </div>
-              `;
-
-      let customOverlay = new window.kakao.maps.CustomOverlay({
-        position: marker.getPosition(),
-        content: content,
-        map: map,
-        clickable: true,
-        yAnchor: 0.6,
-        xAnchor: 0.5,
-      });
-      customOverlay.setMap(map);
-    }
-  }, [btnValue]);
+  }, [btnValue, reRender]);
 
   const ChangeValue = (e) => {
     setValue(e.target.value);
