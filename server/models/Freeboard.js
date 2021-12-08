@@ -7,11 +7,11 @@ const freeboardSchema = new Schema(
     user_id: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
     },
     title: String,
     description: String,
     images: Array,
+
     // free_comments: {
     //   type: [freecommentSchema],
     //   default: [],
