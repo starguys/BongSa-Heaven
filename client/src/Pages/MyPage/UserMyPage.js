@@ -111,7 +111,7 @@ const WebContainer = styled.div`
     //비밀번호, 닉네임, 등등 바꾸는 경우
 
     axios
-      .get(`${process.env.REACT_APP_API_URI}/user/info`, {
+      .get(`http://localhost:8080/user/info`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "applicaton/json",

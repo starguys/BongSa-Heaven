@@ -60,6 +60,9 @@ const ContentsBoxWriter = styled.div`
     margin: 5px 0px 5px 0px;
   }
 `
+const IconBox = styled.div`
+cursor: pointer;
+`
 
 const ContentsBoxAdjustBox = styled.div`
   display: flex;
@@ -157,7 +160,7 @@ const ContentsBoxDeleteButton = styled.div`
 
 
 export default function Writing({currentFBcontent}) {
-  console.log(currentFBcontent.data)
+  console.log(currentFBcontent.data._id)
 
   const history = useHistory();
 
@@ -181,7 +184,9 @@ export default function Writing({currentFBcontent}) {
             <ContentsBoxWriter>
             {currentFBcontent.data.user_id.nickname}
             </ContentsBoxWriter>
-            <FontAwesomeIcon icon={faPaperPlane} onClick={GotoMailWrite}/>
+            <IconBox>
+              <FontAwesomeIcon icon={faPaperPlane} onClick={GotoMailWrite}/>
+            </IconBox>
             <ContentsBoxAdjustBox>
               <ContentsBoxAdjust onClick={Gotoedit}>
                 수정하기
@@ -192,7 +197,11 @@ export default function Writing({currentFBcontent}) {
             {currentFBcontent.data.description}
           </ContentsBoxContents>
           <ContentsBoxImgBox>
-          <Img src="https://cdn.notefolio.net/img/6f/97/6f9787b975c70fbda92d195bba79cd3490c57a4beebe2da510a1579fc542fa48_v1.jpg"/>
+          {currentFBcontent.data.images === undefined ?
+          <></>
+          :
+          <Img src={currentFBcontent.data.images}/>
+          }
           </ContentsBoxImgBox>
           <ContentsBoxDeleteBox>
             <ContentsBoxAdjust2 onClick={Gotoedit}>

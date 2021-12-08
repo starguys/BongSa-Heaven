@@ -89,6 +89,8 @@ import Header4 from "../../components/common/Header4";
     background: #f7f7f7;
     border-radius: 4px;
     border: 0;
+
+    cursor: pointer;
     @media screen and (min-width: 37.5rem) {
       margin-left: 0px;
     }
@@ -154,10 +156,16 @@ import Header4 from "../../components/common/Header4";
           회원의 정보를 안전하게 보호하기 위해,<br/> 비밀번호를 다시 한번 입력해
           주시기 바랍니다.
         </PassCheckText>
-        <PasswordCheckInput type="password" placeholder="password" onChange={handlePassword}/>
+
+        <PasswordCheckInput 
+        type="password"
+        placeholder="password" 
+        onChange={handlePassword}
+        />
         <PassCheckIsNotRight>
           {passwordIsNotRight}
         </PassCheckIsNotRight>
+
         <CheckBtn onClick={passwordChecking}>확인</CheckBtn>
         {/* </PasswordCheckContainerDiv> */}
       </PasswordCheckContainer>

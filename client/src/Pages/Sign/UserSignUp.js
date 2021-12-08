@@ -404,7 +404,7 @@ export default function UserSignUp() {
             want_region: want_region,
             age: age,
             sex: sex,
-            is_company: false,
+            iscompany: false,
           },
           { headers: { "Content-Type": "application/json" } }
         )
