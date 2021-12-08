@@ -2,11 +2,8 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "cofigurations": {},
   "dependencies": {
-    "@fortawesome/free-brands-svg-icons": "^5.15.4",
-    "@fortawesome/free-regular-svg-icons": "^5.15.4",
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.16",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -14,10 +11,10 @@
     "bootstrap": "^4.4.1",
     "dotenv": "^10.0.0",
     "jquery": "^3.5.0",
-    "react": "^16.13.1",
+    "qs": "^6.10.1",
     "react-cookies": "^0.1.1",
-    "react-dom": "^16.13.1",
-    "react-kakao-maps-sdk": "^1.0.4",
+    "react-google-login": "^5.2.2",
+    "react-kakao-login": "^2.1.0",
     "react-redux": "^7.2.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -26,9 +23,7 @@
     "recompose": "^0.30.0",
     "redux": "^4.0.5",
     "shallow-equal": "^1.2.1",
-    "styled-components": "^5.3.3",
-    "sweetalert2": "^9.10.13",
-    "zsh": "^0.0.1"
+    "sweetalert2": "^9.10.13"
   },
   "scripts": {
     "start": "react-scripts start",

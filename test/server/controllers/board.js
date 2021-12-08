@@ -14,13 +14,8 @@ module.exports = {
       return res.send({ message: "싸장님 회원 맞아?? 빨리 가입 해" });
     }
     if (userData) {
-      //!추가한부분
-      const image = req.files;
-      const path = image.map((img) => img.location);
-      //!
       const freeContent = {
         user_id: userData.user_id,
-        images: path, //!
         title: req.body.title,
         description: req.body.description,
         images: req.body.images,
@@ -107,6 +102,7 @@ module.exports = {
     // 2. 게시물 인증
     // 3. db삭제
     const userData = isAuthorized(req, res);
+
     if (!userData) {
       res.send({ message: "싸장님은 게시글 수정 권한 없어!" });
     }
