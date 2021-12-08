@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const crewchildcommentSchema = require('./Crewchildcomment');
 
-const crewcommentSchema = new Schema(
+const crewchildcommentSchema = new Schema(
   {
     user_id: {
       type: Schema.Types.ObjectId,
@@ -14,22 +13,18 @@ const crewcommentSchema = new Schema(
       ref: 'Crewboard',
       required: true,
     },
-    comment: {
+    crewcomment_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'Crewcomment',
+    },
+    child_comment: {
       type: String,
       maxLength: 1000,
     },
-    isdeleted: {
-      type: Boolean,
-      default: false,
-    },
-    crewchildcomments: [
-      {
-        type: crewchildcommentSchema,
-        default: [],
-      },
-    ],
   },
   {timestamps: true},
 );
 
-module.exports = crewcommentSchema;
+// freecommentSchema.plugin(findOrCreate);
+module.exports = crewchildcommentSchema;
+// mongoose.model("Freecomment", freecommentSchema);
