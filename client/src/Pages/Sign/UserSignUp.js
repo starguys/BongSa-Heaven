@@ -6,10 +6,6 @@ import { useState, useRef, useEffect } from "react";
 import { Route, useHistory } from "react-router-dom";
 import axios from "axios";
 import { faLastfmSquare } from "@fortawesome/free-brands-svg-icons";
-<<<<<<< HEAD
-=======
-
->>>>>>> dfe9a307bfe3f1504eb5afde1f6a2a72d2c4cc66
 const Wrapper = styled.div`
   width: 100%;
   background-color: #ffd4d4;
