@@ -1,11 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import {useState} from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
 import Input from "../../components/common/Input";
-import CreateButton from "../../components/common/CreateButton";
-import CreateButton2 from "../../components/common/CreateButton2";
+import CreateButton from "../../components/CrewBoard/CreateButton";
+import CreateButton2 from "../../components/CrewBoard/CreateButton2";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -81,11 +81,7 @@ export default function CrewBoardCreate() {
       <Wrapper>
         <Header2 componentName="글 작성하기" />
         <DesktopTitle title="글 작성하기" />
-        <CreateButton2
-          create="/CrewBoardList"
-          cancel="/CrewBoardList"
-          setFileImage={setFileImage}
-        />
+        <CreateButton2 create="/CrewBoardList" cancel="/CrewBoardList" setFileImage={setFileImage} />
         <Input text="봉사단 이름" />
         <Input text="봉사단 한줄 소개글" />
         <CreateBox>
@@ -96,11 +92,7 @@ export default function CrewBoardCreate() {
             <Img src={fileImage} alt="수정할 이미지 자리" />
           </ContentsBoxImgBox>
         </CreateBox>
-        <CreateButton
-          create="/CrewBoardList"
-          cancel="/CrewBoardList"
-          setFileImage={setFileImage}
-        />
+        <CreateButton create="/CrewBoardList" cancel="/CrewBoardList" setFileImage={setFileImage} />
       </Wrapper>
     </>
   );
