@@ -1,6 +1,7 @@
-require("dotenv").config();
-const Freeboard = require("../models/Freeboard");
-const { isAuthorized } = require("../middlewares/token");
+require('dotenv').config();
+const Freeboard = require('../models/Freeboard');
+const Crewboard = require('../models/Crewboard');
+const {isAuthorized} = require('../middlewares/token');
 
 module.exports = {
   // free board commnt
@@ -11,14 +12,14 @@ module.exports = {
     try {
       const userData = await isAuthorized(req, res);
       if (!userData) {
-        return res.send({ message: "싸장님 회원 맞아?? 빨리 가입 해" });
+        return res.send({message: '싸장님 회원 맞아?? 빨리 가입 해'});
       }
       if (userData) {
         // console.log("===userData===", userData);
-        await Freeboard.findById(req.body.freeboard_id).then((doc) => {
+        await Freeboard.findById(req.body.freeboard_id).then(doc => {
           // console.log("===doc===", doc);
           if (doc === null) {
-            return res.status(404).send({ message: "싸장님 잘못된 경로야!" });
+            return res.status(404).send({message: '싸장님 잘못된 경로야!'});
           } else {
             const fbcomment = {
               user_id: userData.user_id,
@@ -27,12 +28,12 @@ module.exports = {
             };
             doc.freecomments.push(fbcomment);
             doc.save();
-            res.status(200).send({ message: "싸장님 댓글 등록 완료!" });
+            res.status(200).send({message: '싸장님 댓글 등록 완료!'});
           }
         });
       }
     } catch {
-      return res.send("err");
+      return res.send('err');
     }
   },
   fbchildregisterControl: async (req, res) => {
@@ -43,11 +44,11 @@ module.exports = {
     try {
       const userData = await isAuthorized(req, res);
       if (!userData) {
-        return res.send({ message: "싸장님 회원 맞아?? 빨리 가입 해" });
+        return res.send({message: '싸장님 회원 맞아?? 빨리 가입 해'});
       }
       if (userData) {
         // console.log("===userData===", userData);
-        await Freeboard.findById(req.body.freeboard_id).then((doc) => {
+        await Freeboard.findById(req.body.freeboard_id).then(doc => {
           // console.log("===doc===", doc);
           //   const fbchildcomment = {
           //     user_id: userData.user_id,
@@ -57,11 +58,11 @@ module.exports = {
         });
         //   doc.freechildcomments.push(fbchildcomment);
         //   doc.save();
-        res.status(200).send({ message: "싸장님 댓글 등록 완료!" });
+        res.status(200).send({message: '싸장님 댓글 등록 완료!'});
         // }};
       }
     } catch {
-      return res.send("err");
+      return res.send('err');
     }
   },
 
@@ -71,7 +72,7 @@ module.exports = {
     // 3. 내용 업데이트
     const userData = await isAuthorized(req, res);
     if (!userData) {
-      return res.send({ message: "싸장님~ 댓글 수정 권한 없어!" });
+      return res.send({message: '싸장님~ 댓글 수정 권한 없어!'});
     }
     if (userData) {
       // const fbcommentedit = await Freeboard.aggregate([
@@ -82,25 +83,44 @@ module.exports = {
       //   },
       // ])
       // console.log("===fbcommentedit===", fbcommentedit);
-      return res.send("edit ok!");
+      return res.send('edit ok!');
     }
   },
 
   fbcommentdeleteControl: async (req, res) => {
-    return res.send("delete ok!");
+    return res.send('delete ok!');
   },
 
   // crew board comment
-  cbregisterControl: async (req, res) => {
-    return res.send("register ok!");
-  },
-  cblistControl: async (req, res) => {
-    return res.send("info ok!");
-  },
-  cbeditControl: async (req, res) => {
-    return res.send("edit ok!");
-  },
-  cbdeleteControl: async (req, res) => {
-    return res.send("delete ok!");
+  cbcommentregisterControl: async (req, res) => {
+    // 1. token userData 인증
+    // 2. post_id => req.body로 받아와 => crewcomment 배열 안에 넣자
+    // 3. 보낼땐 다줘야하나? 뭘 뭐야하지
+    try {
+      const userData = await isAuthorized(req, res);
+      if (!userData) {
+        return res.send({message: '싸장님 회원 맞아?? 빨리 가입 해'});
+      }
+      if (userData) {
+        // console.log("===userData===", userData);
+        await Crewboard.findById(req.body.crewboard_id).then(doc => {
+          // console.log("===doc===", doc);
+          if (doc === null) {
+            return res.status(404).send({message: '싸장님 잘못된 경로야!'});
+          } else {
+            const cbcomment = {
+              user_id: userData.user_id,
+              crewboard_id: req.body.crewboard_id,
+              comment: req.body.comment,
+            };
+            doc.crewcomments.push(cbcomment);
+            doc.save();
+            res.status(200).send({message: '싸장님 댓글 등록 완료!'});
+          }
+        });
+      }
+    } catch {
+      return res.send('err');
+    }
   },
 };

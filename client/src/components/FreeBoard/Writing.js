@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
-import { useHistory } from "react-router";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPaperPlane} from "@fortawesome/free-regular-svg-icons";
+import {useHistory} from "react-router";
 
 const ContentsBox = styled.div`
   background-color: white;
   width: 80%;
-  display:flex;
+  display: flex;
   flex-direction: column;
   border-radius: 20px;
   padding: 20px 0px 20px 0px;
@@ -18,12 +18,12 @@ const ContentsBox = styled.div`
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
   }
-`
+`;
 const ContentsBoxTitleBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 const ContentsBoxTitle = styled.div`
   display: flex;
   align-items: center;
@@ -36,16 +36,15 @@ const ContentsBoxTitle = styled.div`
   @media screen and (min-width: 37.5rem) {
     font-size: 20px;
     margin-top: 20px;
-
   }
-`
+`;
 const ContentsBoxWriterBox = styled.div`
   display: flex;
   align-items: center;
   padding: 20px 0px 0px 0px;
-`
+`;
 const ContentsBoxWriter = styled.div`
-  color: #448B76;
+  color: #448b76;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,10 +58,10 @@ const ContentsBoxWriter = styled.div`
     width: 15%;
     margin: 5px 0px 5px 0px;
   }
-`
+`;
 const IconBox = styled.div`
-cursor: pointer;
-`
+  cursor: pointer;
+`;
 
 const ContentsBoxAdjustBox = styled.div`
   display: flex;
@@ -73,25 +72,25 @@ const ContentsBoxAdjustBox = styled.div`
   @media screen and (min-width: 37.5rem) {
     display: none;
   }
-`
+`;
 
 const ContentsBoxAdjust = styled.div`
   cursor: pointer;
-  background-color: #FF7676;
+  background-color: #ff7676;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
   border-radius: 20px;
-`
+`;
 
 const ContentsBoxAdjust2 = styled.div`
   display: none;
-  
+
   @media screen and (min-width: 37.5rem) {
     cursor: pointer;
-    color: #FF7676;
+    color: #ff7676;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,7 +99,7 @@ const ContentsBoxAdjust2 = styled.div`
 `;
 
 const ContentsBoxContents = styled.div`
-  width: 80%;  
+  width: 80%;
   margin: 15px auto 40px auto;
   font-size: 12px;
 
@@ -108,7 +107,7 @@ const ContentsBoxContents = styled.div`
     font-size: 16px;
     margin-left: 8vw;
   }
-`
+`;
 const ContentsBoxImgBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -121,7 +120,7 @@ const ContentsBoxImgBox = styled.div`
     align-items: flex-start;
     margin-left: 8vw;
   }
-`
+`;
 const Img = styled.img`
   width: 80%;
   object-fit: cover;
@@ -132,7 +131,7 @@ const Img = styled.img`
     max-width: 60%;
     max-height: 60%;
   }
-`
+`;
 
 const ContentsBoxDeleteBox = styled.div`
   width: 100%;
@@ -144,11 +143,10 @@ const ContentsBoxDeleteBox = styled.div`
     justify-content: flex-start;
     margin: 20px 0px 20px 0px;
   }
-
-`
+`;
 const ContentsBoxDeleteButton = styled.div`
   cursor: pointer;
-  color: #D80000;
+  color: #d80000;
   opacity: 0.5;
   padding-right: 8vw;
 
@@ -156,12 +154,9 @@ const ContentsBoxDeleteButton = styled.div`
     margin-left: 1vw;
     color: gray;
   }
-`
-
+`;
 
 export default function Writing({currentFBcontent}) {
-  console.log(currentFBcontent.data._id)
-
   const history = useHistory();
 
   const Gotoedit = () => history.push("/FreeBoardEdit");
@@ -170,48 +165,34 @@ export default function Writing({currentFBcontent}) {
 
   return (
     <>
-    {currentFBcontent.data === undefined ?
-    history.push("/")
-    :
-      <>
-        <ContentsBox>
-          <ContentsBoxTitleBox>
-            <ContentsBoxTitle>
-              {currentFBcontent.data.title}
-            </ContentsBoxTitle>
-          </ContentsBoxTitleBox>
-          <ContentsBoxWriterBox>
-            <ContentsBoxWriter>
-            {currentFBcontent.data.user_id.nickname}
-            </ContentsBoxWriter>
-            <IconBox>
-              <FontAwesomeIcon icon={faPaperPlane} onClick={GotoMailWrite}/>
-            </IconBox>
-            <ContentsBoxAdjustBox>
-              <ContentsBoxAdjust onClick={Gotoedit}>
-                수정하기
-              </ContentsBoxAdjust>
-            </ContentsBoxAdjustBox>
-          </ContentsBoxWriterBox>
-          <ContentsBoxContents>
-            {currentFBcontent.data.description}
-          </ContentsBoxContents>
-          <ContentsBoxImgBox>
-          {currentFBcontent.data.images === undefined ?
-          <></>
-          :
-          <Img src={currentFBcontent.data.images}/>
-          }
-          </ContentsBoxImgBox>
-          <ContentsBoxDeleteBox>
-            <ContentsBoxAdjust2 onClick={Gotoedit}>
-              수정
-            </ContentsBoxAdjust2>
-            <ContentsBoxDeleteButton onClick={Gotodelete}>삭제</ContentsBoxDeleteButton>
-          </ContentsBoxDeleteBox>
-        </ContentsBox>
-      </>
-    }
+      {currentFBcontent.data === undefined ? (
+        history.push("/")
+      ) : (
+        <>
+          <ContentsBox>
+            <ContentsBoxTitleBox>
+              <ContentsBoxTitle>{currentFBcontent.data.title}</ContentsBoxTitle>
+            </ContentsBoxTitleBox>
+            <ContentsBoxWriterBox>
+              <ContentsBoxWriter>{currentFBcontent.data.user_id.nickname}</ContentsBoxWriter>
+              <IconBox>
+                <FontAwesomeIcon icon={faPaperPlane} onClick={GotoMailWrite} />
+              </IconBox>
+              <ContentsBoxAdjustBox>
+                <ContentsBoxAdjust onClick={Gotoedit}>수정하기</ContentsBoxAdjust>
+              </ContentsBoxAdjustBox>
+            </ContentsBoxWriterBox>
+            <ContentsBoxContents>{currentFBcontent.data.description}</ContentsBoxContents>
+            <ContentsBoxImgBox>
+              {currentFBcontent.data.images === undefined ? <></> : <Img src={currentFBcontent.data.images} />}
+            </ContentsBoxImgBox>
+            <ContentsBoxDeleteBox>
+              <ContentsBoxAdjust2 onClick={Gotoedit}>수정</ContentsBoxAdjust2>
+              <ContentsBoxDeleteButton onClick={Gotodelete}>삭제</ContentsBoxDeleteButton>
+            </ContentsBoxDeleteBox>
+          </ContentsBox>
+        </>
+      )}
     </>
   );
 }

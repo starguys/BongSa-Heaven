@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const crewcommentSchema = require('./Crewcomment');
 
 const crewboardSchema = new Schema(
   {
-    _id: Schema.Types.ObjectId,
+    like: [{type: Schema.Types.ObjectId, ref: 'User'}],
+    like_count: {
+      type: Number,
+      default: 0,
+    },
     user_id: {
       type: Schema.Types.ObjectId,
       ref: 'User',
@@ -15,6 +20,10 @@ const crewboardSchema = new Schema(
     crew_comments: {
       type: [crewcommentSchema],
       default: [],
+    },
+    isopen: {
+      type: Boolean,
+      default: true,
     },
   },
   {timestamps: true},

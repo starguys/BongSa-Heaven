@@ -1,10 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import {useState} from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
-import EditButton from "../../components/common/EditButton";
-import EditButton2 from "../../components/common/EditButton2";
+import EditButton from "../../components/CrewBoard/EditButton";
+import EditButton2 from "../../components/CrewBoard/EditButton2";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 const ContentsBox = styled.div`
   background-color: white;
@@ -43,7 +43,7 @@ const ContentsBoxTitle = styled.input`
   border-bottom: solid gray 1px;
 
   @media screen and (min-width: 37.5rem) {
-    font-size: 20px
+    font-size: 20px;
   }
 `;
 const ContentsBoxWriterBox = styled.div`
@@ -60,7 +60,7 @@ const ContentsBoxWriter = styled.div`
   color: #448b76;
 
   @media screen and (min-width: 37.5rem) {
-    font-size: 20px
+    font-size: 20px;
   }
 `;
 
@@ -96,19 +96,14 @@ const Img = styled.img`
 `;
 
 export default function CrewBoardEdit() {
-
   const [fileImage, setFileImage] = useState("");
 
   return (
     <>
       <Wrapper>
-        <Header2 componentName="글 수정하기"/>
-        <DesktopTitle title="글 수정하기"/>
-        <EditButton2 
-            create="/CrewBoardList" 
-            cancel="/CrewBoardList"
-            setFileImage={setFileImage}
-        />
+        <Header2 componentName="글 수정하기" />
+        <DesktopTitle title="글 수정하기" />
+        <EditButton2 create="/CrewBoardList" cancel="/CrewBoardList" setFileImage={setFileImage} />
         <ContentsBox>
           <ContentsBoxTitleBox>
             <ContentsBoxTitle placeholder="수정할 제목"></ContentsBoxTitle>
@@ -116,17 +111,12 @@ export default function CrewBoardEdit() {
           <ContentsBoxWriterBox>
             <ContentsBoxWriter>닉네임자리</ContentsBoxWriter>
           </ContentsBoxWriterBox>
-          <ContentsBoxContents placeholder="수정할 글 내용">
-          </ContentsBoxContents>
+          <ContentsBoxContents placeholder="수정할 글 내용"></ContentsBoxContents>
           <ContentsBoxImgBox>
-            <Img src={fileImage} alt="수정할 이미지 자리"/>
+            <Img src={fileImage} alt="수정할 이미지 자리" />
           </ContentsBoxImgBox>
         </ContentsBox>
-        <EditButton 
-          edit="/CrewBoardContents" 
-          cancel="/CrewBoardContents"
-          setFileImage={setFileImage}
-        />
+        <EditButton edit="/CrewBoardContents" cancel="/CrewBoardContents" setFileImage={setFileImage} />
       </Wrapper>
     </>
   );

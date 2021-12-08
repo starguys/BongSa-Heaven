@@ -1,17 +1,17 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const freechildcommentSchema = require("./Freechildcomment");
+const freechildcommentSchema = require('./Freechildcomment');
 
 const freecommentSchema = new Schema(
   {
     user_id: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
     freeboard_id: {
       type: Schema.Types.ObjectId,
-      ref: "Freeboard",
+      ref: 'Freeboard',
       required: true,
     },
     comment: {
@@ -29,10 +29,7 @@ const freecommentSchema = new Schema(
       },
     ],
   },
-  { timestamps: true }
+  {timestamps: true},
 );
 
 module.exports = freecommentSchema;
-
-// freecommentSchema.plugin(findOrCreate);
-// mongoose.model("Freecomment", freecommentSchema);

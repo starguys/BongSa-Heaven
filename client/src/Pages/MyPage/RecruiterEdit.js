@@ -536,28 +536,6 @@ export default function RecruiterEdit() {
       });
   };
 
-  const userWithdrawalHandler = () => {
-    // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
-
-    axios
-      .delete(
-        "http://localhost:8080/user/withdrawal",
-
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            "Content-Type": "applicaton/json",
-          },
-        }
-      )
-      .then((res) => {
-        history.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   useEffect(() => {
     getUserInfoHandler();
   }, []);
@@ -573,6 +551,7 @@ export default function RecruiterEdit() {
           <EditEmaill>현재 이메일 : {userInfo.email} </EditEmaill>
           <SignUpWhiteBox>
             <SignUpWhiteInput
+              defaultValue={userInfo.nickname}
               onChange={handleChange("nickname")}
               placeholder="닉네임"
             ></SignUpWhiteInput>
@@ -585,30 +564,35 @@ export default function RecruiterEdit() {
           </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
+              type="password"
               onChange={handleChange("password")}
               placeholder="비밀번호"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
+              type="password"
               onChange={handleChange("passwordCheck")}
               placeholder="비밀번호 확인"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
+              defaultValue={userInfo.want_region}
               onChange={handleChange("want_region")}
               placeholder="봉사활동 지역"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
+              defaultValue={userInfo.want_vol}
               onChange={handleChange("want_vol")}
               placeholder="봉사활동"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
+              defaultValue={userInfo.company}
               onChange={handleChange("company")}
               placeholder="기관명/봉사모집단체이름"
             ></SignUpWhiteInput>
