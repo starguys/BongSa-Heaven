@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import styled from "styled-components";
 import {useHistory} from "react-router";
 
@@ -11,7 +12,6 @@ const ImgUploadBox = styled.div`
 
   @media screen and (min-width: 37.5rem) {
     display: none;
-    width: 1080px;
   }
 `;
 const ImgUploadButton = styled.div`
@@ -27,6 +27,7 @@ const ImgUploadButton = styled.div`
 const ImgUpload = styled.input`
   display: none;
 `;
+
 const SelectBox = styled.div`
   display: flex;
   justify-content: space-around;
@@ -39,7 +40,6 @@ const SelectBox = styled.div`
     width: 1080px;
   }
 `;
-
 const CancelButton = styled.div`
   cursor: pointer;
   background-color: white;
@@ -74,14 +74,38 @@ const CompleteButton = styled.div`
   }
 `;
 
-export default function EditButton(props) {
+export default function CreateButton(props) {
   const saveFileImage = e => {
     props.setFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const history = useHistory();
-  const Edit = url => history.push(url);
+  const Create = url => history.push(url);
   const Cancel = url => history.push(url);
+
+  const createFreeBoard = () => {
+    if (props.description === "" || props.title === "") {
+      alert("제목이나 내용이 아무것도 없으면, 작성되지 않습니다.");
+      return;
+    }
+    axios
+      .post(
+        "http://localhost:8080/board/fbregister",
+        {
+          title: props.title,
+          description: props.description,
+          images: props.fileImage,
+        },
+        {
+          headers: {
+            authorization: `Bearer ` + localStorage.getItem("accessToken"),
+            "Content-Type": "application/json",
+          },
+        },
+      )
+      .then(res => console.log(res.data.message, "성공!"))
+      .catch(err => console.log(err, "응안가"));
+  };
 
   return (
     <>
@@ -92,7 +116,14 @@ export default function EditButton(props) {
       </ImgUploadBox>
       <SelectBox>
         <CancelButton onClick={() => Cancel(props.cancel)}>취소</CancelButton>
-        <CompleteButton onClick={() => Edit(props.edit)}>수정 완료</CompleteButton>
+        <CompleteButton
+          onClick={() => {
+            createFreeBoard();
+            Create(props.create);
+          }}
+        >
+          작성 완료
+        </CompleteButton>
       </SelectBox>
       {/* display:none 상태 */}
       <ImgUpload id="imgUpload" onChange={saveFileImage} type="file" aceept="image/*" />

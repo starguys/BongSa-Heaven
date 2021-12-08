@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
@@ -15,27 +14,15 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-
-
-
-export default function FreeBoardContents( {currentFBcontent} ) {
-  const history = useHistory();
-
-  const GoFreeBoardList = () => {
-    history.push("/FreeBoardList");
-    console.log("click!")
-  };
-
+export default function FreeBoardContents({currentFBcontent}) {
   return (
     <>
       <Wrapper>
         <Header2 componentName="게시글 보기" />
-        <div onClick={GoFreeBoardList}>
-          <DesktopTitle title="게시글 보기"/>
-        </div>
-        <Writing currentFBcontent={currentFBcontent}/>
-        <List backtoList="/FreeBoardList"/>
-        <Comment currentFBcontent={currentFBcontent}/>
+        <DesktopTitle title="게시글 보기" url="/FreeBoardList" />
+        <Writing currentFBcontent={currentFBcontent} />
+        <List backtoList="/FreeBoardList" />
+        <Comment currentFBcontent={currentFBcontent} />
       </Wrapper>
     </>
   );

@@ -2,10 +2,11 @@ import React from "react";
 import {useState, useEffect} from "react";
 import {useHistory} from "react-router";
 import styled from "styled-components";
+import axios from "axios";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
-import EditButton from "../../components/common/EditButton";
-import EditButton2 from "../../components/common/EditButton2";
+import EditButton from "../../components/FreeBoard/EditButton";
+import EditButton2 from "../../components/FreeBoard/EditButton2";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -84,7 +85,53 @@ const Img = styled.img`
 `;
 
 export default function FreeBoardEdit({currentFBcontent}) {
+  let title = "",
+    description = "";
+  if (currentFBcontent.data !== undefined) {
+    title = currentFBcontent.data.title;
+    description = currentFBcontent.data.description;
+  }
+
   const [fileImage, setFileImage] = useState("");
+  const [editedTitle, setTitle] = useState(title);
+  const [editedDescription, setDescription] = useState(description);
+
+  const editTitle = e => {
+    setTitle(e.target.value);
+    console.log(editedTitle);
+  };
+  const editDescription = e => {
+    setDescription(e.target.value);
+    console.log(editedDescription);
+  };
+
+  const editFreeBoard = () => {
+    if (editedTitle === "" || editedDescription === "") {
+      alert("제목이나 내용이 아무것도 없으면, 수정되지 않습니다.");
+      return;
+    }
+
+    axios
+      .patch(
+        "http://localhost:8080/board/fbedit",
+        {
+          freeboard_id: currentFBcontent.data._id,
+          title: editedTitle,
+          description: editedDescription,
+          image: fileImage,
+        },
+        {
+          headers: {
+            authorization: `Bearer ` + localStorage.getItem("accessToken"),
+            "Content-Type": "application/json",
+          },
+        },
+      )
+      .then(res => {
+        console.log(res.data.message);
+      })
+      .catch(err => console.log(err));
+  };
 
   useEffect(() => {
     if (currentFBcontent.data !== undefined) setFileImage(currentFBcontent.data.image);
@@ -104,18 +151,25 @@ export default function FreeBoardEdit({currentFBcontent}) {
                 <ContentsBoxTitle
                   placeholder="수정할 글 제목"
                   defaultValue={currentFBcontent.data.title}
+                  onChange={editTitle}
                 ></ContentsBoxTitle>
               </ContentsBoxTitleBox>
               <ContentsBoxWriterBox></ContentsBoxWriterBox>
               <ContentsBoxContents
                 placeholder="수정할 글 내용들"
                 defaultValue={currentFBcontent.data.description}
+                onChange={editDescription}
               ></ContentsBoxContents>
               <ContentsBoxImgBox>
                 <Img src={fileImage} alt="수정할 이미지 자리" />
               </ContentsBoxImgBox>
             </ContentsBox>
-            <EditButton edit="/FreeBoardContents" cancel="/FreeBoardContents" setFileImage={setFileImage} />
+            <EditButton
+              edit="/FreeBoardContents"
+              cancel="/FreeBoardContents"
+              setFileImage={setFileImage}
+              editFreeBoard={editFreeBoard}
+            />
           </Wrapper>
         </>
       ) : (

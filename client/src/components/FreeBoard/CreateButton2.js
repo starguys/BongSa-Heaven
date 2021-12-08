@@ -1,5 +1,5 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const ImgUploadBox = styled.div`
  display: none;
@@ -10,11 +10,10 @@ const ImgUploadBox = styled.div`
   justify-content: flex-end;
   align-items: center;
   margin: 15px 0px 15px 0px;
-
 }
 `
-
 const ImgUploadButton = styled.div`
+  cursor: pointer;
   background-color : #FF7676;
   color: white;
   display: flex;
@@ -23,12 +22,16 @@ const ImgUploadButton = styled.div`
   padding: 20px 80px 20px 80px;
   border-radius: 20px;
 `
+
 const ImgUpload= styled.input`
   display:none;
 `
 
-export default function EditButton(props) {
-  
+
+
+
+export default function CreateButton(props) {
+
   const saveFileImage = (e) => { 
     props.setFileImage(URL.createObjectURL(e.target.files[0])); };
 

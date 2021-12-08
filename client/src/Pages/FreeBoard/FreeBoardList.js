@@ -1,12 +1,12 @@
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import {useState} from "react";
+import {useEffect} from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import Loading from "../../components/common/Loading";
-import CreateLink from "../../components/common/CreateLink";
-import CreateLink2 from "../../components/common/CreateLink2";
+import CreateLink from "../../components/FreeBoard/CreateLink";
+import CreateLink2 from "../../components/FreeBoard/CreateLink2";
 import Contents from "../../components/FreeBoard/Contents";
 import Pagination from "../../components/common/Pagination";
 
@@ -57,7 +57,7 @@ const ContentsBox = styled.div`
   }
 `;
 
-export default function FreeBoardList({ GoToFreeBoardContent }) {
+export default function FreeBoardList({GoToFreeBoardContent}) {
   const [isLoading, CheckLoading] = useState(true);
 
   const [freeBoardinfo, setFreeBoardinfo] = useState([]);
@@ -69,7 +69,7 @@ export default function FreeBoardList({ GoToFreeBoardContent }) {
   const indexOfFirstPost = indexOfLastPost - postPerPage;
 
   const currentPosts = freeBoardinfo.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
   const loadingHandler = () => {
     CheckLoading(false);
@@ -78,11 +78,11 @@ export default function FreeBoardList({ GoToFreeBoardContent }) {
   const getFreeBoardList = () => {
     axios
       .get("http://localhost:8080/board/fblist")
-      .then((res) => {
+      .then(res => {
         console.log(res);
         setFreeBoardinfo(res.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   useEffect(() => {
@@ -111,28 +111,20 @@ export default function FreeBoardList({ GoToFreeBoardContent }) {
           <ContentsBox>
             {currentPosts &&
               currentPosts.length > 0 &&
-              currentPosts.map((board) => (
+              currentPosts.map(board => (
                 <Contents
                   key={board._id}
                   freeboard_id={board._id}
                   title={board.title}
                   writer={board.user_id.nickname}
-                  date={
-                    board.createdAt.slice(0, 10) +
-                    "  " +
-                    board.createdAt.slice(11, 19)
-                  }
+                  date={board.createdAt.slice(0, 10) + "  " + board.createdAt.slice(11, 19)}
                   GoToFreeBoardContent={GoToFreeBoardContent}
                 />
               ))}
           </ContentsBox>
         </>
       )}
-      <Pagination
-        postPerPage={postPerPage}
-        totalPosts={freeBoardinfo.length}
-        paginate={paginate}
-      />
+      <Pagination postPerPage={postPerPage} totalPosts={freeBoardinfo.length} paginate={paginate} />
     </>
   );
 }
