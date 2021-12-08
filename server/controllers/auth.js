@@ -23,19 +23,6 @@ module.exports = {
       iscompany,
     } = req.body;
 
-    console.log("req.body",req.body)
-    // if (
-    //   !email ||
-    //   !nickname ||
-    //   !password ||
-    //   !sex ||
-    //   !want_region ||
-    //   !want_vol ||
-    //   !age
-    // ) {
-    //   return res.status(400).send("모든 항목을 입력해주세요");
-    // }
-
     // 2. 들어왔다면 db에 있는지 조회 있다면 돌려보냄
     const userDb = { email: email };
     const existUser = await User.findOne(userDb);
@@ -72,7 +59,6 @@ module.exports = {
                 iscompany: iscompany,
                 isopen: true,
               };
-              console.log(newUser)
               const insertDb = new User(newUser).save();
               if (!insertDb) {
                 return res.status(500).send({ message: "싸장님 서버 이상해" });
@@ -91,6 +77,7 @@ module.exports = {
   signinControl: async (req, res) => {
     // 1. 이메일과 패스드가 담긴 바디를 받는다
     // 2. 암호에 소금쳐서 다시 찾아낸다
+
     const { email, password } = req.body;
     const salt = await User.findOne({ email: email }).select({
       _id: 0,
@@ -99,7 +86,6 @@ module.exports = {
     if (salt === null) {
       return res.status(404).send({ message: "이메일 및 비밀번호 다시 쳐봐" });
     }
-    console.log("===salt.salt===", salt.salt);
 
     // 2. 유저db 에서 이메일이 있는지 확인한다;
     crypto.pbkdf2(
@@ -110,7 +96,6 @@ module.exports = {
       "sha512",
       async (err, key) => {
         const hardPass = key.toString("base64");
-        console.log("===hardPass===", hardPass);
         const query = { email: email, password: hardPass };
         const userInfo = await User.findOne(query);
         // 3. 없다면 404 돌려보냄
@@ -119,18 +104,16 @@ module.exports = {
             .status(404)
             .send({ message: "싸장님 이메일 및 비밀번호 확인해!" });
         }
-        // 4. 있다면 뭐뭐 줄래? => token 전달!{ email, nickname }
+        // 4. 있다면 뭐뭐 줄래? => token 전달!{ email, nickname, user_id }
         if (userInfo) {
           const { email, nickname } = userInfo;
           const user_id = userInfo._id;
-
           const accessToken = generateAccessToken({ email, nickname, user_id });
           const refreshToken = generateRefreshToken({
             email,
             nickname,
             user_id,
           });
-
           // const issueDate = new Date();
           // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
           // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
@@ -160,22 +143,6 @@ module.exports = {
     }
   },
 
-  nickcheckControl: async (req, res) => {
-    // 1. 닉네임을 받는다
-    const query = { nickname: req.body.nickname };
-    // 2. db에서 닉네임을 검색한다
-    const existNick = await User.findOne(query);
-    console.log(existNick);
-    // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
-    if (existNick) {
-      return res.status(409).send({ message: "싸장님 닉네임 이미 있어" });
-    } else {
-      return res
-        .status(200)
-        .send({ data: existNick, message: "싸장님 좋은 닉네임!" });
-    }
-  },
-
   refreshtokenControl: async (req, res) => {
     const refreshTokenData = checkRefreshToken(req);
     if (!refreshTokenData) {
@@ -186,8 +153,7 @@ module.exports = {
       if (!userInfo) {
         return res.status(500).send({ message: "뭔가가 이상하다" });
       } else {
-        const { email, nickname } = userInfo;
-        const user_id = userInfo._id;
+        const { email, nickname, user_id } = userInfo;
         const accessToken = generateAccessToken({ email, nickname, user_id });
         const refreshToken = generateRefreshToken({ email, nickname, user_id });
         // const issueDate = new Date();
@@ -201,11 +167,69 @@ module.exports = {
     }
   },
 
-  kakaoControl: async (req, res) => {
-    return res.send();
+  nickcheckControl: async (req, res) => {
+    // 1. 닉네임을 받는다
+    // 2. db에서 닉네임을 검색한다
+    const query = { nickname: req.body.nickname };
+    const existNick = await User.findOne(query);
+    // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
+    if (existNick) {
+      return res.status(201).send({ message: "싸장님 다른 닉네임 부탁해!" });
+    }
+    if (!existNick) {
+      return res.status(200).send({ message: "싸장님 좋은 닉네임!" });
+    }
   },
 
   googleControl: async (req, res) => {
-    return res.send();
+    res.send();
+  },
+
+  kakaoControl: async (req, res) => {
+    // console.log(req.body);
+    const token = req.body.accessToken;
+    let userResponse;
+    try {
+      userResponse = await axios({
+        method: "GET",
+        url: "https://kapi.kakao.com/v2/user/me",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch {
+      console.log("err");
+    }
+    const userNick = userResponse.data.properties.nickname;
+    const userKakao = userResponse.data.id;
+
+    const query = { kakao_id: userKakao, nickname: userNick };
+    const existUser = await User.findOne(query);
+
+    if (existUser) {
+      const accessToken = generateAccessToken({ userKakao, userNick });
+      const refreshToken = generateRefreshToken({ userKakao, userNick });
+      return res
+        .cookie("refreshToken", refreshToken, { httpOnly: true })
+        .status(200)
+        .send({ accessToken: accessToken, message: "kakao-login 성공!" });
+    }
+    if (!existUser) {
+      const newUser = {
+        kakao_id: userKakao,
+        nickname: userNick,
+      };
+      const insertDb = new User(newUser).save();
+      if (!insertDb) {
+        return res.status(500).send({ message: "싸장님 서버 이상해" });
+      } else {
+        const accessToken = generateAccessToken({ userKakao, userNick });
+        const refreshToken = generateRefreshToken({ userKakao, userNick });
+        return res
+          .cookie("refreshToken", refreshToken, { httpOnly: true })
+          .status(200)
+          .send({ accessToken: accessToken, message: "kakao singup 성공!" });
+      }
+    }
   },
 };

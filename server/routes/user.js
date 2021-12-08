@@ -6,5 +6,4 @@ router.post("/password", controller.passwordControl);
 router.patch("/edit", controller.editControl);
 router.delete("/withdrawal", controller.withdrawalControl);
 
-
 module.exports = router;
