@@ -13,6 +13,8 @@ const Title = styled.div`
     font-weight: bold;
     font-size: 24px;
 
+    cursor: pointer;
+
   }
 `
 

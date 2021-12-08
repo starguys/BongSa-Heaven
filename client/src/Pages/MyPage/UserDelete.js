@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
-import Check from "../../components/common/Check";
+import Check from "../../components/Mypages/Check";
 
 const ContentsBox = styled.div`
   @media screen and (min-width: 1024px) {
@@ -28,7 +28,7 @@ export default function FreeBoardDelete() {
         <Check
           contents="회원탈퇴를 하시겠습니까?"
           delete="/"
-          cancel="/UserEdit"
+          cancel="/UserMyPage"
           leftBtn="회원탈퇴"
         />
       </ContentsBox>

@@ -83,6 +83,7 @@ const CompleteButton = styled.div`
   padding: 20px 80px 20px 80px;
   border-radius: 5px;
   width: 110px;
+  cursor: pointer;
 `;
 
 export default function SignIn({ setIsLogin, setIsUserLogin }) {
@@ -124,8 +125,8 @@ export default function SignIn({ setIsLogin, setIsUserLogin }) {
           {
             headers: {
               "Content-Type": "application/json",
-              withCredentials: true,
             },
+            withCredentials: true,
           }
         )
         .then((res) =>

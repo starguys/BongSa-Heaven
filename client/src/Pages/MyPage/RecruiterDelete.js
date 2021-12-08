@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
-import Check from "../../components/common/Check";
+import Check from "../../components/Mypages/Check";
 
 const ContentsBox = styled.div`
   @media screen and (min-width: 1024px) {
@@ -20,17 +20,14 @@ const ContentsBox = styled.div`
   }
 `;
 
-export default function FreeBoardDelete({ userWithdrawalHandler }) {
+export default function FreeBoardDelete() {
   const history = useHistory();
-
-  // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
   return (
     <>
       <Header2 componentName="회원탈퇴" />
       <DesktopTitle title="회원탈퇴" />
       <ContentsBox>
         <Check
-          onClick={userWithdrawalHandler}
           contents="회원탈퇴를 하시겠습니까?"
           cancel="/RecruiterEdit"
           leftBtn="회원탈퇴"

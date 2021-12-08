@@ -95,6 +95,7 @@ const CheckingPossibleOrNotButton = styled.div`
   align-items: center;
   padding: 10px 10px 10px 10px;
   border-radius: 20px;
+  cursor: pointer;
 `;
 
 const SelectSexBox = styled.div`
@@ -122,7 +123,23 @@ const SelectSexButton = styled.div`
     width: 140px;
     height: 140px;
     justify-content: space-between;
-    /* background-color: yellow; */
+    cursor: pointer;
+  }
+`;
+const SelectedSexButton = styled.div`
+  background-color: #ff7676;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30vw;
+  height: 17vh;
+  border-radius: 50%;
+  @media screen and (min-width: 37.5rem) {
+    width: 140px;
+    height: 140px;
+    justify-content: space-between;
+    cursor: pointer;
   }
 `;
 const SexImageBox = styled.img`
@@ -162,6 +179,26 @@ const AgeButton = styled.div`
     margin: 0px 15px;
     width: 20%;
     height: 45px;
+    cursor: pointer;
+  }
+`;
+
+const AgeButtonSelected = styled.div`
+  background-color: #ff7676;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30vw;
+  height: 8vh;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  @media screen and (min-width: 37.5rem) {
+    margin: 0px 15px;
+    width: 20%;
+    height: 45px;
+    cursor: pointer;
   }
 `;
 
@@ -183,6 +220,7 @@ const CompleteButton = styled.div`
   padding: 20px 80px 20px 80px;
   border-radius: 5px;
   width: 110px;
+  cursor: pointer;
 `;
 
 export default function UserSignUp() {
@@ -239,13 +277,10 @@ export default function UserSignUp() {
   };
   //성별을 다룬다.
   const handleSex = (key) => (e) => {
-    console.log(sex, e.target);
     console.log(key);
     if (key === "man") {
       setSex("남자");
     } else if (key === "woman") {
-      //여자 고르면서 남자 없앰
-
       setSex("여자");
     }
   };
@@ -403,7 +438,7 @@ export default function UserSignUp() {
             want_region: want_region,
             age: age,
             sex: sex,
-            is_company: false,
+            iscompany: false,
           },
           { headers: { "Content-Type": "application/json" } }
         )
@@ -482,22 +517,69 @@ export default function UserSignUp() {
               placeholder="희망 봉사 활동"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
-
-          <SelectSexBox>
-            <SelectSexButton onClick={handleSex("man")}>
-              <SexImageBox src="./image/young-man.png"></SexImageBox>
-            </SelectSexButton>
-
-            <SelectSexButton onClick={handleSex("woman")}>
-              <SexImageBox src="./image/young-woman.png"></SexImageBox>
-            </SelectSexButton>
-          </SelectSexBox>
-
-          <SelectBox>
-            <AgeButton onClick={handleAge("teen")}>청소년</AgeButton>
-            <AgeButton onClick={handleAge("adult")}>청년</AgeButton>
-            <AgeButton onClick={handleAge("senior")}>장년</AgeButton>
-          </SelectBox>
+          {sex ? (
+            sex === "남자" ? (
+              <SelectSexBox>
+                <SelectedSexButton onClick={handleSex("man")}>
+                  <SexImageBox src="./image/young-man.png"></SexImageBox>
+                </SelectedSexButton>
+                <SelectSexButton onClick={handleSex("woman")}>
+                  <SexImageBox src="./image/young-woman.png"></SexImageBox>
+                </SelectSexButton>
+              </SelectSexBox>
+            ) : (
+              <SelectSexBox>
+                <SelectSexButton onClick={handleSex("man")}>
+                  <SexImageBox src="./image/young-man.png"></SexImageBox>
+                </SelectSexButton>
+                <SelectedSexButton onClick={handleSex("woman")}>
+                  <SexImageBox src="./image/young-woman.png"></SexImageBox>
+                </SelectedSexButton>
+              </SelectSexBox>
+            )
+          ) : (
+            <SelectSexBox>
+              <SelectSexButton onClick={handleSex("man")}>
+                <SexImageBox src="./image/young-man.png"></SexImageBox>
+              </SelectSexButton>
+              <SelectSexButton onClick={handleSex("woman")}>
+                <SexImageBox src="./image/young-woman.png"></SexImageBox>
+              </SelectSexButton>
+            </SelectSexBox>
+          )}
+          {age ? (
+            age === "청소년" ? (
+              <SelectBox>
+                <AgeButtonSelected onClick={handleAge("teen")}>
+                  청소년
+                </AgeButtonSelected>
+                <AgeButton onClick={handleAge("adult")}>청년</AgeButton>
+                <AgeButton onClick={handleAge("senior")}>장년</AgeButton>
+              </SelectBox>
+            ) : age === "청년" ? (
+              <SelectBox>
+                <AgeButton onClick={handleAge("teen")}>청소년</AgeButton>
+                <AgeButtonSelected onClick={handleAge("adult")}>
+                  청년
+                </AgeButtonSelected>
+                <AgeButton onClick={handleAge("senior")}>장년</AgeButton>
+              </SelectBox>
+            ) : (
+              <SelectBox>
+                <AgeButton onClick={handleAge("teen")}>청소년</AgeButton>
+                <AgeButton onClick={handleAge("adult")}>청년</AgeButton>
+                <AgeButtonSelected onClick={handleAge("senior")}>
+                  장년
+                </AgeButtonSelected>
+              </SelectBox>
+            )
+          ) : (
+            <SelectBox>
+              <AgeButton onClick={handleAge("teen")}>청소년</AgeButton>
+              <AgeButton onClick={handleAge("adult")}>청년</AgeButton>
+              <AgeButton onClick={handleAge("senior")}>장년</AgeButton>
+            </SelectBox>
+          )}
 
           <CompleteBox>
             <CompleteButton onClick={handleSignUpRequest}>

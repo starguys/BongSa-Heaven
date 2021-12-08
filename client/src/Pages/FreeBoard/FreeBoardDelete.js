@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
-import DeleteCheck from "../../components/common/DeleteCheck";
+import DeleteCheck from "../../components/FreeBoard/DeleteCheck";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -29,14 +29,14 @@ const ContentsBox = styled.div`
 `
 
 
-export default function FreeBoardDelete() {
+export default function FreeBoardDelete({currentFBcontent}) {
   return (
     <>
       <Wrapper>
         <Header2 componentName="삭제"/>
         <DesktopTitle title="삭제"/>
         <ContentsBox>
-          <DeleteCheck contents="게시글" delete="/FreeBoardList" cancel="/FreeBoardContents"/>
+          <DeleteCheck contents="게시글" delete="/FreeBoardList" cancel="/FreeBoardContents" currentFBcontent={currentFBcontent}/>
         </ContentsBox>
       </Wrapper>
     </>

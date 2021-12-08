@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const crewboardSchema = new Schema(
@@ -6,8 +6,7 @@ const crewboardSchema = new Schema(
     _id: Schema.Types.ObjectId,
     user_id: {
       type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      ref: 'User',
     },
     shorts_description: String,
     title: String,
@@ -18,8 +17,8 @@ const crewboardSchema = new Schema(
       default: [],
     },
   },
-  { timestamps: true }
+  {timestamps: true},
 );
 
 // boardSchema.plugin(findOrCreate);
-module.exports = mongoose.model("Crewboard", crewboardSchema);
+module.exports = mongoose.model('Crewboard', crewboardSchema);
