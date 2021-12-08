@@ -6,12 +6,12 @@ const crewboardSchema = new Schema(
     user_id: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
     },
     shorts_description: String,
     title: String,
     descreption: String,
     images: String,
+   
     // crew_comments: {
     //   type: [crewcommentSchema],
     //   default: [],

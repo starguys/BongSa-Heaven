@@ -70,6 +70,25 @@ const CheckBtn = styled.button`
     margin-left: 0px;
   }
 `;
+const PassCheckIsNotRight = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 43px;
+  width: 290px;
+  height: 40px;
+  color: red;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 21px;
+
+  @media screen and (min-width: 37.5rem) {
+    margin-left: 0px;
+  }
+`;
 
 export default function UserEditPasswordCheck() {
   const history = useHistory();
@@ -129,6 +148,7 @@ export default function UserEditPasswordCheck() {
           placeholder="password"
           onChange={handlePassword}
         />
+        <PassCheckIsNotRight>{passwordIsNotRight}</PassCheckIsNotRight>
         <CheckBtn onClick={passwordChecking}>확인</CheckBtn>
         {/* </PasswordCheckContainerDiv> */}
       </PasswordCheckContainer>
