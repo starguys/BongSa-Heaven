@@ -144,10 +144,12 @@ module.exports = {
   },
 
   refreshtokenControl: async (req, res) => {
-    const refreshTokenData = checkRefreshToken(req);
+    const refreshToken = req.cookies.refreshToken;
+    const refreshTokenData = checkRefreshToken(refreshToken);
     if (!refreshTokenData) {
       return res.status(401).send({ message: "유효하지 않은 토큰~" });
     }
+
     if (refreshTokenData) {
       const userInfo = await User.findOne({ email: refreshTokenData.email });
       if (!userInfo) {

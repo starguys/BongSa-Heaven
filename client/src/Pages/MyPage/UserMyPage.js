@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import Header2 from "../../components/common/Header2";
 import UserMyPageMain from "../../components/Mypages/UserMyPageMain";
-import axios from 'axios'
+import axios from "axios";
 
 const SeeRecruiterBtn = styled.button`
   margin-left: 24px;
@@ -72,32 +72,48 @@ const WebContainer = styled.div`
   }
 `;
 
+export default function UserMyPage() {
+  const history = useHistory();
+  const [isChecked, setIsChecked] = useState(true);
+  const handleSwitch = () => {
+    setIsChecked(!isChecked);
+    axios
+      .patch(
+        `http://localhost:8080/user/edit`,
+        {
+          email: userInfo.email,
+          nickname: userInfo.nickname,
+          password: userInfo.password,
 
+          want_region: userInfo.want_region,
+          want_vol: userInfo.want_vol,
+          sex: userInfo.sex,
+          age: userInfo.age,
 
-  
-
-  export default function UserMyPage() {
-    const history = useHistory();
-    const [isChecked, setIsChecked] = useState(true);
-    const handleSwitch = () => {
-      if (isChecked) {
-        setTimeout(setIsChecked(false), 100);
-      } else {
-        setTimeout(setIsChecked(true), 100);
-      }
-    };
-
-    const [userInfo, setUserInfo] = useState({
-      email: "",
-      nickname: "",
-      password: "",
-      passwordCheck: "",
-      imgUrl: "",
-      want_region: "",
-      want_vol: "",
-      age: "",
-      sex: "",
-    });
+          iscompany: false,
+          isopen: !isChecked,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          "Contetn-Type ": "appliaction/json",
+        }
+      )
+      .then((res) => {})
+      .catch((err) => {});
+  };
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    nickname: "",
+    password: "",
+    passwordCheck: "",
+    imgUrl: "",
+    want_region: "",
+    want_vol: "",
+    age: "",
+    sex: "",
+  });
 
   const GoSeeRecruiter = () => {
     history.push("/SeeRecruiter");
@@ -107,7 +123,6 @@ const WebContainer = styled.div`
   };
 
   const getUserInfoHandler = () => {
-    console.log(localStorage.getItem("accessToken"));
     //비밀번호, 닉네임, 등등 바꾸는 경우
 
     axios
@@ -119,22 +134,20 @@ const WebContainer = styled.div`
       })
 
       .then((res) => {
-        console.log(res.data.data.email);
-
         setUserInfo({
           email: res.data.data.email,
           nickname: res.data.data.nickname,
           password: res.data.data.password,
+
           want_region: res.data.data.want_region,
           want_vol: res.data.data.want_vol,
-          gender: res.data.data.gender,
+          sex: res.data.data.sex,
           age: res.data.data.age,
         });
+        setIsChecked(res.data.data.isopen);
       })
 
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -156,14 +169,16 @@ const WebContainer = styled.div`
           <span>봉사희망정보 숨기기</span>
           {/* 개인정보숨기기를 닫으면 개인정보가 recruiter한테 안보여짐 
           on =true, off = false*/}
-          <HiddenVolToogleLabel
-
-            className="switch-button"
-            onClick={handleSwitch}
-          >
-            <HiddenVolToogleInput type="checkbox" checked={isChecked} />
-            <HiddenVolToogleBall className="onoff-switch" />
-          </HiddenVolToogleLabel>
+          <div>
+            <HiddenVolToogleLabel className="switch-button">
+              <HiddenVolToogleInput
+                type="checkbox"
+                checked={isChecked}
+                onChange={handleSwitch}
+              />
+              <HiddenVolToogleBall className="onoff-switch" />
+            </HiddenVolToogleLabel>
+          </div>
         </HiddenVolContainer>
       </WebContainer>
     </>

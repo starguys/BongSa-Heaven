@@ -179,16 +179,46 @@ module.exports = {
       }
     }
   },
-  nickcheckControl: async (req, res) => {
-    // 1. 닉네임을 받는다
-    // 2. db에서 닉네임을 검색한다
-    const query = { nickname: req.body.nickname };
-    const existNick = await User.findOne(query);
-    // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
-    if (existNick) {
-      return res.status(409).send({ message: "싸장님 닉네임 이미 있어" });
-    } else {
-      return res.status(200).send({ message: "싸장님 좋은 닉네임!" });
+  listControl: async (req, res) => {
+    //봉사 모집자는 일반회원들의 리스트를 동의하는 사람들에 한해서 볼수 있어야합니다.(default =true)
+    //동의하지 않은 사용자는 볼수 없습니다.
+    // user는 iscompany로 분리됩니다.
+
+    const tokenData = isAuthorized(req);
+
+    if (!tokenData) {
+      return res.status(401).send("인증 실패");
+    }
+
+    //isopen iscompany =false
+    //comapny인 경우 user 한테서 보여준다.
+
+    try {
+      const userInfo = await User.findOne({ email: tokenData.email });
+
+      if (userInfo.iscompany === true) {
+        const isOpenAndnotCompany = await User.find(
+          {
+            isopen: { $eq: true },
+            iscompany: { $eq: false },
+          },
+          { nickname: 1, want_region: 1, want_vol: 1, sex: 1, age: 1 }
+        );
+        return res.status(200).send(isOpenAndnotCompany);
+      } else if (userInfo.iscompany !== true) {
+        const isOpenAndCompany = await User.find(
+          {
+            isopen: { $eq: true },
+            iscompany: { $eq: true },
+          },
+          { nickname: 1, want_region: 1, want_vol: 1, company: 1 }
+        );
+        return res.status(200).send(isOpenAndCompany);
+      } else {
+        return res.status(500).send("서버 문제 있어요");
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
 };

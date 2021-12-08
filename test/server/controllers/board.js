@@ -102,6 +102,7 @@ module.exports = {
     // 2. 게시물 인증
     // 3. db삭제
     const userData = isAuthorized(req, res);
+
     if (!userData) {
       res.status(401).send({ message: "싸장님은 게시글 수정 권한 없어!" });
     }
