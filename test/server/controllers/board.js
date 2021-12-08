@@ -104,9 +104,10 @@ module.exports = {
     const userData = isAuthorized(req, res);
 
     if (!userData) {
-      res.send({ message: "싸장님은 게시글 수정 권한 없어!" });
+      res.status(401).send({ message: "싸장님은 게시글 수정 권한 없어!" });
     }
     if (userData) {
+      console.log(req.body.freeboard_id)
       const deletefbcontent = await Freeboard.findById(req.body.freeboard_id);
       if (!deletefbcontent) {
         res.status(404).send({ message: "잘못된 게시글입니다" });

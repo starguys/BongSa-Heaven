@@ -28,7 +28,7 @@ export default function FreeBoardDelete() {
         <Check
           contents="회원탈퇴를 하시겠습니까?"
           delete="/"
-          cancel="/UserEdit"
+          cancel="/UserMyPage"
           leftBtn="회원탈퇴"
         />
       </ContentsBox>

@@ -122,6 +122,8 @@ const SelectSexButton = styled.div`
   width: 30vw;
   height: 17vh;
   border-radius: 50%;
+  cursor: pointer;
+
   @media screen and (min-width: 37.5rem) {
     width: 140px;
     height: 140px;
@@ -178,6 +180,8 @@ const AgeButton = styled.div`
   margin-right: 10px;
   margin-bottom: 20px;
   border-radius: 20px;
+  cursor: pointer;
+
   @media screen and (min-width: 37.5rem) {
     margin: 0px 15px;
     width: 20%;
@@ -222,6 +226,7 @@ const CompleteButton = styled.div`
   padding: 20px 80px 20px 80px;
   border-radius: 5px;
   width: 110px;
+  cursor: pointer;
 `;
 const DeleteBtn = styled.div`
   margin-bottom: 15px;

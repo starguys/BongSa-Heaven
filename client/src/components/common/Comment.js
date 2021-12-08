@@ -151,8 +151,7 @@ export default function Comment({ currentFBcontent }) {
   };
 
   const saveComment = () => {
-    SetRefresh(!refresh);
-    console.log(refresh);
+    if(commentValue.length > 0) {
     axios
       .post(
         "http://localhost:8080/comment/fbcommentregister",
@@ -171,9 +170,12 @@ export default function Comment({ currentFBcontent }) {
       .then((res) => {
         console.log(res.data.message);
         setCommentValue("");
+        SetRefresh(!refresh);
+        console.log(refresh);
       })
       // .then((res) => window.location.replace("/FreeBoardContents"))
       .catch((err) => console.log(err));
+    }
   };
 
   useEffect(() => {
@@ -192,7 +194,7 @@ export default function Comment({ currentFBcontent }) {
               <CommentBox key={idx}>
                 <CommentWriter>
                   {comment.user_id.nickname}
-                  <CommentDate>{comment.createdAt}</CommentDate>
+                  <CommentDate>{comment.createdAt.slice(0,10)}</CommentDate>
                 </CommentWriter>
                 <CommentContents>{comment.comment}</CommentContents>
               </CommentBox>

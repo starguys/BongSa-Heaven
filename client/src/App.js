@@ -169,14 +169,33 @@ export default function App() {
         render={() => <FreeBoardContents currentFBcontent={currentFBcontent} />}
       />
       <Route exact path="/FreeBoardCreate" component={FreeBoardCreate} />
-      <Route exact path="/FreeBoardDelete" component={FreeBoardDelete} />
-      <Route exact path="/FreeBoardEdit" component={FreeBoardEdit} />
-      <Route
-        exact
-        path="/FreeBoardList"
-        render={() => (
-          <FreeBoardList GoToFreeBoardContent={GoToFreeBoardContent} />
-        )}
+      <Route 
+      exact 
+      path="/FreeBoardDelete" 
+      render={() => (
+        <FreeBoardDelete
+        currentFBcontent={currentFBcontent}
+        />
+      )}
+      />
+      <Route 
+      exact
+      path="/FreeBoardEdit" 
+      render={() => (
+        <FreeBoardEdit
+        currentFBcontent={currentFBcontent}
+        />
+      )}
+      />
+      
+      <Route 
+      exact 
+      path="/FreeBoardList" 
+      render={() => (
+        <FreeBoardList
+        GoToFreeBoardContent={GoToFreeBoardContent}
+        />
+      )}
       />
       {/* CrewBoard */}
       <Route exact path="/CrewBoardContents" component={CrewBoardContents} />
