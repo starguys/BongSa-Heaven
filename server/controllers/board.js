@@ -1,7 +1,7 @@
-require("dotenv").config();
-const Freeboard = require("../models/Freeboard");
-// const Crewboard = require("../models/Crewboard");
-const { isAuthorized } = require("../middlewares/token");
+require('dotenv').config();
+const Freeboard = require('../models/Freeboard');
+const Crewboard = require('../models/Crewboard');
+const {isAuthorized} = require('../middlewares/token');
 
 module.exports = {
   // free board control
@@ -9,27 +9,48 @@ module.exports = {
     // 1. 가입된 유저인지 확인한다 => 토큰 검증
     // 2. 유저가 아니라면 돌려보냄
     // 3. 유저라면 free board에 모델 생성하고 req.body로 받은 데이터 등록
-    const userData = isAuthorized(req, res);
-    if (!userData) {
-      return res.send({ message: "싸장님 회원 맞아?? 빨리 가입 해" });
-    }
-    if (userData) {
+    // 3-1 imag 올리는 경우 // 아닌경우 나눠서 하자
+
+    if (req.files) {
       //!추가한부분
       const image = req.files;
-      const path = image.map((img) => img.location);
+      const path = image.map(img => img.location);
       //!
-      const freeContent = {
-        user_id: userData.user_id,
-        images: path, //!
-        title: req.body.title,
-        description: req.body.description,
-        images: req.body.images,
-      };
-      const insertDb = new Freeboard(freeContent).save();
-      if (!insertDb) {
-        return res.status(500).send({ message: "싸장님 서버 이상해" });
-      } else {
-        return res.status(201).send({ message: "freeboard content 등록완료" });
+      const userData = isAuthorized(req, res);
+      if (!userData) {
+        return res.send({message: '싸장님 회원 맞아?? 빨리 가입 해'});
+      }
+      if (userData) {
+        const freeContent = {
+          user_id: userData.user_id,
+          images: path, //!
+          title: req.body.title,
+          description: req.body.description,
+        };
+        const insertDb = new Freeboard(freeContent).save();
+        if (!insertDb) {
+          return res.status(500).send({message: '싸장님 서버 이상해'});
+        } else {
+          return res.status(201).send({message: 'freeboard content 등록완료'});
+        }
+      }
+    } else {
+      const userData = isAuthorized(req, res);
+      if (!userData) {
+        return res.send({message: '싸장님 회원 맞아?? 빨리 가입 해'});
+      }
+      if (userData) {
+        const freeContent = {
+          user_id: userData.user_id,
+          title: req.body.title,
+          description: req.body.description,
+        };
+        const insertDb = new Freeboard(freeContent).save();
+        if (!insertDb) {
+          return res.status(500).send({message: '싸장님 서버 이상해'});
+        } else {
+          return res.status(201).send({message: 'freeboard content 등록완료'});
+        }
       }
     }
   },
@@ -39,14 +60,14 @@ module.exports = {
     // +@ 만일 토큰이 있어서 유저라면 좋아요 한 게시글인지 아닌지 여부도 보내주기
     const userData = isAuthorized(req, res);
     if (userData) {
-      return res.send({ message: "싸장님 회원 맞아?? 빨리 가입 해" });
+      return res.send({message: '싸장님 회원 맞아?? 빨리 가입 해'});
     }
     if (!userData) {
       const fbcontents = await Freeboard.find({})
-        .select({ like: 1, title: 1, createdAt: 1 })
-        .populate({ path: "user_id", select: { nickname: 1 } })
-        .sort({ createdAt: -1 });
-      res.status(200).send({ data: fbcontents });
+        .select({like: 1, title: 1, createdAt: 1})
+        .populate({path: 'user_id', select: {nickname: 1}})
+        .sort({createdAt: -1});
+      res.status(200).send({data: fbcontents});
     }
   },
 
@@ -61,8 +82,8 @@ module.exports = {
         freecomments: 1,
         createdAt: 1,
       })
-      .populate({ path: "user_id", select: { nickname: 1 } })
-      .sort({ createdAt: -1 })
+      .populate({path: 'user_id', select: {nickname: 1}})
+      .sort({createdAt: -1})
       .select({
         freecomments: {
           _id: 1,
@@ -73,32 +94,39 @@ module.exports = {
         },
       })
       .populate({
-        path: "freecomments.user_id",
-        select: { nickname: 1 },
+        path: 'freecomments.user_id',
+        select: {nickname: 1},
       });
-    res.status(200).send({ data: fbcontent });
+    res.status(200).send({data: fbcontent});
   },
 
   fbeditControl: async (req, res) => {
     // 1. 인증
     // 2. 유저 아이디(토큰) + 게시글 아이디(바디)
     // 3. 수정
-    const { freeboard_id, title, description, image } = req.body;
+    const {freeboard_id, title, description, images} = req.body;
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.send({ message: "싸장님은 게시글 수정 권한 없어!" });
+      res.send({message: '싸장님은 게시글 수정 권한 없어!'});
     }
     if (userData) {
       const edit = {
         title: title,
         description: description,
-        image: image,
+        images: images,
       };
-      const editfbcontent = await Freeboard.findById(freeboard_id)
-        .updateMany(edit)
-        .exec();
-      console.log("===editfbcontent===", editfbcontent);
-      res.status(200).send({ message: "싸장님 게시글 변경 완료!" });
+      const editfbcontent = await Freeboard.findOne({
+        _id: userData.user_id,
+        freeboard_id: freeboard_id,
+      }).exec();
+      if (editfbcontent === null) {
+        return res.status(400).send({message: '게시글이 존재하지 않아요!'});
+      }
+      if (editfbcontent) {
+        await Freeboard.updateMany(edit).exec();
+        console.log('===editfbcontent===', editfbcontent);
+        res.status(200).send({message: '싸장님 게시글 변경 완료!'});
+      }
     }
   },
 
@@ -108,32 +136,168 @@ module.exports = {
     // 3. db삭제
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.send({ message: "싸장님은 게시글 수정 권한 없어!" });
+      res.send({message: '싸장님은 게시글 수정 권한 없어!'});
     }
     if (userData) {
       const deletefbcontent = await Freeboard.findById(req.body.freeboard_id);
       if (!deletefbcontent) {
-        res.status(404).send({ message: "잘못된 게시글입니다" });
+        res.status(404).send({message: '잘못된 게시글입니다'});
       }
       if (deletefbcontent) {
         deletefbcontent.remove();
-        res.status(200).send({ message: "싸장님 게시글 삭제 완료!" });
+        res.status(200).send({message: '싸장님 게시글 삭제 완료!'});
       }
     }
   },
 
   // crew board control
   cbregisterControl: async (req, res) => {
-    return res.send("cb register ok!");
+    // 1. 가입된 유저인지 확인한다 => 토큰 검증
+    // 2. 유저가 아니라면 돌려보냄
+    // 3. 유저라면 free board에 모델 생성하고 req.body로 받은 데이터 등록
+    // 3-1 imag 올리는 경우 // 아닌경우 나눠서 하자
+
+    if (req.files) {
+      //!추가한부분
+      const image = req.files;
+      const path = image.map(img => img.location);
+      //!
+      const userData = isAuthorized(req, res);
+      if (!userData) {
+        return res.send({message: '싸장님 회원 맞아?? 빨리 가입 해'});
+      }
+      if (userData) {
+        const crewContent = {
+          user_id: userData.user_id,
+          images: path, //!
+          title: req.body.title,
+          shorts_description: req.body.shorts_description,
+          description: req.body.description,
+        };
+        const insertDb = new Crewboard(crewContent).save();
+        if (!insertDb) {
+          return res.status(500).send({message: '싸장님 서버 이상해'});
+        } else {
+          return res.status(201).send({message: 'crewboard content 등록완료'});
+        }
+      }
+    } else {
+      const userData = isAuthorized(req, res);
+      if (!userData) {
+        return res.send({message: '싸장님 회원 맞아?? 빨리 가입 해'});
+      }
+      if (userData) {
+        const crewContent = {
+          user_id: userData.user_id,
+          title: req.body.title,
+          shorts_description: req.body.shorts_description,
+          description: req.body.description,
+        };
+        const insertDb = new Crewboard(crewContent).save();
+        if (!insertDb) {
+          return res.status(500).send({message: '싸장님 서버 이상해'});
+        } else {
+          return res.status(201).send({message: 'crewboard content 등록완료'});
+        }
+      }
+    }
   },
+
   cblistControl: async (req, res) => {
-    return res.send("cb info ok!");
+    // 1. db상에 존재하는 모든 free board 글들을 찾아서 보내줌 (모두 이용 가능)
+    // +@ 만일 토큰이 있어서 유저라면 좋아요 한 게시글인지 아닌지 여부도 보내주기
+    const userData = isAuthorized(req, res);
+    if (userData) {
+      return res.send({message: '싸장님 회원 맞아?? 빨리 가입 해'});
+    }
+    if (!userData) {
+      const cbcontents = await Crewboard.find({})
+        .select({like: 1, title: 1, shorts_description: 1, createdAt: 1, images: 1})
+        .populate({path: 'user_id', select: {nickname: 1}})
+        .sort({createdAt: -1});
+      res.status(200).send({data: cbcontents});
+    }
   },
+
+  cbinfoControl: async (req, res) => {
+    // 1.클릭한 freeboard_id 받아와서 검색해서 결과 뿌려주기
+    const cbcontent = await Crewboard.findById(req.body.crewboard_id)
+      .select({
+        like: 1,
+        title: 1,
+        images: 1,
+        shorts_description: 1,
+        description: 1,
+        crewcomments: 1,
+        createdAt: 1,
+      })
+      .populate({path: 'user_id', select: {nickname: 1}})
+      .sort({createdAt: -1})
+      .select({
+        crewcomments: {
+          _id: 1,
+          user_id: 1,
+          comment: 1,
+          nickname: 1,
+          createdAt: 1,
+        },
+      })
+      .populate({
+        path: 'crewcomments.user_id',
+        select: {nickname: 1},
+      });
+    res.status(200).send({data: cbcontent});
+  },
+
   cbeditControl: async (req, res) => {
-    return res.send("cb edit ok!");
+    // 1. 인증
+    // 2. 유저 아이디(토큰) + 게시글 아이디(바디)
+    // 3. 수정
+    const {crewboard_id, title, shorts_description, description, images} = req.body;
+    const userData = isAuthorized(req, res);
+    if (!userData) {
+      res.send({message: '싸장님은 게시글 수정 권한 없어!'});
+    }
+    if (userData) {
+      const edit = {
+        title: title,
+        shorts_description: shorts_description,
+        description: description,
+        images: images,
+      };
+      const editcbcontent = await Crewboard.findOne({
+        _id: userData.user_id,
+        crewboard_id: crewboard_id,
+      }).exec();
+      if (editcbcontent === null) {
+        return res.status(400).send({message: '게시글이 존재하지 않아요!'});
+      }
+      if (editcbcontent) {
+        await Crewboard.updateMany(edit).exec();
+        console.log('===editcbcontent===', editcbcontent);
+        res.status(200).send({message: '싸장님 게시글 변경 완료!'});
+      }
+    }
   },
+
   cbdeleteControl: async (req, res) => {
-    return res.send("cb delete ok!");
+    // 1. 토큰 사용자 인증
+    // 2. 게시물 인증
+    // 3. db삭제
+    const userData = isAuthorized(req, res);
+    if (!userData) {
+      res.send({message: '싸장님은 게시글 수정 권한 없어!'});
+    }
+    if (userData) {
+      const deletecbcontent = await Crewboard.findById(req.body.crewboard_id);
+      if (!deletecbcontent) {
+        res.status(404).send({message: '잘못된 게시글입니다'});
+      }
+      if (deletecbcontent) {
+        deletecbcontent.remove();
+        res.status(200).send({message: '싸장님 게시글 삭제 완료!'});
+      }
+    }
   },
 
   // free & crew board like control
@@ -145,7 +309,7 @@ module.exports = {
 
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.status(401).send({ message: "싸장님은 권한 없어!" });
+      res.status(401).send({message: '싸장님은 권한 없어!'});
     }
     if (userData) {
       const likeUser = userData.user_id;
@@ -158,30 +322,30 @@ module.exports = {
       // console.log("===findUser===", findUser);
       if (findUser.length === 0) {
         if (likeData.like === undefined) {
-          return res.status(404).send({ message: "싸장님 잘못된 경로야!" });
+          return res.status(404).send({message: '싸장님 잘못된 경로야!'});
         } else {
           if (likeData.like.length === 0) {
             likeData.like.push(likeUser);
             likeData.like_count += 1;
             likeData.save();
-            return res.status(200).send({ message: "좋아요가 0이니 좋아요!" });
+            return res.status(200).send({message: '좋아요가 0이니 좋아요!'});
           }
           if (likeData.like.length > 0) {
             const likeDataUpdate = await Freeboard.findByIdAndUpdate(
-              { _id: req.body.freeboard_id },
+              {_id: req.body.freeboard_id},
               {
-                $addToSet: { like: userData.user_id },
-              }
+                $addToSet: {like: userData.user_id},
+              },
             );
             if (likeDataUpdate) {
               likeData.like_count += 1;
               likeData.save();
-              return res.status(200).send({ message: "싸장님 좋은 게시물!" });
+              return res.status(200).send({message: '싸장님 좋은 게시물!'});
             }
           }
         }
       } else {
-        return res.status(404).send({ message: "싸장님 이미 눌렀어!" });
+        return res.status(404).send({message: '싸장님 이미 눌렀어!'});
       }
     }
   },
@@ -193,7 +357,7 @@ module.exports = {
 
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.status(401).send({ message: "싸장님은 권한 없어!" });
+      res.status(401).send({message: '싸장님은 권한 없어!'});
     }
     if (userData) {
       const dislikeUser = userData.user_id;
@@ -205,25 +369,112 @@ module.exports = {
       });
       if (findUser.length > 0) {
         if (dislikeData.like === undefined) {
-          return res.status(404).send({ message: "싸장님 잘못된 경로야!" });
+          return res.status(404).send({message: '싸장님 잘못된 경로야!'});
         }
         if (dislikeData.like.length >= 0) {
           const dislikeDataUpdate = await Freeboard.findByIdAndUpdate(
-            { _id: req.body.freeboard_id },
+            {_id: req.body.freeboard_id},
             {
-              $pull: { like: userData.user_id },
-            }
+              $pull: {like: userData.user_id},
+            },
           );
           if (dislikeDataUpdate) {
             dislikeData.like_count -= 1;
             dislikeData.save();
-            return res
-              .status(200)
-              .send({ message: "싸장님 좋은 게시물 취소!" });
+            return res.status(200).send({message: '싸장님 좋은 게시물 취소!'});
           }
         }
       } else {
-        return res.status(404).send({ message: "싸장님 이미 취소했어!" });
+        return res.status(404).send({message: '싸장님 이미 취소했어!'});
+      }
+    }
+  },
+
+  // Crew board like / dislike
+  crewlikeControl: async (req, res) => {
+    // 1. 토큰으로 유저 인증
+    // 2. req.body에는 freeboard_id or crewboard_id => 게시글 조회
+    // 3. cwerboard.like => [] 배열안에 아이디 조회해서 같은 것이 없다면 추가 // 있다면 삭제
+
+    const userData = isAuthorized(req, res);
+    if (!userData) {
+      res.status(401).send({message: '싸장님은 권한 없어!'});
+    }
+    if (userData) {
+      const likeUser = userData.user_id;
+      // console.log("===likeUser===", likeUser);
+      const likeData = await Crewboard.findById(req.body.crewboard_id);
+      const findUser = await Crewboard.find({
+        _id: req.body.crewboard_id,
+        like: userData.user_id,
+      });
+      // console.log("===findUser===", findUser);
+      if (findUser.length === 0) {
+        if (likeData.like === undefined) {
+          return res.status(404).send({message: '싸장님 잘못된 경로야!'});
+        } else {
+          if (likeData.like.length === 0) {
+            likeData.like.push(likeUser);
+            likeData.like_count += 1;
+            likeData.save();
+            return res.status(200).send({message: '좋아요가 0이니 좋아요!'});
+          }
+          if (likeData.like.length > 0) {
+            const likeDataUpdate = await Crewboard.findByIdAndUpdate(
+              {_id: req.body.crewboard_id},
+              {
+                $addToSet: {like: userData.user_id},
+              },
+            );
+            if (likeDataUpdate) {
+              likeData.like_count += 1;
+              likeData.save();
+              return res.status(200).send({message: '싸장님 좋은 게시물!'});
+            }
+          }
+        }
+      } else {
+        return res.status(404).send({message: '싸장님 이미 눌렀어!'});
+      }
+    }
+  },
+
+  crewdislikeControl: async (req, res) => {
+    // 1. 토큰으로 유저 인증
+    // 2. req.body에는 freeboard_id or crewboard_id => 게시글 조회
+    // 3. crewboard.like => [] 배열안에 아이디 조회해서 같은 것이 없다면 추가 // 있다면 삭제
+
+    const userData = isAuthorized(req, res);
+    if (!userData) {
+      res.status(401).send({message: '싸장님은 권한 없어!'});
+    }
+    if (userData) {
+      const dislikeUser = userData.user_id;
+      // console.log("===dislikeUser===", dislikeUser);
+      const dislikeData = await Crewboard.findById(req.body.crewboard_id);
+      const findUser = await Crewboard.find({
+        _id: req.body.crewboard_id,
+        like: userData.user_id,
+      });
+      if (findUser.length > 0) {
+        if (dislikeData.like === undefined) {
+          return res.status(404).send({message: '싸장님 잘못된 경로야!'});
+        }
+        if (dislikeData.like.length >= 0) {
+          const dislikeDataUpdate = await Crewboard.findByIdAndUpdate(
+            {_id: req.body.crewboard_id},
+            {
+              $pull: {like: userData.user_id},
+            },
+          );
+          if (dislikeDataUpdate) {
+            dislikeData.like_count -= 1;
+            dislikeData.save();
+            return res.status(200).send({message: '싸장님 좋은 게시물 취소!'});
+          }
+        }
+      } else {
+        return res.status(404).send({message: '싸장님 이미 취소했어!'});
       }
     }
   },
