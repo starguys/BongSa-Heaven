@@ -52,6 +52,7 @@ const GeneralButton = styled.div`
   align-items: center;
   width: 75vw;
   height: 20vh;
+  cursor: pointer;
 `;
 const GeneralButtonTitle = styled.div`
   color: black;
@@ -79,6 +80,7 @@ const RecruiterButton = styled.div`
   width: 75vw;
   height: 20vh;
   margin-top: 10vh;
+  cursor: pointer;
 `;
 const RecruiterButtonTitle = styled.div`
   color: white;
@@ -112,17 +114,13 @@ export default function SignUp() {
 
       <SignupSpace></SignupSpace>
       <SelectBox>
-        <GeneralButton>
-          <GeneralButtonTitle onClick={movetToUserSignUp}>
-            일반 회원
-          </GeneralButtonTitle>
+        <GeneralButton onClick={movetToUserSignUp}>
+          <GeneralButtonTitle>일반 회원</GeneralButtonTitle>
           <GeneralButtonSubtitle>봉사를 희망하는 회원</GeneralButtonSubtitle>
         </GeneralButton>
 
-        <RecruiterButton>
-          <RecruiterButtonTitle onClick={movetToRecruiterSignUp}>
-            봉사 모집자
-          </RecruiterButtonTitle>
+        <RecruiterButton onClick={movetToRecruiterSignUp}>
+          <RecruiterButtonTitle>봉사 모집자</RecruiterButtonTitle>
           <RecruiterButtonSubtitle>봉사자를 찾는 회원</RecruiterButtonSubtitle>
         </RecruiterButton>
       </SelectBox>
