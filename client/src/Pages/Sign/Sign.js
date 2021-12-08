@@ -83,6 +83,7 @@ const CompleteButton = styled.div`
   padding: 20px 80px 20px 80px;
   border-radius: 5px;
   width: 110px;
+  cursor: pointer;
 `;
 
 export default function SignIn({ setIsLogin, setIsUserLogin }) {

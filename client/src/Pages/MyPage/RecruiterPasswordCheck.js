@@ -16,7 +16,6 @@ const PasswordCheckContainer = styled.div`
     align-items: center;
   }
 `;
-
 const PassCheckTitle = styled.div`
   margin-left: 43px;
   margin-top: 26px;
@@ -46,6 +45,7 @@ const PassCheckText = styled.div`
     margin-left: 0px;
   }
 `;
+
 
 const PassCheckIsNotRight = styled.div`
   display: flex;
@@ -146,12 +146,14 @@ export default function RecruiterEditPasswordCheck() {
           회원의 정보를 안전하게 보호하기 위해,
           <br /> 비밀번호를 다시 한번 입력해 주시기 바랍니다.
         </PassCheckText>
-        <PasswordCheckInput
-          type="password"
-          placeholder="password"
-          onChange={handlePassword}
+        <PasswordCheckInput 
+        type="password"
+        placeholder="password" 
+        onChange={handlePassword}
         />
-        <PassCheckIsNotRight>{passwordIsNotRight}</PassCheckIsNotRight>
+        <PassCheckIsNotRight>
+          {passwordIsNotRight}
+        </PassCheckIsNotRight>
         <CheckBtn onClick={passwordChecking}>확인</CheckBtn>
         {/* </PasswordCheckContainerDiv> */}
       </PasswordCheckContainer>

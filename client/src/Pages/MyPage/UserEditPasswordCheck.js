@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useHistory } from "react-router";
-import styled from "styled-components";
-import Header4 from "../../components/common/Header4";
+import React, {useState} from 'react';
+import axios from 'axios';
+import {useHistory} from 'react-router';
+import styled from 'styled-components';
+import Header4 from '../../components/common/Header4';
 
 const PasswordCheckContainer = styled.div`
   @media screen and (min-width: 37.5rem) {
@@ -46,30 +46,6 @@ const PassCheckText = styled.div`
   }
 `;
 
-const PasswordCheckInput = styled.input`
-  margin-top: 116px;
-  margin-left: 28px;
-  width: 320px;
-  height: 45px;
-  background: #ffffff;
-  border: 1px solid #000000;
-  @media screen and (min-width: 37.5rem) {
-    margin-left: 0px;
-  }
-`;
-const CheckBtn = styled.button`
-  margin-left: 27px;
-  margin-top: 45px;
-  margin-bottom: 140px;
-  width: 327px;
-  height: 55px;
-  background: #f7f7f7;
-  border-radius: 4px;
-  border: 0;
-  @media screen and (min-width: 37.5rem) {
-    margin-left: 0px;
-  }
-`;
 const PassCheckIsNotRight = styled.div`
   display: flex;
   justify-content: center;
@@ -90,16 +66,43 @@ const PassCheckIsNotRight = styled.div`
   }
 `;
 
+const PasswordCheckInput = styled.input`
+  margin-top: 116px;
+  margin-left: 28px;
+  width: 320px;
+  height: 45px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  @media screen and (min-width: 37.5rem) {
+    margin-left: 0px;
+  }
+`;
+const CheckBtn = styled.button`
+  margin-left: 27px;
+  margin-top: 45px;
+  margin-bottom: 140px;
+  width: 327px;
+  height: 55px;
+  background: #f7f7f7;
+  border-radius: 4px;
+  border: 0;
+
+  cursor: pointer;
+  @media screen and (min-width: 37.5rem) {
+    margin-left: 0px;
+  }
+`;
+
 export default function UserEditPasswordCheck() {
   const history = useHistory();
   const GoUserEdit = () => {
-    history.push("/UserEdit");
+    history.push('/UserEdit');
   };
 
-  const [passwordToCheck, setPasswordToCheck] = useState("");
-  const [passwordIsNotRight, setPasswordIsNotRight] = useState("");
+  const [passwordToCheck, setPasswordToCheck] = useState('');
+  const [passwordIsNotRight, setPasswordIsNotRight] = useState('');
 
-  const handlePassword = (e) => {
+  const handlePassword = e => {
     console.log(e.target.value);
     setPasswordToCheck(e.target.value);
   };
@@ -108,27 +111,25 @@ export default function UserEditPasswordCheck() {
     axios
       .post(
         `http://localhost:8080/user/password`,
-        { password: passwordToCheck },
+        {password: passwordToCheck},
         {
           headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
+            authorization: `Bearer ` + localStorage.getItem('accessToken'),
+            'Content-Type': 'application/json',
           },
-        }
+        },
       )
-      .then((res) => {
+      .then(res => {
         GoUserEdit();
         console.log(res.data.message);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response.status);
 
         if (err.response.status === 404) {
-          setPasswordIsNotRight("비밀번호가 일치하지 않습니다.");
+          setPasswordIsNotRight('비밀번호가 일치하지 않습니다.');
         } else if (err.response.status === 401) {
-          setPasswordIsNotRight(
-            "회원정보가 등록되어 있지 않습니다. 먼저 등록부터 해주세요."
-          );
+          setPasswordIsNotRight('회원정보가 등록되어 있지 않습니다. 먼저 등록부터 해주세요.');
         }
       });
   };
@@ -143,12 +144,10 @@ export default function UserEditPasswordCheck() {
           회원의 정보를 안전하게 보호하기 위해,
           <br /> 비밀번호를 다시 한번 입력해 주시기 바랍니다.
         </PassCheckText>
-        <PasswordCheckInput
-          type="password"
-          placeholder="password"
-          onChange={handlePassword}
-        />
+
+        <PasswordCheckInput type="password" placeholder="password" onChange={handlePassword} />
         <PassCheckIsNotRight>{passwordIsNotRight}</PassCheckIsNotRight>
+
         <CheckBtn onClick={passwordChecking}>확인</CheckBtn>
         {/* </PasswordCheckContainerDiv> */}
       </PasswordCheckContainer>

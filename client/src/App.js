@@ -7,6 +7,7 @@ import "./css/Reset.css";
 import Footer from "./components/common/Footer";
 import DevHeader from "./components/DevHeader";
 import DevFooter from "./components/DevFooter";
+import DevBtn from "./components/DevBtn";
 import MainPage from "./Pages/Main/MainPage";
 
 import RecruiterSignUp from "./Pages/Sign/RecruiterSignUp";
@@ -81,10 +82,32 @@ export default function App() {
       .catch((err) => console.log(err));
   };
 
-  function deleteCookie(name) {
-    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-  }
-  deleteCookie("refreshToken");
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken"))
+      axios
+        .get(`http://localhost:8080/user/info`, {
+          headers: {
+            authorization: `Bearer ` + localStorage.getItem("accessToken"),
+            "Content-Type": "application/json",
+            withCredentials: true,
+          },
+        })
+        .then((res) => {
+          if (res.data.data.iscompany) {
+            setIsUserLogin("recruiter");
+            setIsLogin(true);
+          } else {
+            setIsUserLogin("user");
+            setIsLogin(true);
+          }
+        })
+        .catch((err) => {
+          console.log("err");
+          setIsLogin(false);
+        });
+  }, [isUserLogin]);
+
 
   document.cookie = "refreshToken=; domain=;  path=/;  expires=;";
   return (
@@ -147,16 +170,39 @@ export default function App() {
         exact
         path="/FreeBoardContents"
         render={() => <FreeBoardContents currentFBcontent={currentFBcontent} />}
+
+      
+
       />
       <Route exact path="/FreeBoardCreate" component={FreeBoardCreate} />
-      <Route exact path="/FreeBoardDelete" component={FreeBoardDelete} />
-      <Route exact path="/FreeBoardEdit" component={FreeBoardEdit} />
-      <Route
-        exact
-        path="/FreeBoardList"
-        render={() => (
-          <FreeBoardList GoToFreeBoardContent={GoToFreeBoardContent} />
-        )}
+      <Route 
+      exact 
+      path="/FreeBoardDelete" 
+      render={() => (
+        <FreeBoardDelete
+        currentFBcontent={currentFBcontent}
+        />
+      )}
+      />
+      <Route 
+      exact
+      path="/FreeBoardEdit" 
+      render={() => (
+        <FreeBoardEdit
+        currentFBcontent={currentFBcontent}
+        />
+      )}
+      />
+      
+      <Route 
+      exact 
+      path="/FreeBoardList" 
+      render={() => (
+        <FreeBoardList
+        GoToFreeBoardContent={GoToFreeBoardContent}
+        />
+      )}
+
       />
       {/* CrewBoard */}
       <Route exact path="/CrewBoardContents" component={CrewBoardContents} />
@@ -168,6 +214,8 @@ export default function App() {
       <Route exact path="/Map" component={Map} />
       <Route exact path="/MapRegister" component={MapRegister} />
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
+
+      <DevBtn />
 
       <Footer
         isLogin={isLogin}

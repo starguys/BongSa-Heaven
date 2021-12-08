@@ -92,7 +92,7 @@ export default function CreateButton(props) {
     {
       title: props.title,
       description: props.description,
-      images: "임시이미지데이터",
+      images: props.fileImage,
     },
     {
       headers: {

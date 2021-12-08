@@ -98,6 +98,7 @@ const CheckingPossibleOrNotButton = styled.div`
   align-items: center;
   padding: 10px 10px 10px 10px;
   border-radius: 20px;
+  cursor: pointer;
 `;
 
 const SelectSexBox = styled.div`
@@ -186,6 +187,7 @@ const CompleteButton = styled.div`
   padding: 20px 80px 20px 80px;
   border-radius: 5px;
   width: 110px;
+  cursor: pointer;
 `;
 const DeleteBtn = styled.div`
   margin-bottom: 15px;
