@@ -1,9 +1,13 @@
 const router = require("express").Router();
 const controller = require("../controllers/comment");
 
-router.post("/register", controller.registerControl);
-router.get("/list", controller.infoControl);
-router.patch("/edit", controller.editControl);
-router.delete("/withdrawal", controller.withdrawalControl);
+router.post("/fbcommentregister", controller.fbcommentregisterControl);
+// router.post("/fbchildregister", controller.fbchildregisterControl);
+router.patch("/fbcommentedit", controller.fbcommenteditControl);
+router.delete("/fbcommentdelete", controller.fbcommentdeleteControl);
+
+// router.post("/cbregister", controller.cbregisterControl);
+// router.patch("/cbedit", controller.cbeditControl);
+// router.delete("/cbdelete", controller.cbwithdrawalControl);
 
 module.exports = router;

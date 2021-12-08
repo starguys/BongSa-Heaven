@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const freechildcommentSchema = require("./Freechildcomment");
 
 const freecommentSchema = new Schema(
   {
@@ -13,10 +14,25 @@ const freecommentSchema = new Schema(
       ref: "Freeboard",
       required: true,
     },
-    comment: String,
+    comment: {
+      type: String,
+      maxLength: 1000,
+    },
+    isdeleted: {
+      type: Boolean,
+      default: false,
+    },
+    freechildcomments: [
+      {
+        type: freechildcommentSchema,
+        default: [],
+      },
+    ],
   },
   { timestamps: true }
 );
 
-// boardSchema.plugin(findOrCreate);
-module.exports = mongoose.model("Freecomment", freecommentSchema);
+module.exports = freecommentSchema;
+
+// freecommentSchema.plugin(findOrCreate);
+// mongoose.model("Freecomment", freecommentSchema);

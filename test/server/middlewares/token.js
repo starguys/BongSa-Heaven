@@ -21,7 +21,11 @@ module.exports = {
       return null;
     }
   },
-  checkRefreshToken: (refreshToken) => {
+  checkRefreshToken: (req) => {
+    const refreshToken = req.header.cookie.split("=")[2];
+    if (!refreshToken) {
+      return null;
+    }
     try {
       return verify(refreshToken, process.env.REFRESH_SECRET);
     } catch (err) {
