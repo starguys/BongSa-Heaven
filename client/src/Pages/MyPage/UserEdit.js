@@ -533,7 +533,6 @@ export default function UserEdit() {
       });
   };
 
- 
   useEffect(() => {
     getUserInfoHandler();
   }, []);
@@ -554,7 +553,7 @@ export default function UserEdit() {
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <CheckingPossibleOrNotBox>
-            <PossibleOrNot>사용 가능</PossibleOrNot>
+            <PossibleOrNot> {nickCheckErrorMessage}</PossibleOrNot>
             <CheckingPossibleOrNotButton onClick={handleNicknameCheck}>
               중복 확인
             </CheckingPossibleOrNotButton>
@@ -563,12 +562,14 @@ export default function UserEdit() {
             <SignUpWhiteInput
               onChange={handleChange("password")}
               placeholder="비밀번호"
+              type="password"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handleChange("passwordCheck")}
               placeholder="비밀번호 확인"
+              type="password"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
@@ -602,9 +603,7 @@ export default function UserEdit() {
             <CompleteButton onClick={userInfoEditHandler}>
               수정완료 완료
             </CompleteButton>
-            <CompleteButton onClick={GoUserDelete}>
-              회원탈퇴
-            </CompleteButton>
+            <CompleteButton onClick={GoUserDelete}>회원탈퇴</CompleteButton>
           </CompleteBox>
         </MainContainer>
       </Wrapper>

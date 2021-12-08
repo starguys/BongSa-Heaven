@@ -62,10 +62,9 @@ export default function Check(props) {
   const history = useHistory();
   const Delete = (url) => history.push(url);
   const Cancel = (url) => history.push(url);
-
   const userWithdrawalHandler = () => {
     // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
-
+    console.log("삭제클릭");
     axios
       .delete(
         "http://localhost:8080/user/withdrawal",
@@ -78,12 +77,12 @@ export default function Check(props) {
         }
       )
       .then((res) => {
-// 쿠키삭제, accesstoken삭제
-  const deleteCookie = function(name) {
-    document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
-}
-deleteCookie('name');
-        localStorage.clear()
+        // 쿠키삭제, accesstoken삭제
+        const deleteCookie = function (name) {
+          document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
+        };
+        deleteCookie("name");
+        localStorage.clear();
         history.push("/");
       })
       .catch((err) => {
@@ -91,13 +90,13 @@ deleteCookie('name');
       });
   };
 
+  // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
+
   return (
     <>
       <DeleteBoxTitleBox>{props.contents}</DeleteBoxTitleBox>
       <SelectBox>
-        <DeleteButton userWithdrawalHandler={userWithdrawalHandler}>
-          {props.leftBtn}
-        </DeleteButton>
+        <DeleteButton onClick={userWithdrawalHandler}>{props.leftBtn}</DeleteButton>
         <CancelButton onClick={() => Cancel(props.cancel)}>취소</CancelButton>
       </SelectBox>
     </>
