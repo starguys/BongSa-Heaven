@@ -7,6 +7,7 @@ const {
   isAuthorized,
   checkRefreshToken,
 } = require("../middlewares/token");
+const nodemailer = require("nodemailer");
 
 module.exports = {
   signupControl: async (req, res) => {
@@ -199,8 +200,10 @@ module.exports = {
           .send({ accessToken: accessToken });
       }
     }
-  },
 
+
+ 
+  },
   kakaoControl: async (req, res) => {
     return res.send();
   },

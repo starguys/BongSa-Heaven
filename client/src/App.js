@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 import { useHistory } from "react-router";
 import "./App.css";
 import "./css/Reset.css";
@@ -48,41 +48,53 @@ import MapRegister from "./Pages/Map/MapRegister";
 export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-  const [isUserLogin, setIsUserLogin] = useState("user")
-  const [currentFBcontent, setFBcontent] = useState({})
+  const [isUserLogin, setIsUserLogin] = useState("user");
+  const [currentFBcontent, setFBcontent] = useState({});
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
   };
   const history = useHistory();
-  const GotoContents = () => history.push("/FreeBoardContents")
+  const GotoContents = () => history.push("/FreeBoardContents");
 
   const GoToFreeBoardContent = (freeboard_id) => {
+    axios
+      .post(
+        "http://localhost:8080/board/fbinfo",
+        {
+          freeboard_id: freeboard_id,
+        },
+        {
+          headers: {
+            authorization: `Bearer ` + localStorage.getItem("accessToken"),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        // console.log("res.data",res.data)
+        setFBcontent(res.data);
+        // console.log("currentFBcontent",currentFBcontent)
 
-    axios.post("http://localhost:8080/board/fbinfo",
-    {
-      freeboard_id: freeboard_id,
-    },
-    {
-      headers: {
-        "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
-        "Content-Type": "application/json",
-      },
-    })
-    .then((res) => {
-      // console.log("res.data",res.data)
-      setFBcontent(res.data)
-      // console.log("currentFBcontent",currentFBcontent)
-      
-      GotoContents()
-    })
-    .catch((err) => console.log(err))
+        GotoContents();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  function deleteCookie(name) {
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
   }
+  deleteCookie("refreshToken");
 
+  document.cookie = "refreshToken=; domain=;  path=/;  expires=;";
   return (
     <div id="app_div">
-
-      <Header5 isLogin={isLogin} setIsLogin={setIsLogin} isUserLogin={isUserLogin} setIsUserLogin={setIsUserLogin} />
+      <Header5
+        isLogin={isLogin}
+        setIsLogin={setIsLogin}
+        isUserLogin={isUserLogin}
+        setIsUserLogin={setIsUserLogin}
+      />
 
       {isDevHeader ? <DevHeader /> : null}
       <Route exact path="/" component={MainPage} />
@@ -93,11 +105,9 @@ export default function App() {
       <Route
         exact
         path="/SignIn"
-
         render={() => (
-          <SignIn setIsLogin={setIsLogin} setIsUserLogin={setIsUserLogin}/>
+          <SignIn setIsLogin={setIsLogin} setIsUserLogin={setIsUserLogin} />
         )}
-
       />
       <Route exact path="/UserSignUp" component={UserSignUp} />
       {/* MyPage */}
@@ -133,26 +143,20 @@ export default function App() {
       <Route exact path="/UserMaill" component={UserMaill} />
       <Route exact path="/UserMyPage" component={UserMyPage} />
       {/* FreeBoard */}
-      <Route 
-      exact 
-      path="/FreeBoardContents"  
-      render={() => (
-        <FreeBoardContents
-        currentFBcontent={currentFBcontent}
-        />
-      )}
+      <Route
+        exact
+        path="/FreeBoardContents"
+        render={() => <FreeBoardContents currentFBcontent={currentFBcontent} />}
       />
       <Route exact path="/FreeBoardCreate" component={FreeBoardCreate} />
       <Route exact path="/FreeBoardDelete" component={FreeBoardDelete} />
       <Route exact path="/FreeBoardEdit" component={FreeBoardEdit} />
-      <Route 
-      exact 
-      path="/FreeBoardList" 
-      render={() => (
-        <FreeBoardList
-        GoToFreeBoardContent={GoToFreeBoardContent}
-        />
-      )}
+      <Route
+        exact
+        path="/FreeBoardList"
+        render={() => (
+          <FreeBoardList GoToFreeBoardContent={GoToFreeBoardContent} />
+        )}
       />
       {/* CrewBoard */}
       <Route exact path="/CrewBoardContents" component={CrewBoardContents} />
@@ -160,12 +164,16 @@ export default function App() {
       <Route exact path="/CrewBoardDelete" component={CrewBoardDelete} />
       <Route exact path="/CrewBoardEdit" component={CrewBoardEdit} />
       <Route exact path="/CrewBoardList" component={CrewBoardList} />
-      
+
       <Route exact path="/Map" component={Map} />
       <Route exact path="/MapRegister" component={MapRegister} />
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
 
-      <Footer isLogin={isLogin} setIsLogin={setIsLogin} setIsUserLogin={setIsUserLogin} />
+      <Footer
+        isLogin={isLogin}
+        setIsLogin={setIsLogin}
+        setIsUserLogin={setIsUserLogin}
+      />
     </div>
   );
 }

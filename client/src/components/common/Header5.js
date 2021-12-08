@@ -1,4 +1,4 @@
-import React, {useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useHistory } from "react-router";
@@ -7,167 +7,168 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
 
+const HeaderContainer = styled.div`
+  width: 100%;
+  height: 64px;
 
-  const HeaderContainer = styled.div`
-    width: 100%;
-    height: 64px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media screen and (max-width: 37.5rem) {
+    display: none;
+  }
+  @media screen and (min-width: 37.5rem) {
+    border-bottom: 1px solid #ffd4d4;
+    justify-content: center;
+  }
+`;
 
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    @media screen and (max-width: 37.5rem) {
-      display: none;
-    }
-    @media screen and (min-width: 37.5rem) {
-      border-bottom: 1px solid #ffd4d4;
-      justify-content: center;
-    }
-  `;
+const HeaderLogIconLeft = styled.div`
+  @media screen and (max-width: 37.5rem) {
+    margin-left: 15px;
+    width: 24px;
+    height: 24px;
+  }
+  @media screen and (min-width: 37.5rem) {
+    display: none;
+  }
+`;
 
-  const HeaderLogIconLeft = styled.div`
-    @media screen and (max-width: 37.5rem) {
-      margin-left: 15px;
-      width: 24px;
-      height: 24px;
-    }
-    @media screen and (min-width: 37.5rem) {
-      display: none;
-    }
-  `;
+const HeaderLogIconRight = styled.div`
+  @media screen and (max-width: 37.5rem) {
+    margin-right: 15px;
+    width: 24px;
+    height: 24px;
+  }
+  @media screen and (min-width: 37.5rem) {
+    display: none;
+  }
+`;
 
-  const HeaderLogIconRight = styled.div`
-    @media screen and (max-width: 37.5rem) {
-      margin-right: 15px;
-      width: 24px;
-      height: 24px;
-    }
-    @media screen and (min-width: 37.5rem) {
-      display: none;
-    }
-  `;
-
-  const LogoImg = styled.img`
-    @media screen and (max-width: 37.5rem) {
-      width: 34px;
-      height: 23px;
-    }
-    @media screen and (min-width: 37.5rem) {
-      display: none;
-    }
-  `;
-  const WebHeaderContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    @media screen and (max-width: 37.5rem) {
-      display: none;
-    }
-    @media screen and (min-width: 37.5rem) {
-      width: 1080px;
-      height: 100%;
-    }
-  `;
-  const WebHeaderLeft = styled.div`
-    display: flex;
-    align-items: center;
-    width: 50%;
+const LogoImg = styled.img`
+  @media screen and (max-width: 37.5rem) {
+    width: 34px;
+    height: 23px;
+  }
+  @media screen and (min-width: 37.5rem) {
+    display: none;
+  }
+`;
+const WebHeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media screen and (max-width: 37.5rem) {
+    display: none;
+  }
+  @media screen and (min-width: 37.5rem) {
+    width: 1080px;
     height: 100%;
-  `;
-  const WebHeaderRight = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 50%;
-    height: 100%;
-  `;
-  const WebLogoImg = styled.img`
-    @media screen and (max-width: 37.5rem) {
-      display: none;
-    }
-    @media screen and (min-width: 37.5rem) {
-      width: 34px;
-      height: 23px;
-      margin-left: 2%;
-      cursor: pointer;
-    }
-  `;
-  const HeaderName = styled.span`
+  }
+`;
+const WebHeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+`;
+const WebHeaderRight = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 50%;
+  height: 100%;
+`;
+const WebLogoImg = styled.img`
+  @media screen and (max-width: 37.5rem) {
+    display: none;
+  }
+  @media screen and (min-width: 37.5rem) {
+    width: 34px;
+    height: 23px;
     margin-left: 2%;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 23px;
-    line-height: 27px;
-    display: flex;
-    align-items: center;
-    color: #ff7676;
     cursor: pointer;
-  `;
-  const HeaderMap = styled.button`
-    margin-right: 3%;
-    border: 0;
-    background-color: white;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 27px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    color: #448b76;
-    border: solid 2px white;
-    &:hover {
-      border-bottom: solid 2px #448b76;
-      transition: 0.5s;
-    }
-  `;
-  const HeaderSignInOut = styled.button`
-    margin-right: 3%;
-    border: 0;
-    background-color: white;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 27px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    color: #448b76;
-    border: solid 2px white;
-    &:hover {
-      border-bottom: solid 2px #448b76;
-      transition: 0.5s;
-    }
-  `;
+  }
+`;
+const HeaderName = styled.span`
+  margin-left: 2%;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 23px;
+  line-height: 27px;
+  display: flex;
+  align-items: center;
+  color: #ff7676;
+  cursor: pointer;
+`;
+const HeaderMap = styled.button`
+  margin-right: 3%;
+  border: 0;
+  background-color: white;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 27px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #448b76;
+  border: solid 2px white;
+  &:hover {
+    border-bottom: solid 2px #448b76;
+    transition: 0.5s;
+  }
+`;
+const HeaderSignInOut = styled.button`
+  margin-right: 3%;
+  border: 0;
+  background-color: white;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 27px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #448b76;
+  border: solid 2px white;
+  &:hover {
+    border-bottom: solid 2px #448b76;
+    transition: 0.5s;
+  }
+`;
 
-  const HeaderSignUpMyPage = styled.button`
-    margin-right: 3%;
-    border: 0;
-    background-color: white;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 27px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    color: #448b76;
-    border: solid 2px white;
-    &:hover {
-      border-bottom: solid 2px #448b76;
-      transition: 0.5s;
-    }
-  `;
+const HeaderSignUpMyPage = styled.button`
+  margin-right: 3%;
+  border: 0;
+  background-color: white;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 27px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #448b76;
+  border: solid 2px white;
+  &:hover {
+    border-bottom: solid 2px #448b76;
+    transition: 0.5s;
+  }
+`;
 
-  export default function Header( {isLogin, setIsLogin, isUserLogin, setIsUserLogin} ) {
-  
-    const history = useHistory();
-  
-
+export default function Header({
+  isLogin,
+  setIsLogin,
+  isUserLogin,
+  setIsUserLogin,
+}) {
+  const history = useHistory();
 
   const GoMyPage = () => {
     isUserLogin === "user"
@@ -194,35 +195,33 @@ import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
   };
 
   const LogOut = () => {
-
     axios
-    .post(
-      "http://localhost:8080/auth/signout",
-      {},
-      {
-        headers: {
-          "authorization" : `Bearer ` + localStorage.getItem('accessToken'),
-          "Content-Type": "application/json",
-        },
-      }
-    )
-    .then((res) => {
-      localStorage.removeItem("accessToken");
-      setIsLogin(false)
-      setIsUserLogin("user")
-      GoHome()
-    })
-    .catch((err) => console.log(err))
+      .post(
+        "http://localhost:8080/auth/signout",
+        {},
+        {
+          headers: {
+            authorization: `Bearer ` + localStorage.getItem("accessToken"),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        localStorage.clear();
+     
+        setIsLogin(false);
+        setIsUserLogin("user");
 
-  }
+        GoHome();
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
-
-    if(localStorage.getItem('accessToken')) {
-      setIsLogin(true)
-    } 
-  }, [isLogin, isUserLogin])
-
+    if (localStorage.getItem("accessToken")) {
+      setIsLogin(true);
+    }
+  }, [isLogin, isUserLogin]);
 
   return (
     <>
@@ -241,7 +240,6 @@ import { faUserCircle as LoginIcon } from "@fortawesome/free-solid-svg-icons";
               onClick={GoMyPage}
             />
           )}
-          
         </HeaderLogIconRight>
         <WebHeaderContainer>
           <WebHeaderLeft>

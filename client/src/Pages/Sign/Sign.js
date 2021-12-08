@@ -124,8 +124,8 @@ export default function SignIn({ setIsLogin, setIsUserLogin }) {
           {
             headers: {
               "Content-Type": "application/json",
-              withCredentials: true,
             },
+            withCredentials: true,
           }
         )
         .then((res) =>
