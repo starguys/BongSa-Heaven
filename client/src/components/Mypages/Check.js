@@ -81,7 +81,7 @@ export default function Check(props) {
         const deleteCookie = function (name) {
           document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
         };
-        deleteCookie("name");
+        deleteCookie("refreshToken");
         localStorage.clear();
         history.push("/");
       })

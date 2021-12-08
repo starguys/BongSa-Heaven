@@ -81,6 +81,7 @@ export default function App() {
       .catch(err => console.log(err));
   };
 
+
   useEffect(() => {
     if (localStorage.getItem("accessToken"))
       axios
@@ -106,6 +107,8 @@ export default function App() {
         });
   }, [isUserLogin]);
 
+
+  document.cookie = "refreshToken=; domain=;  path=/;  expires=;";
   return (
     <div id="app_div">
       <Header5 isLogin={isLogin} setIsLogin={setIsLogin} isUserLogin={isUserLogin} setIsUserLogin={setIsUserLogin} />
@@ -143,12 +146,46 @@ export default function App() {
       <Route exact path="/UserMaill" component={UserMaill} />
       <Route exact path="/UserMyPage" component={UserMyPage} />
       {/* FreeBoard */}
-      <Route exact path="/FreeBoardContents" render={() => <FreeBoardContents currentFBcontent={currentFBcontent} />} />
-      <Route exact path="/FreeBoardCreate" component={FreeBoardCreate} />
-      <Route exact path="/FreeBoardDelete" render={() => <FreeBoardDelete currentFBcontent={currentFBcontent} />} />
-      <Route exact path="/FreeBoardEdit" render={() => <FreeBoardEdit currentFBcontent={currentFBcontent} />} />
 
-      <Route exact path="/FreeBoardList" render={() => <FreeBoardList GoToFreeBoardContent={GoToFreeBoardContent} />} />
+      <Route
+        exact
+        path="/FreeBoardContents"
+        render={() => <FreeBoardContents currentFBcontent={currentFBcontent} />}
+
+      
+
+      />
+      <Route exact path="/FreeBoardCreate" component={FreeBoardCreate} />
+      <Route 
+      exact 
+      path="/FreeBoardDelete" 
+      render={() => (
+        <FreeBoardDelete
+        currentFBcontent={currentFBcontent}
+        />
+      )}
+      />
+      <Route 
+      exact
+      path="/FreeBoardEdit" 
+      render={() => (
+        <FreeBoardEdit
+        currentFBcontent={currentFBcontent}
+        />
+      )}
+      />
+      
+      <Route 
+      exact 
+      path="/FreeBoardList" 
+      render={() => (
+        <FreeBoardList
+        GoToFreeBoardContent={GoToFreeBoardContent}
+        />
+      )}
+
+      />
+
       {/* CrewBoard */}
       <Route exact path="/CrewBoardContents" component={CrewBoardContents} />
       <Route exact path="/CrewBoardCreate" component={CrewBoardCreate} />
@@ -159,8 +196,16 @@ export default function App() {
       <Route exact path="/Map" component={Map} />
       <Route exact path="/MapRegister" component={MapRegister} />
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
+
       <DevBtn />
-      <Footer isLogin={isLogin} setIsLogin={setIsLogin} setIsUserLogin={setIsUserLogin} />
+
+
+      <Footer
+        isLogin={isLogin}
+        setIsLogin={setIsLogin}
+        setIsUserLogin={setIsUserLogin}
+      />
+
     </div>
   );
 }

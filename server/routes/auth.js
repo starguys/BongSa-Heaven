@@ -6,6 +6,7 @@ router.post("/signup", controller.signupControl);
 router.post("/signout", controller.signoutControl);
 router.post("/nickcheck", controller.nickcheckControl);
 router.get("/refreshtoken", controller.refreshtokenControl);
+// router.post("/sendemail", controller.sendEmailControl);
 
 router.post("/kakao", controller.kakaoControl);
 router.get("/google", controller.googleControl);
