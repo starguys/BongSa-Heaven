@@ -1,3 +1,4 @@
+
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -6,6 +7,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faBars} from '@fortawesome/free-solid-svg-icons';
 import {faUserCircle} from '@fortawesome/free-regular-svg-icons';
 import {faUserCircle as LoginIcon} from '@fortawesome/free-solid-svg-icons';
+
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -162,9 +164,12 @@ const HeaderSignUpMyPage = styled.button`
   }
 `;
 
+
+
 export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin}) {
   const history = useHistory();
   console.log(isLogin);
+
 
   const GoMyPage = () => {
     isUserLogin === 'user' ? history.push('/UserMyPage') : history.push('/RecruiterMyPage');
@@ -191,6 +196,8 @@ export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin
   const LogOut = () => {
     axios
       .post(
+
+=
         'http://localhost:8080/auth/signout',
         {},
         {
@@ -213,6 +220,7 @@ export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin
   };
 
   useEffect(() => {}, [isLogin, isUserLogin]);
+
 
   return (
     <>
