@@ -14,8 +14,13 @@ module.exports = {
       return res.send({ message: "싸장님 회원 맞아?? 빨리 가입 해" });
     }
     if (userData) {
+      //!추가한부분
+      const image = req.files;
+      const path = image.map((img) => img.location);
+      //!
       const freeContent = {
         user_id: userData.user_id,
+        images: path, //!
         title: req.body.title,
         description: req.body.description,
         images: req.body.images,

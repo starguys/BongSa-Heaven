@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from 'styled-components'
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
@@ -97,10 +97,15 @@ const Img = styled.img`
 
 
 
-export default function FreeBoardEdit() {
+export default function FreeBoardEdit( {currentFBcontent} ) {
 
   const [fileImage, setFileImage] = useState("");
 
+  useEffect(() => {
+    setFileImage(currentFBcontent.data.image)
+  }, [])
+
+  console.log(currentFBcontent.data)
   return (
     <>
       <Wrapper>
@@ -113,13 +118,12 @@ export default function FreeBoardEdit() {
         />
         <ContentsBox>
           <ContentsBoxTitleBox>
-            <ContentsBoxTitle placeholder="수정할 글 제목">
+            <ContentsBoxTitle placeholder="수정할 글 제목" defaultValue={currentFBcontent.data.title}>
             </ContentsBoxTitle>
           </ContentsBoxTitleBox>
           <ContentsBoxWriterBox>
-            <ContentsBoxWriter>글 작성자</ContentsBoxWriter>
           </ContentsBoxWriterBox>
-            <ContentsBoxContents placeholder="수정할 글 내용들">
+            <ContentsBoxContents placeholder="수정할 글 내용들" defaultValue={currentFBcontent.data.description}>
             </ContentsBoxContents>
           <ContentsBoxImgBox>
             <Img src={fileImage} alt="수정할 이미지 자리"/>

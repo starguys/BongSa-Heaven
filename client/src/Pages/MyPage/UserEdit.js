@@ -98,6 +98,7 @@ const CheckingPossibleOrNotButton = styled.div`
   align-items: center;
   padding: 10px 10px 10px 10px;
   border-radius: 20px;
+  cursor: pointer;
 `;
 
 const SelectSexBox = styled.div`
@@ -121,11 +122,29 @@ const SelectSexButton = styled.div`
   width: 30vw;
   height: 17vh;
   border-radius: 50%;
+  cursor: pointer;
+
   @media screen and (min-width: 37.5rem) {
     width: 140px;
     height: 140px;
     justify-content: space-between;
-    /* background-color: yellow; */
+    cursor: pointer;
+  }
+`;
+const SelectedSexButton = styled.div`
+  background-color: #ff7676;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30vw;
+  height: 17vh;
+  border-radius: 50%;
+  @media screen and (min-width: 37.5rem) {
+    width: 140px;
+    height: 140px;
+    justify-content: space-between;
+    cursor: pointer;
   }
 `;
 const SexImageBox = styled.img`
@@ -161,10 +180,31 @@ const AgeButton = styled.div`
   margin-right: 10px;
   margin-bottom: 20px;
   border-radius: 20px;
+  cursor: pointer;
+
   @media screen and (min-width: 37.5rem) {
     margin: 0px 15px;
     width: 20%;
     height: 45px;
+    cursor: pointer;
+  }
+`;
+const AgeButtonSelected = styled.div`
+  background-color: #ff7676;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30vw;
+  height: 8vh;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  @media screen and (min-width: 37.5rem) {
+    margin: 0px 15px;
+    width: 20%;
+    height: 45px;
+    cursor: pointer;
   }
 `;
 
@@ -186,6 +226,7 @@ const CompleteButton = styled.div`
   padding: 20px 80px 20px 80px;
   border-radius: 5px;
   width: 110px;
+  cursor: pointer;
 `;
 const DeleteBtn = styled.div`
   margin-bottom: 15px;
@@ -223,6 +264,8 @@ export default function UserEdit() {
   const [passErrorMessage, setPassErrorMessage] = useState("");
   const [passCheckErrorMessage, setPassCheckErrorMessage] = useState("");
   const [nickCheckErrorMessage, setNickCheckErrorMessage] = useState("");
+  const [sex, setSex] = useState("");
+  const [age, setAge] = useState("");
   // setUserInfo({ ...userInfo, [key]: e.target.value });
   const [isNick, setIsNick] = useState(false);
 
@@ -243,15 +286,20 @@ export default function UserEdit() {
 
     if (key === "man") {
       setUserInfo({ ...userInfo, ["sex"]: "남자" });
+      setSex("남자");
     } else if (key === "woman") {
       setUserInfo({ ...userInfo, ["sex"]: "여자" });
+      setSex("여자");
     }
     if (key === "teen") {
       setUserInfo({ ...userInfo, ["age"]: "청소년 " });
+      setAge("청소년");
     } else if (key === "adult") {
       setUserInfo({ ...userInfo, ["age"]: "청년" });
+      setAge("청년");
     } else if (key === "senior") {
       setUserInfo({ ...userInfo, ["age"]: "장년" });
+      setAge("장년");
     }
 
     console.log(userInfo);
@@ -480,6 +528,7 @@ export default function UserEdit() {
           want_vol: userInfo.want_vol,
           sex: userInfo.sex,
           age: userInfo.age,
+          isopen: false,
         },
         {
           headers: {
@@ -533,7 +582,6 @@ export default function UserEdit() {
       });
   };
 
- 
   useEffect(() => {
     getUserInfoHandler();
   }, []);
@@ -554,7 +602,7 @@ export default function UserEdit() {
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <CheckingPossibleOrNotBox>
-            <PossibleOrNot>사용 가능</PossibleOrNot>
+            <PossibleOrNot> {nickCheckErrorMessage}</PossibleOrNot>
             <CheckingPossibleOrNotButton onClick={handleNicknameCheck}>
               중복 확인
             </CheckingPossibleOrNotButton>
@@ -563,12 +611,14 @@ export default function UserEdit() {
             <SignUpWhiteInput
               onChange={handleChange("password")}
               placeholder="비밀번호"
+              type="password"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handleChange("passwordCheck")}
               placeholder="비밀번호 확인"
+              type="password"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <SignUpWhiteBox>
@@ -585,26 +635,74 @@ export default function UserEdit() {
               placeholder="희망 봉사 활동"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
-          <SelectSexBox>
-            <SelectSexButton onClick={handleChange("man")}>
-              <SexImageBox src="./image/young-man.png"></SexImageBox>
-            </SelectSexButton>
-            <SelectSexButton onClick={handleChange("woman")}>
-              <SexImageBox src="./image/young-woman.png"></SexImageBox>
-            </SelectSexButton>
-          </SelectSexBox>
-          <SelectBox>
-            <AgeButton onClick={handleChange("teen")}>청소년</AgeButton>
-            <AgeButton onClick={handleChange("adult")}>청년</AgeButton>
-            <AgeButton onClick={handleChange("senior")}>장년</AgeButton>
-          </SelectBox>
+          {sex ? (
+            sex === "남자" ? (
+              <SelectSexBox>
+                <SelectedSexButton onClick={handleChange("man")}>
+                  <SexImageBox src="./image/young-man.png"></SexImageBox>
+                </SelectedSexButton>
+                <SelectSexButton onClick={handleChange("woman")}>
+                  <SexImageBox src="./image/young-woman.png"></SexImageBox>
+                </SelectSexButton>
+              </SelectSexBox>
+            ) : (
+              <SelectSexBox>
+                <SelectSexButton onClick={handleChange("man")}>
+                  <SexImageBox src="./image/young-man.png"></SexImageBox>
+                </SelectSexButton>
+                <SelectedSexButton onClick={handleChange("woman")}>
+                  <SexImageBox src="./image/young-woman.png"></SexImageBox>
+                </SelectedSexButton>
+              </SelectSexBox>
+            )
+          ) : (
+            <SelectSexBox>
+              <SelectSexButton onClick={handleChange("man")}>
+                <SexImageBox src="./image/young-man.png"></SexImageBox>
+              </SelectSexButton>
+              <SelectSexButton onClick={handleChange("woman")}>
+                <SexImageBox src="./image/young-woman.png"></SexImageBox>
+              </SelectSexButton>
+            </SelectSexBox>
+          )}
+          {age ? (
+            age === "청소년" ? (
+              <SelectBox>
+                <AgeButtonSelected onClick={handleChange("teen")}>
+                  청소년
+                </AgeButtonSelected>
+                <AgeButton onClick={handleChange("adult")}>청년</AgeButton>
+                <AgeButton onClick={handleChange("senior")}>장년</AgeButton>
+              </SelectBox>
+            ) : age === "청년" ? (
+              <SelectBox>
+                <AgeButton onClick={handleChange("teen")}>청소년</AgeButton>
+                <AgeButtonSelected onClick={handleChange("adult")}>
+                  청년
+                </AgeButtonSelected>
+                <AgeButton onClick={handleChange("senior")}>장년</AgeButton>
+              </SelectBox>
+            ) : (
+              <SelectBox>
+                <AgeButton onClick={handleChange("teen")}>청소년</AgeButton>
+                <AgeButton onClick={handleChange("adult")}>청년</AgeButton>
+                <AgeButtonSelected onClick={handleChange("senior")}>
+                  장년
+                </AgeButtonSelected>
+              </SelectBox>
+            )
+          ) : (
+            <SelectBox>
+              <AgeButton onClick={handleChange("teen")}>청소년</AgeButton>
+              <AgeButton onClick={handleChange("adult")}>청년</AgeButton>
+              <AgeButton onClick={handleChange("senior")}>장년</AgeButton>
+            </SelectBox>
+          )}
           <CompleteBox>
             <CompleteButton onClick={userInfoEditHandler}>
               수정완료 완료
             </CompleteButton>
-            <CompleteButton onClick={GoUserDelete}>
-              회원탈퇴
-            </CompleteButton>
+            <CompleteButton onClick={GoUserDelete}>회원탈퇴</CompleteButton>
           </CompleteBox>
         </MainContainer>
       </Wrapper>

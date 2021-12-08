@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
-import DeleteCheck from "../../components/common/DeleteCheck";
+import DeleteCheck from "../../components/CrewBoard/DeleteCheck";
 
 
 const Wrapper = styled.div`
