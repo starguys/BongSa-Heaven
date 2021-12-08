@@ -1,12 +1,11 @@
 import React from "react";
-import axios from "axios";
-import { useState } from "react";
+import {useState} from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
 import Input from "../../components/common/Input";
-import CreateButton from "../../components/common/CreateButton";
-import CreateButton2 from "../../components/common/CreateButton2";
+import CreateButton from "../../components/FreeBoard/CreateButton";
+import CreateButton2 from "../../components/FreeBoard/CreateButton2";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -79,24 +78,18 @@ export default function FreeBoardCreate() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-
-
-  const inputHandler = (e) => {
-   setDescription(e.target.value)
-   console.log(description)
-  }
+  const inputHandler = e => {
+    setDescription(e.target.value);
+    console.log(description);
+  };
 
   return (
     <>
       <Wrapper>
         <Header2 componentName="글 작성하기" />
         <DesktopTitle title="글 작성하기" />
-        <CreateButton2
-          create="/CrewBoardList"
-          cancel="/CrewBoardList"
-          setFileImage={setFileImage}
-        />
-        <Input text="제목" setTitle={setTitle} title={title}/>
+        <CreateButton2 create="/CrewBoardList" cancel="/CrewBoardList" setFileImage={setFileImage} />
+        <Input text="제목" setTitle={setTitle} title={title} />
         <CreateBox>
           <CreateBoxContentsBox>
             <CreateBoxContents placeholder="내용을 입력하세요." onChange={inputHandler}></CreateBoxContents>
