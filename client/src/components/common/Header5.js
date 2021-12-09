@@ -7,7 +7,6 @@ import {faBars} from "@fortawesome/free-solid-svg-icons";
 import {faUserCircle} from "@fortawesome/free-regular-svg-icons";
 import {faUserCircle as LoginIcon} from "@fortawesome/free-solid-svg-icons";
 
-
 const HeaderContainer = styled.div`
   width: 100%;
   height: 64px;
@@ -163,15 +162,20 @@ const HeaderSignUpMyPage = styled.button`
   }
 `;
 
-
-
-export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin}) {
+export default function Header({
+  isLogin,
+  setIsLogin,
+  isUserLogin,
+  setIsUserLogin,
+  setUserId,
+}) {
   const history = useHistory();
   console.log(isLogin);
 
-
   const GoMyPage = () => {
-    isUserLogin === "user" ? history.push("/UserMyPage") : history.push("/RecruiterMyPage");
+    isUserLogin === "user"
+      ? history.push("/UserMyPage")
+      : history.push("/RecruiterMyPage");
   };
   const GoHome = () => {
     history.push("/");
@@ -196,7 +200,6 @@ export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin
     axios
       .post(
         "http://localhost:8080/auth/signout",
-
         {},
         {
           headers: {
@@ -207,8 +210,13 @@ export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin
       )
       .then(res => {
         localStorage.removeItem("accessToken");
+        const deleteCookie = function (name) {
+          document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
+        };
+        deleteCookie("refreshToken");
         setIsLogin(false);
         setIsUserLogin("user");
+        setUserId("");
         console.log(document.cookie);
         console.log("hi");
 
@@ -217,8 +225,7 @@ export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin
       .catch(err => console.log(err));
   };
 
-  useEffect(() => {}, [isLogin, isUserLogin]);
-
+  // useEffect(() => {}, [isLogin, isUserLogin]);
 
   return (
     <>
@@ -231,7 +238,11 @@ export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin
           {isLogin ? (
             <FontAwesomeIcon icon={LoginIcon} className="HeaderIcon" />
           ) : (
-            <FontAwesomeIcon icon={faUserCircle} className="HeaderIcon" onClick={GoMyPage} />
+            <FontAwesomeIcon
+              icon={faUserCircle}
+              className="HeaderIcon"
+              onClick={GoMyPage}
+            />
           )}
         </HeaderLogIconRight>
         <WebHeaderContainer>
@@ -243,18 +254,26 @@ export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin
             <HeaderMap onClick={GoMap}>봉사지도</HeaderMap>
 
             {isLogin ? (
-              <HeaderSignInOut onClick={LogOut}>로그아웃</HeaderSignInOut>
+              <HeaderSignInOut onClick={() => LogOut()}>
+                로그아웃
+              </HeaderSignInOut>
             ) : (
               <HeaderSignInOut onClick={GoSignIn}>로그인</HeaderSignInOut>
             )}
             {isLogin ? (
               isUserLogin === "user" ? (
-                <HeaderSignUpMyPage onClick={GoUserMyPage}>마이 페이지</HeaderSignUpMyPage>
+                <HeaderSignUpMyPage onClick={GoUserMyPage}>
+                  마이 페이지
+                </HeaderSignUpMyPage>
               ) : (
-                <HeaderSignUpMyPage onClick={GoRecruiterMyPage}>마이 페이지</HeaderSignUpMyPage>
+                <HeaderSignUpMyPage onClick={GoRecruiterMyPage}>
+                  마이 페이지
+                </HeaderSignUpMyPage>
               )
             ) : (
-              <HeaderSignUpMyPage onClick={GoSignUp}>회원가입</HeaderSignUpMyPage>
+              <HeaderSignUpMyPage onClick={GoSignUp}>
+                회원가입
+              </HeaderSignUpMyPage>
             )}
           </WebHeaderRight>
         </WebHeaderContainer>

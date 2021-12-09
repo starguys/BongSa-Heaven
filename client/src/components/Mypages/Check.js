@@ -87,6 +87,7 @@ export default function Check({contents, leftBtn}) {
         };
         deleteCookie("refreshToken");
         localStorage.clear();
+        props.setIsLogin(false);
         history.push("/");
       })
       .catch(err => {

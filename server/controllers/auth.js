@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 const crypto = require("crypto");
 const User = require("../models/User");
@@ -38,7 +37,6 @@ module.exports = {
     // ) {
     //   return res.status(400).send("모든 항목을 입력해주세요");
     // }
-
 
     // 2. 들어왔다면 db에 있는지 조회 있다면 돌려보냄
     const userDb = {email: email};
@@ -80,9 +78,9 @@ module.exports = {
               if (!insertDb) {
                 return res.status(500).send({message: "싸장님 서버 이상해"});
               } else {
-
-                return res.status(201).send({message: "싸장님 웰캄 투 봉사천국"});
-
+                return res
+                  .status(201)
+                  .send({message: "싸장님 웰캄 투 봉사천국"});
               }
             }
           });
@@ -105,34 +103,44 @@ module.exports = {
     }
 
     // 2. 유저db 에서 이메일이 있는지 확인한다;
-
-    crypto.pbkdf2(password, salt.salt, 110011, 64, "sha512", async (err, key) => {
-      const hardPass = key.toString("base64");
-      const query = {email: email, password: hardPass};
-      const userInfo = await User.findOne(query);
-      // 3. 없다면 404 돌려보냄
-      if (!userInfo) {
-        return res.status(404).send({message: "싸장님 이메일 및 비밀번호 확인해!"});
-      }
-      // 4. 있다면 뭐뭐 줄래? => token 전달!{ email, nickname, user_id }
-      if (userInfo) {
-        const {email, nickname} = userInfo;
-        const user_id = userInfo._id;
-        const accessToken = generateAccessToken({email, nickname, user_id});
-        const refreshToken = generateRefreshToken({
-          email,
-          nickname,
-          user_id,
-        });
-        // const issueDate = new Date();
-        // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
-        // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
-        return res.cookie("refreshToken", refreshToken, {httpOnly: true}).status(200).send({accessToken: accessToken});
-      } else {
-        return res.status(500).send("error");
-      }
-    });
-
+    crypto.pbkdf2(
+      password,
+      salt.salt,
+      110011,
+      64,
+      "sha512",
+      async (err, key) => {
+        const hardPass = key.toString("base64");
+        const query = {email: email, password: hardPass};
+        const userInfo = await User.findOne(query);
+        // 3. 없다면 404 돌려보냄
+        if (!userInfo) {
+          return res
+            .status(404)
+            .send({message: "싸장님 이메일 및 비밀번호 확인해!"});
+        }
+        // 4. 있다면 뭐뭐 줄래? => token 전달!{ email, nickname, user_id }
+        if (userInfo) {
+          const {email, nickname} = userInfo;
+          const user_id = userInfo._id;
+          const accessToken = generateAccessToken({email, nickname, user_id});
+          const refreshToken = generateRefreshToken({
+            email,
+            nickname,
+            user_id,
+          });
+          // const issueDate = new Date();
+          // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
+          // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
+          return res
+            .cookie("refreshToken", refreshToken, {httpOnly: true})
+            .status(200)
+            .send({accessToken: accessToken});
+        } else {
+          return res.status(500).send("error");
+        }
+      },
+    );
   },
 
   signoutControl: async (req, res) => {
@@ -141,9 +149,10 @@ module.exports = {
       return res.status(401).send({message: "싸장님 토큰 망가졌어"});
     }
     if (accessTokenData) {
-
-      return res.clearCookie("refreshToken").status(200).send({message: "싸장님 또 와"});
-
+      return res
+        .clearCookie("refreshToken")
+        .status(200)
+        .send({message: "싸장님 또 와"});
     } else {
       return res.status(500).send({message: "서버 이상해"});
     }
@@ -168,10 +177,13 @@ module.exports = {
         // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
         // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
 
-        return res.cookie("refreshToken", refreshToken, {httpOnly: true}).status(200).send({accessToken: accessToken});
-
+        return res
+          .cookie("refreshToken", refreshToken, {httpOnly: true})
+          .status(200)
+          .send({accessToken: accessToken});
       }
     }
+  },
 
   nickcheckControl: async (req, res) => {
     // 1. 닉네임을 받는다
@@ -185,7 +197,6 @@ module.exports = {
     if (!existNick) {
       return res.status(200).send({message: "싸장님 좋은 닉네임!"});
     }
-
   },
 
   googleControl: async (req, res) => {
@@ -236,7 +247,6 @@ module.exports = {
           .cookie("refreshToken", refreshToken, {httpOnly: true})
           .status(200)
           .send({accessToken: accessToken, message: "kakao singup 성공!"});
-
       }
     }
   },
@@ -279,7 +289,6 @@ module.exports = {
       } else {
         //인증이 완료 된경우
         return res.status(400).send("인증되었습니다.");
-
       }
     }
     //클릭했는데,
