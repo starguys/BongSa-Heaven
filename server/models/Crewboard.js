@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const crewcommentSchema = require('./Crewcomment');
-
 const crewboardSchema = new Schema(
   {
     like: [{type: Schema.Types.ObjectId, ref: 'User'}],
@@ -11,13 +10,13 @@ const crewboardSchema = new Schema(
     },
     user_id: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
     shorts_description: String,
     title: String,
-    descreption: String,
+    description: String,
     images: String,
-    crew_comments: {
+    crewcomments: {
       type: [crewcommentSchema],
       default: [],
     },
@@ -30,4 +29,4 @@ const crewboardSchema = new Schema(
 );
 
 // boardSchema.plugin(findOrCreate);
-module.exports = mongoose.model('Crewboard', crewboardSchema);
+module.exports = mongoose.model("Crewboard", crewboardSchema);
