@@ -83,6 +83,7 @@ export default function Check(props) {
         };
         deleteCookie("refreshToken");
         localStorage.clear();
+        props.setIsLogin(false);
         history.push("/");
       })
       .catch(err => {

@@ -1,8 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { useHistory } from "react-router";
+import {useHistory} from "react-router";
 import Header3 from "../../components/common/Header3";
 
 const Wrapper = styled.div`
@@ -77,6 +77,7 @@ const CheckingPossibleOrNotBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
   @media screen and (min-width: 37.5rem) {
     width: 35%;
   }
@@ -187,6 +188,7 @@ const CompleteButton = styled.div`
   padding: 20px 80px 20px 80px;
   border-radius: 5px;
   width: 110px;
+  cursor: pointer;
 `;
 const DeleteBtn = styled.div`
   margin-bottom: 15px;
@@ -200,6 +202,7 @@ const DeleteBtn = styled.div`
   width: 110px;
   opacity: 0.6;
   height: 5px;
+  cursor: pointer;
 `;
 
 export default function RecruiterEdit() {
@@ -236,32 +239,32 @@ export default function RecruiterEdit() {
 
   //새로운 성별
 
-  const handleChange = (key) => (e) => {
+  const handleChange = key => e => {
     // 비밀번호, 닉네임은 새로 만들고 , 나머지는 기존 userInfo 변경?
     //유저 정보 변경시 새로운 데이터가 들어옴
 
     //userinfo에서 성별을 바꾸는 방법
 
-    setUserInfo({ ...userInfo, [key]: e.target.value });
+    setUserInfo({...userInfo, [key]: e.target.value});
 
     if (key === "man") {
-      setUserInfo({ ...userInfo, ["sex"]: "남자" });
+      setUserInfo({...userInfo, ["sex"]: "남자"});
     } else if (key === "woman") {
-      setUserInfo({ ...userInfo, ["sex"]: "여자" });
+      setUserInfo({...userInfo, ["sex"]: "여자"});
     }
     if (key === "teen") {
-      setUserInfo({ ...userInfo, ["age"]: "청소년 " });
+      setUserInfo({...userInfo, ["age"]: "청소년 "});
     } else if (key === "adult") {
-      setUserInfo({ ...userInfo, ["age"]: "청년" });
+      setUserInfo({...userInfo, ["age"]: "청년"});
     } else if (key === "senior") {
-      setUserInfo({ ...userInfo, ["age"]: "장년" });
+      setUserInfo({...userInfo, ["age"]: "장년"});
     }
 
     console.log(userInfo);
     if (key === "password") {
-      setNewPass({ ...newPass, [key]: e.target.value });
+      setNewPass({...newPass, [key]: e.target.value});
     } else if (key === "passwordCheck") {
-      setNewPass({ ...newPass, [key]: e.target.value });
+      setNewPass({...newPass, [key]: e.target.value});
     }
 
     // if (key === "newnickname") {
@@ -286,15 +289,13 @@ export default function RecruiterEdit() {
       return true;
     }
   };
-  const validatePassword = (password) => {
+  const validatePassword = password => {
     // 8자이상 16자이하 의 숫자, 문자, 특수문자 조합
 
     const regPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
     if (!regPassword.test(password)) {
-      setPassErrorMessage(
-        "비밀번호를 8~16자, 숫자, 특수문자,영어를 혼합해주세요"
-      );
+      setPassErrorMessage("비밀번호를 8~16자, 숫자, 특수문자,영어를 혼합해주세요");
       return false;
     } else {
       setPassErrorMessage("");
@@ -303,7 +304,7 @@ export default function RecruiterEdit() {
     }
   };
 
-  const validateNickname = (nickname) => {
+  const validateNickname = nickname => {
     //닉네임은 자릿수 제한만 두기로 한다.
     //닉네임 중복 체크
     const max = 8;
@@ -345,9 +346,9 @@ export default function RecruiterEdit() {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         )
-        .then((res) => {
+        .then(res => {
           console.log("통과");
           if (userInfo.nickname !== res.data.data) {
             setNickCheckErrorMessage("사용 가능한 닉네임 입니다.");
@@ -365,10 +366,7 @@ export default function RecruiterEdit() {
   const userInfoEditHandler = () => {
     const validPassword = validatePassword(newPass.password);
     const validNickname = validateNickname(userInfo.nickname);
-    const validCheckPassword = validateCheckPassword(
-      newPass.password,
-      newPass.passwordCheck
-    );
+    const validCheckPassword = validateCheckPassword(newPass.password, newPass.passwordCheck);
 
     console.log(validNickname, validPassword, validCheckPassword, isNick);
     //유저정보 변경은 어떻게 이루어지는가?
@@ -399,13 +397,13 @@ export default function RecruiterEdit() {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
             "Contetn-Type ": "appliaction/json",
-          }
+          },
         )
-        .then((res) => {
+        .then(res => {
           console.log(res.data.data);
           history.push("/RecruiteMyPage");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     }
@@ -429,13 +427,13 @@ export default function RecruiterEdit() {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
             "Contetn-Type ": "appliaction/json",
-          }
+          },
         )
-        .then((res) => {
+        .then(res => {
           console.log(res.data.data);
           history.push("/RecruiteMyPage");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     }
@@ -460,13 +458,13 @@ export default function RecruiterEdit() {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
             "Contetn-Type ": "appliaction/json",
-          }
+          },
         )
-        .then((res) => {
+        .then(res => {
           console.log(res.data.data);
           history.push("/RecruiteMyPage");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     }
@@ -489,13 +487,13 @@ export default function RecruiterEdit() {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
           "Contetn-Type ": "appliaction/json",
-        }
+        },
       )
-      .then((res) => {
+      .then(res => {
         console.log(res.data.data);
         history.push("/RecruiteMyPage");
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
 
@@ -517,7 +515,7 @@ export default function RecruiterEdit() {
         },
       })
 
-      .then((res) => {
+      .then(res => {
         console.log(res.data.data);
 
         setUserInfo({
@@ -531,7 +529,7 @@ export default function RecruiterEdit() {
         });
       })
 
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -558,9 +556,7 @@ export default function RecruiterEdit() {
           </SignUpWhiteBox>
           <CheckingPossibleOrNotBox>
             <PossibleOrNot>사용 가능</PossibleOrNot>
-            <CheckingPossibleOrNotButton onClick={handleNicknameCheck}>
-              중복 확인
-            </CheckingPossibleOrNotButton>
+            <CheckingPossibleOrNotButton onClick={handleNicknameCheck}>중복 확인</CheckingPossibleOrNotButton>
           </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
@@ -598,9 +594,7 @@ export default function RecruiterEdit() {
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <CompleteBox>
-            <CompleteButton onClick={userInfoEditHandler}>
-              수정완료 완료
-            </CompleteButton>
+            <CompleteButton onClick={userInfoEditHandler}>수정완료 완료</CompleteButton>
             <DeleteBtn onClick={GoUserDelete}>회원탈퇴</DeleteBtn>
           </CompleteBox>
         </MainContainer>
