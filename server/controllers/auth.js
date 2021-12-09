@@ -1,8 +1,16 @@
+
+
 require("dotenv").config();
 const crypto = require("crypto");
 const User = require("../models/User");
-const {generateAccessToken, generateRefreshToken, isAuthorized, checkRefreshToken} = require("../middlewares/token");
+const {
+  generateAccessToken,
+  generateRefreshToken,
+  isAuthorized,
+  checkRefreshToken,
+} = require("../middlewares/token");
 const nodemailer = require("nodemailer");
+
 
 module.exports = {
   signupControl: async (req, res) => {
@@ -146,7 +154,6 @@ module.exports = {
         return res.cookie("refreshToken", refreshToken, {httpOnly: true}).status(200).send({accessToken: accessToken});
       }
     }
-  },
 
   nickcheckControl: async (req, res) => {
     // 1. 닉네임을 받는다
@@ -160,6 +167,7 @@ module.exports = {
     if (!existNick) {
       return res.status(200).send({message: "싸장님 좋은 닉네임!"});
     }
+
   },
 
   googleControl: async (req, res) => {

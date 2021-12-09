@@ -107,6 +107,7 @@ export default function Check({contents, leftBtn}) {
 
         <span>Name:{name}</span>
         <span>Text:{text}</span>
+
       </SelectBox>
     </>
   );
