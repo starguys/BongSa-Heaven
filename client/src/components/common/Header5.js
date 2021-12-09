@@ -162,9 +162,12 @@ const HeaderSignUpMyPage = styled.button`
   }
 `;
 
+
+
 export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin}) {
   const history = useHistory();
   console.log(isLogin);
+
 
   const GoMyPage = () => {
     isUserLogin === "user" ? history.push("/UserMyPage") : history.push("/RecruiterMyPage");
@@ -192,6 +195,7 @@ export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin
     axios
       .post(
         "http://localhost:8080/auth/signout",
+
         {},
         {
           headers: {
@@ -213,6 +217,7 @@ export default function Header({isLogin, setIsLogin, isUserLogin, setIsUserLogin
   };
 
   useEffect(() => {}, [isLogin, isUserLogin]);
+
 
   return (
     <>

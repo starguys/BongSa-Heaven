@@ -133,7 +133,6 @@ module.exports = {
         return res.cookie("refreshToken", refreshToken, {httpOnly: true}).status(200).send({accessToken: accessToken});
       }
     }
-  },
 
   nickcheckControl: async (req, res) => {
     // 1. 닉네임을 받는다
@@ -147,6 +146,7 @@ module.exports = {
     if (!existNick) {
       return res.status(200).send({message: "싸장님 좋은 닉네임!"});
     }
+
   },
 
   googleControl: async (req, res) => {

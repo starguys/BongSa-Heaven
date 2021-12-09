@@ -20,7 +20,7 @@ module.exports = {
       //!
       const userData = isAuthorized(req, res);
       if (!userData) {
-        return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+        return res.send({message: '싸장님 회원 맞아?? 빨리 가입 해'});
       }
       if (userData) {
         const freeContent = {
@@ -31,15 +31,15 @@ module.exports = {
         };
         const insertDb = new Freeboard(freeContent).save();
         if (!insertDb) {
-          return res.status(500).send({message: "싸장님 서버 이상해"});
+          return res.status(500).send({message: '싸장님 서버 이상해'});
         } else {
-          return res.status(201).send({message: "freeboard content 등록완료"});
+          return res.status(201).send({message: 'freeboard content 등록완료'});
         }
       }
     } else {
       const userData = isAuthorized(req, res);
       if (!userData) {
-        return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+        return res.send({message: '싸장님 회원 맞아?? 빨리 가입 해'});
       }
       if (userData) {
         const freeContent = {
@@ -49,9 +49,9 @@ module.exports = {
         };
         const insertDb = new Freeboard(freeContent).save();
         if (!insertDb) {
-          return res.status(500).send({message: "싸장님 서버 이상해"});
+          return res.status(500).send({message: '싸장님 서버 이상해'});
         } else {
-          return res.status(201).send({message: "freeboard content 등록완료"});
+          return res.status(201).send({message: 'freeboard content 등록완료'});
         }
       }
     }
@@ -185,6 +185,7 @@ module.exports = {
         });
       res.status(200).send({data: fbcontent, message: "싸장님~ 자세한 게시글 보는구나!"});
     }
+
   },
 
   fbeditControl: async (req, res) => {
@@ -245,6 +246,7 @@ module.exports = {
           console.log("===editfbcontent===", editfbcontent);
           res.status(200).send({message: "싸장님 게시글 변경 완료!"});
         }
+
       }
     }
   },
@@ -260,6 +262,7 @@ module.exports = {
     if (userData) {
       const deletefbcontent = await Freeboard.findById(req.body.freeboard_id);
       if (!deletefbcontent) {
+
         res.status(404).send({message: "잘못된 게시글입니다"});
       }
       if (deletefbcontent) {
@@ -451,7 +454,7 @@ module.exports = {
     // 3. db삭제
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.send({message: "싸장님은 게시글 수정 권한 없어!"});
+      res.send({message: '싸장님은 게시글 수정 권한 없어!'});
     }
     if (userData) {
       const deletecbcontent = await Crewboard.findById(req.body.crewboard_id);
@@ -474,7 +477,7 @@ module.exports = {
 
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.status(401).send({message: "싸장님은 권한 없어!"});
+      res.status(401).send({message: '싸장님은 권한 없어!'});
     }
     if (userData) {
       const likeUser = userData.user_id;
@@ -487,13 +490,13 @@ module.exports = {
       // console.log("===findUser===", findUser);
       if (findUser.length === 0) {
         if (likeData.like === undefined) {
-          return res.status(404).send({message: "싸장님 잘못된 경로야!"});
+          return res.status(404).send({message: '싸장님 잘못된 경로야!'});
         } else {
           if (likeData.like.length === 0) {
             likeData.like.push(likeUser);
             likeData.like_count += 1;
             likeData.save();
-            return res.status(200).send({message: "좋아요가 0이니 좋아요!"});
+            return res.status(200).send({message: '좋아요가 0이니 좋아요!'});
           }
           if (likeData.like.length > 0) {
             const likeDataUpdate = await Freeboard.findByIdAndUpdate(
@@ -505,12 +508,12 @@ module.exports = {
             if (likeDataUpdate) {
               likeData.like_count += 1;
               likeData.save();
-              return res.status(200).send({message: "싸장님 좋은 게시물!"});
+              return res.status(200).send({message: '싸장님 좋은 게시물!'});
             }
           }
         }
       } else {
-        return res.status(404).send({message: "싸장님 이미 눌렀어!"});
+        return res.status(404).send({message: '싸장님 이미 눌렀어!'});
       }
     }
   },
@@ -522,7 +525,7 @@ module.exports = {
 
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.status(401).send({message: "싸장님은 권한 없어!"});
+      res.status(401).send({message: '싸장님은 권한 없어!'});
     }
     if (userData) {
       const dislikeUser = userData.user_id;
@@ -534,7 +537,7 @@ module.exports = {
       });
       if (findUser.length > 0) {
         if (dislikeData.like === undefined) {
-          return res.status(404).send({message: "싸장님 잘못된 경로야!"});
+          return res.status(404).send({message: '싸장님 잘못된 경로야!'});
         }
         if (dislikeData.like.length >= 0) {
           const dislikeDataUpdate = await Freeboard.findByIdAndUpdate(
@@ -546,11 +549,11 @@ module.exports = {
           if (dislikeDataUpdate) {
             dislikeData.like_count -= 1;
             dislikeData.save();
-            return res.status(200).send({message: "싸장님 좋은 게시물 취소!"});
+            return res.status(200).send({message: '싸장님 좋은 게시물 취소!'});
           }
         }
       } else {
-        return res.status(404).send({message: "싸장님 이미 취소했어!"});
+        return res.status(404).send({message: '싸장님 이미 취소했어!'});
       }
     }
   },
@@ -563,7 +566,7 @@ module.exports = {
 
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.status(401).send({message: "싸장님은 권한 없어!"});
+      res.status(401).send({message: '싸장님은 권한 없어!'});
     }
     if (userData) {
       const likeUser = userData.user_id;
@@ -576,13 +579,13 @@ module.exports = {
       // console.log("===findUser===", findUser);
       if (findUser.length === 0) {
         if (likeData.like === undefined) {
-          return res.status(404).send({message: "싸장님 잘못된 경로야!"});
+          return res.status(404).send({message: '싸장님 잘못된 경로야!'});
         } else {
           if (likeData.like.length === 0) {
             likeData.like.push(likeUser);
             likeData.like_count += 1;
             likeData.save();
-            return res.status(200).send({message: "좋아요가 0이니 좋아요!"});
+            return res.status(200).send({message: '좋아요가 0이니 좋아요!'});
           }
           if (likeData.like.length > 0) {
             const likeDataUpdate = await Crewboard.findByIdAndUpdate(
@@ -594,12 +597,12 @@ module.exports = {
             if (likeDataUpdate) {
               likeData.like_count += 1;
               likeData.save();
-              return res.status(200).send({message: "싸장님 좋은 게시물!"});
+              return res.status(200).send({message: '싸장님 좋은 게시물!'});
             }
           }
         }
       } else {
-        return res.status(404).send({message: "싸장님 이미 눌렀어!"});
+        return res.status(404).send({message: '싸장님 이미 눌렀어!'});
       }
     }
   },
@@ -611,7 +614,7 @@ module.exports = {
 
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.status(401).send({message: "싸장님은 권한 없어!"});
+      res.status(401).send({message: '싸장님은 권한 없어!'});
     }
     if (userData) {
       const dislikeUser = userData.user_id;
@@ -623,7 +626,7 @@ module.exports = {
       });
       if (findUser.length > 0) {
         if (dislikeData.like === undefined) {
-          return res.status(404).send({message: "싸장님 잘못된 경로야!"});
+          return res.status(404).send({message: '싸장님 잘못된 경로야!'});
         }
         if (dislikeData.like.length >= 0) {
           const dislikeDataUpdate = await Crewboard.findByIdAndUpdate(
@@ -635,11 +638,11 @@ module.exports = {
           if (dislikeDataUpdate) {
             dislikeData.like_count -= 1;
             dislikeData.save();
-            return res.status(200).send({message: "싸장님 좋은 게시물 취소!"});
+            return res.status(200).send({message: '싸장님 좋은 게시물 취소!'});
           }
         }
       } else {
-        return res.status(404).send({message: "싸장님 이미 취소했어!"});
+        return res.status(404).send({message: '싸장님 이미 취소했어!'});
       }
     }
   },

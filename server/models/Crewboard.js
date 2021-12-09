@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const crewcommentSchema = require("./Crewcomment");
-
+const crewcommentSchema = require('./Crewcomment');
 const crewboardSchema = new Schema(
   {
-    like: [{type: Schema.Types.ObjectId, ref: "User"}],
+    like: [{type: Schema.Types.ObjectId, ref: 'User'}],
     like_count: {
       type: Number,
       default: 0,
