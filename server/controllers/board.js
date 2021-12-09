@@ -1,6 +1,8 @@
 require("dotenv").config();
 const Freeboard = require("../models/Freeboard");
 const Crewboard = require("../models/Crewboard");
+const Mongoose = require("mongoose");
+const ObjectId = Mongoose.Types.ObjectId;
 const {isAuthorized} = require("../middlewares/token");
 
 module.exports = {
@@ -58,17 +60,39 @@ module.exports = {
   fblistControl: async (req, res) => {
     // 1. db상에 존재하는 모든 free board 글들을 찾아서 보내줌 (모두 이용 가능)
     // +@ 만일 토큰이 있어서 유저라면 좋아요 한 게시글인지 아닌지 여부도 보내주기
+    // +@ 좋아요 1.2.3 등 게시물 뿌리기
+
+    const fbTopThree = await Freeboard.find({})
+      .sort({like_count: -1})
+      .limit(3)
+      .select({like: 1, title: 1, createdAt: 1, like_count: 1})
+      .populate({path: "user_id", select: {nickname: 1}})
+      .sort({createdAt: -1});
+
     const userData = isAuthorized(req, res);
     if (userData) {
-      const checkLike = await Freeboard.find({});
-      return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+      console.log("===userData.user_id===", userData.user_id);
+      const checkLike = await Freeboard.aggregate([
+        {
+          $match: {like: new ObjectId(userData.user_id)},
+        },
+        {$set: {is_like: true}},
+        {$sort: {createdAt: -1}},
+      ]).exec(function (err, data) {
+        Freeboard.populate(data, {path: "user_id", select: {nickname: 1}}, function (err, pupulData) {
+          console.log("===pupulData===", pupulData);
+          return res.send("err");
+        });
+      });
+
+      // return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
     }
     if (!userData) {
       const fbcontents = await Freeboard.find({})
-        .select({like: 1, title: 1, createdAt: 1})
+        .select({like: 1, title: 1, createdAt: 1, like_count: 1})
         .populate({path: "user_id", select: {nickname: 1}})
         .sort({createdAt: -1});
-      res.status(200).send({data: fbcontents});
+      res.status(200).send({data: fbcontents, fbTopThree});
     }
   },
 
@@ -175,7 +199,7 @@ module.exports = {
       const {freeboard_id, title, description} = req.body;
       const userData = isAuthorized(req, res);
       if (!userData) {
-        res.status(401).send({message: "싸장님은 게시글 수정 권한 없어!"});
+        res.send({message: "싸장님은 게시글 수정 권한 없어!"});
       }
       if (userData) {
         const edit = {
@@ -184,14 +208,15 @@ module.exports = {
           images: path,
         };
         const editfbcontent = await Freeboard.findOne({
-          _id: userData.user_id,
-          freeboard_id: freeboard_id,
-        }).exec();
+          _id: freeboard_id,
+          user_id: userData.user_id,
+        });
+        console.log("===editfbcontent===", editfbcontent);
         if (editfbcontent === null) {
           return res.status(400).send({message: "게시글이 존재하지 않아요!"});
         }
         if (editfbcontent) {
-          await Freeboard.updateMany(edit).exec();
+          await Freeboard.findById(req.body.freeboard_id).updateMany(edit).exec();
           console.log("===editfbcontent===", editfbcontent);
           res.status(200).send({message: "싸장님 게시글 변경 완료!"});
         }
@@ -208,14 +233,15 @@ module.exports = {
           description: description,
         };
         const editfbcontent = await Freeboard.findOne({
-          _id: userData.user_id,
-          freeboard_id: freeboard_id,
-        }).exec();
+          _id: freeboard_id,
+          user_id: userData.user_id,
+        });
+        console.log("===editfbcontent===", editfbcontent);
         if (editfbcontent === null) {
           return res.status(400).send({message: "게시글이 존재하지 않아요!"});
         }
         if (editfbcontent) {
-          await Freeboard.updateMany(edit).exec();
+          await Freeboard.findById(req.body.freeboard_id).updateMany(edit).exec();
           console.log("===editfbcontent===", editfbcontent);
           res.status(200).send({message: "싸장님 게시글 변경 완료!"});
         }
@@ -250,7 +276,7 @@ module.exports = {
     // 3. 유저라면 crew board에 모델 생성하고 req.body로 받은 데이터 등록
     //!추가한부분
     const image = req.files;
-    const path = image.map(img => img.location);
+    // const path = image.map(img => img.location);
     //!
     const userData = isAuthorized(req, res);
     if (!userData) {
@@ -259,7 +285,7 @@ module.exports = {
     if (userData) {
       const crewContent = {
         user_id: userData.user_id,
-        images: path, //!
+        // images: path, //!
         title: req.body.title,
         shorts_description: req.body.shorts_description,
         description: req.body.description,
@@ -389,29 +415,30 @@ module.exports = {
     // 3. 수정
     //!추가한부분
     const image = req.files;
-    const path = image.map(img => img.location);
+    // const path = image.map(img => img.location);
     //!
     const {crewboard_id, title, shorts_description, description} = req.body;
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.status(401).send({message: "싸장님은 게시글 수정 권한 없어!"});
+      res.send({message: "싸장님은 게시글 수정 권한 없어!"});
     }
     if (userData) {
       const edit = {
         title: title,
-        shorts_description: shorts_description,
         description: description,
-        images: path,
+        shorts_description: shorts_description,
+        // images: path,
       };
       const editcbcontent = await Crewboard.findOne({
-        _id: userData.user_id,
-        crewboard_id: crewboard_id,
-      }).exec();
+        _id: crewboard_id,
+        user_id: userData.user_id,
+      });
+      console.log("===editcbcontent===", editcbcontent);
       if (editcbcontent === null) {
         return res.status(400).send({message: "게시글이 존재하지 않아요!"});
       }
       if (editcbcontent) {
-        await Crewboard.updateMany(edit).exec();
+        await Crewboard.findById(req.body.crewboard_id).updateMany(edit).exec();
         console.log("===editcbcontent===", editcbcontent);
         res.status(200).send({message: "싸장님 게시글 변경 완료!"});
       }
