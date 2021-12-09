@@ -77,6 +77,7 @@ module.exports = {
           $match: {like: new ObjectId(userData.user_id)},
         },
         {$set: {is_like: true}},
+
         {$sort: {createdAt: -1}},
       ]).exec(function (err, data) {
         Freeboard.populate(data, {path: "user_id", select: {nickname: 1}}, function (err, pupulData) {
@@ -84,7 +85,6 @@ module.exports = {
           return res.send("err");
         });
       });
-
       // return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
     }
     if (!userData) {
