@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useHistory } from "react-router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import {useHistory} from "react-router";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGithub} from "@fortawesome/free-brands-svg-icons";
 
 const LogInOut = styled.div`
   background: #ffd5d5;
@@ -79,15 +79,15 @@ export default function Footer({isLogin, setIsLogin, setIsUserLogin}) {
             authorization: `Bearer ` + localStorage.getItem("accessToken"),
             "Content-Type": "application/json",
           },
-        }
+        },
       )
-      .then((res) => {
+      .then(res => {
         localStorage.removeItem("accessToken");
         setIsLogin(false);
-        setIsUserLogin("user")
+        setIsUserLogin("user");
         GoHome();
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   useEffect(() => {
