@@ -5,6 +5,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
+    "ejs": "^3.1.6",
     "mongosh": "^1.1.5"
   }
 }
