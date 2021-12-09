@@ -1,16 +1,9 @@
 
-
 require("dotenv").config();
 const crypto = require("crypto");
 const User = require("../models/User");
-const {
-  generateAccessToken,
-  generateRefreshToken,
-  isAuthorized,
-  checkRefreshToken,
-} = require("../middlewares/token");
+const {generateAccessToken, generateRefreshToken, isAuthorized, checkRefreshToken} = require("../middlewares/token");
 const nodemailer = require("nodemailer");
-
 
 module.exports = {
   signupControl: async (req, res) => {
@@ -29,6 +22,7 @@ module.exports = {
     // ) {
     //   return res.status(400).send("모든 항목을 입력해주세요");
     // }
+
 
     // 2. 들어왔다면 db에 있는지 조회 있다면 돌려보냄
     const userDb = {email: email};
