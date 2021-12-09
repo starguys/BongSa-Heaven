@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router";
+import {useHistory} from "react-router";
 import axios from "axios";
+import {useSelector} from "react-redux";
+
 const DeleteBoxTitleBox = styled.div`
   display: flex;
   justify-content: center;
@@ -58,10 +60,12 @@ const CancelButton = styled.div`
   }
 `;
 
-export default function Check(props) {
+export default function Check({contents, leftBtn}) {
+  const name = useSelector(state => state.mailWriteRedux.name);
+  const text = useSelector(state => state.mailWriteRedux.text);
   const history = useHistory();
-  const Delete = (url) => history.push(url);
-  const Cancel = (url) => history.push(url);
+  const Delete = url => history.push(url);
+  const Cancel = () => history.goBack();
   const userWithdrawalHandler = () => {
     // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
     console.log("삭제클릭");
@@ -74,30 +78,36 @@ export default function Check(props) {
             authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             "Content-Type": "applicaton/json",
           },
-        }
+        },
       )
-      .then((res) => {
+      .then(res => {
         // 쿠키삭제, accesstoken삭제
         const deleteCookie = function (name) {
           document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
         };
-        deleteCookie("name");
+        deleteCookie("refreshToken");
         localStorage.clear();
         history.push("/");
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
+  console.log(name);
+  console.log(text);
 
   // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
 
   return (
     <>
-      <DeleteBoxTitleBox>{props.contents}</DeleteBoxTitleBox>
+      <DeleteBoxTitleBox>{contents}</DeleteBoxTitleBox>
       <SelectBox>
-        <DeleteButton onClick={userWithdrawalHandler}>{props.leftBtn}</DeleteButton>
-        <CancelButton onClick={() => Cancel(props.cancel)}>취소</CancelButton>
+        <DeleteButton onClick={userWithdrawalHandler}>{leftBtn}</DeleteButton>
+        <CancelButton onClick={() => Cancel()}>취소</CancelButton>
+
+        <span>Name:{name}</span>
+        <span>Text:{text}</span>
+
       </SelectBox>
     </>
   );

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Route } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {Route} from "react-router-dom";
 import axios from "axios";
-import { useHistory } from "react-router";
+import {useHistory} from "react-router";
 import "./App.css";
 import "./css/Reset.css";
 import Footer from "./components/common/Footer";
@@ -58,7 +58,7 @@ export default function App() {
   const history = useHistory();
   const GotoContents = () => history.push("/FreeBoardContents");
 
-  const GoToFreeBoardContent = (freeboard_id) => {
+  const GoToFreeBoardContent = freeboard_id => {
     axios
       .post(
         "http://localhost:8080/board/fbinfo",
@@ -70,17 +70,17 @@ export default function App() {
             authorization: `Bearer ` + localStorage.getItem("accessToken"),
             "Content-Type": "application/json",
           },
-        }
+        },
       )
-      .then((res) => {
-        // console.log("res.data",res.data)
+      .then(res => {
         setFBcontent(res.data);
         // console.log("currentFBcontent",currentFBcontent)
 
         GotoContents();
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
+
 
   useEffect(() => {
     if (localStorage.getItem("accessToken"))
@@ -92,7 +92,7 @@ export default function App() {
             withCredentials: true,
           },
         })
-        .then((res) => {
+        .then(res => {
           if (res.data.data.iscompany) {
             setIsUserLogin("recruiter");
             setIsLogin(true);
@@ -101,20 +101,17 @@ export default function App() {
             setIsLogin(true);
           }
         })
-        .catch((err) => {
+        .catch(err => {
           console.log("err");
           setIsLogin(false);
         });
   }, [isUserLogin]);
 
+
+  document.cookie = "refreshToken=; domain=;  path=/;  expires=;";
   return (
     <div id="app_div">
-      <Header5
-        isLogin={isLogin}
-        setIsLogin={setIsLogin}
-        isUserLogin={isUserLogin}
-        setIsUserLogin={setIsUserLogin}
-      />
+      <Header5 isLogin={isLogin} setIsLogin={setIsLogin} isUserLogin={isUserLogin} setIsUserLogin={setIsUserLogin} />
 
       {isDevHeader ? <DevHeader /> : null}
       <Route exact path="/" component={MainPage} />
@@ -122,13 +119,7 @@ export default function App() {
 
       <Route exact path="/RecruiterSignUp" component={RecruiterSignUp} />
       <Route exact path="/SignUp" component={SignUp} />
-      <Route
-        exact
-        path="/SignIn"
-        render={() => (
-          <SignIn setIsLogin={setIsLogin} setIsUserLogin={setIsUserLogin} />
-        )}
-      />
+      <Route exact path="/SignIn" render={() => <SignIn setIsLogin={setIsLogin} setIsUserLogin={setIsUserLogin} />} />
       <Route exact path="/UserSignUp" component={UserSignUp} />
       {/* MyPage */}
       <Route exact path="/MaillWrite" component={MaillWrite} />
@@ -136,11 +127,7 @@ export default function App() {
       <Route exact path="/RecruiterDelete" component={RecruiterDelete} />
       <Route exact path="/RecruiterEdit" component={RecruiterEdit} />
       <Route exact path="/RecruiterMyPage" component={RecruiterMyPage} />
-      <Route
-        exact
-        path="/RecruiterPasswordCheck"
-        component={RecruiterPasswordCheck}
-      />
+      <Route exact path="/RecruiterPasswordCheck" component={RecruiterPasswordCheck} />
       <Route exact path="/RecruiterMaill" component={RecruiterMaill} />
       <Route exact path="/SeeRecruiter" component={SeeRecruiter} />
       <Route exact path="/SeeUser" component={SeeUser} />
@@ -155,18 +142,18 @@ export default function App() {
           />
         )}
       />
-      <Route
-        exact
-        path="/UserEditPasswordCheck"
-        component={UserEditPasswordCheck}
-      />
+      <Route exact path="/UserEditPasswordCheck" component={UserEditPasswordCheck} />
       <Route exact path="/UserMaill" component={UserMaill} />
       <Route exact path="/UserMyPage" component={UserMyPage} />
       {/* FreeBoard */}
+
       <Route
         exact
         path="/FreeBoardContents"
         render={() => <FreeBoardContents currentFBcontent={currentFBcontent} />}
+
+      
+
       />
       <Route exact path="/FreeBoardCreate" component={FreeBoardCreate} />
       <Route 
@@ -196,7 +183,9 @@ export default function App() {
         GoToFreeBoardContent={GoToFreeBoardContent}
         />
       )}
+
       />
+
       {/* CrewBoard */}
       <Route exact path="/CrewBoardContents" component={CrewBoardContents} />
       <Route exact path="/CrewBoardCreate" component={CrewBoardCreate} />
@@ -207,12 +196,16 @@ export default function App() {
       <Route exact path="/Map" component={Map} />
       <Route exact path="/MapRegister" component={MapRegister} />
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
+
       <DevBtn />
+
+
       <Footer
         isLogin={isLogin}
         setIsLogin={setIsLogin}
         setIsUserLogin={setIsUserLogin}
       />
+
     </div>
   );
 }
