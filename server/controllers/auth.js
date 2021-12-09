@@ -1,3 +1,4 @@
+
 require("dotenv").config();
 const crypto = require("crypto");
 const User = require("../models/User");
@@ -8,6 +9,20 @@ module.exports = {
   signupControl: async (req, res) => {
     // 1. req.body 제대로 들어왔는지 확인 아니면 돌려보냄
     const {email, nickname, password, sex, want_region, want_vol, age, company, iscompany} = req.body;
+
+    console.log("req.body", req.body);
+    // if (
+    //   !email ||
+    //   !nickname ||
+    //   !password ||
+    //   !sex ||
+    //   !want_region ||
+    //   !want_vol ||
+    //   !age
+    // ) {
+    //   return res.status(400).send("모든 항목을 입력해주세요");
+    // }
+
 
     // 2. 들어왔다면 db에 있는지 조회 있다면 돌려보냄
     const userDb = {email: email};

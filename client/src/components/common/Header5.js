@@ -7,6 +7,7 @@ import {faBars} from "@fortawesome/free-solid-svg-icons";
 import {faUserCircle} from "@fortawesome/free-regular-svg-icons";
 import {faUserCircle as LoginIcon} from "@fortawesome/free-solid-svg-icons";
 
+
 const HeaderContainer = styled.div`
   width: 100%;
   height: 64px;
