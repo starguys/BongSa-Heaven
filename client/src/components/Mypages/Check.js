@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import {useHistory} from "react-router";
 import axios from "axios";
+import {useSelector} from "react-redux";
+
 const DeleteBoxTitleBox = styled.div`
   display: flex;
   justify-content: center;
@@ -58,7 +60,9 @@ const CancelButton = styled.div`
   }
 `;
 
-export default function Check(props) {
+export default function Check({contents, leftBtn}) {
+  const name = useSelector(state => state.mailWriteRedux.name);
+  const text = useSelector(state => state.mailWriteRedux.text);
   const history = useHistory();
   const Delete = url => history.push(url);
   const Cancel = () => history.goBack();
@@ -90,15 +94,21 @@ export default function Check(props) {
         console.log(err);
       });
   };
+  console.log(name);
+  console.log(text);
 
   // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
 
   return (
     <>
-      <DeleteBoxTitleBox>{props.contents}</DeleteBoxTitleBox>
+      <DeleteBoxTitleBox>{contents}</DeleteBoxTitleBox>
       <SelectBox>
-        <DeleteButton onClick={userWithdrawalHandler}>{props.leftBtn}</DeleteButton>
+        <DeleteButton onClick={userWithdrawalHandler}>{leftBtn}</DeleteButton>
         <CancelButton onClick={() => Cancel()}>취소</CancelButton>
+
+        <span>Name:{name}</span>
+        <span>Text:{text}</span>
+
       </SelectBox>
     </>
   );

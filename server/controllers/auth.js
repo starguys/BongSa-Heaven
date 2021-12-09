@@ -1,13 +1,29 @@
 require("dotenv").config();
 const crypto = require("crypto");
 const User = require("../models/User");
-const {generateAccessToken, generateRefreshToken, isAuthorized, checkRefreshToken} = require("../middlewares/token");
+const {
+  generateAccessToken,
+  generateRefreshToken,
+  isAuthorized,
+  checkRefreshToken,
+} = require("../middlewares/token");
 const nodemailer = require("nodemailer");
+const ejs = require("ejs");
 
 module.exports = {
   signupControl: async (req, res) => {
     // 1. req.body 제대로 들어왔는지 확인 아니면 돌려보냄
-    const {email, nickname, password, sex, want_region, want_vol, age, company, iscompany} = req.body;
+    const {
+      email,
+      nickname,
+      password,
+      sex,
+      want_region,
+      want_vol,
+      age,
+      company,
+      iscompany,
+    } = req.body;
 
     console.log("req.body", req.body);
     // if (
@@ -62,7 +78,9 @@ module.exports = {
               if (!insertDb) {
                 return res.status(500).send({message: "싸장님 서버 이상해"});
               } else {
-                return res.status(201).send({message: "싸장님 웰캄 투 봉사천국"});
+                return res
+                  .status(201)
+                  .send({message: "싸장님 웰캄 투 봉사천국"});
               }
             }
           });
@@ -85,32 +103,44 @@ module.exports = {
     }
 
     // 2. 유저db 에서 이메일이 있는지 확인한다;
-    crypto.pbkdf2(password, salt.salt, 110011, 64, "sha512", async (err, key) => {
-      const hardPass = key.toString("base64");
-      const query = {email: email, password: hardPass};
-      const userInfo = await User.findOne(query);
-      // 3. 없다면 404 돌려보냄
-      if (!userInfo) {
-        return res.status(404).send({message: "싸장님 이메일 및 비밀번호 확인해!"});
-      }
-      // 4. 있다면 뭐뭐 줄래? => token 전달!{ email, nickname, user_id }
-      if (userInfo) {
-        const {email, nickname} = userInfo;
-        const user_id = userInfo._id;
-        const accessToken = generateAccessToken({email, nickname, user_id});
-        const refreshToken = generateRefreshToken({
-          email,
-          nickname,
-          user_id,
-        });
-        // const issueDate = new Date();
-        // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
-        // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
-        return res.cookie("refreshToken", refreshToken, {httpOnly: true}).status(200).send({accessToken: accessToken});
-      } else {
-        return res.status(500).send("error");
-      }
-    });
+    crypto.pbkdf2(
+      password,
+      salt.salt,
+      110011,
+      64,
+      "sha512",
+      async (err, key) => {
+        const hardPass = key.toString("base64");
+        const query = {email: email, password: hardPass};
+        const userInfo = await User.findOne(query);
+        // 3. 없다면 404 돌려보냄
+        if (!userInfo) {
+          return res
+            .status(404)
+            .send({message: "싸장님 이메일 및 비밀번호 확인해!"});
+        }
+        // 4. 있다면 뭐뭐 줄래? => token 전달!{ email, nickname, user_id }
+        if (userInfo) {
+          const {email, nickname} = userInfo;
+          const user_id = userInfo._id;
+          const accessToken = generateAccessToken({email, nickname, user_id});
+          const refreshToken = generateRefreshToken({
+            email,
+            nickname,
+            user_id,
+          });
+          // const issueDate = new Date();
+          // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
+          // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
+          return res
+            .cookie("refreshToken", refreshToken, {httpOnly: true})
+            .status(200)
+            .send({accessToken: accessToken});
+        } else {
+          return res.status(500).send("error");
+        }
+      },
+    );
   },
 
   signoutControl: async (req, res) => {
@@ -119,7 +149,10 @@ module.exports = {
       return res.status(401).send({message: "싸장님 토큰 망가졌어"});
     }
     if (accessTokenData) {
-      return res.clearCookie("refreshToken").status(200).send({message: "싸장님 또 와"});
+      return res
+        .clearCookie("refreshToken")
+        .status(200)
+        .send({message: "싸장님 또 와"});
     } else {
       return res.status(500).send({message: "서버 이상해"});
     }
@@ -143,7 +176,11 @@ module.exports = {
         // const issueDate = new Date();
         // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
         // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
-        return res.cookie("refreshToken", refreshToken, {httpOnly: true}).status(200).send({accessToken: accessToken});
+
+        return res
+          .cookie("refreshToken", refreshToken, {httpOnly: true})
+          .status(200)
+          .send({accessToken: accessToken});
       }
     }
   },
@@ -212,5 +249,110 @@ module.exports = {
           .send({accessToken: accessToken, message: "kakao singup 성공!"});
       }
     }
+  },
+
+  sendEmailControl: async (req, res) => {
+    //회원가입 완료후 인증하라고 나온다.
+    //회원가입 완료후 추가인증
+
+    const {email} = req.body;
+    const vaildCheck = email.indexOf("@");
+    if (!email || email.length === 0 || vaildCheck === -1) {
+      return res.status(400).json({message: "Need accurate informations"});
+    }
+    //2. 링크타고 들어오도록 authcode를 생성하여 db에 저장,
+    //보안을위해 auth => crypto 로 생성
+    const authCode = crypto.randomBytes(32).toString("base64");
+    console.log(authCode);
+    let action = ""; //? 회원가입/ 로그인을 구분하기위한 변수
+    let endPoint = ""; //? 상황에 따른 리다이렉트 엔드포인트
+    let display = ""; //? 상황에 따른 이메일 인증 폼
+
+    //인증 성공하면 status =1로 바꾼다.
+
+    //3. 회원 가입 유무 에 따른 차이를 둔다. 회원가입을 이미 했다면(2번 하지 못하도록)
+    //code를 보내지 않고 이미 인증 or 가입 했다고 나와야함
+    const userInfo = await User.findOne({email: email});
+    //계정이 존재하는경우, status 가 false => 계정인증이 되어야 로그인 가능하다.
+    //계정이 존재하는데, 회원가입을 한번더 요청하는경우
+    if (userInfo) {
+      if (userInfo.status === false) {
+        //주어진 아이디를 찾아서 authcode를 넣는다. insertOne(authCode)
+        User.updateOne({_id: userInfo._id}, {authcode: authCode}).exec();
+        //1시간이 지나도 회원가입인증 안할시 자동으로 회원정보 파기
+        setTimeout(async () => {
+          if (userInfo.status === false) {
+            userInfo.remove(authCode);
+            return;
+          }
+        }, 60000);
+      } else {
+        //인증이 완료 된경우
+        return res.status(400).send("인증되었습니다.");
+      }
+    }
+    //클릭했는데,
+
+    //이메일을 통해 인증이 된다면 => status =1로 바꿔준다. 링크를 클릭했을때
+    //auth 가 동일 하다면, status=1
+    let authEmailForm;
+    const clientAddr = process.env.CLIENT_ADDR || "http://localhost:3000";
+    //? ejs 모듈을 이용해 ejs 파일을 불러온다.
+    //? ejs 에 담기는 변수들은 위 코드에서 경우에 따라 설정 된 상태로 올 것이다.
+    ejs.renderFile(
+      __dirname + "/authForm/authMail.ejs", //filename
+      {clientAddr, authCode, action, endPoint, display}, //data
+      (err, data) => {
+        //funcion
+        if (err) console.log(err);
+        console.log("파일불러오기");
+        authEmailForm = data;
+      },
+    );
+    const transporter = nodemailer.createTransport({
+      service: "Naver",
+      host: "smtp.naver.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: `${process.env.NODEMAILER_USER}`,
+        pass: `${process.env.NODEMAILER_PASS}`,
+      },
+    });
+
+    const mailOptions = {
+      from: `${process.env.NODEMAILER_USER}`,
+      to: "dpemdnjem23@naver.com",
+      subject: "인증메일 입니다",
+      html: authEmailForm,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent success! : " + info.response);
+      }
+      transporter.close();
+      return res.status(200).send("끝");
+    });
+  },
+
+  confirmEmailControl: async (req, res) => {
+    //가입후 클라이언트에서 주는 코드로 로그인
+    //회원 가입후 로그인 화면에서 query 코드를 넘겨준다.
+    console.log(req.query.authCode);
+    //authcode가 일치하면 status가 true
+    User.updateOne({authcode: req.query.authCode}, {$set: {status: true}}).then(
+      data => {
+        if (!data) {
+          return res.status(400).send("인증 실패");
+        }
+        return res.status(200).send("이메일 확인 완료");
+      },
+    );
+
+    // return res.status(400).send("내용없음");
+    //링크를 클릭했을시 인증하는 코드
   },
 };
