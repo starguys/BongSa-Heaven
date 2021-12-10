@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import Recruiters from "../../components/Mypages/Recruiters";

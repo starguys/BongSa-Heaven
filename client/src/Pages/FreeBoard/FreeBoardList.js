@@ -110,13 +110,17 @@ export default function FreeBoardList({GoToFreeBoardContent, isLogin}) {
             {currentPosts &&
               currentPosts.length > 0 &&
               currentPosts.map(board =>
-                board.user_id.nickname == null ? (
+                board.user_id == null ? (
                   <Contents
                     key={board._id}
                     freeboard_id={board._id}
                     title={board.title}
-                    writer="탈퇴자"
-                    date={board.createdAt.slice(0, 10) + "  " + board.createdAt.slice(11, 19)}
+                    writer="회원탈퇴자"
+                    date={
+                      board.createdAt.slice(0, 10) +
+                      "  " +
+                      board.createdAt.slice(11, 19)
+                    }
                     GoToFreeBoardContent={GoToFreeBoardContent}
                   />
                 ) : (
@@ -125,7 +129,11 @@ export default function FreeBoardList({GoToFreeBoardContent, isLogin}) {
                     freeboard_id={board._id}
                     title={board.title}
                     writer={board.user_id.nickname}
-                    date={board.createdAt.slice(0, 10) + "  " + board.createdAt.slice(11, 19)}
+                    date={
+                      board.createdAt.slice(0, 10) +
+                      "  " +
+                      board.createdAt.slice(11, 19)
+                    }
                     GoToFreeBoardContent={GoToFreeBoardContent}
                   />
                 ),
@@ -133,7 +141,11 @@ export default function FreeBoardList({GoToFreeBoardContent, isLogin}) {
           </ContentsBox>
         </>
       )}
-      <Pagination postPerPage={postPerPage} totalPosts={freeBoardinfo.length} paginate={paginate} />
+      <Pagination
+        postPerPage={postPerPage}
+        totalPosts={freeBoardinfo.length}
+        paginate={paginate}
+      />
     </>
   );
 }

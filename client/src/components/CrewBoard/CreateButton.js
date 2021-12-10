@@ -85,11 +85,26 @@ export default function CreateButton(props) {
   const Cancel = url => history.push(url);
 
   const createFreeBoard = () => {
-    console.log("images", props.fileImage);
-    const formData = new FormData();
+    console.log("props.fileImage", props.fileImage);
 
-    formData.append("img", props.fileImage);
-    console.log("img", props.fileImage);
+    // const formData = new FormData();
+
+    // formData.append("image", props.fileImage);
+
+    // let variables = [
+    //   {
+    //     title: props.title,
+    //     shorts_description: props.hello,
+    //     description: props.description,
+    //   },
+    // ];
+
+    // formData.append(
+    //   "data",
+    //   new Blob([JSON.stringify(variables)], {type: "multipart/form-data"}),
+    // );
+
+    // console.log("formData", formData);
 
     if (props.description === "" || props.title === "" || props.hello === "") {
       alert("제목이나 인사말, 내용이 아무것도 없으면, 작성되지 않습니다.");
@@ -99,9 +114,15 @@ export default function CreateButton(props) {
       alert("봉사단 글 작성시, 대표하는 이미지 파일은 필수입니다!");
       return;
     }
+    // axios
+    //   .post("http://localhost:8080/image/register", formData)
+    //   .then(res => console.log(res))
+    //   .catch(err => console.log(err, "응안가"));
+
     axios
       .post(
         "http://localhost:8080/board/cbregister",
+        // formData,
         {
           title: props.title,
           shorts_description: props.hello,
@@ -130,7 +151,9 @@ export default function CreateButton(props) {
         </label>
       </ImgUploadBox>
       <SelectBox>
-        <CancelButton onClick={() => Cancel("/CrewBoardList")}>취소</CancelButton>
+        <CancelButton onClick={() => Cancel("/CrewBoardList")}>
+          취소
+        </CancelButton>
         <CompleteButton
           onClick={() => {
             createFreeBoard();
@@ -140,7 +163,16 @@ export default function CreateButton(props) {
         </CompleteButton>
       </SelectBox>
       {/* display:none 상태 */}
-      <ImgUpload id="imgUpload" onChange={saveFileImage} type="file" aceept="image/*" />
+      <form action="info" method="post" enctype="multipart/form-data">
+        <ImgUpload
+          id="imgUpload"
+          onChange={saveFileImage}
+          type="file"
+          name="file"
+          required="true"
+          accept="multipart/form-data"
+        />
+      </form>
       {/* display:none 상태 */}
     </>
   );

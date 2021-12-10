@@ -14,7 +14,11 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export default function CrewBoardContents({currentCBcontent, userId}) {
+export default function CrewBoardContents({
+  currentCBcontent,
+  userId,
+  GoToCrewBoardContent,
+}) {
   return (
     <>
       <Wrapper>
@@ -22,7 +26,10 @@ export default function CrewBoardContents({currentCBcontent, userId}) {
         <DesktopTitle title="모집글 보기" url="/CrewBoardList" />
         <Writing currentCBcontent={currentCBcontent} userId={userId} />
         <List backtoList="/CrewBoardList" />
-        <Comment currentCBcontent={currentCBcontent} />
+        <Comment
+          currentCBcontent={currentCBcontent}
+          GoToCrewBoardContent={GoToCrewBoardContent}
+        />
       </Wrapper>
     </>
   );

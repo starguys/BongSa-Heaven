@@ -236,7 +236,7 @@ module.exports = {
       const {freeboard_id, title, description} = req.body;
       const userData = isAuthorized(req, res);
       if (!userData) {
-        res.send({message: "싸장님은 게시글 수정 권한 없어!"});
+        res.status(401).send({message: "싸장님은 게시글 수정 권한 없어!"});
       }
       if (userData) {
         const edit = {
@@ -316,6 +316,13 @@ module.exports = {
     // 2. 유저가 아니라면 돌려보냄
     // 3. 유저라면 crew board에 모델 생성하고 req.body로 받은 데이터 등록
     //!추가한부분
+
+    // console.log("req.file", req.file);
+    // console.log("req.files", req.files);
+    // console.log("req.body.file", req.body.file);
+    // console.log("req.body.files", req.body.files);
+    // console.log("req.body.images", req.body.images);
+
     const image = req.files;
     // const path = image.map(img => img.location);
     //!
@@ -515,14 +522,16 @@ module.exports = {
     // 1. 인증
     // 2. 유저 아이디(토큰) + 게시글 아이디(바디)
     // 3. 수정
-    // //!추가한부분
-    // const image = req.files;
+
+    //!추가한부분
+    const image = req.files;
     // const path = image.map(img => img.location);
-    // //!
+    //!
+
     const {crewboard_id, title, shorts_description, description} = req.body;
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.send({message: "싸장님은 게시글 수정 권한 없어!"});
+      res.status(401).send({message: "싸장님은 게시글 수정 권한 없어!"});
     }
     if (userData) {
       const edit = {
@@ -553,7 +562,7 @@ module.exports = {
     // 3. db삭제
     const userData = isAuthorized(req, res);
     if (!userData) {
-      res.send({message: "싸장님은 게시글 수정 권한 없어!"});
+      res.status(401).send({message: "싸장님은 게시글 수정 권한 없어!"});
     }
     if (userData) {
       const deletecbcontent = await Crewboard.findById(req.body.crewboard_id);

@@ -16,9 +16,10 @@ const upload = multer({
     s3: s3,
     bucket: "fp-2",
     contentType: multerS3.AUTO_CONTENT_TYPE,
-    acl: "public-read-write",
+    acl: "public-read",
+
     key: (req, file, cb) => {
-      cb(null, `${Data.now()}${file.originalname}`);
+      cb(null, `uploads/${Date.now()}${file.originalname}`);
     },
   }),
 });

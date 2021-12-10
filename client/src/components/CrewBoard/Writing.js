@@ -155,7 +155,7 @@ const ContentsBoxDeleteButton = styled.div`
 `;
 
 export default function Writing({currentCBcontent, userId}) {
-  console.log("currentCBcontent.data.images", currentCBcontent.data.images);
+  // console.log("currentCBcontent.data.images", currentCBcontent.data.images);
   const history = useHistory();
 
   const Gotoedit = () => history.push("/CrewBoardEdit");
@@ -173,25 +173,50 @@ export default function Writing({currentCBcontent, userId}) {
               <ContentsBoxTitle>{currentCBcontent.data.title}</ContentsBoxTitle>
             </ContentsBoxTitleBox>
             <ContentsBoxWriterBox>
-              <ContentsBoxWriter>{currentCBcontent.data.user_id.nickname}</ContentsBoxWriter>
+              {currentCBcontent.data.user_id == null ? (
+                <ContentsBoxWriter>회원탈퇴자</ContentsBoxWriter>
+              ) : (
+                <ContentsBoxWriter>
+                  {currentCBcontent.data.user_id.nickname}
+                </ContentsBoxWriter>
+              )}
               <IconBox>
-                <FontAwesomeIcon icon={faPaperPlane} onClick={GotoMailWrite} />
+                {currentCBcontent.data.user_id == null ? null : (
+                  <FontAwesomeIcon
+                    icon={faPaperPlane}
+                    onClick={GotoMailWrite}
+                  />
+                )}
               </IconBox>
               <ContentsBoxAdjustBox>
-                {userId === currentCBcontent.data.user_id._id ? (
-                  <ContentsBoxAdjust onClick={Gotoedit}>수정하기</ContentsBoxAdjust>
+                {currentCBcontent.data.user_id == null ? null : userId ===
+                  currentCBcontent.data.user_id._id ? (
+                  <ContentsBoxAdjust onClick={Gotoedit}>
+                    수정하기
+                  </ContentsBoxAdjust>
                 ) : null}
               </ContentsBoxAdjustBox>
             </ContentsBoxWriterBox>
-            <ContentsBoxContents>{currentCBcontent.data.description}</ContentsBoxContents>
+            <ContentsBoxContents>
+              {currentCBcontent.data.description}
+            </ContentsBoxContents>
             <ContentsBoxImgBox>
-              {currentCBcontent.data.images === undefined ? <></> : <Img src={currentCBcontent.data.images} />}
+              {currentCBcontent.data.images === undefined ? (
+                <></>
+              ) : (
+                <Img src={currentCBcontent.data.images} />
+              )}
             </ContentsBoxImgBox>
             <ContentsBoxDeleteBox>
-              {userId === currentCBcontent.data.user_id._id ? (
+              {currentCBcontent.data.user_id == null ? null : userId ===
+                currentCBcontent.data.user_id._id ? (
                 <>
-                  <ContentsBoxAdjust2 onClick={Gotoedit}>수정</ContentsBoxAdjust2>
-                  <ContentsBoxDeleteButton onClick={Gotodelete}>삭제</ContentsBoxDeleteButton>
+                  <ContentsBoxAdjust2 onClick={Gotoedit}>
+                    수정
+                  </ContentsBoxAdjust2>
+                  <ContentsBoxDeleteButton onClick={Gotodelete}>
+                    삭제
+                  </ContentsBoxDeleteButton>
                 </>
               ) : null}
             </ContentsBoxDeleteBox>
