@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useHistory} from "react-router";
+import {useDispatch, useSelector} from "react-redux";
+
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import MaillList from "../../components/Mypages/MaillList";
+import {resetList} from "../../modules/mailDeleteList";
 
 const MaillTitleContainer = styled.div`
   margin-top: 27px;
@@ -120,14 +123,41 @@ const WebMaillContainerDiv = styled.div`
     margin-left: 8%;
   }
 `;
+const MaillListEmptyContainer = styled.div`
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const MaillListEmptyDiv = styled.div`
+  width: 60%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0px 2px 11px 4px rgba(0, 0, 0, 0.05);
+`;
+
 export default function UserMaill() {
   const history = useHistory();
+  const dispatch = useDispatch();
+  // const cookies = new Cookies();
+
+  const deleteList = useSelector(state => state.mailDeleteList);
   const [mailList, setMailList] = useState([]);
   const [checkList, setCheckList] = useState([]);
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [reload, setReload] = useState(false);
+  console.log(deleteList);
 
   useEffect(() => {
+    setTimeout(() => {
+      dispatch(resetList());
+    }, 100);
     axios
       .get("http://localhost:8080/mail/maillist", {
         headers: {
@@ -138,7 +168,7 @@ export default function UserMaill() {
       .then(res => {
         setMailList(res.data.data);
       });
-  }, []);
+  }, [reload]);
 
   const GoMaillWrite = () => {
     history.push("/MaillWrite");
@@ -165,7 +195,29 @@ export default function UserMaill() {
   const unCheckId = id => {};
 
   const handleDelete = () => {
-    console.log("check", checkList);
+    deleteList.forEach(el => {
+      console.log(el);
+
+      axios
+        .delete("http://localhost:8080/mail/maildelete", {
+          data: {
+            mail_id: el,
+          },
+
+          headers: {
+            authorization: `Bearer ` + localStorage.getItem("accessToken"),
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        })
+        .then(res => {
+          console.log(res.status);
+          setReload(!reload);
+        })
+        .catch(res => {
+          console.log("err", res);
+        });
+    });
   };
 
   return (
@@ -179,7 +231,11 @@ export default function UserMaill() {
       </MaillTitleContainer>
       <MaillDeleteContainer>
         <MaillDeleteContainerDiv>
-          <MaillDeleteInput type="checkbox" checked={isAllChecked} onChange={handleAllChecked} />
+          <MaillDeleteInput
+            type="checkbox"
+            checked={isAllChecked}
+            onChange={handleAllChecked}
+          />
           <MaillDeleteBtn onClick={handleDelete}>삭제</MaillDeleteBtn>
         </MaillDeleteContainerDiv>
       </MaillDeleteContainer>
@@ -194,6 +250,11 @@ export default function UserMaill() {
               handleUnCheckList={handleUnCheckList}
             />
           ))}
+          {mailList.length === 0 ? (
+            <MaillListEmptyContainer>
+              <MaillListEmptyDiv>받은 쪽지가 없습니다</MaillListEmptyDiv>
+            </MaillListEmptyContainer>
+          ) : null}
         </WebMaillContainerDiv>
       </WebMaillContainer>
     </>

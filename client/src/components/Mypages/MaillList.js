@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
 import styled from "styled-components";
+import {addList, deleteList} from "../../modules/mailDeleteList";
 
 const MaillContentsComponent = styled.div`
   margin-top: 21px;
@@ -74,16 +76,26 @@ const MaillCOntentsMainText = styled.div`
     color: #000000;
   }
 `;
-export default function MaillList({list, handleCheckList, handleUnCheckList, isChecked}) {
+export default function MaillList({
+  list,
+  handleCheckList,
+  handleUnCheckList,
+  isChecked,
+}) {
   const [checked, setChecked] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     setChecked(isChecked);
     const id = list._id;
-    // if (checked) {
-    //   handleCheckList(id);
-    // } else {
-    //   handleUnCheckList(id);
-    // }
+    if (!checked) {
+      handleCheckList(id);
+      dispatch(addList(id));
+      console.log(id);
+    } else {
+      console.log("delete id");
+      handleUnCheckList(id);
+      dispatch(deleteList(id));
+    }
   }, [isChecked]);
 
   const handleCheckd = () => {
@@ -91,8 +103,12 @@ export default function MaillList({list, handleCheckList, handleUnCheckList, isC
     const id = list._id;
     if (!checked) {
       handleCheckList(id);
+      dispatch(addList(id));
+      console.log(id);
     } else {
+      console.log("delete id");
       handleUnCheckList(id);
+      dispatch(deleteList(id));
     }
   };
 
@@ -101,7 +117,11 @@ export default function MaillList({list, handleCheckList, handleUnCheckList, isC
       <MaillContentsComponent>
         <MaillContentsUserName>{list.writer_nickname}</MaillContentsUserName>
         <MaillContentsMain>
-          <MaillContentsMainInput type="checkbox" checked={checked} onChange={handleCheckd} />
+          <MaillContentsMainInput
+            type="checkbox"
+            checked={checked}
+            onChange={handleCheckd}
+          />
           <MaillCOntentsMainText>{list.text}</MaillCOntentsMainText>
         </MaillContentsMain>
       </MaillContentsComponent>
