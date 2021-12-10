@@ -58,6 +58,13 @@ const FooterGrid3Span = styled.span`
 
 const FooterPosition = styled.div``;
 
+const FooterContainer = styled.div`
+  background: #f1f1f1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
 export default function Footer({isLogin, setIsLogin, setIsUserLogin}) {
   const history = useHistory();
 
@@ -114,41 +121,42 @@ export default function Footer({isLogin, setIsLogin, setIsUserLogin}) {
             로그인
           </LogInOut>
         )}
-
-        <div id="footer_div">
-          <div id="footer_leftbox">
-            <div className="footer_gitid1 footer_font">
-              <FooterTeam>
-                <FooterImg src="/image/logo2.png" />
-                <FooterTeamName>봉사천국</FooterTeamName>
-              </FooterTeam>
-              <FooterGrid1Span>
-                <a href="https://github.com/changmoolee" className="GitIcon">
-                  <FontAwesomeIcon icon={faGithub} /> - changmoolee
+        <FooterContainer>
+          <div id="footer_div">
+            <div id="footer_leftbox">
+              <div className="footer_gitid1 footer_font">
+                <FooterTeam>
+                  <FooterImg src="/image/logo2.png" />
+                  <FooterTeamName>봉사천국</FooterTeamName>
+                </FooterTeam>
+                <FooterGrid1Span>
+                  <a href="https://github.com/changmoolee" className="GitIcon">
+                    <FontAwesomeIcon icon={faGithub} /> - changmoolee
+                  </a>
+                </FooterGrid1Span>
+              </div>
+              <div className="footer_gitid2 footer_font">
+                <a href="https://github.com/dpemdnjem23" className="GitIcon">
+                  <FontAwesomeIcon icon={faGithub} /> - dpemdnjem23
                 </a>
-              </FooterGrid1Span>
+              </div>
             </div>
-            <div className="footer_gitid2 footer_font">
-              <a href="https://github.com/dpemdnjem23" className="GitIcon">
-                <FontAwesomeIcon icon={faGithub} /> - dpemdnjem23
-              </a>
+            <div id="footer_rightbox">
+              <div className="footer_gitid3 footer_font">
+                <FooterGrid3Span>
+                  <a href="https://github.com/nkimtnt" className="GitIcon">
+                    <FontAwesomeIcon icon={faGithub} /> - kimvayne
+                  </a>
+                </FooterGrid3Span>
+              </div>
+              <div className="footer_gitid4 footer_font">
+                <a href="https://github.com/starguys" className="GitIcon">
+                  <FontAwesomeIcon icon={faGithub} /> - starguys
+                </a>
+              </div>
             </div>
           </div>
-          <div id="footer_rightbox">
-            <div className="footer_gitid3 footer_font">
-              <FooterGrid3Span>
-                <a href="https://github.com/nkimtnt" className="GitIcon">
-                  <FontAwesomeIcon icon={faGithub} /> - kimvayne
-                </a>
-              </FooterGrid3Span>
-            </div>
-            <div className="footer_gitid4 footer_font">
-              <a href="https://github.com/starguys" className="GitIcon">
-                <FontAwesomeIcon icon={faGithub} /> - starguys
-              </a>
-            </div>
-          </div>
-        </div>
+        </FooterContainer>
       </FooterPosition>
     </>
   );
