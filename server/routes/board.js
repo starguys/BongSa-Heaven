@@ -13,18 +13,10 @@ router.get("/cblist", controller.cblistControl);
 router.post("/cbinfo", controller.cbinfoControl);
 router.patch("/cbedit", controller.cbeditControl);
 router.delete("/cbdelete", controller.cbdeleteControl);
-<<<<<<< HEAD
 
 router.post("/freelike", controller.freelikeControl);
 router.post("/freedislike", controller.freedislikeControl);
-router.post("/crewlike", controller.freelikeControl);
-router.post("/crewdislike", controller.crewdislikeControl);
-=======
-
-router.post("/freelike", controller.freelikeControl);
-router.post("/freedislike", controller.freedislikeControl);
-router.post("/crewlike", controller.freelikeControl);
+router.post("/crewlike", controller.crewlikeControl);
 router.post("/crewdislike", controller.crewdislikeControl);
 
->>>>>>> 35a290e28b35ffc93621a52f7a26c2ef9ba54e72
 module.exports = router;

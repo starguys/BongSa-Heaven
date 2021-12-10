@@ -20,7 +20,6 @@ module.exports = {
       const image = req.files;
       const path = image.map(img => img.location);
       //!
-
       const userData = isAuthorized(req, res);
       if (!userData) {
         return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
@@ -75,20 +74,37 @@ module.exports = {
     const userData = isAuthorized(req, res);
     if (userData) {
       console.log("===userData.user_id===", userData.user_id);
+      const fbData = await Freeboard.find({
+        like: {$ne: new ObjectId(userData.user_id)},
+      })
+        .select({like: 1, title: 1, createdAt: 1, like_count: 1})
+        .populate({path: "user_id", select: {nickname: 1}})
+        .sort({createdAt: -1});
+      console.log("===fbData===", fbData);
       const checkLike = await Freeboard.aggregate([
         {
           $match: {like: new ObjectId(userData.user_id)},
         },
         {$set: {is_like: true}},
-
         {$sort: {createdAt: -1}},
       ]).exec(function (err, data) {
         Freeboard.populate(
           data,
           {path: "user_id", select: {nickname: 1}},
-          function (err, pupulData) {
-            console.log("===pupulData===", pupulData);
-            return res.send("err");
+          function (err, likeData) {
+            console.log("===likeData===", likeData);
+            console.log("===err===", err); //! 지우지 마시오 => 에러 콜백 함수
+            const fullData = likeData.concat(fbData).sort(function (a, b) {
+              a = new Date(a.createdAt);
+              b = new Date(b.createdAt);
+              return a > b ? -1 : a < b ? 1 : 0;
+            });
+            console.log("===fullData===", fullData);
+            return res.status(200).send({
+              data: fullData,
+              message: "싸장님만의 리스트야!",
+              fbTopThree: fbTopThree,
+            });
           },
         );
       });
@@ -168,13 +184,11 @@ module.exports = {
             path: "freecomments.user_id",
             select: {nickname: 1},
           });
-        res
-          .status(200)
-          .send({
-            data: fbcontent,
-            message: "싸장님~ 자세한 게시글 보는구나!",
-            is_like: is_like,
-          });
+        res.status(200).send({
+          data: fbcontent,
+          message: "싸장님~ 자세한 게시글 보는구나!",
+          is_like: is_like,
+        });
       }
     } else {
       const fbcontent = await Freeboard.findById(req.body.freeboard_id)
@@ -355,7 +369,7 @@ module.exports = {
         _id: req.body.crewboard_id,
         like: userData.user_id,
       });
-      console.log("===checkLike===", checkLike);
+      // console.log("===checkLike===", checkLike);
       if (checkLike === null) {
         const cbcontent = await Crewboard.findById(req.body.crewboard_id)
           .select({
@@ -412,13 +426,11 @@ module.exports = {
             path: "crewcomments.user_id",
             select: {nickname: 1},
           });
-        res
-          .status(200)
-          .send({
-            data: cbcontent,
-            message: "싸장님~ 자세한 게시글 보는구나!",
-            is_like: is_like,
-          });
+        res.status(200).send({
+          data: cbcontent,
+          message: "싸장님~ 자세한 게시글 보는구나!",
+          is_like: is_like,
+        });
       }
     } else {
       const cbcontent = await Crewboard.findById(req.body.crewboard_id)
