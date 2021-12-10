@@ -1,7 +1,7 @@
 /* global kakao */
 import Axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useHistory} from "react-router-dom";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 
@@ -26,7 +26,7 @@ export default function KakaoMap() {
     let options = {
       center: new window.kakao.maps.LatLng(
         37.49683356605109,
-        127.02567025989426
+        127.02567025989426,
       ),
       level: 6,
     };
@@ -40,8 +40,10 @@ export default function KakaoMap() {
     let positions = [{}];
 
     Axios.get("http://localhost:8080/map/info")
-      .then((res) => {
+      .then(res => {
         // console.log(res.data);
+        if (res.data.user_id === null) return (positions = []);
+
         for (let i = 0; i < res.data.length; i++) {
           positions.push({
             title: res.data[i].user_id.nickname,
@@ -52,17 +54,17 @@ export default function KakaoMap() {
           });
         }
       })
-      .then((res) => {
+      .then(res => {
         for (let i = 1; i < positions.length; i++) {
           console.log(positions[i], i);
           let imageSrc = "https://ifh.cc/g/u788hh.png", // 마커이미지의 주소입니다
             imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-            imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+            imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
           let markerImage = new kakao.maps.MarkerImage(
             imageSrc,
             imageSize,
-            imageOption
+            imageOption,
           );
           //마커를 찍는다.
           let marker = new kakao.maps.Marker({
@@ -98,7 +100,7 @@ export default function KakaoMap() {
           contentBtn.onclick = function () {
             history.push({
               pathname: "/maillwrite",
-              state: { positions: positions[i] },
+              state: {positions: positions[i]},
             });
           };
 

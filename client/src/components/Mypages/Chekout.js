@@ -22,7 +22,7 @@ const SelectBox = styled.div`
   width: 100%;
   margin: 15px 0px 15px 0px;
 `;
-const SpendBtn = styled.div`
+const DeleteButton = styled.div`
   background-color: #ff7676;
   color: white;
   display: flex;
@@ -68,33 +68,46 @@ export default function Check({contents, leftBtn}) {
   const Cancel = () => history.goBack();
   const userWithdrawalHandler = props => {
     // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
-    console.log(name);
-    console.log(text);
+    console.log("삭제클릭");
     axios
-      .post(
-        "http://localhost:8080/mail/mailregister",
-        {text: text, nickname: name},
+      .delete(
+        "http://localhost:8080/user/withdrawal",
+
         {
           headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            "Content-Type": "applicaton/json",
           },
         },
       )
       .then(res => {
+        // 쿠키삭제, accesstoken삭제
+        const deleteCookie = function (name) {
+          document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
+        };
+        deleteCookie("refreshToken");
+        localStorage.clear();
+        props.setIsLogin(false);
         history.push("/");
       })
       .catch(err => {
-        console.log("err");
+        console.log(err);
       });
   };
+  console.log(name);
+  console.log(text);
+
+  // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
 
   return (
     <>
       <DeleteBoxTitleBox>{contents}</DeleteBoxTitleBox>
       <SelectBox>
-        <SpendBtn onClick={userWithdrawalHandler}>{leftBtn}</SpendBtn>
+        <DeleteButton onClick={userWithdrawalHandler}>{leftBtn}</DeleteButton>
         <CancelButton onClick={() => Cancel()}>취소</CancelButton>
+
+        <span>Name:{name}</span>
+        <span>Text:{text}</span>
       </SelectBox>
     </>
   );

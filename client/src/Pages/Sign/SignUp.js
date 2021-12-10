@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import Header2 from "../../components/common/Header2";
 import axios from "axios";
 const Header = styled.div`
@@ -45,7 +45,7 @@ const SelectBox = styled.div`
   height: 90vh;
 `;
 const GeneralButton = styled.div`
-  background-color: #4af197;
+  background-color: rgba(74, 241, 151, 0.6);
   color: black;
   display: flex;
   flex-direction: column;
@@ -53,6 +53,14 @@ const GeneralButton = styled.div`
   width: 75vw;
   height: 20vh;
   cursor: pointer;
+
+  @media screen and (min-width: 37.5rem) {
+    width: 1080px;
+    &:hover {
+      background-color: #4af197;
+      transition: 1s;
+    }
+  }
 `;
 const GeneralButtonTitle = styled.div`
   color: black;
@@ -72,7 +80,7 @@ const GeneralButtonSubtitle = styled.div`
 `;
 
 const RecruiterButton = styled.div`
-  background-color: #bb7bfc;
+  background-color: rgba(187, 123, 252, 0.6);
   color: white;
   display: flex;
   flex-direction: column;
@@ -81,6 +89,13 @@ const RecruiterButton = styled.div`
   height: 20vh;
   margin-top: 10vh;
   cursor: pointer;
+  @media screen and (min-width: 37.5rem) {
+    width: 1080px;
+    &:hover {
+      background-color: #bb7bfc;
+      transition: 1s;
+    }
+  }
 `;
 const RecruiterButtonTitle = styled.div`
   color: white;
