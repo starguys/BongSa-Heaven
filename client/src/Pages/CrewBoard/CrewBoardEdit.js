@@ -119,7 +119,10 @@ const Img = styled.img`
   border-radius: 10px;
 `;
 
-export default function CrewBoardEdit({currentCBcontent}) {
+export default function CrewBoardEdit({
+  currentCBcontent,
+  GoToCrewBoardContent,
+}) {
   let title = "",
     description = "",
     hello = "";
@@ -166,10 +169,10 @@ export default function CrewBoardEdit({currentCBcontent}) {
       return;
     }
 
-    // if ( fileImage === "") {
-    //   alert("대표 이미지 파일이 없으면, 수정되지 않습니다.");
-    //   return;
-    // }
+    if (fileImage === "") {
+      alert("대표 이미지 파일이 없으면, 수정되지 않습니다.");
+      return;
+    }
 
     axios
       .patch(
@@ -190,12 +193,14 @@ export default function CrewBoardEdit({currentCBcontent}) {
       )
       .then(res => {
         console.log(res.data.message);
+        GoToCrewBoardContent(currentCBcontent.data._id);
       })
       .catch(err => console.log(err));
   };
 
   useEffect(() => {
-    if (currentCBcontent.data !== undefined) setFileImage(currentCBcontent.data.image);
+    if (currentCBcontent.data !== undefined)
+      setFileImage(currentCBcontent.data.image);
     // console.log(currentCBcontent.data._id, editedTitle, editedDescription, fileImage);
   }, []);
 
@@ -206,7 +211,11 @@ export default function CrewBoardEdit({currentCBcontent}) {
           <Wrapper>
             <Header2 componentName="글 수정하기" />
             <DesktopTitle title="글 수정하기" />
-            <EditButton2 create="/CrewBoardList" cancel="/CrewBoardList" setFileImage={setFileImage} />
+            <EditButton2
+              create="/CrewBoardList"
+              cancel="/CrewBoardList"
+              setFileImage={setFileImage}
+            />
             <ContentsBox>
               <ContentsBoxTitleBox>
                 <ContentsBoxTitle

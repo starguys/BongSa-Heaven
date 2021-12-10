@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import createBrowserHistory from "history/createBrowserHistory";
+import {useHistory} from "react-router";
 
 const ImgUploadBox = styled.div`
   display: flex;
@@ -79,7 +79,8 @@ export default function EditButton(props) {
     props.setFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
-  const history = createBrowserHistory({forceRefresh: true});
+  // const history = createBrowserHistory({forceRefresh: true});
+  const history = useHistory();
   const Edit = url => history.push(url);
   const Cancel = url => history.push(url);
 
@@ -102,7 +103,12 @@ export default function EditButton(props) {
         </CompleteButton>
       </SelectBox>
       {/* display:none 상태 */}
-      <ImgUpload id="imgUpload" onChange={saveFileImage} type="file" aceept="image/*" />
+      <ImgUpload
+        id="imgUpload"
+        onChange={saveFileImage}
+        type="file"
+        aceept="image/*"
+      />
       {/* display:none 상태 */}
     </>
   );

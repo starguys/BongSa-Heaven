@@ -174,25 +174,50 @@ export default function Writing({currentFBcontent, userId}) {
               <ContentsBoxTitle>{currentFBcontent.data.title}</ContentsBoxTitle>
             </ContentsBoxTitleBox>
             <ContentsBoxWriterBox>
-              <ContentsBoxWriter>{currentFBcontent.data.user_id.nickname}</ContentsBoxWriter>
+              {currentFBcontent.data.user_id == null ? (
+                <ContentsBoxWriter>회원탈퇴자</ContentsBoxWriter>
+              ) : (
+                <ContentsBoxWriter>
+                  {currentFBcontent.data.user_id.nickname}
+                </ContentsBoxWriter>
+              )}
               <IconBox>
-                <FontAwesomeIcon icon={faPaperPlane} onClick={GotoMailWrite} />
+                {currentFBcontent.data.user_id == null ? null : (
+                  <FontAwesomeIcon
+                    icon={faPaperPlane}
+                    onClick={GotoMailWrite}
+                  />
+                )}
               </IconBox>
               <ContentsBoxAdjustBox>
-                {userId === currentFBcontent.data.user_id._id ? (
-                  <ContentsBoxAdjust onClick={Gotoedit}>수정하기</ContentsBoxAdjust>
+                {currentFBcontent.data.user_id == null ? null : userId ===
+                  currentFBcontent.data.user_id._id ? (
+                  <ContentsBoxAdjust onClick={Gotoedit}>
+                    수정하기
+                  </ContentsBoxAdjust>
                 ) : null}
               </ContentsBoxAdjustBox>
             </ContentsBoxWriterBox>
-            <ContentsBoxContents>{currentFBcontent.data.description}</ContentsBoxContents>
+            <ContentsBoxContents>
+              {currentFBcontent.data.description}
+            </ContentsBoxContents>
             <ContentsBoxImgBox>
-              {currentFBcontent.data.images === undefined ? <></> : <Img src={currentFBcontent.data.images} />}
+              {currentFBcontent.data.images === undefined ? (
+                <></>
+              ) : (
+                <Img src={currentFBcontent.data.images} />
+              )}
             </ContentsBoxImgBox>
             <ContentsBoxDeleteBox>
-              {userId === currentFBcontent.data.user_id._id ? (
+              {currentFBcontent.data.user_id == null ? null : userId ===
+                currentFBcontent.data.user_id._id ? (
                 <>
-                  <ContentsBoxAdjust2 onClick={Gotoedit}>수정</ContentsBoxAdjust2>
-                  <ContentsBoxDeleteButton onClick={Gotodelete}>삭제</ContentsBoxDeleteButton>
+                  <ContentsBoxAdjust2 onClick={Gotoedit}>
+                    수정
+                  </ContentsBoxAdjust2>
+                  <ContentsBoxDeleteButton onClick={Gotodelete}>
+                    삭제
+                  </ContentsBoxDeleteButton>
                 </>
               ) : null}
             </ContentsBoxDeleteBox>

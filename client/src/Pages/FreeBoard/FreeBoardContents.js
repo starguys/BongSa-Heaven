@@ -14,7 +14,11 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export default function FreeBoardContents({currentFBcontent, userId}) {
+export default function FreeBoardContents({
+  currentFBcontent,
+  userId,
+  GoToFreeBoardContent,
+}) {
   return (
     <>
       <Wrapper>
@@ -22,7 +26,10 @@ export default function FreeBoardContents({currentFBcontent, userId}) {
         <DesktopTitle title="게시글 보기" url="/FreeBoardList" />
         <Writing currentFBcontent={currentFBcontent} userId={userId} />
         <List backtoList="/FreeBoardList" />
-        <Comment currentFBcontent={currentFBcontent} />
+        <Comment
+          currentFBcontent={currentFBcontent}
+          GoToFreeBoardContent={GoToFreeBoardContent}
+        />
       </Wrapper>
     </>
   );

@@ -75,6 +75,9 @@ const Img = styled.img`
 `;
 
 export default function CrewBoardCreate() {
+  // const multer = require("multer");
+  // const upload = multer({dest: "uploads/"});
+
   const [title, setTitle] = useState("");
   const [hello, setHello] = useState("");
   const [description, setDescription] = useState("");
@@ -101,7 +104,10 @@ export default function CrewBoardCreate() {
         <Input2 text="봉사단 한줄 소개글" setHello={setHello} hello={hello} />
         <CreateBox>
           <CreateBoxContentsBox>
-            <CreateBoxContents placeholder="내용을 입력해주세요." onChange={inputHandler} />
+            <CreateBoxContents
+              placeholder="내용을 입력해주세요."
+              onChange={inputHandler}
+            />
           </CreateBoxContentsBox>
           <ContentsBoxImgBox>
             <Img src={previewFileImage} alt="수정할 이미지 자리" />

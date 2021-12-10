@@ -1,6 +1,6 @@
-const freeBoard = require('../models/Freeboard');
-const crewBoard = require('../models/Crewboard');
-const user = require('../models/User');
+const freeBoard = require("../models/Freeboard");
+const crewBoard = require("../models/Crewboard");
+const user = require("../models/User");
 module.exports = {
   registerControl: async (req, res) => {
     //db에 img url을 넣는다.
@@ -17,7 +17,7 @@ module.exports = {
     console.log(path);
 
     if (image === undefined) {
-      return res.status(400).send('이미지가 존재하지 않습니다.');
+      return res.status(400).send("이미지가 존재하지 않습니다.");
     }
 
     //게시물을 만들때 함께 적용한다.board가
@@ -29,7 +29,7 @@ module.exports = {
       .save()
       .then(data => {
         if (!res) {
-          return res.status(500).send('서버 문제');
+          return res.status(500).send("서버 문제");
         }
         return res.status(200).send(data);
       })

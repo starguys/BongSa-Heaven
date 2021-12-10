@@ -83,7 +83,10 @@ const Img = styled.img`
   border-radius: 10px;
 `;
 
-export default function FreeBoardEdit({currentFBcontent, GoToFreeBoardContent}) {
+export default function FreeBoardEdit({
+  currentFBcontent,
+  GoToFreeBoardContent,
+}) {
   let title = "",
     description = "";
   if (currentFBcontent.data !== undefined) {
@@ -134,8 +137,14 @@ export default function FreeBoardEdit({currentFBcontent, GoToFreeBoardContent}) 
   };
 
   useEffect(() => {
-    if (currentFBcontent.data !== undefined) setFileImage(currentFBcontent.data.image);
-    console.log(currentFBcontent.data._id, editedTitle, editedDescription, fileImage);
+    if (currentFBcontent.data !== undefined)
+      setFileImage(currentFBcontent.data.image);
+    console.log(
+      currentFBcontent.data._id,
+      editedTitle,
+      editedDescription,
+      fileImage,
+    );
   }, []);
 
   // console.log(currentFBcontent.data);
@@ -146,7 +155,11 @@ export default function FreeBoardEdit({currentFBcontent, GoToFreeBoardContent}) 
           <Wrapper>
             <Header2 componentName="글 수정하기" />
             <DesktopTitle title="글 수정하기" />
-            <EditButton2 create="/CrewBoardList" cancel="/CrewBoardList" setFileImage={setFileImage} />
+            <EditButton2
+              create="/CrewBoardList"
+              cancel="/CrewBoardList"
+              setFileImage={setFileImage}
+            />
             <ContentsBox>
               <ContentsBoxTitleBox>
                 <ContentsBoxTitle
