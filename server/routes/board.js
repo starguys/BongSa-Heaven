@@ -16,6 +16,7 @@ router.delete("/cbdelete", controller.cbdeleteControl);
 
 router.post("/freelike", controller.freelikeControl);
 router.post("/freedislike", controller.freedislikeControl);
-router.post("/crewlike", controller.freelikeControl);
+router.post("/crewlike", controller.crewlikeControl);
 router.post("/crewdislike", controller.crewdislikeControl);
+
 module.exports = router;
