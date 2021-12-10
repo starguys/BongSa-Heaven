@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
-import styled from 'styled-components';
-import Header2 from '../../components/common/Header2';
-import Recruiters from '../../components/Mypages/Recruiters';
-import RecruiterDummy from '../../dummy/RecruiterDummy';
+import styled from "styled-components";
+import Header2 from "../../components/common/Header2";
+import Recruiters from "../../components/Mypages/Recruiters";
 
 const TopSpace = styled.div`
   height: 43px;
@@ -23,10 +22,10 @@ export default function SeeRecruiter() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/user/list', {
+      .get("http://localhost:8080/user/list", {
         headers: {
-          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'applicaton/json',
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "applicaton/json",
         },
       })
       .then(res => {
@@ -36,7 +35,7 @@ export default function SeeRecruiter() {
 
   return (
     <>
-      <Header2 componentName={'봉사 모집자 보기'} />
+      <Header2 componentName={"봉사 모집자 보기"} />
       <TopSpace></TopSpace>
       <SeeContainer>
         {recruiterList.map((list, idx) => (

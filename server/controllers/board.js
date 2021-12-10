@@ -1,6 +1,5 @@
 require("dotenv").config();
 const Freeboard = require("../models/Freeboard");
-
 const Crewboard = require("../models/Crewboard");
 const Mongoose = require("mongoose");
 const ObjectId = Mongoose.Types.ObjectId;
@@ -108,7 +107,6 @@ module.exports = {
           },
         );
       });
-      // return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
     }
     if (!userData) {
       const fbcontents = await Freeboard.find({})
@@ -191,33 +189,38 @@ module.exports = {
         });
       }
     } else {
-      const fbcontent = await Freeboard.findById(req.body.freeboard_id)
-        .select({
-          like: 1,
-          title: 1,
-          images: 1,
-          description: 1,
-          freecomments: 1,
-          createdAt: 1,
-        })
-        .populate({path: "user_id", select: {nickname: 1}})
-        .sort({createdAt: -1})
-        .select({
-          freecomments: {
-            _id: 1,
-            user_id: 1,
-            comment: 1,
-            nickname: 1,
+      const fbcontent = await Freeboard.findById(req.body.freeboard_id);
+      if (!fbcontent) {
+        return res.status(400).send({message: "존재하지 않는 게시물입니다!"});
+      } else {
+        await Freeboard.findById(req.body.freeboard_id)
+          .select({
+            like: 1,
+            title: 1,
+            images: 1,
+            description: 1,
+            freecomments: 1,
             createdAt: 1,
-          },
-        })
-        .populate({
-          path: "freecomments.user_id",
-          select: {nickname: 1},
-        });
-      res
-        .status(200)
-        .send({data: fbcontent, message: "싸장님~ 자세한 게시글 보는구나!"});
+          })
+          .populate({path: "user_id", select: {nickname: 1}})
+          .sort({createdAt: -1})
+          .select({
+            freecomments: {
+              _id: 1,
+              user_id: 1,
+              comment: 1,
+              nickname: 1,
+              createdAt: 1,
+            },
+          })
+          .populate({
+            path: "freecomments.user_id",
+            select: {nickname: 1},
+          });
+        res
+          .status(200)
+          .send({data: fbcontent, message: "싸장님~ 자세한 게시글 보는구나!"});
+      }
     }
   },
 
@@ -340,22 +343,59 @@ module.exports = {
   cblistControl: async (req, res) => {
     // 1. db상에 존재하는 모든 free board 글들을 찾아서 보내줌 (모두 이용 가능)
     // +@ 만일 토큰이 있어서 유저라면 좋아요 한 게시글인지 아닌지 여부도 보내주기
+    // +@ 좋아요 1.2.3 등 게시물 뿌리기
+
+    const cbTopThree = await Crewboard.find({})
+      .sort({like_count: -1})
+      .limit(3)
+      .select({like: 1, title: 1, createdAt: 1, like_count: 1, images: 1})
+      .populate({path: "user_id", select: {nickname: 1}})
+      .sort({createdAt: -1});
+
     const userData = isAuthorized(req, res);
     if (userData) {
-      return res.status(401).send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+      console.log("===userData.user_id===", userData.user_id);
+      const cbData = await Crewboard.find({
+        like: {$ne: new ObjectId(userData.user_id)},
+      })
+        .select({like: 1, title: 1, createdAt: 1, like_count: 1, images: 1})
+        .populate({path: "user_id", select: {nickname: 1}})
+        .sort({createdAt: -1});
+      console.log("===cbData===", cbData);
+      const checkLike = await Crewboard.aggregate([
+        {
+          $match: {like: new ObjectId(userData.user_id)},
+        },
+        {$set: {is_like: true}},
+        {$sort: {createdAt: -1}},
+      ]).exec(function (err, data) {
+        Crewboard.populate(
+          data,
+          {path: "user_id", select: {nickname: 1}},
+          function (err, likeData) {
+            console.log("===likeData===", likeData);
+            console.log("===err===", err); //! 지우지 마시오 => 에러 콜백 함수
+            const fullData = likeData.concat(cbData).sort(function (a, b) {
+              a = new Date(a.createdAt);
+              b = new Date(b.createdAt);
+              return a > b ? -1 : a < b ? 1 : 0;
+            });
+            console.log("===fullData===", fullData);
+            return res.status(200).send({
+              data: fullData,
+              message: "싸장님만의 리스트야!",
+              cbTopThree: cbTopThree,
+            });
+          },
+        );
+      });
     }
     if (!userData) {
       const cbcontents = await Crewboard.find({})
-        .select({
-          like: 1,
-          title: 1,
-          shorts_description: 1,
-          createdAt: 1,
-          images: 1,
-        })
+        .select({like: 1, title: 1, createdAt: 1, like_count: 1, images: 1})
         .populate({path: "user_id", select: {nickname: 1}})
         .sort({createdAt: -1});
-      res.status(200).send({data: cbcontents});
+      res.status(200).send({data: cbcontents, cbTopThree});
     }
   },
 
@@ -433,34 +473,41 @@ module.exports = {
         });
       }
     } else {
-      const cbcontent = await Crewboard.findById(req.body.crewboard_id)
-        .select({
-          like: 1,
-          title: 1,
-          images: 1,
-          shorts_description: 1,
-          description: 1,
-          crewcomments: 1,
-          createdAt: 1,
-        })
-        .populate({path: "user_id", select: {nickname: 1}})
-        .sort({createdAt: -1})
-        .select({
-          crewcomments: {
-            _id: 1,
-            user_id: 1,
-            comment: 1,
-            nickname: 1,
+      const cbcontent = await Crewboard.findById(req.body.crewboard_id);
+
+      if (!cbcontent) {
+        return res.status(400).send({message: "존재하지 않는 게시물입니다!"});
+      } else {
+        await Crewboard.findById(req.body.crewboard_id)
+          .select({
+            like: 1,
+            title: 1,
+            images: 1,
+            shorts_description: 1,
+            description: 1,
+            crewcomments: 1,
             createdAt: 1,
-          },
-        })
-        .populate({
-          path: "crewcomments.user_id",
-          select: {nickname: 1},
-        });
-      res
-        .status(200)
-        .send({data: cbcontent, message: "싸장님~ 자세한 게시글 보는구나!"});
+          })
+          .populate({path: "user_id", select: {nickname: 1}})
+          .sort({createdAt: -1})
+          .select({
+            crewcomments: {
+              _id: 1,
+              user_id: 1,
+              comment: 1,
+              nickname: 1,
+              createdAt: 1,
+            },
+          })
+          .populate({
+            path: "crewcomments.user_id",
+            select: {nickname: 1},
+          });
+        res
+          .status(200)
+          .send({data: cbcontent, message: "싸장님~ 자세한 게시글 보는구나!"});
+        console.log("===cbcontent===", cbcontent);
+      }
     }
   },
 
@@ -468,10 +515,10 @@ module.exports = {
     // 1. 인증
     // 2. 유저 아이디(토큰) + 게시글 아이디(바디)
     // 3. 수정
-    //!추가한부분
-    const image = req.files;
-    const path = image.map(img => img.location);
-    //!
+    // //!추가한부분
+    // const image = req.files;
+    // const path = image.map(img => img.location);
+    // //!
     const {crewboard_id, title, shorts_description, description} = req.body;
     const userData = isAuthorized(req, res);
     if (!userData) {
@@ -482,7 +529,7 @@ module.exports = {
         title: title,
         description: description,
         shorts_description: shorts_description,
-        images: path,
+        // images: path,
       };
       const editcbcontent = await Crewboard.findOne({
         _id: crewboard_id,
