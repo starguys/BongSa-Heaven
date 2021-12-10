@@ -66,7 +66,7 @@ export default function Check({contents, leftBtn}) {
   const history = useHistory();
   const Delete = url => history.push(url);
   const Cancel = () => history.goBack();
-  const userWithdrawalHandler = () => {
+  const userWithdrawalHandler = props => {
     // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
     console.log(name);
     console.log(text);

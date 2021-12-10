@@ -94,15 +94,20 @@ export default function EditButton(props) {
         <CancelButton onClick={() => Cancel(props.cancel)}>취소</CancelButton>
         <CompleteButton
           onClick={() => {
-            Edit(props.edit);
             props.editCrewBoard();
+            Edit(props.edit);
           }}
         >
           수정 완료
         </CompleteButton>
       </SelectBox>
       {/* display:none 상태 */}
-      <ImgUpload id="imgUpload" onChange={saveFileImage} type="file" aceept="image/*" />
+      <ImgUpload
+        id="imgUpload"
+        onChange={saveFileImage}
+        type="file"
+        aceept="image/*"
+      />
       {/* display:none 상태 */}
     </>
   );
