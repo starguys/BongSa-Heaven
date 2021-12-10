@@ -116,17 +116,9 @@ const CommentInputButton = styled.div`
   }
 `;
 
-export default function Comment({currentCBcontent}) {
+export default function Comment({currentCBcontent, GoToCrewBoardContent}) {
   const [commentValue, setCommentValue] = useState("");
   const [myId, setMyId] = useState("");
-  const [refresh, SetRefresh] = useState(true);
-
-  // console.log(currentFBcontent)
-
-  // console.log(currentFBcontent.data.freecomments)
-
-  // console.log("currentFBcontent.data._id",currentFBcontent.data._id)
-  // console.log("user_id",myId)
 
   const getUserInfo = () => {
     axios
@@ -170,8 +162,7 @@ export default function Comment({currentCBcontent}) {
         .then(res => {
           console.log(res.data.message);
           setCommentValue("");
-          SetRefresh(!refresh);
-          console.log(refresh);
+          GoToCrewBoardContent(currentCBcontent.data._id);
         })
         // .then((res) => window.location.replace("/CrewBoardContents"))
         .catch(err => console.log(err));
@@ -181,10 +172,8 @@ export default function Comment({currentCBcontent}) {
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       getUserInfo();
-      // console.log("change change change~~");
     }
-    // console.log(currentCBcontent.data);
-  }, [refresh]);
+  }, []);
 
   return (
     <>
@@ -194,7 +183,9 @@ export default function Comment({currentCBcontent}) {
           : currentCBcontent.data.crewcomments.map((comment, idx) => (
               <CommentBox key={idx}>
                 <CommentWriter>
-                  {comment.user_id.nickname}
+                  {comment.user_id == null
+                    ? "회원탈퇴자"
+                    : comment.user_id.nickname}
                   <CommentDate>{comment.createdAt.slice(0, 10)}</CommentDate>
                 </CommentWriter>
                 <CommentContents>{comment.comment}</CommentContents>

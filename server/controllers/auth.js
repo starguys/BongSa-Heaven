@@ -201,6 +201,11 @@ module.exports = {
     }
   },
 
+  resetrftkControl: async (req, res) => {
+    const refreshToken = null;
+    res.cookie("refreshToken", refreshToken, {httpOnly: true}).status(200);
+  },
+
   nickcheckControl: async (req, res) => {
     // 1. 닉네임을 받는다
     // 2. db에서 닉네임을 검색한다

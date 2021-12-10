@@ -107,7 +107,6 @@ export default function CreateButton(props) {
       )
       .then(res => {
         console.log(res.data.message, "성공!");
-        Create("/FreeBoardList");
       })
       .catch(err => console.log(err, "응안가"));
   };
@@ -120,17 +119,25 @@ export default function CreateButton(props) {
         </label>
       </ImgUploadBox>
       <SelectBox>
-        <CancelButton onClick={() => Cancel("/FreeBoardList")}>취소</CancelButton>
+        <CancelButton onClick={() => Cancel("/FreeBoardList")}>
+          취소
+        </CancelButton>
         <CompleteButton
           onClick={() => {
             createFreeBoard();
+            Create("/FreeBoardList");
           }}
         >
           작성 완료
         </CompleteButton>
       </SelectBox>
       {/* display:none 상태 */}
-      <ImgUpload id="imgUpload" onChange={saveFileImage} type="file" aceept="image/*" />
+      <ImgUpload
+        id="imgUpload"
+        onChange={saveFileImage}
+        type="file"
+        aceept="image/*"
+      />
       {/* display:none 상태 */}
     </>
   );
