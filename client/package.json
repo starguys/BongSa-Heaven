@@ -26,6 +26,8 @@
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "shallow-equal": "^1.2.1",
     "styled-components": "^5.3.3",
     "sweetalert2": "^9.10.13",

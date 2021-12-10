@@ -1,7 +1,19 @@
 import {combineReducers} from "redux";
-import counter from "./counter";
-import mailWriteRedux from "./maillWriteRedux";
+import {persistReducer} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import mailWriteName from "./mailWriteName";
+import mailWriteText from "./mailWriteText";
+import mailDeleteList from "./mailDeleteList";
 
-const rootReducer = combineReducers({counter, mailWriteRedux});
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
-export default rootReducer;
+const rootReducer = combineReducers({
+  mailWriteName,
+  mailWriteText,
+  mailDeleteList,
+});
+
+export default persistReducer(persistConfig, rootReducer);

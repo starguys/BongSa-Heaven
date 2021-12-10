@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import styled from "styled-components";
 import {useDispatch} from "react-redux";
-import {changeName, changeText} from "../../modules/maillWriteRedux";
+import {changeName} from "../../modules/mailWriteName";
+import {changeText} from "../../modules/mailWriteText";
 
 const MaillNickCheckContainer = styled.div`
   margin-left: 39px;
@@ -126,9 +127,11 @@ export default function MaillWriteMain(Title) {
   }, []);
   const valueChange = e => {
     setValue(e.target.value);
+    onChangeName(e.target.value);
   };
   const textChange = e => {
     setText(e.target.value);
+    onChangeText(e.target.value);
   };
   const handleNicknameCheck = () => {
     if (value) {
@@ -170,23 +173,31 @@ export default function MaillWriteMain(Title) {
           <MaillNickCheckTop>
             <MaillNickCheckTopDiv>
               <MaillNickCheckTopWho>받는 사람</MaillNickCheckTopWho>
-              <MaillNickCheckTopNameInput type="text" value={value} onChange={valueChange} />
-              <MaillNickCheckTopNameCheckBtn onClick={handleNicknameCheck}>닉네임 확인</MaillNickCheckTopNameCheckBtn>
+              <MaillNickCheckTopNameInput
+                type="text"
+                value={value}
+                onChange={valueChange}
+              />
+              <MaillNickCheckTopNameCheckBtn onClick={handleNicknameCheck}>
+                닉네임 확인
+              </MaillNickCheckTopNameCheckBtn>
             </MaillNickCheckTopDiv>
           </MaillNickCheckTop>
           <MaillNickCheckBottom>
             {checkName ? (
-              <MaillNickCheckBottomText>닉네임이 확인 되었습니다.</MaillNickCheckBottomText>
+              <MaillNickCheckBottomText>
+                닉네임이 확인 되었습니다.
+              </MaillNickCheckBottomText>
             ) : (
-              <MaillNickCheckBottomText>닉네임을 확인해 주세요.</MaillNickCheckBottomText>
+              <MaillNickCheckBottomText>
+                닉네임을 확인해 주세요.
+              </MaillNickCheckBottomText>
             )}
           </MaillNickCheckBottom>
         </MaillNickCheckContainerDiv>
       </MaillNickCheckContainer>
       <MaillWriteInputContainer>
         <MaillWriteInput type="text" value={text} onChange={textChange} />
-        <button onClick={() => onChangeName(value)}>Name</button>
-        <button onClick={() => onChangeText(text)}>Text</button>
       </MaillWriteInputContainer>
     </>
   );
