@@ -170,7 +170,8 @@ module.exports = {
       if (!userInfo) {
         return res.status(500).send({message: "뭔가가 이상하다"});
       } else {
-        const {email, nickname, user_id} = userInfo;
+        const {email, nickname} = userInfo;
+        const user_id = userInfo._id;
         const accessToken = generateAccessToken({email, nickname, user_id});
         const refreshToken = generateRefreshToken({email, nickname, user_id});
         // const issueDate = new Date();
@@ -186,8 +187,11 @@ module.exports = {
   },
 
   resetrftkControl: async (req, res) => {
-    const refreshToken = null;
-    res.cookie("refreshToken", refreshToken, {httpOnly: true}).status(200);
+    const refreshToken = "";
+    res
+      .cookie("refreshToken", refreshToken, {httpOnly: true})
+      .status(200)
+      .send();
   },
 
   nickcheckControl: async (req, res) => {
