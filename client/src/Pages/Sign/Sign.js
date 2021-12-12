@@ -1,7 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import {useState} from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router";
+import {useHistory} from "react-router";
 import Header3 from "../../components/common/Header3";
 import axios from "axios";
 
@@ -86,7 +86,7 @@ const CompleteButton = styled.div`
   cursor: pointer;
 `;
 
-export default function SignIn({ setIsLogin, setIsUserLogin }) {
+export default function SignIn({setIsLogin, setIsUserLogin}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -94,11 +94,11 @@ export default function SignIn({ setIsLogin, setIsUserLogin }) {
   const history = useHistory();
   //로그인 버튼을 클릭햇을때 메인으로 이동하고 로그인 상태여야하고,
 
-  const handleEmail = (e) => {
+  const handleEmail = e => {
     console.log(e.target.value);
     setEmail(e.target.value);
   };
-  const handlePassword = (e) => {
+  const handlePassword = e => {
     e.preventDefault();
     console.log(e.target.value);
     setPassword(e.target.value);
@@ -109,7 +109,8 @@ export default function SignIn({ setIsLogin, setIsUserLogin }) {
       handleLoginRequest();
     }
   };
-  const handleLoginRequest = async (e) => {
+
+  const handleLoginRequest = async e => {
     //유효성 검사
     if (!email) {
       setErrorMessage("이메일을 입력해주세요");
@@ -121,19 +122,19 @@ export default function SignIn({ setIsLogin, setIsUserLogin }) {
       axios
         .post(
           `http://localhost:8080/auth/signin`,
-          { email: email, password: password },
+          {email: email, password: password},
           {
             headers: {
               "Content-Type": "application/json",
             },
             withCredentials: true,
-          }
+          },
         )
-        .then((res) =>
+        .then(res =>
           //로컬스토리지에 저장, 메인으로 복귀
-          localStorage.setItem("accessToken", res.data.accessToken)
+          localStorage.setItem("accessToken", res.data.accessToken),
         )
-        .then((res) =>
+        .then(res =>
           axios
             .get(`http://localhost:8080/user/info`, {
               headers: {
@@ -142,7 +143,7 @@ export default function SignIn({ setIsLogin, setIsUserLogin }) {
                 withCredentials: true,
               },
             })
-            .then((res) => {
+            .then(res => {
               console.log(res);
               console.log("res.data.data.iscompany", res.data.data.iscompany);
               if (res.data.data.iscompany !== undefined) {
@@ -153,9 +154,9 @@ export default function SignIn({ setIsLogin, setIsUserLogin }) {
                 setIsLogin(true);
                 history.push("/");
               }
-            })
+            }),
         )
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           setErrorMessage("아이디 혹은 비밀번호가 일치하지 않습니다.");
         });
@@ -174,7 +175,6 @@ export default function SignIn({ setIsLogin, setIsUserLogin }) {
           <LogoBox>
             <Logo src="./image/logo2.png"></Logo>
           </LogoBox>
-
           <SignInWhiteBox>
             <SignInWhiteInput
               type="email"

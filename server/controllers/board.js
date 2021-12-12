@@ -18,6 +18,7 @@ module.exports = {
       //!추가한부분
       const image = req.files;
       const path = image.map(img => img.location);
+      console.log("===req===", req);
       //!
       const userData = isAuthorized(req, res);
       if (!userData) {
@@ -127,7 +128,7 @@ module.exports = {
         _id: req.body.freeboard_id,
         like: userData.user_id,
       });
-      console.log("===checkLike===", checkLike);
+      // console.log("===checkLike===", checkLike);
       if (checkLike === null) {
         const fbcontent = await Freeboard.findById(req.body.freeboard_id)
           .select({

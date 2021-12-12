@@ -186,8 +186,7 @@ module.exports = {
   },
 
   resetrftkControl: async (req, res) => {
-    const refreshToken = null;
-    res.cookie("refreshToken", refreshToken, {httpOnly: true}).status(200);
+    res.send();
   },
 
   nickcheckControl: async (req, res) => {
@@ -220,7 +219,7 @@ module.exports = {
           Authorization: `Bearer ${token}`,
         },
       });
-    } catch {
+    } catch (err) {
       console.log("err");
     }
     const userNick = userResponse.data.properties.nickname;

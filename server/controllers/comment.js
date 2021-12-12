@@ -34,7 +34,7 @@ module.exports = {
           }
         });
       }
-    } catch {
+    } catch (err) {
       return res.send("err");
     }
   },
@@ -63,7 +63,7 @@ module.exports = {
         res.status(200).send({message: "싸장님 댓글 등록 완료!"});
         // }};
       }
-    } catch {
+    } catch (err) {
       return res.send("err");
     }
   },
@@ -77,14 +77,6 @@ module.exports = {
       return res.send({message: "싸장님~ 댓글 수정 권한 없어!"});
     }
     if (userData) {
-      // const fbcommentedit = await Freeboard.aggregate([
-      //   {
-      //     $match: {
-      //       "freecomments._id": { req.body.freecomments_id,
-      //     },
-      //   },
-      // ])
-      // console.log("===fbcommentedit===", fbcommentedit);
       return res.send("edit ok!");
     }
   },
@@ -121,7 +113,7 @@ module.exports = {
           }
         });
       }
-    } catch {
+    } catch (err) {
       return res.send("err");
     }
   },
@@ -136,15 +128,14 @@ module.exports = {
     }
     if (userData) {
       const cbcotent = await Crewboard.findById(req.body.crewboard_id);
+      console.log("===cbcotent===", cbcotent);
       if (!cbcotent) {
         return res.status(404).send({message: "싸장님 잘못된 경로야!"});
       } else {
-        const cbcomment = await Crewboard.findById(req.body.crewboard_id).find({
-          __dirname: {$match: new ObjectId(req.body.crewcomment_id)},
-        });
+        const cbcomment = await Crewboard.find({});
+        console.log("===cbcomment===", cbcomment);
       }
     }
-    return res.send("edit ok!");
   },
 
   cbcommentdeleteControl: async (req, res) => {
