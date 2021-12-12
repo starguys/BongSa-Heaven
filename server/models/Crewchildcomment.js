@@ -1,21 +1,21 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const crewchildcommentSchema = new Schema(
   {
     user_id: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     crewboard_id: {
       type: Schema.Types.ObjectId,
-      ref: 'Crewboard',
+      ref: "Crewboard",
       required: true,
     },
     crewcomment_id: {
       type: Schema.Types.ObjectId,
-      ref: 'Crewcomment',
+      ref: "Crewcomment",
     },
     child_comment: {
       type: String,
@@ -25,6 +25,5 @@ const crewchildcommentSchema = new Schema(
   {timestamps: true},
 );
 
-// freecommentSchema.plugin(findOrCreate);
 module.exports = crewchildcommentSchema;
-// mongoose.model("Freecomment", freecommentSchema);
+// module.exports = mongoose.model("Crewchildcomment", crewchildcommentSchema);

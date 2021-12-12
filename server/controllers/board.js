@@ -426,27 +426,32 @@ module.exports = {
             images: 1,
             shorts_description: 1,
             description: 1,
-            freecomments: 1,
+            crewcomment_id: 1,
             createdAt: 1,
           })
           .populate({path: "user_id", select: {nickname: 1}})
           .sort({createdAt: -1})
+          .populate({path: "crewcomment_id", select: {user_id: 1}})
           .select({
-            crewcomments: {
+            crewcomment_id: {
               _id: 1,
               user_id: 1,
               comment: 1,
               nickname: 1,
               createdAt: 1,
+              isdeleted: 1,
+              crewchildcomment_id: 1,
             },
           })
           .populate({
             path: "crewcomments.user_id",
             select: {nickname: 1},
           });
-        res
-          .status(200)
-          .send({data: cbcontent, message: "싸장님~ 자세한 게시글 보는구나!"});
+        res.status(200).send({
+          data: cbcontent,
+          message: "싸장님~ 자세한 게시글 보는구나!",
+        });
+        console.log("===cbcontent===", cbcontent);
       } else {
         is_like = true;
         const cbcontent = await Crewboard.findById(req.body.crewboard_id)

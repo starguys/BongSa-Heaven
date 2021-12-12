@@ -4,6 +4,7 @@ const Crewboard = require("../models/Crewboard");
 const Mongoose = require("mongoose");
 const ObjectId = Mongoose.Types.ObjectId;
 const {isAuthorized} = require("../middlewares/token");
+const Crewcomment = require("../models/Crewcomment");
 
 module.exports = {
   // free board commnt
@@ -127,13 +128,23 @@ module.exports = {
       return res.send({message: "싸장님~ 댓글 수정 권한 없어!"});
     }
     if (userData) {
-      const cbcotent = await Crewboard.findById(req.body.crewboard_id);
-      console.log("===cbcotent===", cbcotent);
-      if (!cbcotent) {
-        return res.status(404).send({message: "싸장님 잘못된 경로야!"});
+      const cbcontent = await Crewboard.findOneAndUpdate(
+        {
+          _id: req.body.crewboard_id,
+          crewcomments: {$elemMatch: {_id: req.body.crewcomment_id}},
+        },
+        {
+          $set: {"crewcomments.$.comment": req.body.comment},
+        },
+      ).exec();
+      if (cbcontent) {
+        return res
+          .status(200)
+          .send({data: cbcontent, message: "싸장님 댓글 수정 완료"});
       } else {
-        const cbcomment = await Crewboard.find({});
-        console.log("===cbcomment===", cbcomment);
+        return res
+          .status(400)
+          .send({data: cbcontent, message: "싸장님~ 댓글이 없어"});
       }
     }
   },
