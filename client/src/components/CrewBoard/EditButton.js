@@ -76,7 +76,8 @@ const CompleteButton = styled.div`
 
 export default function EditButton(props) {
   const saveFileImage = e => {
-    props.setFileImage(URL.createObjectURL(e.target.files[0]));
+    props.setFileImage(e.target.files[0]);
+    props.setpreviewFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const history = useHistory();
@@ -95,7 +96,7 @@ export default function EditButton(props) {
         <CompleteButton
           onClick={() => {
             props.editCrewBoard();
-            Edit(props.edit);
+            setTimeout(() => Edit(props.edit), 1000);
           }}
         >
           수정 완료

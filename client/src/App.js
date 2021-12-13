@@ -318,7 +318,13 @@ export default function App() {
           />
         )}
       />
-      <Route exact path="/CrewBoardCreate" component={CrewBoardCreate} />
+      <Route
+        exact
+        path="/CrewBoardCreate"
+        render={() => (
+          <CrewBoardCreate GoToCrewBoardContent={GoToCrewBoardContent} />
+        )}
+      />
       <Route
         exact
         path="/CrewBoardDelete"

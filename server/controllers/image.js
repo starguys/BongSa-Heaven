@@ -31,6 +31,7 @@ module.exports = {
         if (!res) {
           return res.status(500).send("서버 문제");
         }
+        console.log("wow", data);
         return res.status(200).send(data);
       })
       .catch(err => {

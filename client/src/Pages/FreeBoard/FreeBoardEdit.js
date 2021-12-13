@@ -6,6 +6,7 @@ import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
 import EditButton from "../../components/FreeBoard/EditButton";
 import EditButton2 from "../../components/FreeBoard/EditButton2";
+import Loading from "../../components/common/Loading";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -93,11 +94,16 @@ export default function FreeBoardEdit({
     title = currentFBcontent.data.title;
     description = currentFBcontent.data.description;
   }
-
+  const [isLoading, CheckLoading] = useState(false);
   const [fileImage, setFileImage] = useState("");
+  const [previewFileImage, setpreviewFileImage] = useState("");
+  const [previousFileImage, setpreviousFileImage] = useState("");
   const [editedTitle, setTitle] = useState(title);
   const [editedDescription, setDescription] = useState(description);
 
+  const loadingHandler = () => {
+    CheckLoading(true);
+  };
   const editTitle = e => {
     setTitle(e.target.value);
     console.log(editedTitle);
@@ -112,42 +118,93 @@ export default function FreeBoardEdit({
       alert("제목이나 내용이 아무것도 없으면, 수정되지 않습니다.");
       return;
     }
+    if (fileImage === "") {
+      alert("대표 이미지 파일이 없으면, 수정되지 않습니다.");
+      return;
+    }
+    if (fileImage !== previousFileImage) {
+      const formData = new FormData();
 
-    axios
-      .patch(
-        "http://localhost:8080/board/fbedit",
-        {
-          freeboard_id: currentFBcontent.data._id,
-          title: editedTitle,
-          description: editedDescription,
-          images: fileImage,
-        },
-        {
+      formData.append("image", fileImage);
+
+      axios
+        .post("http://localhost:8080/board/fbimageEdit", formData, {
           headers: {
             authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
-        },
-      )
-      .then(res => {
-        console.log(res.data.message);
+        })
+        .then(res => {
+          console.log(res.data);
+
+          axios
+            .patch(
+              "http://localhost:8080/board/fbedit",
+              {
+                freeboard_id: currentFBcontent.data._id,
+                title: editedTitle,
+                description: editedDescription,
+                images: res.data.images[0],
+              },
+              {
+                headers: {
+                  authorization:
+                    `Bearer ` + localStorage.getItem("accessToken"),
+                  "Content-Type": "application/json",
+                },
+              },
+            )
+            .then(res => {
+              console.log(res.data.message);
+            })
+            .catch(err => console.log(err));
+        })
+        .then(res => console.log(res.data.message))
+        .catch(err => console.log(err, "응안가"));
+
+      loadingHandler();
+
+      setTimeout(() => {
         GoToFreeBoardContent(currentFBcontent.data._id);
-      })
-      .catch(err => console.log(err));
+      }, 500);
+    } else {
+      axios
+        .patch(
+          "http://localhost:8080/board/fbedit",
+          {
+            crewboard_id: currentFBcontent.data._id,
+            title: editedTitle,
+            description: editedDescription,
+            images: fileImage,
+          },
+          {
+            headers: {
+              authorization: `Bearer ` + localStorage.getItem("accessToken"),
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(res => {
+          console.log(res.data.message);
+        })
+        .catch(err => console.log(err, "응안가"));
+
+      loadingHandler();
+
+      setTimeout(() => {
+        GoToFreeBoardContent(currentFBcontent.data._id);
+      }, 500);
+    }
   };
 
   useEffect(() => {
-    if (currentFBcontent.data !== undefined)
-      setFileImage(currentFBcontent.data.image);
-    console.log(
-      currentFBcontent.data._id,
-      editedTitle,
-      editedDescription,
-      fileImage,
-    );
+    if (currentFBcontent.data !== undefined) {
+      setFileImage(currentFBcontent.data.images[0]);
+      setpreviewFileImage(currentFBcontent.data.images[0]);
+      setpreviousFileImage(currentFBcontent.data.images[0]);
+    }
   }, []);
 
-  // console.log(currentFBcontent.data);
   return (
     <>
       {currentFBcontent.data !== undefined ? (
@@ -159,6 +216,7 @@ export default function FreeBoardEdit({
               create="/CrewBoardList"
               cancel="/CrewBoardList"
               setFileImage={setFileImage}
+              setpreviewFileImage={setpreviewFileImage}
             />
             <ContentsBox>
               <ContentsBoxTitleBox>
@@ -174,14 +232,22 @@ export default function FreeBoardEdit({
                 defaultValue={currentFBcontent.data.description}
                 onChange={editDescription}
               ></ContentsBoxContents>
+              {isLoading ? (
+                <>
+                  <Loading />
+                </>
+              ) : (
+                <></>
+              )}
               <ContentsBoxImgBox>
-                <Img src={fileImage} alt="수정할 이미지 자리" />
+                <Img src={previewFileImage} alt="수정할 이미지 자리" />
               </ContentsBoxImgBox>
             </ContentsBox>
             <EditButton
               edit="/FreeBoardContents"
               cancel="/FreeBoardContents"
               setFileImage={setFileImage}
+              setpreviewFileImage={setpreviewFileImage}
               editFreeBoard={editFreeBoard}
             />
           </Wrapper>

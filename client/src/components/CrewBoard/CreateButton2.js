@@ -41,7 +41,16 @@ export default function CreateButton(props) {
         </label>
       </ImgUploadBox>
       {/* display:none 상태 */}
-      <ImgUpload id="imgUpload" onChange={saveFileImage} type="file" aceept="image/*" />
+      <form action="info" method="post" encType="multipart/form-data">
+        <ImgUpload
+          id="imgUpload"
+          onChange={saveFileImage}
+          type="file"
+          name="file"
+          required="true"
+          accept="multipart/form-data"
+        />
+      </form>
       {/* display:none 상태 */}
     </>
   );

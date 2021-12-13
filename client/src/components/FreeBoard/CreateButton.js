@@ -76,45 +76,54 @@ const CompleteButton = styled.div`
 
 export default function CreateButton(props) {
   const saveFileImage = e => {
-    props.setFileImage(URL.createObjectURL(e.target.files[0]));
+    props.setFileImage(e.target.files[0]);
+    props.setpreviewFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const history = useHistory();
   const Create = url => history.push(url);
   const Cancel = url => history.push(url);
 
-  const createFreeBoard = async () => {
-    console.log("fileImage:", props.fileImage);
+  const createFreeBoard = () => {
+    const formData = new FormData();
+
+    formData.append("image", props.fileImage);
+
     if (props.description === "" || props.title === "") {
       alert("제목이나 내용이 아무것도 없으면, 작성되지 않습니다.");
       return;
     }
 
-    console.log("===props.fileImage===", props.fileImage);
-    console.log("===props.title===", props.title);
-
-    const formData = new FormData();
-    formData.append("context", props.fileImage);
-    formData.append("tagName", props.description);
-    formData.append("tagName", props.title);
-
-    await axios
-      .post(
-        "http://localhost:8080/board/fbregister",
-        {
-          title: props.title,
-          description: props.description,
-          images: props.fileImage,
+    axios
+      .post("http://localhost:8080/board/fbregister", formData, {
+        headers: {
+          authorization: `Bearer ` + localStorage.getItem("accessToken"),
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "multipart/form-data",
-          },
-        },
-      )
+      })
       .then(res => {
-        console.log(res.data.message, "성공!");
+        console.log(res.data);
+
+        return axios
+          .patch(
+            "http://localhost:8080/board/fbedit",
+            {
+              freeboard_id: res.data._id,
+              title: props.title,
+              description: props.description,
+              images: res.data.images[0],
+            },
+            {
+              headers: {
+                authorization: `Bearer ` + localStorage.getItem("accessToken"),
+                "Content-Type": "application/json",
+              },
+            },
+          )
+          .then(res => {
+            Create("/FreeBoardList");
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err, "응안가"));
   };
@@ -133,19 +142,22 @@ export default function CreateButton(props) {
         <CompleteButton
           onClick={() => {
             createFreeBoard();
-            Create("/FreeBoardList");
           }}
         >
           작성 완료
         </CompleteButton>
       </SelectBox>
       {/* display:none 상태 */}
-      <ImgUpload
-        id="imgUpload"
-        onChange={saveFileImage}
-        type="file"
-        aceept="image/*"
-      />
+      <form action="info" method="post" encType="multipart/form-data">
+        <ImgUpload
+          id="imgUpload"
+          onChange={saveFileImage}
+          type="file"
+          name="file"
+          required="true"
+          accept="multipart/form-data"
+        />
+      </form>
       {/* display:none 상태 */}
     </>
   );

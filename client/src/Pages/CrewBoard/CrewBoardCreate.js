@@ -75,9 +75,6 @@ const Img = styled.img`
 `;
 
 export default function CrewBoardCreate() {
-  // const multer = require("multer");
-  // const upload = multer({dest: "uploads/"});
-
   const [title, setTitle] = useState("");
   const [hello, setHello] = useState("");
   const [description, setDescription] = useState("");
@@ -86,7 +83,6 @@ export default function CrewBoardCreate() {
 
   const inputHandler = e => {
     setDescription(e.target.value);
-    console.log(description);
   };
 
   return (

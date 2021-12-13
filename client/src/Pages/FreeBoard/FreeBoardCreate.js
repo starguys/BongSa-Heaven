@@ -75,9 +75,10 @@ const Img = styled.img`
 `;
 
 export default function FreeBoardCreate() {
-  const [fileImage, setFileImage] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [previewFileImage, setpreviewFileImage] = useState("");
+  const [fileImage, setFileImage] = useState("");
 
   const inputHandler = e => {
     setDescription(e.target.value);
@@ -89,13 +90,12 @@ export default function FreeBoardCreate() {
       <Wrapper>
         <Header2 componentName="글 작성하기" />
         <DesktopTitle title="글 작성하기" />
-
         <CreateButton2
           create="/CrewBoardList"
           cancel="/CrewBoardList"
           setFileImage={setFileImage}
+          setpreviewFileImage={setpreviewFileImage}
         />
-
         <Input text="제목" setTitle={setTitle} title={title} />
         <CreateBox>
           <CreateBoxContentsBox>
@@ -105,14 +105,15 @@ export default function FreeBoardCreate() {
             />
           </CreateBoxContentsBox>
           <ContentsBoxImgBox>
-            <Img src={fileImage} alt="수정할 이미지 자리" />
+            <Img src={previewFileImage} alt="수정할 이미지 자리" />
           </ContentsBoxImgBox>
         </CreateBox>
         <CreateButton
-          setFileImage={setFileImage}
           fileImage={fileImage}
           title={title}
           description={description}
+          setFileImage={setFileImage}
+          setpreviewFileImage={setpreviewFileImage}
         />
       </Wrapper>
     </>
