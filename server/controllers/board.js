@@ -443,7 +443,7 @@ module.exports = {
             images: 1,
             shorts_description: 1,
             description: 1,
-            crewcomment_id: 1,
+            crewcomments: 1,
             createdAt: 1,
           })
           .populate({path: "user_id", select: {nickname: 1}})
@@ -457,7 +457,7 @@ module.exports = {
               nickname: 1,
               createdAt: 1,
               isdeleted: 1,
-              crewchildcomment_id: 1,
+              crewchildcomments: 1,
             },
           })
           .populate({
