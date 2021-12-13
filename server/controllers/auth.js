@@ -9,7 +9,8 @@ const {
 } = require("../middlewares/token");
 const nodemailer = require("nodemailer");
 const ejs = require("ejs");
-
+const axios = require("axios");
+const qs = require("qs");
 module.exports = {
   signupControl: async (req, res) => {
     // 1. req.body 제대로 들어왔는지 확인 아니면 돌려보냄
@@ -213,7 +214,7 @@ module.exports = {
     const existNick = await User.findOne(query);
     // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
     if (existNick) {
-      return res.status(201).send({message: "싸장님 다른 닉네임 부탁해!"});
+      return res.status(400).send({message: "싸장님 다른 닉네임 부탁해!"});
     }
     if (!existNick) {
       return res.status(200).send({message: "싸장님 좋은 닉네임!"});
@@ -221,54 +222,146 @@ module.exports = {
   },
 
   googleControl: async (req, res) => {
-    res.send();
-  },
+    // const Oauth =
+    //   "https://accounts.google.com/o/oauth2/v2/auth?client_id=288722608551-n6ktb74p9fbe0871dikkoul506eedkgq.apps.googleusercontent.com&response_type=code&redirect_uri=http://localhost:3000/callback&scope=https://www.googleapis.com/auth/userinfo.email";
 
-  kakaoControl: async (req, res) => {
-    // console.log(req.body);
-    const token = req.body.accessToken;
-    let userResponse;
-    try {
-      userResponse = await axios({
-        method: "GET",
-        url: "https://kapi.kakao.com/v2/user/me",
+    // try {
+    //   return res.redirect(Oauth);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+
+    const code = req.body.code;
+    console.log(code);
+
+    const result = await axios.post(
+      `https://oauth2.googleapis.com/token?code=${code}&client_id=${process.env.GOOGLE_CLIENT}&client_secret=${process.env.GOOGLE_SECRET}&redirect_uri=${process.env.REDIRECT_URI}&grant_type=authorization_code`,
+      {
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+          Accept: "application/json",
         },
-      });
-    } catch {
-      console.log("err");
+      },
+    );
+
+    const userInfo = await axios.get(
+      `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${result.data.access_token}`,
+      {
+        headers: {
+          Authorization: `Bearer ${result.data.access_token}`,
+        },
+      },
+    );
+    // 가입과 로그인을 동시에 한다.
+    // 가입이 되어있는 상황이라면, db에서 꺼내어 맞춘다.
+    //회원가입을 할때,
+    //
+    const {id, email} = userInfo.data;
+    const existUser = await User.findOne({email: email}).exec();
+    //회원가입이 되어있지 않다면 회원가입을하고
+    if (!existUser) {
+      console.log(email);
+      User.insertMany({email: email, nickname: id, status: true})
+        .exec() // 아이디가
+        .then(data => {
+          console.log(data);
+          if (!data) {
+            return res.status(500).send("서버가 이상합니다");
+          }
+          const {_id, nickname, email} = data[0];
+          console.log(data);
+          console.log(_id, nickname, email);
+
+          const accessToken = generateAccessToken({_id, nickname, email});
+          const refreshToken = generateRefreshToken({_id, nickname, email});
+
+          return res
+            .cookie("refreshToken", refreshToken, {httpOnly: true})
+            .status(200)
+            .send({
+              acessToken: accessToken,
+              message: "토큰 발급및 회원가입, 로그인 되었습니다.",
+            });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
-    const userNick = userResponse.data.properties.nickname;
-    const userKakao = userResponse.data.id;
+    //회원가입을 한경우 라면
 
-    const query = {kakao_id: userKakao, nickname: userNick};
-    const existUser = await User.findOne(query);
+    try {
+      const {email, _id, nickname} = existUser;
+      const accessToken = generateAccessToken({_id, nickname, email});
+      const refreshToken = generateRefreshToken({_id, nickname, email});
 
-    if (existUser) {
-      const accessToken = generateAccessToken({userKakao, userNick});
-      const refreshToken = generateRefreshToken({userKakao, userNick});
       return res
         .cookie("refreshToken", refreshToken, {httpOnly: true})
         .status(200)
-        .send({accessToken: accessToken, message: "kakao-login 성공!"});
+        .send({acessToken: accessToken, message: "구글 로그인 되었습니다."});
+
+      //git
+    } catch (err) {
+      console.log(err);
     }
-    if (!existUser) {
-      const newUser = {
-        kakao_id: userKakao,
-        nickname: userNick,
-      };
-      const insertDb = new User(newUser).save();
-      if (!insertDb) {
-        return res.status(500).send({message: "싸장님 서버 이상해"});
-      } else {
+    //토큰을 보내줘야한다.
+    //id를 닉네임
+  },
+
+  kakaoControl: async (req, res) => {
+    const code = req.body.code;
+    console.log(code);
+    try {
+      const result = await axios.post(
+        `https://kauth.kakao.com/oauth/token?code=${code}&client_id=${process.env.KAKAO_CLIENT}&client_secret=${process.env.KAKAO_SECRET}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&grant_type=authorization_code`,
+        {
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+            Accept: "application/json",
+          },
+        },
+      );
+      const userInfo = await axios.get(`https://kapi.kakao.com/v2/user/me`, {
+        headers: {
+          Authorization: `Bearer ${result.data.access_token}`,
+        },
+      });
+
+      console.log(userInfo);
+
+      const userNick = userInfo.data.properties.nickname;
+      const userKakao = userInfo.data.id;
+
+      const query = {kakao_id: userKakao, nickname: userNick};
+      const existUser = await User.findOne(query);
+
+      if (existUser) {
         const accessToken = generateAccessToken({userKakao, userNick});
         const refreshToken = generateRefreshToken({userKakao, userNick});
         return res
           .cookie("refreshToken", refreshToken, {httpOnly: true})
           .status(200)
-          .send({accessToken: accessToken, message: "kakao singup 성공!"});
+          .send({accessToken: accessToken, message: "kakao-login 성공!"});
       }
+      if (!existUser) {
+        const newUser = {
+          kakao_id: userKakao,
+          nickname: userNick,
+          status: true,
+        };
+        const insertDb = new User(newUser).save();
+        if (!insertDb) {
+          return res.status(500).send({message: "싸장님 서버 이상해"});
+        } else {
+          const accessToken = generateAccessToken({userKakao, userNick});
+          const refreshToken = generateRefreshToken({userKakao, userNick});
+          return res
+            .cookie("refreshToken", refreshToken, {httpOnly: true})
+            .status(200)
+            .send({accessToken: accessToken, message: "kakao singup 성공!"});
+        }
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
 
@@ -277,23 +370,26 @@ module.exports = {
     //회원가입 완료후 추가인증
 
     const {email} = req.body;
+
     const vaildCheck = email.indexOf("@");
+
     if (!email || email.length === 0 || vaildCheck === -1) {
       return res.status(400).json({message: "Need accurate informations"});
     }
     //2. 링크타고 들어오도록 authcode를 생성하여 db에 저장,
     //보안을위해 auth => crypto 로 생성
-    const authCode = crypto.randomBytes(32).toString("base64");
-    console.log(authCode);
+    //끝에 =이 생겨서 가운데 일부만 가져오고싶음
+    const authCode = crypto.randomBytes(64).toString("base64").split("=")[0];
+    // console.log(authCode, "authcode");
     let action = ""; //? 회원가입/ 로그인을 구분하기위한 변수
     let endPoint = ""; //? 상황에 따른 리다이렉트 엔드포인트
     let display = ""; //? 상황에 따른 이메일 인증 폼
 
     //인증 성공하면 status =1로 바꾼다.
 
-    //3. 회원 가입 유무 에 따른 차이를 둔다. 회원가입을 이미 했다면(2번 하지 못하도록)
-    //code를 보내지 않고 이미 인증 or 가입 했다고 나와야함
-    const userInfo = await User.findOne({email: email});
+    // 3. 회원 가입 유무 에 따른 차이를 둔다. 회원가입을 이미 했다면(2번 하지 못하도록)
+    // code를 보내지 않고 이미 인증 or 가입 했다고 나와야함
+    const userInfo = await User.findOne({email: email}).exec();
     //계정이 존재하는경우, status 가 false => 계정인증이 되어야 로그인 가능하다.
     //계정이 존재하는데, 회원가입을 한번더 요청하는경우
     if (userInfo) {
@@ -308,8 +404,8 @@ module.exports = {
           }
         }, 60000);
       } else {
-        //인증이 완료 된경우
-        return res.status(400).send("인증되었습니다.");
+        //인증이 완료 되었거나
+        return res.status(400).send("인증되었다");
       }
     }
     //클릭했는데,
@@ -331,10 +427,9 @@ module.exports = {
       },
     );
     const transporter = nodemailer.createTransport({
-      service: "Naver",
-      host: "smtp.naver.com",
-      port: 587,
-      secure: false,
+      service: "gmail",
+      host: "smtp.gmail.com",
+
       auth: {
         user: `${process.env.NODEMAILER_USER}`,
         pass: `${process.env.NODEMAILER_PASS}`,
@@ -344,7 +439,7 @@ module.exports = {
     const mailOptions = {
       from: `${process.env.NODEMAILER_USER}`,
       to: "dpemdnjem23@naver.com",
-      subject: "인증메일 입니다",
+      subject: userInfo.email,
       html: authEmailForm,
     };
 
@@ -362,9 +457,9 @@ module.exports = {
   confirmEmailControl: async (req, res) => {
     //가입후 클라이언트에서 주는 코드로 로그인
     //회원 가입후 로그인 화면에서 query 코드를 넘겨준다.
-    console.log(req.query.authCode);
+    console.log(req.body.authCode);
     //authcode가 일치하면 status가 true
-    User.updateOne({authcode: req.query.authCode}, {$set: {status: true}}).then(
+    User.updateOne({authcode: req.body.authCode}, {$set: {status: true}}).then(
       data => {
         if (!data) {
           return res.status(400).send("인증 실패");
