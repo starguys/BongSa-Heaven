@@ -84,27 +84,10 @@ export default function CreateButton(props) {
   const Create = url => history.push(url);
   const Cancel = url => history.push(url);
 
-  const createFreeBoard = () => {
-    console.log("props.fileImage", props.fileImage);
+  const createCrewBoard = () => {
+    const formData = new FormData();
 
-    // const formData = new FormData();
-
-    // formData.append("image", props.fileImage);
-
-    // let variables = [
-    //   {
-    //     title: props.title,
-    //     shorts_description: props.hello,
-    //     description: props.description,
-    //   },
-    // ];
-
-    // formData.append(
-    //   "data",
-    //   new Blob([JSON.stringify(variables)], {type: "multipart/form-data"}),
-    // );
-
-    // console.log("formData", formData);
+    formData.append("image", props.fileImage);
 
     if (props.description === "" || props.title === "" || props.hello === "") {
       alert("제목이나 인사말, 내용이 아무것도 없으면, 작성되지 않습니다.");
@@ -114,31 +97,37 @@ export default function CreateButton(props) {
       alert("봉사단 글 작성시, 대표하는 이미지 파일은 필수입니다!");
       return;
     }
-    // axios
-    //   .post("http://localhost:8080/image/register", formData)
-    //   .then(res => console.log(res))
-    //   .catch(err => console.log(err, "응안가"));
-
     axios
-      .post(
-        "http://localhost:8080/board/cbregister",
-        // formData,
-        {
-          title: props.title,
-          shorts_description: props.hello,
-          description: props.description,
-          images: props.fileImage,
+      .post("http://localhost:8080/board/cbregister", formData, {
+        headers: {
+          authorization: `Bearer ` + localStorage.getItem("accessToken"),
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
-          },
-        },
-      )
+      })
       .then(res => {
-        console.log(res.data.message, "성공!");
-        Create("/CrewBoardList");
+        console.log(res.data);
+
+        return axios
+          .patch(
+            "http://localhost:8080/board/cbedit",
+            {
+              crewboard_id: res.data._id,
+              title: props.title,
+              shorts_description: props.hello,
+              description: props.description,
+              images: res.data.images[0],
+            },
+            {
+              headers: {
+                authorization: `Bearer ` + localStorage.getItem("accessToken"),
+                "Content-Type": "application/json",
+              },
+            },
+          )
+          .then(res => {
+            Create("/CrewBoardList");
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err, "응안가"));
   };
@@ -156,14 +145,14 @@ export default function CreateButton(props) {
         </CancelButton>
         <CompleteButton
           onClick={() => {
-            createFreeBoard();
+            createCrewBoard();
           }}
         >
           작성 완료
         </CompleteButton>
       </SelectBox>
       {/* display:none 상태 */}
-      <form action="info" method="post" enctype="multipart/form-data">
+      <form action="info" method="post" encType="multipart/form-data">
         <ImgUpload
           id="imgUpload"
           onChange={saveFileImage}

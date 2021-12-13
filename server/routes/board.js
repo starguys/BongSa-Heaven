@@ -3,12 +3,22 @@ const controller = require("../controllers/board");
 const upload = require("../middlewares/multer");
 
 router.post("/fbregister", upload.array("image"), controller.fbregisterControl);
+router.post(
+  "/fbimageEdit",
+  upload.array("image"),
+  controller.fbimageEditControl,
+);
 router.get("/fblist", controller.fblistControl);
 router.post("/fbinfo", controller.fbinfoControl);
 router.patch("/fbedit", controller.fbeditControl);
 router.delete("/fbdelete", controller.fbdeleteControl);
 
 router.post("/cbregister", upload.array("image"), controller.cbregisterControl);
+router.post(
+  "/cbimageEdit",
+  upload.array("image"),
+  controller.cbimageEditControl,
+);
 router.get("/cblist", controller.cblistControl);
 router.post("/cbinfo", controller.cbinfoControl);
 router.patch("/cbedit", controller.cbeditControl);
