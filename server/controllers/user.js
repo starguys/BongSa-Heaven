@@ -11,6 +11,7 @@ module.exports = {
     // 1. 토큰을 받아서 유저 아이디를 찾는다
     // 2. 유저 정보를 보내준다.
     const userData = isAuthorized(req, res);
+    console.log(userData);
     if (!userData) {
       return res.status(401).send({message: "싸장님 가입부터 해주세요!"});
     }

@@ -343,8 +343,9 @@ export default function MapReg() {
     let positions = [{}];
     Axios.get("http://localhost:8080/map/info")
       .then(res => {
-        // console.log(res.data);
+
         for (let i = 0; i < res.data.length; i++) {
+          if (res.data[i].user_id === null) continue;
           positions.push({
             title: res.data[i].user_id.nickname,
             latlng: new kakao.maps.LatLng(res.data[i].La, res.data[i].Ma),

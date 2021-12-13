@@ -105,29 +105,37 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken"))
-      axios
-        .get(`http://localhost:8080/user/info`, {
-          headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
-          },
+    axios
+      .get("http://localhost:8080/auth/refreshtoken", {
+        withCredentials: true,
+      })
+      .then(res => {
+        console.log(res);
+        localStorage.setItem("accessToken", res.data.accessToken);
+      });
+
+    axios
+      .get(`http://localhost:8080/user/info`, {
+        headers: {
+          authorization: `Bearer ` + localStorage.getItem("accessToken"),
+          "Content-Type": "application/json",
           withCredentials: true,
-        })
-        .then(res => {
-          setUserId(res.data.data._id);
-          if (res.data.data.iscompany) {
-            setIsUserLogin("recruiter");
-            setIsLogin(true);
-          } else {
-            setIsUserLogin("user");
-            setIsLogin(true);
-          }
-        })
-        .catch(err => {
-          console.log("err");
-          setIsLogin(false);
-        });
+        },
+      })
+      .then(res => {
+        setUserId(res.data.data._id);
+        if (res.data.data.iscompany) {
+          setIsUserLogin("recruiter");
+          setIsLogin(true);
+        } else {
+          setIsUserLogin("user");
+          setIsLogin(true);
+        }
+      })
+      .catch(err => {
+        console.log("err");
+        setIsLogin(false);
+      });
   }, [isUserLogin]);
 
   const googleAuthCode = () => {
