@@ -72,7 +72,12 @@ module.exports = {
     const fbTopThree = await Freeboard.find({})
       .sort({like_count: -1})
       .limit(3)
-      .select({like: 1, title: 1, createdAt: 1, like_count: 1})
+      .select({
+        like: 1,
+        title: 1,
+        createdAt: 1,
+        like_count: 1,
+      })
       .populate({path: "user_id", select: {nickname: 1}})
       .sort({createdAt: -1});
 
@@ -161,10 +166,9 @@ module.exports = {
             path: "freecomments.user_id",
             select: {nickname: 1},
           });
-        res.status(200).send({
-          data: fbcontent,
-          message: "싸장님~ 자세한 게시글 보는구나!",
-        });
+        res
+          .status(200)
+          .send({data: fbcontent, message: "싸장님~ 자세한 게시글 보는구나!"});
       } else {
         is_like = true;
         const fbcontent = await Freeboard.findById(req.body.freeboard_id)
@@ -198,21 +202,33 @@ module.exports = {
         });
       }
     } else {
-      const fbcontents = await Freeboard.find({})
+      const fbcontent = await Freeboard.findById(req.body.freeboard_id)
         .select({
           like: 1,
           title: 1,
-          createdAt: 1,
-          like_count: 1,
           images: 1,
+          description: 1,
+          freecomments: 1,
+          createdAt: 1,
         })
         .populate({path: "user_id", select: {nickname: 1}})
-        .sort({createdAt: -1});
-      res.status(200).send({
-        data: fbcontents,
-        fbTopThree,
-        message: "싸장님~ 자세한 게시글 보는구나~",
-      });
+        .sort({createdAt: -1})
+        .select({
+          freecomments: {
+            _id: 1,
+            user_id: 1,
+            comment: 1,
+            nickname: 1,
+            createdAt: 1,
+          },
+        })
+        .populate({
+          path: "freecomments.user_id",
+          select: {nickname: 1},
+        });
+      res
+        .status(200)
+        .send({data: fbcontent, message: "싸장님~ 자세한 게시글 보는구나!"});
     }
   },
 
@@ -434,7 +450,7 @@ module.exports = {
         _id: req.body.crewboard_id,
         like: userData.user_id,
       });
-      // console.log("===checkLike===", checkLike);
+      console.log("===checkLike===", checkLike);
       if (checkLike === null) {
         const cbcontent = await Crewboard.findById(req.body.crewboard_id)
           .select({
@@ -443,12 +459,11 @@ module.exports = {
             images: 1,
             shorts_description: 1,
             description: 1,
-            crewcomments: 1,
+            freecomments: 1,
             createdAt: 1,
           })
           .populate({path: "user_id", select: {nickname: 1}})
           .sort({createdAt: -1})
-          .populate({path: "crewcomments", select: {user_id: 1}})
           .select({
             crewcomments: {
               _id: 1,
@@ -456,19 +471,15 @@ module.exports = {
               comment: 1,
               nickname: 1,
               createdAt: 1,
-              isdeleted: 1,
-              crewchildcomments: 1,
             },
           })
           .populate({
             path: "crewcomments.user_id",
             select: {nickname: 1},
           });
-        res.status(200).send({
-          data: cbcontent,
-          message: "싸장님~ 자세한 게시글 보는구나!",
-        });
-        console.log("===cbcontent===", cbcontent);
+        res
+          .status(200)
+          .send({data: cbcontent, message: "싸장님~ 자세한 게시글 보는구나!"});
       } else {
         is_like = true;
         const cbcontent = await Crewboard.findById(req.body.crewboard_id)
@@ -503,41 +514,34 @@ module.exports = {
         });
       }
     } else {
-      const cbcontent = await Crewboard.findById(req.body.crewboard_id);
-
-      if (!cbcontent) {
-        return res.status(400).send({message: "존재하지 않는 게시물입니다!"});
-      } else {
-        await Crewboard.findById(req.body.crewboard_id)
-          .select({
-            like: 1,
-            title: 1,
-            images: 1,
-            shorts_description: 1,
-            description: 1,
-            crewcomments: 1,
+      const cbcontent = await Crewboard.findById(req.body.crewboard_id)
+        .select({
+          like: 1,
+          title: 1,
+          images: 1,
+          shorts_description: 1,
+          description: 1,
+          crewcomments: 1,
+          createdAt: 1,
+        })
+        .populate({path: "user_id", select: {nickname: 1}})
+        .sort({createdAt: -1})
+        .select({
+          crewcomments: {
+            _id: 1,
+            user_id: 1,
+            comment: 1,
+            nickname: 1,
             createdAt: 1,
-          })
-          .populate({path: "user_id", select: {nickname: 1}})
-          .sort({createdAt: -1})
-          .select({
-            crewcomments: {
-              _id: 1,
-              user_id: 1,
-              comment: 1,
-              nickname: 1,
-              createdAt: 1,
-            },
-          })
-          .populate({
-            path: "crewcomments.user_id",
-            select: {nickname: 1},
-          });
-        res
-          .status(200)
-          .send({data: cbcontent, message: "싸장님~ 자세한 게시글 보는구나!"});
-        console.log("===cbcontent===", cbcontent);
-      }
+          },
+        })
+        .populate({
+          path: "crewcomments.user_id",
+          select: {nickname: 1},
+        });
+      res
+        .status(200)
+        .send({data: cbcontent, message: "싸장님~ 자세한 게시글 보는구나!"});
     }
   },
 
