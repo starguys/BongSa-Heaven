@@ -9,7 +9,6 @@ const ImgUploadBox = styled.div`
   align-items: center;
   width: 80%;
   margin: 30px 0px 15px 0px;
-
   @media screen and (min-width: 37.5rem) {
     display: none;
   }
@@ -34,7 +33,6 @@ const SelectBox = styled.div`
   align-items: center;
   width: 80%;
   margin: 15px 0px 15px 0px;
-
   @media screen and (min-width: 37.5rem) {
     justify-content: flex-end;
     width: 1080px;
@@ -53,7 +51,6 @@ const CancelButton = styled.div`
   margin-bottom: 20px;
   border-radius: 20px;
   border: 1px solid #000000;
-
   @media screen and (min-width: 37.5rem) {
   }
 `;
@@ -69,14 +66,14 @@ const CompleteButton = styled.div`
   margin-left: 10px;
   margin-bottom: 20px;
   border-radius: 20px;
-
   @media screen and (min-width: 37.5rem) {
   }
 `;
 
 export default function CreateButton(props) {
   const saveFileImage = e => {
-    props.setFileImage(URL.createObjectURL(e.target.files[0]));
+    props.setFileImage(e.target.files[0]);
+    props.setpreviewFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const history = useHistory();
@@ -84,29 +81,45 @@ export default function CreateButton(props) {
   const Cancel = url => history.push(url);
 
   const createFreeBoard = () => {
-    console.log("fileImage:", props.fileImage);
+    const formData = new FormData();
+
+    formData.append("image", props.fileImage);
+
     if (props.description === "" || props.title === "") {
       alert("제목이나 내용이 아무것도 없으면, 작성되지 않습니다.");
       return;
     }
 
     axios
-      .post(
-        "http://localhost:8080/board/fbregister",
-        {
-          title: props.title,
-          description: props.description,
-          images: props.fileImage,
+      .post("http://localhost:8080/board/fbregister", formData, {
+        headers: {
+          authorization: `Bearer ` + localStorage.getItem("accessToken"),
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
-          },
-        },
-      )
+      })
       .then(res => {
-        console.log(res.data.message, "성공!");
+        console.log(res.data);
+
+        return axios
+          .patch(
+            "http://localhost:8080/board/fbedit",
+            {
+              freeboard_id: res.data._id,
+              title: props.title,
+              description: props.description,
+              images: res.data.images[0],
+            },
+            {
+              headers: {
+                authorization: `Bearer ` + localStorage.getItem("accessToken"),
+                "Content-Type": "application/json",
+              },
+            },
+          )
+          .then(res => {
+            Create("/FreeBoardList");
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err, "응안가"));
   };
@@ -125,19 +138,22 @@ export default function CreateButton(props) {
         <CompleteButton
           onClick={() => {
             createFreeBoard();
-            Create("/FreeBoardList");
           }}
         >
           작성 완료
         </CompleteButton>
       </SelectBox>
       {/* display:none 상태 */}
-      <ImgUpload
-        id="imgUpload"
-        onChange={saveFileImage}
-        type="file"
-        aceept="image/*"
-      />
+      <form action="info" method="post" encType="multipart/form-data">
+        <ImgUpload
+          id="imgUpload"
+          onChange={saveFileImage}
+          type="file"
+          name="file"
+          required="true"
+          accept="multipart/form-data"
+        />
+      </form>
       {/* display:none 상태 */}
     </>
   );

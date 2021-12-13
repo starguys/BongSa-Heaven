@@ -6,6 +6,7 @@ import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
 import EditButton from "../../components/CrewBoard/EditButton";
 import EditButton2 from "../../components/CrewBoard/EditButton2";
+import Loading from "../../components/common/Loading";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -25,7 +26,6 @@ const ContentsBox = styled.div`
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   margin-top: 30px;
-
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
   }
@@ -42,7 +42,6 @@ const ContentsBoxTitle = styled.input`
   width: 80%;
   border: none;
   border-bottom: solid gray 1px;
-
   @media screen and (min-width: 37.5rem) {
     font-size: 20px;
   }
@@ -62,10 +61,8 @@ const ContentsBoxBorder = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
-
   @media screen and (min-width: 37.5rem) {
     font-size: 16px;
-
     ::placeholder {
       font-size: 16px;
     }
@@ -78,10 +75,8 @@ const ContentsBoxHello = styled.input`
   margin: auto;
   border: none;
   font-size: 12px;
-
   @media screen and (min-width: 37.5rem) {
     font-size: 16px;
-
     ::placeholder {
       font-size: 16px;
     }
@@ -94,10 +89,8 @@ const ContentsBoxContents = styled.textarea`
   margin: 15px auto 40px auto;
   border: none;
   font-size: 12px;
-
   @media screen and (min-width: 37.5rem) {
     font-size: 16px;
-
     ::placeholder {
       font-size: 16px;
     }
@@ -131,12 +124,17 @@ export default function CrewBoardEdit({
     hello = currentCBcontent.data.shorts_description;
     description = currentCBcontent.data.description;
   }
-
+  const [isLoading, CheckLoading] = useState(false);
   const [fileImage, setFileImage] = useState("");
+  const [previewFileImage, setpreviewFileImage] = useState("");
+  const [previousFileImage, setpreviousFileImage] = useState("");
   const [editedTitle, setTitle] = useState(title);
   const [editedHello, setHello] = useState(hello);
   const [editedDescription, setDescription] = useState(description);
 
+  const loadingHandler = () => {
+    CheckLoading(true);
+  };
   const editTitle = e => {
     setTitle(e.target.value);
     console.log(editedTitle);
@@ -151,57 +149,97 @@ export default function CrewBoardEdit({
   };
 
   const editCrewBoard = () => {
-    console.log(
-      "crewboard_id",
-      currentCBcontent.data._id,
-      "title",
-      editedTitle,
-      "shorts_description",
-      editedHello,
-      "description",
-      editedDescription,
-      "images",
-      fileImage,
-    );
-
     if (editedTitle === "" || editedHello === "" || editedDescription === "") {
       alert("제목이나 내용이 아무것도 없으면, 수정되지 않습니다.");
       return;
     }
-
     if (fileImage === "") {
       alert("대표 이미지 파일이 없으면, 수정되지 않습니다.");
       return;
     }
+    if (fileImage !== previousFileImage) {
+      const formData = new FormData();
 
-    axios
-      .patch(
-        "http://localhost:8080/board/cbedit",
-        {
-          crewboard_id: currentCBcontent.data._id,
-          title: editedTitle,
-          shorts_description: editedHello,
-          description: editedDescription,
-          images: fileImage,
-        },
-        {
+      formData.append("image", fileImage);
+
+      axios
+        .post("http://localhost:8080/board/cbimageEdit", formData, {
           headers: {
             authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
-        },
-      )
-      .then(res => {
-        console.log(res.data.message);
+        })
+        .then(res => {
+          console.log(res.data);
+
+          axios
+            .patch(
+              "http://localhost:8080/board/cbedit",
+              {
+                crewboard_id: currentCBcontent.data._id,
+                title: editedTitle,
+                shorts_description: editedHello,
+                description: editedDescription,
+                images: res.data.images[0],
+              },
+              {
+                headers: {
+                  authorization:
+                    `Bearer ` + localStorage.getItem("accessToken"),
+                  "Content-Type": "application/json",
+                },
+              },
+            )
+            .then(res => {
+              console.log(res.data.message);
+            })
+            .catch(err => console.log(err));
+        })
+        .then(res => console.log(res.data.message))
+        .catch(err => console.log(err, "응안가"));
+
+      loadingHandler();
+
+      setTimeout(() => {
         GoToCrewBoardContent(currentCBcontent.data._id);
-      })
-      .catch(err => console.log(err));
+      }, 500);
+    } else {
+      axios
+        .patch(
+          "http://localhost:8080/board/cbedit",
+          {
+            crewboard_id: currentCBcontent.data._id,
+            title: editedTitle,
+            shorts_description: editedHello,
+            description: editedDescription,
+            images: fileImage,
+          },
+          {
+            headers: {
+              authorization: `Bearer ` + localStorage.getItem("accessToken"),
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(res => {
+          console.log(res.data.message);
+        })
+        .catch(err => console.log(err, "응안가"));
+
+      loadingHandler();
+
+      setTimeout(() => {
+        GoToCrewBoardContent(currentCBcontent.data._id);
+      }, 500);
+    }
   };
 
   useEffect(() => {
-    if (currentCBcontent.data !== undefined)
-      setFileImage(currentCBcontent.data.image);
-    // console.log(currentCBcontent.data._id, editedTitle, editedDescription, fileImage);
+    if (currentCBcontent.data !== undefined) {
+      setFileImage(currentCBcontent.data.images[0]);
+      setpreviewFileImage(currentCBcontent.data.images[0]);
+      setpreviousFileImage(currentCBcontent.data.images[0]);
+    }
   }, []);
 
   return (
@@ -215,7 +253,9 @@ export default function CrewBoardEdit({
               create="/CrewBoardList"
               cancel="/CrewBoardList"
               setFileImage={setFileImage}
+              setpreviewFileImage={setpreviewFileImage}
             />
+
             <ContentsBox>
               <ContentsBoxTitleBox>
                 <ContentsBoxTitle
@@ -237,14 +277,22 @@ export default function CrewBoardEdit({
                 defaultValue={currentCBcontent.data.description}
                 onChange={editDescription}
               ></ContentsBoxContents>
+              {isLoading ? (
+                <>
+                  <Loading />
+                </>
+              ) : (
+                <></>
+              )}
               <ContentsBoxImgBox>
-                <Img src={fileImage} alt="수정할 이미지 자리" />
+                <Img src={previewFileImage} alt="수정할 이미지 자리" />
               </ContentsBoxImgBox>
             </ContentsBox>
             <EditButton
               edit="/CrewBoardContents"
               cancel="/CrewBoardContents"
               setFileImage={setFileImage}
+              setpreviewFileImage={setpreviewFileImage}
               editCrewBoard={editCrewBoard}
             />
           </Wrapper>

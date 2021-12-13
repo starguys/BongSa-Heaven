@@ -14,9 +14,11 @@ module.exports = {
     if (userData) {
       const userInfo = await User.findById(userData.user_id);
       if (!userInfo) {
+        console.log("req", req);
         return res.status(404).send({message: "싸장님 일치하는 정보 없어요!"});
       }
       if (userInfo) {
+        console.log("req", req);
         return res.status(200).send({data: userInfo});
       }
     } else {
@@ -217,7 +219,4 @@ module.exports = {
       console.log(err);
     }
   },
-
-
-  
 };

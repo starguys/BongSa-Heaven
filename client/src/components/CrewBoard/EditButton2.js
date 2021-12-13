@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const ImgUploadBox = styled.div`
   display: none;
-
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
     display: flex;
@@ -29,7 +28,8 @@ const ImgUpload = styled.input`
 
 export default function EditButton(props) {
   const saveFileImage = e => {
-    props.setFileImage(URL.createObjectURL(e.target.files[0]));
+    props.setFileImage(e.target.files[0]);
+    props.setpreviewFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
   return (
@@ -40,7 +40,12 @@ export default function EditButton(props) {
         </label>
       </ImgUploadBox>
       {/* display:none 상태 */}
-      <ImgUpload id="imgUpload" onChange={saveFileImage} type="file" aceept="image/*" />
+      <ImgUpload
+        id="imgUpload"
+        onChange={saveFileImage}
+        type="file"
+        aceept="image/*"
+      />
       {/* display:none 상태 */}
     </>
   );

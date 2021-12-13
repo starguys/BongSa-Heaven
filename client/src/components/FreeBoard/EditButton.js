@@ -8,7 +8,6 @@ const ImgUploadBox = styled.div`
   align-items: center;
   width: 80%;
   margin: 30px 0px 15px 0px;
-
   @media screen and (min-width: 37.5rem) {
     display: none;
     width: 1080px;
@@ -33,7 +32,6 @@ const SelectBox = styled.div`
   align-items: center;
   width: 80%;
   margin: 15px 0px 15px 0px;
-
   @media screen and (min-width: 37.5rem) {
     justify-content: flex-end;
     width: 1080px;
@@ -53,7 +51,6 @@ const CancelButton = styled.div`
   margin-bottom: 20px;
   border-radius: 20px;
   border: 1px solid #000000;
-
   @media screen and (min-width: 37.5rem) {
   }
 `;
@@ -69,17 +66,16 @@ const CompleteButton = styled.div`
   margin-left: 10px;
   margin-bottom: 20px;
   border-radius: 20px;
-
   @media screen and (min-width: 37.5rem) {
   }
 `;
 
 export default function EditButton(props) {
   const saveFileImage = e => {
-    props.setFileImage(URL.createObjectURL(e.target.files[0]));
+    props.setFileImage(e.target.files[0]);
+    props.setpreviewFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
-  // const history = createBrowserHistory({forceRefresh: true});
   const history = useHistory();
   const Edit = url => history.push(url);
   const Cancel = url => history.push(url);
@@ -96,7 +92,7 @@ export default function EditButton(props) {
         <CompleteButton
           onClick={() => {
             props.editFreeBoard();
-            Edit(props.edit);
+            setTimeout(() => Edit(props.edit), 1000);
           }}
         >
           수정 완료

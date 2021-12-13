@@ -13,48 +13,55 @@ module.exports = {
     // 3. 유저라면 free board에 모델 생성하고 req.body로 받은 데이터 등록
 
     // 3-1 imag 올리는 경우 // 아닌경우 나눠서 하자
+    const image = req.files;
+    const path = image.map(img => img.location);
+    //!
 
-    if (req.files) {
-      //!추가한부분
-      const image = req.files;
-      const path = image.map(img => img.location);
-      //!
-      const userData = isAuthorized(req, res);
-      if (!userData) {
-        return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+    const userData = isAuthorized(req, res);
+    if (!userData) {
+      return res.status(401).send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+    }
+    if (userData) {
+      if (image === undefined) {
+        return res.status(400).send("이미지가 존재하지 않습니다.");
       }
-      if (userData) {
-        const freeContent = {
-          user_id: userData.user_id,
-          images: path, //!
-          title: req.body.title,
-          description: req.body.description,
-        };
-        const insertDb = new Freeboard(freeContent).save();
-        if (!insertDb) {
-          return res.status(500).send({message: "싸장님 서버 이상해"});
-        } else {
-          return res.status(201).send({message: "freeboard content 등록완료"});
-        }
+
+      //게시물을 만들때 함께 적용한다.board가
+
+      const createImages = new Freeboard({
+        user_id: userData.user_id,
+        images: path,
+      });
+      createImages
+        .save()
+        .then(data => {
+          if (!res) {
+            return res.status(500).send("서버 문제");
+          }
+          return res.status(200).send(data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+
+  fbimageEditControl: async (req, res) => {
+    const image = req.files;
+    const path = image.map(img => img.location);
+
+    const userData = isAuthorized(req, res);
+    if (!userData) {
+      return res.status(401).send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+    }
+    if (userData) {
+      if (image === undefined) {
+        return res.status(400).send("이미지가 존재하지 않습니다.");
       }
-    } else {
-      const userData = isAuthorized(req, res);
-      if (!userData) {
-        return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
-      }
-      if (userData) {
-        const freeContent = {
-          user_id: userData.user_id,
-          title: req.body.title,
-          description: req.body.description,
-        };
-        const insertDb = new Freeboard(freeContent).save();
-        if (!insertDb) {
-          return res.status(500).send({message: "싸장님 서버 이상해"});
-        } else {
-          return res.status(201).send({message: "freeboard content 등록완료"});
-        }
-      }
+
+      let data = {images: path};
+
+      return res.status(200).send(data);
     }
   },
 
@@ -317,33 +324,68 @@ module.exports = {
     // 3. 유저라면 crew board에 모델 생성하고 req.body로 받은 데이터 등록
     //!추가한부분
 
-    // console.log("req.file", req.file);
-    // console.log("req.files", req.files);
-    // console.log("req.body.file", req.body.file);
-    // console.log("req.body.files", req.body.files);
-    // console.log("req.body.images", req.body.images);
-
     const image = req.files;
-    // const path = image.map(img => img.location);
+    const path = image.map(img => img.location);
     //!
+
     const userData = isAuthorized(req, res);
     if (!userData) {
       return res.status(401).send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
     }
     if (userData) {
-      const crewContent = {
-        user_id: userData.user_id,
-        // images: path, //!
-        title: req.body.title,
-        shorts_description: req.body.shorts_description,
-        description: req.body.description,
-      };
-      const insertDb = new Crewboard(crewContent).save();
-      if (!insertDb) {
-        return res.status(500).send({message: "싸장님 서버 이상해"});
-      } else {
-        return res.status(201).send({message: "crewboard content 등록완료"});
+      if (image === undefined) {
+        return res.status(400).send("이미지가 존재하지 않습니다.");
       }
+
+      //게시물을 만들때 함께 적용한다.board가
+      const createImages = new Crewboard({
+        user_id: userData.user_id,
+        images: path,
+      });
+      createImages
+        .save()
+        .then(data => {
+          if (!res) {
+            return res.status(500).send("서버 문제");
+          }
+          return res.status(200).send(data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+      //   const crewContent = {
+      //     user_id: userData.user_id,
+      //     images: path, //!
+      //     title: req.body.title,
+      //     shorts_description: req.body.shorts_description,
+      //     description: req.body.description,
+      //   };
+      //   const insertDb = new Crewboard(crewContent).save();
+      //   if (!insertDb) {
+      //     return res.status(500).send({message: "싸장님 서버 이상해"});
+      //   } else {
+      //     return res.status(201).send({message: "crewboard content 등록완료"});
+      //   }
+    }
+  },
+
+  cbimageEditControl: async (req, res) => {
+    const image = req.files;
+    const path = image.map(img => img.location);
+
+    const userData = isAuthorized(req, res);
+    if (!userData) {
+      return res.status(401).send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+    }
+    if (userData) {
+      if (image === undefined) {
+        return res.status(400).send("이미지가 존재하지 않습니다.");
+      }
+
+      let data = {images: path};
+
+      return res.status(200).send(data);
     }
   },
 
