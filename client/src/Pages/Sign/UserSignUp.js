@@ -395,6 +395,7 @@ export default function UserSignUp() {
     }
     setIsNick(false);
   };
+
   //최종 회원가입을 눌렀을때
   const handleSignUpRequest = () => {
     console.log("클릭했어");
@@ -476,7 +477,6 @@ export default function UserSignUp() {
           <LogoBox>
             <Logo src="./image/logo2.png"></Logo>
           </LogoBox>
-
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handleEmail}

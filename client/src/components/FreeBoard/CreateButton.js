@@ -83,14 +83,22 @@ export default function CreateButton(props) {
   const Create = url => history.push(url);
   const Cancel = url => history.push(url);
 
-  const createFreeBoard = () => {
+  const createFreeBoard = async () => {
     console.log("fileImage:", props.fileImage);
     if (props.description === "" || props.title === "") {
       alert("제목이나 내용이 아무것도 없으면, 작성되지 않습니다.");
       return;
     }
 
-    axios
+    console.log("===props.fileImage===", props.fileImage);
+    console.log("===props.title===", props.title);
+
+    const formData = new FormData();
+    formData.append("context", props.fileImage);
+    formData.append("tagName", props.description);
+    formData.append("tagName", props.title);
+
+    await axios
       .post(
         "http://localhost:8080/board/fbregister",
         {
@@ -101,7 +109,7 @@ export default function CreateButton(props) {
         {
           headers: {
             authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         },
       )

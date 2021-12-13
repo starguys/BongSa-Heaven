@@ -12,9 +12,9 @@ module.exports = {
     // }
     // console.log(req.files);
     const image = req.files;
-
+    console.log("===image===", image);
     const path = image.map(img => img.location);
-    console.log(path);
+    console.log("===path===", path);
 
     if (image === undefined) {
       return res.status(400).send("이미지가 존재하지 않습니다.");

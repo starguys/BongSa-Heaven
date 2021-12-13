@@ -96,6 +96,7 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
   //로그인 버튼을 클릭햇을때 메인으로 이동하고 로그인 상태여야하고,
   const GoogleOauth = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT}&response_type=code&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email&prompt=select_account`;
 
+
   const kakaoOauth = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
 
   const googleControl = () => {
@@ -104,6 +105,7 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
   const kakaoControl = () => {
     window.location.assign(kakaoOauth);
   };
+
 
   const handleEmail = e => {
     console.log(e.target.value);
@@ -120,6 +122,8 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
       handleLoginRequest();
     }
   };
+
+
   const handleLoginRequest = async e => {
     //유효성 검사
     if (!email) {
@@ -225,7 +229,6 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
           <LogoBox>
             <Logo src="./image/logo2.png"></Logo>
           </LogoBox>
-
           <SignInWhiteBox>
             <SignInWhiteInput
               type="email"
