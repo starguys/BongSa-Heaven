@@ -1,6 +1,9 @@
 require("dotenv").config();
 const crypto = require("crypto");
 const User = require("../models/User");
+const Map = require("../models/Map");
+const freeComment = require("../models/Freecomment");
+const crewCommet = require("../models/Crewcomment");
 const {isAuthorized} = require("../middlewares/token");
 
 module.exports = {
@@ -169,6 +172,9 @@ module.exports = {
     }
     if (userData) {
       const userInfo = await User.findById(userData.user_id).remove().exec();
+      //맵에 있는 데이터도 제거
+      Map.findById(userData.user_id).remove().exec();
+
       if (!userInfo) {
         res.status(404).send({message: "탈퇴가 이루어지지 않았어요!"});
       } else {
