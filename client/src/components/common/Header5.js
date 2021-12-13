@@ -7,6 +7,8 @@ import {faBars} from "@fortawesome/free-solid-svg-icons";
 import {faUserCircle} from "@fortawesome/free-regular-svg-icons";
 import {faUserCircle as LoginIcon} from "@fortawesome/free-solid-svg-icons";
 
+axios.defaults.withCredentials = true;
+
 const HeaderContainer = styled.div`
   width: 100%;
   height: 64px;
@@ -198,31 +200,23 @@ export default function Header({
 
   const LogOut = () => {
     axios
-      .post(
-        "http://localhost:8080/auth/signout",
-        {},
-        {
-          headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
-          },
-        },
+      .get(
+        "http://localhost:8080/auth/resetrftk",
+        // {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     withCredentials: true,
+        //   },
+        // }
       )
       .then(res => {
-        localStorage.removeItem("accessToken");
-        const deleteCookie = function (name) {
-          document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
-        };
-        deleteCookie("refreshToken");
-        setIsLogin(false);
-        setIsUserLogin("user");
-        setUserId("");
-        console.log(document.cookie);
-        console.log("hi");
-
-        GoHome();
-      })
-      .catch(err => console.log(err));
+        console.log(res);
+      });
+    localStorage.removeItem("accessToken");
+    setIsLogin(false);
+    setIsUserLogin("user");
+    setUserId("");
+    GoHome();
   };
 
   // useEffect(() => {}, [isLogin, isUserLogin]);

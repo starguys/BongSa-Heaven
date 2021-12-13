@@ -105,32 +105,106 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken"))
-      axios
-        .get(`http://localhost:8080/user/info`, {
-          headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
-            withCredentials: true,
-          },
-        })
-        .then(res => {
-          setUserId(res.data.data._id);
-          if (res.data.data.iscompany) {
-            setIsUserLogin("recruiter");
-            setIsLogin(true);
-          } else {
-            setIsUserLogin("user");
-            setIsLogin(true);
-          }
-        })
-        .catch(err => {
-          console.log("err");
-          setIsLogin(false);
-        });
+    axios
+      .get("http://localhost:8080/auth/refreshtoken", {
+        withCredentials: true,
+      })
+      .then(res => {
+        console.log(res);
+        localStorage.setItem("accessToken", res.data.accessToken);
+      });
+
+    axios
+      .get(`http://localhost:8080/user/info`, {
+        headers: {
+          authorization: `Bearer ` + localStorage.getItem("accessToken"),
+          "Content-Type": "application/json",
+          withCredentials: true,
+        },
+      })
+      .then(res => {
+        setUserId(res.data.data._id);
+        if (res.data.data.iscompany) {
+          setIsUserLogin("recruiter");
+          setIsLogin(true);
+        } else {
+          setIsUserLogin("user");
+          setIsLogin(true);
+        }
+      })
+      .catch(err => {
+        console.log("err");
+        setIsLogin(false);
+      });
   }, [isUserLogin]);
 
-  document.cookie = "refreshToken=; domain=;  path=/;  expires=;";
+  const googleAuthCode = () => {
+    const url = new URL(window.location.href);
+    console.log(url.pathname);
+    const searchs = url.search;
+
+    if (url.pathname === "/callback") {
+      const code = searchs.split("=")[1].split("&")[0];
+      console.log(code);
+      axios
+        .post(
+          `http://localhost:8080/auth/google`,
+          {code: code},
+
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(data => {
+          console.log("성공");
+          console.log(data);
+          history.push("/");
+          setIsLogin(true);
+        })
+        .catch(err => {
+          setIsLogin(false);
+          console.log(err, "erro");
+        });
+    }
+  };
+  //카카오와 구글을 구분하는 방법이 있을까?
+  const kakaoAuthCode = () => {
+    const url = new URL(window.location.href);
+    const searchs = url.search;
+
+    if (url.pathname === "/kakao/callback") {
+      const code = searchs.split("=")[1].split("&")[0];
+      console.log(code);
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URI}/auth/kakao`,
+          {code: code},
+
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(data => {
+          console.log("성공");
+          console.log(data);
+          history.push("/");
+          setIsLogin(true);
+        })
+        .catch(err => {
+          setIsLogin(false);
+          console.log(err, "erro");
+        });
+    }
+  };
+  useEffect(() => {
+    googleAuthCode();
+    kakaoAuthCode();
+  }, []);
+
   return (
     <div id="app_div">
       <Header5

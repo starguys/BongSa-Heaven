@@ -17,10 +17,12 @@ const crewboardSchema = new Schema(
     title: String,
     description: String,
     images: Array,
-    crewcomments: {
-      type: [crewcommentSchema],
-      default: [],
-    },
+    crewcomments: [
+      {
+        type: crewcommentSchema,
+        ref: "Crewcomment",
+      },
+    ],
     isopen: {
       type: Boolean,
       default: true,

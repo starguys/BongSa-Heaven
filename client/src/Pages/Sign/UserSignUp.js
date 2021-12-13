@@ -383,20 +383,19 @@ export default function UserSignUp() {
           },
         )
         .then(res => {
-          console.log("통과");
-          if (nickname !== res.data.data) {
-            setNickCheckErrorMessage("사용 가능한 닉네임 입니다.");
-            setIsNick(true);
-          }
+          //db에있는 데이터와 , 현재 입력한 데이터가 일치 하
+
+          setNickCheckErrorMessage("사용 가능한 닉네임 입니다.");
+          setIsNick(true);
         })
-        .catch(() => {
-          console.log("일치하는값 들어옴");
+        .catch(err => {
           setNickCheckErrorMessage("중복된 닉네임 입니다.");
           setIsNick(false);
         });
     }
     setIsNick(false);
   };
+
   //최종 회원가입을 눌렀을때
   const handleSignUpRequest = () => {
     console.log("클릭했어");
@@ -447,12 +446,26 @@ export default function UserSignUp() {
           console.log("통과");
           setIsSignUp(true);
           history.push("/SignIn");
+
+          axios
+            .post(
+              `${process.env.REACT_APP_API_URI}/auth/sendEmail`,
+              {
+                email: email,
+              },
+              {headers: {"Content-Type": "application/json"}},
+            )
+            .then(data => {})
+            .catch(err => {
+              console.log(err);
+            });
         })
         .catch(err => {
           console.log(err);
           setIsSignUp(false);
           setEmailErrorMessage("이메일 중복됩니다.");
         });
+      //가입했을시 인증메일을 보낸다.
     }
   };
 
@@ -464,7 +477,6 @@ export default function UserSignUp() {
           <LogoBox>
             <Logo src="./image/logo2.png"></Logo>
           </LogoBox>
-
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handleEmail}
