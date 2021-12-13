@@ -74,15 +74,15 @@ const CompleteButton = styled.div`
   }
 `;
 
-export default function CreateButton(props) {
-  const saveFileImage = e => {
+export default function CreateButton(props: any) {
+  const saveFileImage = (e: any) => {
     props.setFileImage(e.target.files[0]);
     props.setpreviewFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const history = useHistory();
-  const Create = url => history.push(url);
-  const Cancel = url => history.push(url);
+  const Create = (url: any) => history.push(url);
+  const Cancel = (url: any) => history.push(url);
 
   const createCrewBoard = () => {
     const formData = new FormData();
@@ -158,7 +158,7 @@ export default function CreateButton(props) {
           onChange={saveFileImage}
           type="file"
           name="file"
-          required="true"
+          // required="true"
           accept="multipart/form-data"
         />
       </form>

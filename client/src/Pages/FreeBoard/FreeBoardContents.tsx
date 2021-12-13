@@ -18,7 +18,7 @@ export default function FreeBoardContents({
   currentFBcontent,
   userId,
   GoToFreeBoardContent,
-}) {
+}: any) {
   return (
     <>
       <Wrapper>

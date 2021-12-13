@@ -65,7 +65,7 @@ const FooterContainer = styled.div`
   justify-content: center;
 `;
 
-export default function Footer({isLogin, setIsLogin, setIsUserLogin}) {
+export default function Footer({isLogin, setIsLogin, setIsUserLogin}: any) {
   const history = useHistory();
 
   const GoSignIn = () => {

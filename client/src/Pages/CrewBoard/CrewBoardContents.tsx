@@ -18,7 +18,7 @@ export default function CrewBoardContents({
   currentCBcontent,
   userId,
   GoToCrewBoardContent,
-}) {
+}: any) {
   return (
     <>
       <Wrapper>

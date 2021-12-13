@@ -18,7 +18,7 @@ const Title = styled.div`
   cursor: pointer;
 `;
 
-export default function DesktopTitle(props) {
+export default function DesktopTitle(props: any) {
   const history = useHistory();
 
   const GoToURL = () => {

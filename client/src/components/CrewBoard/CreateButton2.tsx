@@ -27,8 +27,8 @@ const ImgUpload = styled.input`
   display: none;
 `;
 
-export default function CreateButton(props) {
-  const saveFileImage = e => {
+export default function CreateButton(props: any) {
+  const saveFileImage = (e: any) => {
     props.setFileImage(e.target.files[0]);
     props.setpreviewFileImage(URL.createObjectURL(e.target.files[0]));
   };
@@ -47,7 +47,7 @@ export default function CreateButton(props) {
           onChange={saveFileImage}
           type="file"
           name="file"
-          required="true"
+          // required="true"
           accept="multipart/form-data"
         />
       </form>

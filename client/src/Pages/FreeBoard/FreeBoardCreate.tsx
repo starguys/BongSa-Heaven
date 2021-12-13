@@ -80,7 +80,7 @@ export default function FreeBoardCreate() {
   const [previewFileImage, setpreviewFileImage] = useState("");
   const [fileImage, setFileImage] = useState("");
 
-  const inputHandler = e => {
+  const inputHandler = (e: any) => {
     setDescription(e.target.value);
     console.log(description);
   };

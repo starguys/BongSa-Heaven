@@ -81,7 +81,7 @@ export default function MaillList({
   handleCheckList,
   handleUnCheckList,
   isChecked,
-}) {
+}: any) {
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {

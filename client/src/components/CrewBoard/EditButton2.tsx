@@ -27,8 +27,8 @@ const ImgUpload = styled.input`
   display: none;
 `;
 
-export default function EditButton(props) {
-  const saveFileImage = e => {
+export default function EditButton(props: any) {
+  const saveFileImage = (e: any) => {
     props.setFileImage(e.target.files[0]);
     props.setpreviewFileImage(URL.createObjectURL(e.target.files[0]));
   };
@@ -45,7 +45,7 @@ export default function EditButton(props) {
         id="imgUpload"
         onChange={saveFileImage}
         type="file"
-        aceept="image/*"
+        // aceept="image/*"
       />
       {/* display:none 상태 */}
     </>

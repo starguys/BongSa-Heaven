@@ -4,8 +4,8 @@ const ADDLIST = "mailDeleteList/ADDLIST";
 const DELETLIST = "mailDeleteList/DELETLIST";
 const RESETLIST = "mailDeleteList/RESETLIST";
 
-export const addList = createAction(ADDLIST, id => id);
-export const deleteList = createAction(DELETLIST, id => id);
+export const addList = createAction(ADDLIST, (id: any) => id);
+export const deleteList = createAction(DELETLIST, (id: any) => id);
 export const resetList = createAction(RESETLIST);
 
 const initialState = {
@@ -14,9 +14,10 @@ const initialState = {
 
 const mailDeleteList = handleActions(
   {
-    [ADDLIST]: (state, {payload: id}) => state.concat(id),
-    [DELETLIST]: (state, {payload: id}) => state.filter(el => el !== id),
-    [RESETLIST]: (state, {payload: id}) => (state = []),
+    [ADDLIST]: (state: any, {payload: id}: any) => state.concat(id),
+    [DELETLIST]: (state: any, {payload: id}: any) =>
+      state.filter((el: any) => el !== id),
+    [RESETLIST]: (state: any, {payload: id}: any) => (state = []),
   },
   initialState,
 );

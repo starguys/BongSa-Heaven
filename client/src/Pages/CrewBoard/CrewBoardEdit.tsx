@@ -123,7 +123,7 @@ const Img = styled.img`
 export default function CrewBoardEdit({
   currentCBcontent,
   GoToCrewBoardContent,
-}) {
+}: any) {
   let title = "",
     description = "",
     hello = "";
@@ -143,15 +143,15 @@ export default function CrewBoardEdit({
   const loadingHandler = () => {
     CheckLoading(true);
   };
-  const editTitle = e => {
+  const editTitle = (e: any) => {
     setTitle(e.target.value);
     console.log(editedTitle);
   };
-  const editHello = e => {
+  const editHello = (e: any) => {
     setHello(e.target.value);
     console.log(editedHello);
   };
-  const editDescription = e => {
+  const editDescription = (e: any) => {
     setDescription(e.target.value);
     console.log(editedDescription);
   };
@@ -203,7 +203,7 @@ export default function CrewBoardEdit({
             })
             .catch(err => console.log(err));
         })
-        .then(res => console.log(res.data.message))
+
         .catch(err => console.log(err, "응안가"));
 
       loadingHandler();

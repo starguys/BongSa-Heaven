@@ -12,8 +12,8 @@ import {persistStore} from "redux-persist";
 import {PersistGate} from "redux-persist/integration/react";
 import rootReducer from "./modules/index";
 
-const store = createStore(rootReducer, composeWithDevTools());
-const persistor = persistStore(store);
+const store: any = createStore(rootReducer, composeWithDevTools());
+const persistor: any = persistStore(store);
 
 ReactDOM.render(
   <BrowserRouter>

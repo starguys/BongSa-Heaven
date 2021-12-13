@@ -1,8 +1,8 @@
-import React from 'react';
-import {useHistory} from 'react-router';
-import styled from 'styled-components';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faPaperPlane} from '@fortawesome/free-regular-svg-icons';
+import React from "react";
+import {useHistory} from "react-router";
+import styled from "styled-components";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPaperPlane} from "@fortawesome/free-regular-svg-icons";
 
 const SeeRecruiterContainer = styled.div`
   margin-bottom: 13px;
@@ -82,7 +82,7 @@ const RightBox = styled.div`
   line-height: 19px;
 `;
 
-export default function Recruiters(list) {
+export default function Recruiters(list: any) {
   const history = useHistory();
   console.log(list.list.nickname);
   console.log(list.list.want_region);
@@ -90,7 +90,7 @@ export default function Recruiters(list) {
   console.log(list.list.company);
 
   const GoMaillWrite = () => {
-    history.push('/MaillWrite');
+    history.push("/MaillWrite");
   };
   return (
     <>

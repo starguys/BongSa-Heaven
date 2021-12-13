@@ -60,7 +60,7 @@ export default function App() {
   const history = useHistory();
   const GotoContents = () => history.push("/FreeBoardContents");
 
-  const GoToFreeBoardContent = freeboard_id => {
+  const GoToFreeBoardContent = (freeboard_id: any) => {
     axios
       .post(
         "http://localhost:8080/board/fbinfo",
@@ -83,7 +83,7 @@ export default function App() {
 
   const GotoCard = () => history.push("/CrewBoardContents");
 
-  const GoToCrewBoardContent = crewboard_id => {
+  const GoToCrewBoardContent = (crewboard_id: any) => {
     axios
       .post(
         "http://localhost:8080/board/cbinfo",
@@ -119,8 +119,8 @@ export default function App() {
         headers: {
           authorization: `Bearer ` + localStorage.getItem("accessToken"),
           "Content-Type": "application/json",
-          withCredentials: true,
         },
+        withCredentials: true,
       })
       .then(res => {
         setUserId(res.data.data._id);

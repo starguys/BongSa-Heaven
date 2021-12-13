@@ -115,12 +115,12 @@ const MaillWriteInputContainer = styled.div`
     justify-content: center;
   }
 `;
-export default function MaillWriteMain(Title) {
+export default function MaillWriteMain(Title: any) {
   const dispath = useDispatch();
 
-  const [value, setValue] = useState("");
-  const [text, setText] = useState("");
-  const [checkName, setCheckName] = useState(false);
+  const [value, setValue] = useState<any>("");
+  const [text, setText] = useState<any>("");
+  const [checkName, setCheckName] = useState<any>(false);
 
   useEffect(() => {
     setValue([]);
@@ -128,11 +128,11 @@ export default function MaillWriteMain(Title) {
     dispath(changeName(value));
     dispath(changeText(text));
   }, []);
-  const valueChange = e => {
+  const valueChange = (e: any) => {
     setValue(e.target.value);
     onChangeName(e.target.value);
   };
-  const textChange = e => {
+  const textChange = (e: any) => {
     setText(e.target.value);
     onChangeText(e.target.value);
   };
@@ -162,11 +162,11 @@ export default function MaillWriteMain(Title) {
     }
   };
 
-  const onChangeName = value => {
+  const onChangeName = (value: any) => {
     dispath(changeName(value));
   };
 
-  const onChangeText = text => {
+  const onChangeText = (text: any) => {
     dispath(changeText(text));
   };
   return (

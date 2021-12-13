@@ -87,7 +87,7 @@ const CompleteButton = styled.div`
   cursor: pointer;
 `;
 
-export default function SignIn({setIsLogin, setIsUserLogin}) {
+export default function SignIn({setIsLogin, setIsUserLogin}: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -95,7 +95,6 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
   const history = useHistory();
   //로그인 버튼을 클릭햇을때 메인으로 이동하고 로그인 상태여야하고,
   const GoogleOauth = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT}&response_type=code&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email&prompt=select_account`;
-
 
   const kakaoOauth = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
 
@@ -106,25 +105,23 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
     window.location.assign(kakaoOauth);
   };
 
-
-  const handleEmail = e => {
+  const handleEmail = (e: any) => {
     console.log(e.target.value);
     setEmail(e.target.value);
   };
-  const handlePassword = e => {
+  const handlePassword = (e: any) => {
     e.preventDefault();
     console.log(e.target.value);
     setPassword(e.target.value);
   };
-  const onKeyPress = () => {
-    if (window.event.keyCode == 13) {
-      console.log("enter키로 로그인");
-      handleLoginRequest();
-    }
-  };
+  // const onKeyPress = () => {
+  //   if (window.event.keyCode == 13) {
+  //     console.log("enter키로 로그인");
+  //     handleLoginRequest();
+  //   }
+  // };
 
-
-  const handleLoginRequest = async e => {
+  const handleLoginRequest = async (e: any) => {
     //유효성 검사
     if (!email) {
       setErrorMessage("이메일을 입력해주세요");
@@ -154,8 +151,8 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
               headers: {
                 authorization: `Bearer ` + localStorage.getItem("accessToken"),
                 "Content-Type": "application/json",
-                withCredentials: true,
               },
+              withCredentials: true,
             })
             .then(res => {
               console.log(res);
@@ -242,7 +239,7 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
               type="password"
               placeholder="비밀번호"
               onChange={handlePassword}
-              onKeyUp={onKeyPress}
+              // onKeyUp={onKeyPress}
             ></SignInWhiteInput>
           </SignInWhiteBox>
 

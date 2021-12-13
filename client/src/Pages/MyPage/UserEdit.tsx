@@ -243,7 +243,7 @@ const DeleteBtn = styled.div`
 `;
 
 export default function UserEdit() {
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState<any>({
     email: "",
     nickname: "",
     password: "",
@@ -254,7 +254,7 @@ export default function UserEdit() {
     age: "",
     sex: "",
   });
-  const [newPass, setNewPass] = useState({
+  const [newPass, setNewPass] = useState<any>({
     password: "",
     asswordCheck: "",
   });
@@ -276,7 +276,7 @@ export default function UserEdit() {
   };
   //새로운 성별
 
-  const handleChange = key => e => {
+  const handleChange = (key: any) => (e: any) => {
     // 비밀번호, 닉네임은 새로 만들고 , 나머지는 기존 userInfo 변경?
     //유저 정보 변경시 새로운 데이터가 들어옴
 
@@ -322,7 +322,7 @@ export default function UserEdit() {
     //   setNewUserInfo({ ...newUserInfo, [key]: "여자" });
     // }
   };
-  const validateCheckPassword = (password, passwordCheck) => {
+  const validateCheckPassword = (password: any, passwordCheck: any) => {
     if (password !== passwordCheck) {
       setPassCheckErrorMessage("동일한 비밀번호를 입력해주세요");
       return false;
@@ -331,13 +331,15 @@ export default function UserEdit() {
       return true;
     }
   };
-  const validatePassword = password => {
+  const validatePassword = (password: any) => {
     // 8자이상 16자이하 의 숫자, 문자, 특수문자 조합
 
     const regPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
     if (!regPassword.test(password)) {
-      setPassErrorMessage("비밀번호를 8~16자, 숫자, 특수문자,영어를 혼합해주세요");
+      setPassErrorMessage(
+        "비밀번호를 8~16자, 숫자, 특수문자,영어를 혼합해주세요",
+      );
       return false;
     } else {
       setPassErrorMessage("");
@@ -346,7 +348,7 @@ export default function UserEdit() {
     }
   };
 
-  const validateNickname = nickname => {
+  const validateNickname = (nickname: any) => {
     //닉네임은 자릿수 제한만 두기로 한다.
     //닉네임 중복 체크
     const max = 8;
@@ -408,7 +410,10 @@ export default function UserEdit() {
   const userInfoEditHandler = () => {
     const validPassword = validatePassword(newPass.password);
     const validNickname = validateNickname(userInfo.nickname);
-    const validCheckPassword = validateCheckPassword(newPass.password, newPass.passwordCheck);
+    const validCheckPassword: any = validateCheckPassword(
+      newPass.password,
+      newPass.passwordCheck,
+    );
 
     console.log(validNickname, validPassword, validCheckPassword, isNick);
     //유저정보 변경은 어떻게 이루어지는가?
@@ -438,7 +443,6 @@ export default function UserEdit() {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
-            "Contetn-Type ": "appliaction/json",
           },
         )
         .then(res => {
@@ -469,7 +473,6 @@ export default function UserEdit() {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
-            "Contetn-Type ": "appliaction/json",
           },
         )
         .then(res => {
@@ -499,7 +502,6 @@ export default function UserEdit() {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
-            "Contetn-Type ": "appliaction/json",
           },
         )
         .then(res => {
@@ -529,7 +531,6 @@ export default function UserEdit() {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-          "Contetn-Type ": "appliaction/json",
         },
       )
       .then(res => {
@@ -598,7 +599,9 @@ export default function UserEdit() {
           </SignUpWhiteBox>
           <CheckingPossibleOrNotBox>
             <PossibleOrNot> {nickCheckErrorMessage}</PossibleOrNot>
-            <CheckingPossibleOrNotButton onClick={handleNicknameCheck}>중복 확인</CheckingPossibleOrNotButton>
+            <CheckingPossibleOrNotButton onClick={handleNicknameCheck}>
+              중복 확인
+            </CheckingPossibleOrNotButton>
           </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
@@ -661,21 +664,27 @@ export default function UserEdit() {
           {age ? (
             age === "청소년" ? (
               <SelectBox>
-                <AgeButtonSelected onClick={handleChange("teen")}>청소년</AgeButtonSelected>
+                <AgeButtonSelected onClick={handleChange("teen")}>
+                  청소년
+                </AgeButtonSelected>
                 <AgeButton onClick={handleChange("adult")}>청년</AgeButton>
                 <AgeButton onClick={handleChange("senior")}>장년</AgeButton>
               </SelectBox>
             ) : age === "청년" ? (
               <SelectBox>
                 <AgeButton onClick={handleChange("teen")}>청소년</AgeButton>
-                <AgeButtonSelected onClick={handleChange("adult")}>청년</AgeButtonSelected>
+                <AgeButtonSelected onClick={handleChange("adult")}>
+                  청년
+                </AgeButtonSelected>
                 <AgeButton onClick={handleChange("senior")}>장년</AgeButton>
               </SelectBox>
             ) : (
               <SelectBox>
                 <AgeButton onClick={handleChange("teen")}>청소년</AgeButton>
                 <AgeButton onClick={handleChange("adult")}>청년</AgeButton>
-                <AgeButtonSelected onClick={handleChange("senior")}>장년</AgeButtonSelected>
+                <AgeButtonSelected onClick={handleChange("senior")}>
+                  장년
+                </AgeButtonSelected>
               </SelectBox>
             )
           ) : (
@@ -686,7 +695,9 @@ export default function UserEdit() {
             </SelectBox>
           )}
           <CompleteBox>
-            <CompleteButton onClick={userInfoEditHandler}>수정완료 완료</CompleteButton>
+            <CompleteButton onClick={userInfoEditHandler}>
+              수정완료 완료
+            </CompleteButton>
             <CompleteButton onClick={GoUserDelete}>회원탈퇴</CompleteButton>
           </CompleteBox>
         </MainContainer>

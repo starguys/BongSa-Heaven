@@ -154,7 +154,7 @@ const ContentsBoxDeleteButton = styled.div`
   }
 `;
 
-export default function Writing({currentCBcontent, userId}) {
+export default function Writing({currentCBcontent, userId}: any) {
   // console.log("currentCBcontent.data.images", currentCBcontent.data.images);
   const history = useHistory();
 

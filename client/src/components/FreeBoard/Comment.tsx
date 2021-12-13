@@ -116,7 +116,7 @@ const CommentInputButton = styled.div`
   }
 `;
 
-export default function Comment({currentFBcontent, GoToFreeBoardContent}) {
+export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
   const [commentValue, setCommentValue] = useState("");
   const [myId, setMyId] = useState("");
 
@@ -137,7 +137,7 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}) {
       });
   };
 
-  const makeComment = e => {
+  const makeComment = (e: any) => {
     setCommentValue(e.target.value);
     console.log(commentValue);
   };
@@ -179,7 +179,7 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}) {
       <CommentList>
         {currentFBcontent.data === undefined
           ? null
-          : currentFBcontent.data.freecomments.map((comment, idx) => (
+          : currentFBcontent.data.freecomments.map((comment: any, idx: any) => (
               <CommentBox key={idx}>
                 <CommentWriter>
                   {comment.user_id == null

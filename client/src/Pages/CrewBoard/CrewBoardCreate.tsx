@@ -74,14 +74,14 @@ const Img = styled.img`
   border-radius: 10px;
 `;
 
-export default function CrewBoardCreate() {
+export default function CrewBoardCreate({GoToCrewBoardContent}: any) {
   const [title, setTitle] = useState("");
   const [hello, setHello] = useState("");
   const [description, setDescription] = useState("");
   const [previewFileImage, setpreviewFileImage] = useState("");
   const [fileImage, setFileImage] = useState("");
 
-  const inputHandler = e => {
+  const inputHandler = (e: any) => {
     setDescription(e.target.value);
   };
 

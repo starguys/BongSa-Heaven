@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router";
+import {useHistory} from "react-router";
 
 const ListBox = styled.div`
   display: flex;
   align-items: center;
   width: 80%;
-  display:flex;
+  display: flex;
   padding: 10px;
 
   @media screen and (min-width: 37.5rem) {
@@ -15,7 +15,7 @@ const ListBox = styled.div`
 `;
 const ListButton = styled.div`
   cursor: pointer;
-  background-color: #FF7676;
+  background-color: #ff7676;
   color: white;
   display: flex;
   justify-content: center;
@@ -26,7 +26,7 @@ const ListButton = styled.div`
   border-radius: 20px;
 
   @media screen and (min-width: 37.5rem) {
-    background-color: #FF7676;
+    background-color: #ff7676;
     color: white;
     display: flex;
     justify-content: center;
@@ -37,21 +37,17 @@ const ListButton = styled.div`
     border-radius: 20px;
     font-size: 24px;
   }
-
 `;
 
-
-
-export default function List(props) {
-
+export default function List(props: any) {
   const history = useHistory();
-  const BacktoList = (url) => history.push(url);
-
-
+  const BacktoList = (url: any) => history.push(url);
   return (
     <>
       <ListBox>
-        <ListButton onClick={() => BacktoList(props.backtoList)}>목록</ListButton>
+        <ListButton onClick={() => BacktoList(props.backtoList)}>
+          목록
+        </ListButton>
       </ListBox>
     </>
   );

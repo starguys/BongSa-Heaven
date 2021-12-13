@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function DevFooter(props) {
+export default function DevFooter(props: any) {
   return (
     <>
       <button className="DevFooter_btn" onClick={props.handleDevHeader}>

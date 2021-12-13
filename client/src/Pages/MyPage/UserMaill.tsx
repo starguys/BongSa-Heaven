@@ -146,7 +146,7 @@ export default function UserMaill() {
   const dispatch = useDispatch();
   // const cookies = new Cookies();
 
-  const deleteList = useSelector(state => state.mailDeleteList);
+  const deleteList = useSelector((state: any) => state.mailDeleteList);
   const [mailList, setMailList] = useState([]);
   const [checkList, setCheckList] = useState([]);
   const [isAllChecked, setIsAllChecked] = useState(false);
@@ -179,23 +179,23 @@ export default function UserMaill() {
     setIsChecked(!isAllChecked);
   };
 
-  const handleCheckList = id => {
+  const handleCheckList = (id: any) => {
     checkId(id);
   };
 
-  const checkId = id => {};
+  const checkId = (id: any) => {};
 
   // const FilterCheckList = checkList.filter((element, index) => {
   //   return checkList.indexOf(element) === index;
   // });
-  const handleUnCheckList = id => {
+  const handleUnCheckList = (id: any) => {
     unCheckId(id);
   };
 
-  const unCheckId = id => {};
+  const unCheckId = (id: any) => {};
 
   const handleDelete = () => {
-    deleteList.forEach(el => {
+    deleteList.forEach((el: any) => {
       console.log(el);
 
       axios

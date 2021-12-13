@@ -57,7 +57,7 @@ const ContentsBox = styled.div`
   }
 `;
 
-export default function FreeBoardList({GoToFreeBoardContent, isLogin}) {
+export default function FreeBoardList({GoToFreeBoardContent, isLogin}: any) {
   const [isLoading, CheckLoading] = useState(true);
 
   const [freeBoardinfo, setFreeBoardinfo] = useState([]);
@@ -69,7 +69,7 @@ export default function FreeBoardList({GoToFreeBoardContent, isLogin}) {
   const indexOfFirstPost = indexOfLastPost - postPerPage;
 
   const currentPosts = freeBoardinfo.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
 
   const loadingHandler = () => {
     CheckLoading(false);
@@ -109,7 +109,7 @@ export default function FreeBoardList({GoToFreeBoardContent, isLogin}) {
           <ContentsBox>
             {currentPosts &&
               currentPosts.length > 0 &&
-              currentPosts.map(board =>
+              currentPosts.map((board: any) =>
                 board.user_id == null ? (
                   <Contents
                     key={board._id}

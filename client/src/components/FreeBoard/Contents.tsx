@@ -32,7 +32,13 @@ const ContentsTitle = styled.div`
   align-items: center;
   margin: 0px 0px 10px 20px;
 `;
-export default function Contents({freeboard_id, title, writer, date, GoToFreeBoardContent}) {
+export default function Contents({
+  freeboard_id,
+  title,
+  writer,
+  date,
+  GoToFreeBoardContent,
+}: any) {
   return (
     <>
       <ContentsList onClick={() => GoToFreeBoardContent(freeboard_id)}>

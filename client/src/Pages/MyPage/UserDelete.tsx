@@ -19,7 +19,7 @@ const ContentsBox = styled.div`
   }
 `;
 
-export default function FreeBoardDelete({setIsLogin}) {
+export default function FreeBoardDelete({setIsLogin}: any) {
   return (
     <>
       <Header2 componentName="회원탈퇴" />

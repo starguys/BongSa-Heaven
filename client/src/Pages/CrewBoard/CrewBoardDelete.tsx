@@ -27,7 +27,7 @@ const ContentsBox = styled.div`
   }
 `;
 
-export default function CrewBoardDelete({currentCBcontent}) {
+export default function CrewBoardDelete({currentCBcontent}: any) {
   return (
     <>
       <Wrapper>

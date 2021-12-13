@@ -87,7 +87,7 @@ const Img = styled.img`
 export default function FreeBoardEdit({
   currentFBcontent,
   GoToFreeBoardContent,
-}) {
+}: any) {
   let title = "",
     description = "";
   if (currentFBcontent.data !== undefined) {
@@ -104,11 +104,11 @@ export default function FreeBoardEdit({
   const loadingHandler = () => {
     CheckLoading(true);
   };
-  const editTitle = e => {
+  const editTitle = (e: any) => {
     setTitle(e.target.value);
     console.log(editedTitle);
   };
-  const editDescription = e => {
+  const editDescription = (e: any) => {
     setDescription(e.target.value);
     console.log(editedDescription);
   };
@@ -159,7 +159,7 @@ export default function FreeBoardEdit({
             })
             .catch(err => console.log(err));
         })
-        .then(res => console.log(res.data.message))
+
         .catch(err => console.log(err, "응안가"));
 
       loadingHandler();

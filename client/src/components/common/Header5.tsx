@@ -170,7 +170,7 @@ export default function Header({
   isUserLogin,
   setIsUserLogin,
   setUserId,
-}) {
+}: any) {
   const history = useHistory();
   console.log(isLogin);
 

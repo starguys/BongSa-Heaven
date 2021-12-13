@@ -247,20 +247,20 @@ export default function UserSignUp() {
 
   //청소년 청년 장년 클릭시 해당 정보를 가져온다.
 
-  const handleEmail = e => {
+  const handleEmail = (e: any) => {
     console.log(e.target.value);
     setEmail(e.target.value);
   };
-  const handlePassword = e => {
+  const handlePassword = (e: any) => {
     console.log(e.target.value, "pass");
     setPassword(e.target.value);
   };
-  const handlePasswordCheck = e => {
+  const handlePasswordCheck = (e: any) => {
     console.log(e.target.value, "확인");
     setPasswordCheck(e.target.value);
   };
 
-  const handleNickname = e => {
+  const handleNickname = (e: any) => {
     //setName적용된후
     console.log(nickname);
     setNicname(e.target.value);
@@ -268,16 +268,16 @@ export default function UserSignUp() {
     // validateNickname(e.target.vlaue)
   };
 
-  const handleWantReigon = e => {
+  const handleWantReigon = (e: any) => {
     console.log(e.target.value);
     setWant_region(e.target.value);
   };
-  const handleWantVol = e => {
+  const handleWantVol = (e: any) => {
     console.log(e.target.value);
     setWant_vol(e.target.value);
   };
   //성별을 다룬다.
-  const handleSex = key => e => {
+  const handleSex = (key: any) => (e: any) => {
     console.log(key);
     if (key === "man") {
       setSex("남자");
@@ -287,7 +287,7 @@ export default function UserSignUp() {
   };
 
   // 나이를 다룬다.
-  const handleAge = key => e => {
+  const handleAge = (key: any) => (e: any) => {
     console.log(key, age);
 
     if (key === "teen") {
@@ -300,7 +300,7 @@ export default function UserSignUp() {
   };
 
   //이메일 검증
-  const validateEmail = email => {
+  const validateEmail = (email: any) => {
     //이메일 형식어야한다.
     const regEmail =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
@@ -314,7 +314,7 @@ export default function UserSignUp() {
     }
   };
   // 비밀번호 검증
-  const validateCheckPassword = (password, passwordCheck) => {
+  const validateCheckPassword = (password: any, passwordCheck: any) => {
     if (password !== passwordCheck) {
       setPassCheckErrorMessage("동일한 비밀번호를 입력해주세요");
       return false;
@@ -323,7 +323,7 @@ export default function UserSignUp() {
       return true;
     }
   };
-  const validatePassword = password => {
+  const validatePassword = (password: any) => {
     // 8자이상 16자이하 의 숫자, 문자, 특수문자 조합
 
     const regPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
@@ -340,7 +340,7 @@ export default function UserSignUp() {
     }
   };
   //닉네임 검증
-  const validateNickname = nickname => {
+  const validateNickname = (nickname: any) => {
     //닉네임은 자릿수 제한만 두기로 한다.
     //닉네임 중복 체크
     const max = 8;

@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import Header3 from "../../components/common/Header3";
-import { useState, useRef, useEffect } from "react";
-import { Route, useHistory } from "react-router-dom";
+import {useState, useRef, useEffect} from "react";
+import {Route, useHistory} from "react-router-dom";
 import axios from "axios";
 
 const Wrapper = styled.div`
@@ -226,20 +226,20 @@ export default function UserEdit() {
 
   //청소년 청년 장년 클릭시 해당 정보를 가져온다.
 
-  const handleEmail = (e) => {
+  const handleEmail = (e: any) => {
     console.log(e.target.value);
     setEmail(e.target.value);
   };
-  const handlePassword = (e) => {
+  const handlePassword = (e: any) => {
     console.log(e.target.value, "pass");
     setPassword(e.target.value);
   };
-  const handlePasswordCheck = (e) => {
+  const handlePasswordCheck = (e: any) => {
     console.log(e.target.value, "확인");
     setPasswordCheck(e.target.value);
   };
 
-  const handleNickname = (e) => {
+  const handleNickname = (e: any) => {
     //setName적용된후
     console.log(nickname);
     setNicname(e.target.value);
@@ -247,23 +247,23 @@ export default function UserEdit() {
     // validateNickname(e.target.vlaue)
   };
 
-  const handleWantReigon = (e) => {
+  const handleWantReigon = (e: any) => {
     console.log(e.target.value);
     setWant_region(e.target.value);
   };
-  const handleWantVol = (e) => {
+  const handleWantVol = (e: any) => {
     console.log(e.target.value);
     setWant_vol(e.target.value);
   };
 
-  const handleCompany = (e) => {
+  const handleCompany = (e: any) => {
     console.log(e.target.value);
     setCompay(e.target.value);
   };
   //성별을 다룬다.
 
   //이메일 검증
-  const validateEmail = (email) => {
+  const validateEmail = (email: any) => {
     //이메일 형식어야한다.
     const regEmail =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
@@ -277,7 +277,7 @@ export default function UserEdit() {
     }
   };
   // 비밀번호 검증
-  const validateCheckPassword = (password, passwordCheck) => {
+  const validateCheckPassword = (password: any, passwordCheck: any) => {
     if (password !== passwordCheck) {
       setPassCheckErrorMessage("동일한 비밀번호를 입력해주세요");
       return false;
@@ -286,14 +286,14 @@ export default function UserEdit() {
       return true;
     }
   };
-  const validatePassword = (password) => {
+  const validatePassword = (password: any) => {
     // 8자이상 16자이하 의 숫자, 문자, 특수문자 조합
 
     const regPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
     if (!regPassword.test(password)) {
       setPassErrorMessage(
-        "비밀번호를 8~16자, 숫자, 특수문자,영어를 혼합해주세요"
+        "비밀번호를 8~16자, 숫자, 특수문자,영어를 혼합해주세요",
       );
       return false;
     } else {
@@ -303,7 +303,7 @@ export default function UserEdit() {
     }
   };
   //닉네임 검증
-  const validateNickname = (nickname) => {
+  const validateNickname = (nickname: any) => {
     //닉네임은 자릿수 제한만 두기로 한다.
     //닉네임 중복 체크
     const max = 8;
@@ -343,9 +343,9 @@ export default function UserEdit() {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         )
-        .then((res) => {
+        .then(res => {
           console.log("통과");
           if (nickname !== res.data.data) {
             setNickCheckErrorMessage("사용 가능한 닉네임 입니다.");
@@ -374,7 +374,7 @@ export default function UserEdit() {
       valideEmail,
       want_vol,
       want_region,
-      company
+      company,
     );
     // validateEmail(email);
     //모든 유효성 검사 통과가 되었다면 회원가입 가능
@@ -399,14 +399,14 @@ export default function UserEdit() {
             company: company,
             iscompany: true,
           },
-          { headers: { "Content-Type": "application/json" } }
+          {headers: {"Content-Type": "application/json"}},
         )
-        .then((res) => {
+        .then(res => {
           console.log("통과");
           setIsSignUp(true);
           history.push("/SignIn");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           setIsSignUp(false);
           setEmailErrorMessage("이메일 중복됩니다.");

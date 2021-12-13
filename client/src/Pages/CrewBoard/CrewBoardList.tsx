@@ -72,7 +72,7 @@ const LeftCards = styled.div`
   }
 `;
 
-export default function CrewBoardList({GoToCrewBoardContent, isLogin}) {
+export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
   const [isLoading, CheckLoading] = useState(true);
 
   const [crewBoardinfo, setcrewBoardinfo] = useState([]);
@@ -83,9 +83,12 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}) {
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
 
-  const currentPosts = crewBoardinfo.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts: any = crewBoardinfo.slice(
+    indexOfFirstPost,
+    indexOfLastPost,
+  );
 
-  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
 
   const loadingHandler = () => {
     CheckLoading(false);

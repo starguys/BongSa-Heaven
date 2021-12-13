@@ -32,14 +32,20 @@ const LinkButton = styled.div`
   }
 `;
 
-export default function CreateLink(props) {
+export default function CreateLink(props: any) {
   const history = useHistory();
-  const LinkToCreate = url => history.push(url);
+  const LinkToCreate = (url: any) => history.push(url);
 
   return (
     <>
       <LinkBox>
-        {props.isLogin ? <LinkButton onClick={() => LinkToCreate(props.create)}>글쓰기</LinkButton> : <></>}
+        {props.isLogin ? (
+          <LinkButton onClick={() => LinkToCreate(props.create)}>
+            글쓰기
+          </LinkButton>
+        ) : (
+          <></>
+        )}
       </LinkBox>
     </>
   );

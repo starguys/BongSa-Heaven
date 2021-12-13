@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router";
+import {useHistory} from "react-router";
 import Header2 from "../../components/common/Header2";
 import UserMyPageMain from "../../components/Mypages/UserMyPageMain";
 import axios from "axios";
@@ -97,13 +97,12 @@ export default function UserMyPage() {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-          "Contetn-Type ": "appliaction/json",
-        }
+        },
       )
-      .then((res) => {})
-      .catch((err) => {});
+      .then(res => {})
+      .catch(err => {});
   };
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState<any>({
     email: "",
     nickname: "",
     password: "",
@@ -133,7 +132,7 @@ export default function UserMyPage() {
         },
       })
 
-      .then((res) => {
+      .then(res => {
         setUserInfo({
           email: res.data.data.email,
           nickname: res.data.data.nickname,
@@ -147,7 +146,7 @@ export default function UserMyPage() {
         setIsChecked(res.data.data.isopen);
       })
 
-      .catch((err) => {});
+      .catch(err => {});
   };
 
   useEffect(() => {

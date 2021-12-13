@@ -96,8 +96,8 @@ const MaillTitleBtnSpan = styled.span`
 export default function MaillWriteTop() {
   const history = useHistory();
 
-  const name = useSelector(state => state.mailWriteName.name);
-  const text = useSelector(state => state.mailWriteText.text);
+  const name = useSelector((state: any) => state.mailWriteName.name);
+  const text = useSelector((state: any) => state.mailWriteText.text);
 
   const [isEmpty, setIsEmpty] = useState(false);
 

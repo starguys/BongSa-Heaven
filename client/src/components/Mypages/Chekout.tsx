@@ -60,13 +60,13 @@ const CancelButton = styled.div`
   }
 `;
 
-export default function Check({contents, leftBtn}) {
-  const name = useSelector(state => state.mailWriteName.name);
-  const text = useSelector(state => state.mailWriteText.text);
+export default function Check({contents, leftBtn}: any) {
+  const name = useSelector((state: any) => state.mailWriteName.name);
+  const text = useSelector((state: any) => state.mailWriteText.text);
   const history = useHistory();
-  const Delete = url => history.push(url);
+  const Delete = (url: any) => history.push(url);
   const Cancel = () => history.goBack();
-  const userWithdrawalHandler = props => {
+  const userWithdrawalHandler = (props: any) => {
     // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
     console.log("삭제클릭");
     axios
@@ -82,7 +82,7 @@ export default function Check({contents, leftBtn}) {
       )
       .then(res => {
         // 쿠키삭제, accesstoken삭제
-        const deleteCookie = function (name) {
+        const deleteCookie = function (name: any) {
           document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
         };
         deleteCookie("refreshToken");

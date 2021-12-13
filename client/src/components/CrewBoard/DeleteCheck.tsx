@@ -59,10 +59,10 @@ const CancelButton = styled.div`
   }
 `;
 
-export default function DeleteCheck(props) {
+export default function DeleteCheck(props: any) {
   const history = useHistory();
-  const Delete = url => history.push(url);
-  const Cancel = url => history.push(url);
+  const Delete = (url: any) => history.push(url);
+  const Cancel = (url: any) => history.push(url);
 
   const deleteCrewBoard = () => {
     axios

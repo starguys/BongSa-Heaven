@@ -116,7 +116,7 @@ const CommentInputButton = styled.div`
   }
 `;
 
-export default function Comment({currentCBcontent, GoToCrewBoardContent}) {
+export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
   const [commentValue, setCommentValue] = useState("");
   const [myId, setMyId] = useState("");
 
@@ -137,7 +137,7 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}) {
       });
   };
 
-  const makeComment = e => {
+  const makeComment = (e: any) => {
     setCommentValue(e.target.value);
     console.log(commentValue);
   };
@@ -180,7 +180,7 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}) {
       <CommentList>
         {currentCBcontent.data === undefined
           ? null
-          : currentCBcontent.data.crewcomments.map((comment, idx) => (
+          : currentCBcontent.data.crewcomments.map((comment: any, idx: any) => (
               <CommentBox key={idx}>
                 <CommentWriter>
                   {comment.user_id == null

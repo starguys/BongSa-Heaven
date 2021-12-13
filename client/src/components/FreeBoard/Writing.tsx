@@ -156,7 +156,7 @@ const ContentsBoxDeleteButton = styled.div`
   }
 `;
 
-export default function Writing({currentFBcontent, userId}) {
+export default function Writing({currentFBcontent, userId}: any) {
   const history = useHistory();
 
   const Gotoedit = () => history.push("/FreeBoardEdit");

@@ -76,7 +76,14 @@ const PublishedDate = styled.div`
   }
 `;
 
-export default function Card({crewboard_id, img, helloMessage, writer, date, GoToCrewBoardContent}) {
+export default function Card({
+  crewboard_id,
+  img,
+  helloMessage,
+  writer,
+  date,
+  GoToCrewBoardContent,
+}: any) {
   return (
     <>
       <Cardbox onClick={() => GoToCrewBoardContent(crewboard_id)}>

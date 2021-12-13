@@ -27,7 +27,7 @@ const ContentsBox = styled.div`
   }
 `;
 
-export default function FreeBoardDelete({currentFBcontent}) {
+export default function FreeBoardDelete({currentFBcontent}: any) {
   return (
     <>
       <Wrapper>

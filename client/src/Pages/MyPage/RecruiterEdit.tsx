@@ -214,7 +214,7 @@ export default function RecruiterEdit() {
     history.push("/UserDelete");
   };
 
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState<any>({
     email: "",
     nickname: "",
     password: "",
@@ -224,7 +224,7 @@ export default function RecruiterEdit() {
     want_vol: "",
     company: "",
   });
-  const [newPass, setNewPass] = useState({
+  const [newPass, setNewPass] = useState<any>({
     password: "",
     asswordCheck: "",
   });
@@ -239,7 +239,7 @@ export default function RecruiterEdit() {
 
   //새로운 성별
 
-  const handleChange = key => e => {
+  const handleChange = (key: any) => (e: any) => {
     // 비밀번호, 닉네임은 새로 만들고 , 나머지는 기존 userInfo 변경?
     //유저 정보 변경시 새로운 데이터가 들어옴
 
@@ -280,7 +280,7 @@ export default function RecruiterEdit() {
     //   setNewUserInfo({ ...newUserInfo, [key]: "여자" });
     // }
   };
-  const validateCheckPassword = (password, passwordCheck) => {
+  const validateCheckPassword = (password: any, passwordCheck: any) => {
     if (password !== passwordCheck) {
       setPassCheckErrorMessage("동일한 비밀번호를 입력해주세요");
       return false;
@@ -289,13 +289,15 @@ export default function RecruiterEdit() {
       return true;
     }
   };
-  const validatePassword = password => {
+  const validatePassword = (password: any) => {
     // 8자이상 16자이하 의 숫자, 문자, 특수문자 조합
 
     const regPassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
     if (!regPassword.test(password)) {
-      setPassErrorMessage("비밀번호를 8~16자, 숫자, 특수문자,영어를 혼합해주세요");
+      setPassErrorMessage(
+        "비밀번호를 8~16자, 숫자, 특수문자,영어를 혼합해주세요",
+      );
       return false;
     } else {
       setPassErrorMessage("");
@@ -304,7 +306,7 @@ export default function RecruiterEdit() {
     }
   };
 
-  const validateNickname = nickname => {
+  const validateNickname = (nickname: any) => {
     //닉네임은 자릿수 제한만 두기로 한다.
     //닉네임 중복 체크
     const max = 8;
@@ -366,7 +368,10 @@ export default function RecruiterEdit() {
   const userInfoEditHandler = () => {
     const validPassword = validatePassword(newPass.password);
     const validNickname = validateNickname(userInfo.nickname);
-    const validCheckPassword = validateCheckPassword(newPass.password, newPass.passwordCheck);
+    const validCheckPassword = validateCheckPassword(
+      newPass.password,
+      newPass.passwordCheck,
+    );
 
     console.log(validNickname, validPassword, validCheckPassword, isNick);
     //유저정보 변경은 어떻게 이루어지는가?
@@ -396,7 +401,6 @@ export default function RecruiterEdit() {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
-            "Contetn-Type ": "appliaction/json",
           },
         )
         .then(res => {
@@ -426,7 +430,6 @@ export default function RecruiterEdit() {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
-            "Contetn-Type ": "appliaction/json",
           },
         )
         .then(res => {
@@ -457,7 +460,6 @@ export default function RecruiterEdit() {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
-            "Contetn-Type ": "appliaction/json",
           },
         )
         .then(res => {
@@ -486,7 +488,6 @@ export default function RecruiterEdit() {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-          "Contetn-Type ": "appliaction/json",
         },
       )
       .then(res => {
@@ -556,7 +557,9 @@ export default function RecruiterEdit() {
           </SignUpWhiteBox>
           <CheckingPossibleOrNotBox>
             <PossibleOrNot>사용 가능</PossibleOrNot>
-            <CheckingPossibleOrNotButton onClick={handleNicknameCheck}>중복 확인</CheckingPossibleOrNotButton>
+            <CheckingPossibleOrNotButton onClick={handleNicknameCheck}>
+              중복 확인
+            </CheckingPossibleOrNotButton>
           </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
@@ -594,7 +597,9 @@ export default function RecruiterEdit() {
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <CompleteBox>
-            <CompleteButton onClick={userInfoEditHandler}>수정완료 완료</CompleteButton>
+            <CompleteButton onClick={userInfoEditHandler}>
+              수정완료 완료
+            </CompleteButton>
             <DeleteBtn onClick={GoUserDelete}>회원탈퇴</DeleteBtn>
           </CompleteBox>
         </MainContainer>

@@ -2,7 +2,7 @@ import {createAction, handleActions} from "redux-actions";
 
 const CHANGENAME = "mailWriteName/CHANGENAME";
 
-export const changeName = createAction(CHANGENAME, value => value);
+export const changeName = createAction(CHANGENAME, (value: any) => value);
 
 const initialState = {
   name: "하이맨",
@@ -10,7 +10,7 @@ const initialState = {
 
 const mailWriteName = handleActions(
   {
-    [CHANGENAME]: (state, {payload: value}) => ({name: value}),
+    [CHANGENAME]: (state: any, {payload: value}: any) => ({name: value}),
   },
   initialState,
 );
