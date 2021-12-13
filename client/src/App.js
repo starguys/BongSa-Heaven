@@ -98,6 +98,7 @@ export default function App() {
         },
       )
       .then(res => {
+        console.log(res.data);
         setCBcontent(res.data);
         GotoCard();
       })

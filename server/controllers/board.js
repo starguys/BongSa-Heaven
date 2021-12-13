@@ -417,7 +417,9 @@ module.exports = {
   cbinfoControl: async (req, res) => {
     // 1. 클릭한 crewboard_id 받아와서 검색해서 결과 뿌려주기
     // 2. is_like 변수만 선언해서 (디폴트 폴스) 검색해서 맞으면 트루 전송
+    console.log("req.body.crewboard_id", req.body.crewboard_id);
     const userData = isAuthorized(req, res);
+    console.log("userData", userData);
     if (userData) {
       let is_like = false;
       const checkLike = await Crewboard.findOne({
