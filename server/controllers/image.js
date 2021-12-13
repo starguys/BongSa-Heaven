@@ -12,9 +12,9 @@ module.exports = {
     // }
     // console.log(req.files);
     const image = req.files;
-
+    console.log("===image===", image);
     const path = image.map(img => img.location);
-    console.log(path);
+    console.log("===path===", path);
 
     if (image === undefined) {
       return res.status(400).send("이미지가 존재하지 않습니다.");
@@ -31,6 +31,7 @@ module.exports = {
         if (!res) {
           return res.status(500).send("서버 문제");
         }
+        console.log("wow", data);
         return res.status(200).send(data);
       })
       .catch(err => {

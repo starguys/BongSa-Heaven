@@ -4,6 +4,7 @@ const Crewboard = require("../models/Crewboard");
 const Mongoose = require("mongoose");
 const ObjectId = Mongoose.Types.ObjectId;
 const {isAuthorized} = require("../middlewares/token");
+const Crewcomment = require("../models/Crewcomment");
 
 module.exports = {
   // free board commnt
@@ -34,7 +35,7 @@ module.exports = {
           }
         });
       }
-    } catch {
+    } catch (err) {
       return res.send("err");
     }
   },
@@ -63,7 +64,7 @@ module.exports = {
         res.status(200).send({message: "싸장님 댓글 등록 완료!"});
         // }};
       }
-    } catch {
+    } catch (err) {
       return res.send("err");
     }
   },
@@ -77,14 +78,6 @@ module.exports = {
       return res.send({message: "싸장님~ 댓글 수정 권한 없어!"});
     }
     if (userData) {
-      // const fbcommentedit = await Freeboard.aggregate([
-      //   {
-      //     $match: {
-      //       "freecomments._id": { req.body.freecomments_id,
-      //     },
-      //   },
-      // ])
-      // console.log("===fbcommentedit===", fbcommentedit);
       return res.send("edit ok!");
     }
   },
@@ -121,7 +114,7 @@ module.exports = {
           }
         });
       }
-    } catch {
+    } catch (err) {
       return res.send("err");
     }
   },
@@ -135,16 +128,25 @@ module.exports = {
       return res.send({message: "싸장님~ 댓글 수정 권한 없어!"});
     }
     if (userData) {
-      const cbcotent = await Crewboard.findById(req.body.crewboard_id);
-      if (!cbcotent) {
-        return res.status(404).send({message: "싸장님 잘못된 경로야!"});
+      const cbcontent = await Crewboard.findOneAndUpdate(
+        {
+          _id: req.body.crewboard_id,
+          crewcomments: {$elemMatch: {_id: req.body.crewcomment_id}},
+        },
+        {
+          $set: {"crewcomments.$.comment": req.body.comment},
+        },
+      ).exec();
+      if (cbcontent) {
+        return res
+          .status(200)
+          .send({data: cbcontent, message: "싸장님 댓글 수정 완료"});
       } else {
-        const cbcomment = await Crewboard.findById(req.body.crewboard_id).find({
-          __dirname: {$match: new ObjectId(req.body.crewcomment_id)},
-        });
+        return res
+          .status(400)
+          .send({data: cbcontent, message: "싸장님~ 댓글이 없어"});
       }
     }
-    return res.send("edit ok!");
   },
 
   cbcommentdeleteControl: async (req, res) => {

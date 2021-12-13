@@ -65,8 +65,6 @@ export default function DeleteCheck(props) {
   const Cancel = url => history.push(url);
 
   const deleteCrewBoard = () => {
-    console.log(localStorage.getItem("accessToken"));
-    // console.log(props.currentCBcontent.data._id)
     axios
       .delete("http://localhost:8080/board/cbdelete", {
         data: {
@@ -86,7 +84,9 @@ export default function DeleteCheck(props) {
 
   return (
     <>
-      <DeleteBoxTitleBox>해당 {props.contents}을 삭제하시겠습니까?</DeleteBoxTitleBox>
+      <DeleteBoxTitleBox>
+        해당 {props.contents}을 삭제하시겠습니까?
+      </DeleteBoxTitleBox>
       <SelectBox>
         <DeleteButton
           onClick={() => {

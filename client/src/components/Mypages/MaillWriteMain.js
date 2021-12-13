@@ -123,7 +123,10 @@ export default function MaillWriteMain(Title) {
   const [checkName, setCheckName] = useState(false);
 
   useEffect(() => {
-    setValue(Title.Title);
+    setValue([]);
+    setText([]);
+    dispath(changeName(value));
+    dispath(changeText(text));
   }, []);
   const valueChange = e => {
     setValue(e.target.value);

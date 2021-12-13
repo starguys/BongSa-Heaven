@@ -6,6 +6,7 @@ import DesktopTitle from "../../components/common/DesktopTitle";
 import Input from "../../components/FreeBoard/Input";
 import CreateButton from "../../components/FreeBoard/CreateButton";
 import CreateButton2 from "../../components/FreeBoard/CreateButton2";
+import axios from "axios";
 
 const Wrapper = styled.div`
   width: 100%;

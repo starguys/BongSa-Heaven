@@ -20,7 +20,7 @@ module.exports = {
       }).exec();
       console.log(userInfo._id);
       //맵 좌표를 가진 유저를 가져온다.
-      const getMapCoordinate = Map.findOne({
+      const getMapCoordinate = await Map.findOne({
         user_id: userInfo._id,
       }).exec();
 
@@ -34,7 +34,7 @@ module.exports = {
           user_id: userInfo._id,
           La: La,
           Ma: Ma,
-        }).populate("User");
+        });
 
         //userInfo가 두번들어올수 없다.
         //같은 userInfo가 들어오는 경우 거절되어야함

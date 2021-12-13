@@ -63,7 +63,7 @@ export default function FreeBoardList({GoToFreeBoardContent, isLogin}) {
   const [freeBoardinfo, setFreeBoardinfo] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage, setPostPerPage] = useState(10);
+  const postPerPage = 10;
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;

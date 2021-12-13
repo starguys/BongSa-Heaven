@@ -42,9 +42,9 @@ export default function KakaoMap() {
     Axios.get("http://localhost:8080/map/info")
       .then(res => {
         // console.log(res.data);
-        if (res.data.user_id === null) return (positions = []);
 
         for (let i = 0; i < res.data.length; i++) {
+          if (res.data[i].user_id === null) continue;
           positions.push({
             title: res.data[i].user_id.nickname,
             latlng: new kakao.maps.LatLng(res.data[i].La, res.data[i].Ma),

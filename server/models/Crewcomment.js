@@ -1,17 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const crewchildcommentSchema = require('./Crewchildcomment');
+const crewchildcommentSchema = require("./Crewchildcomment");
 
 const crewcommentSchema = new Schema(
   {
     user_id: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     crewboard_id: {
       type: Schema.Types.ObjectId,
-      ref: 'Crewboard',
+      ref: "Crewboard",
       required: true,
     },
     comment: {
@@ -33,3 +33,4 @@ const crewcommentSchema = new Schema(
 );
 
 module.exports = crewcommentSchema;
+// module.exports = mongoose.model("Crewcomment", crewcommentSchema);

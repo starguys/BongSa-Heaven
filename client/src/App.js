@@ -119,8 +119,8 @@ export default function App() {
         headers: {
           authorization: `Bearer ` + localStorage.getItem("accessToken"),
           "Content-Type": "application/json",
+          withCredentials: true,
         },
-        withCredentials: true,
       })
       .then(res => {
         setUserId(res.data.data._id);

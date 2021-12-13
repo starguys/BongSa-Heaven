@@ -78,7 +78,7 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}) {
   const [crewBoardinfo, setcrewBoardinfo] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage, setPostPerPage] = useState(3);
+  const postPerPage = 3;
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
@@ -177,7 +177,11 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}) {
             </Cards>
           </>
         )}
-        <Pagination postPerPage={postPerPage} totalPosts={crewBoardinfo.length} paginate={paginate} />
+        <Pagination
+          postPerPage={postPerPage}
+          totalPosts={crewBoardinfo.length}
+          paginate={paginate}
+        />
       </Wrapper>
     </>
   );
