@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Route } from "react-router-dom";
+import { useHistory } from "react-router";
 import axios from "axios";
-import kakaologo from "./kakaologo.png";
+// import kakaologo from "./kakaologo.png";
 import google from "./google.png";
 import "../App.css";
+import Upload from "./uploading";
+import KakaoKill from "./KakaoKill";
+import KakaoTest from "./KakaoTest";
+import Google from "./google";
+// import KakaoLogin from "./KakaoLogin";
+import googleLogin from "react-google-login";
 
 axios.defaults.withCredentials = true;
 export default function App() {
+  const [data, setData] = useState(null);
+
+  const history = useHistory();
+  const GoKakaoTest = () => {
+    history.push("/KakaoTest");
+  };
+  const url = window.location.href;
+  const arr = url.split("=");
   const [userinfo, setuserinfo] = useState({
     email: "",
     nickname: "",
@@ -16,6 +32,7 @@ export default function App() {
     age: "",
   });
 
+  const [imag, setImge] = useState("");
   const handleInputValue = (key) => (e) => {
     setuserinfo({ ...userinfo, [key]: e.target.value });
   };
@@ -103,10 +120,42 @@ export default function App() {
         console.log("err");
       });
   };
-  // email, nickname, password, sex, want_region, want_vol, age(young/adult/old)
+
+  useEffect(() => {
+    //   //http://~~~~(?#) 전까지 가져온다.
+
+    const url = new URL(window.location.href);
+    console.log(url);
+    // console.log(url.searchParams.get);
+    //   //   //params code를 가져오는 경우
+    // const authorizationCode = url.searchParams.get("code");
+
+    // console.log(authorizationCode);
+    const hash = url.hash;
+    if (hash) {
+      const accessToken = hash.split("=")[1].split("&")[0];
+      axios
+        .post("http://localhost:8080/auth/google", {
+          authorization: `token ${accessToken}`,
+
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
+        .then((data) => {
+          console.log(data);
+          // setData(data);
+        })
+        .catch((e) => console.log("oAuth token expired"));
+    }
+    // code를 가지고 accesstoken 요청
+    // const accessToken = .split("=")[1].split("&")[0];
+    // console.log(accessToken);
+    //서버에 코드를 보내고 서버에서 코드를 받아서 accesstoken 발급
+  }, []);
 
   return (
     <div className="test_box">
+      <Upload />
       <div className="test_box_box">
         <input
           type="email"
@@ -158,16 +207,10 @@ export default function App() {
         />
         <button onClick={handleSignIn}>Auth/SignIn[Post]</button>
       </div>
-      <div className="google">
-        <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=111205615579-0h1irsj18ef04oeggsv09f39vg68lf1e.apps.googleusercontent.com&redirect_uri=http://localhost:8080/auth/google&response_type=code&prompt=consent&scope=https://www.googleapis.com/auth/userinfo.email">
-          <img src={google} alt="google" width="300"></img>
-        </a>
-      </div>
-      <div className="kakao">
-        <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=498bc95ff9c33f89e4cff4ef0775b24b&redirect_uri=http://localhost:3000/auth/kakao">
-          <img src={kakaologo} alt="kakao"></img>
-        </a>
-      </div>
+      <Google />
+      <button onClick={GoKakaoTest}>카카오 멸망전</button>
+      <Route exact path="/KakaoTest" component={KakaoTest} />
+      <Route exact path="/KakoKill" component={KakaoKill} />
     </div>
   );
 }

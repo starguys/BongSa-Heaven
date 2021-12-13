@@ -1,12 +1,12 @@
 require("dotenv").config();
-const { sign, verify } = require("jsonwebtoken");
+const {sign, verify} = require("jsonwebtoken");
 
 module.exports = {
-  generateAccessToken: (data) => {
-    return sign(data, process.env.ACCESS_SECRET, { expiresIn: "3h" });
+  generateAccessToken: data => {
+    return sign(data, process.env.ACCESS_SECRET, {expiresIn: "3h"});
   },
-  generateRefreshToken: (data) => {
-    return sign(data, process.env.REFRESH_SECRET, { expiresIn: "30d" });
+  generateRefreshToken: data => {
+    return sign(data, process.env.REFRESH_SECRET, {expiresIn: "30d"});
   },
   isAuthorized: (req, res) => {
     const authorization =
@@ -21,11 +21,7 @@ module.exports = {
       return null;
     }
   },
-  checkRefreshToken: (req) => {
-    const refreshToken = req.header.cookie.split("=")[2];
-    if (!refreshToken) {
-      return null;
-    }
+  checkRefreshToken: refreshToken => {
     try {
       return verify(refreshToken, process.env.REFRESH_SECRET);
     } catch (err) {
