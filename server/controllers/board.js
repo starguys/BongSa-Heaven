@@ -431,7 +431,7 @@ module.exports = {
           })
           .populate({path: "user_id", select: {nickname: 1}})
           .sort({createdAt: -1})
-          .populate({path: "crewcomment_id", select: {user_id: 1}})
+          .populate({path: "crewcomments", select: {user_id: 1}})
           .select({
             crewcomment_id: {
               _id: 1,
