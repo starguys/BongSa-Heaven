@@ -202,13 +202,12 @@ module.exports = {
     }
   },
 
-
+  resetrftkControl: async (req, res) => {
     const refreshToken = "";
     res
       .cookie("refreshToken", refreshToken, {httpOnly: true})
       .status(200)
       .send();
-
   },
 
   nickcheckControl: async (req, res) => {
@@ -245,7 +244,6 @@ module.exports = {
           "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
           Accept: "application/json",
         },
-
       },
     );
 
@@ -291,7 +289,6 @@ module.exports = {
         .catch(err => {
           console.log(err);
         });
-
     }
     //회원가입을 한경우 라면
 
