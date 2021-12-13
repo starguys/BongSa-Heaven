@@ -9,9 +9,9 @@ router.get("/refreshtoken", controller.refreshtokenControl);
 router.get("/resetrftk", controller.resetrftkControl);
 
 router.post("/sendemail", controller.sendEmailControl);
-router.get("/confirmemail", controller.confirmEmailControl);
+router.post("/confirmemail", controller.confirmEmailControl);
 
 router.post("/kakao", controller.kakaoControl);
-router.get("/google", controller.googleControl);
+router.post("/google", controller.googleControl);
 
 module.exports = router;

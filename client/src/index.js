@@ -12,8 +12,6 @@ import {persistStore} from "redux-persist";
 import {PersistGate} from "redux-persist/integration/react";
 import rootReducer from "./modules/index";
 
-import {CookiesProvider} from "react-cookie";
-
 const store = createStore(rootReducer, composeWithDevTools());
 const persistor = persistStore(store);
 
@@ -21,9 +19,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <CookiesProvider>
-          <App />
-        </CookiesProvider>
+        <App />
       </PersistGate>
     </Provider>
   </BrowserRouter>,
