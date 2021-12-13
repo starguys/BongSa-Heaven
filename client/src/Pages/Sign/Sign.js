@@ -1,9 +1,10 @@
 import React from "react";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import styled from "styled-components";
 import {useHistory} from "react-router";
 import Header3 from "../../components/common/Header3";
 import axios from "axios";
+import {faCode} from "@fortawesome/free-solid-svg-icons";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -93,6 +94,18 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
 
   const history = useHistory();
   //로그인 버튼을 클릭햇을때 메인으로 이동하고 로그인 상태여야하고,
+  const GoogleOauth = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT}&response_type=code&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&scope=https://www.googleapis.com/auth/userinfo.email&prompt=select_account`;
+
+
+  const kakaoOauth = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
+
+  const googleControl = () => {
+    window.location.assign(GoogleOauth);
+  };
+  const kakaoControl = () => {
+    window.location.assign(kakaoOauth);
+  };
+
 
   const handleEmail = e => {
     console.log(e.target.value);
@@ -109,6 +122,7 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
       handleLoginRequest();
     }
   };
+
 
   const handleLoginRequest = async e => {
     //유효성 검사
@@ -162,11 +176,51 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
         });
     }
   };
+
   //로그인창에서 이동
   const moveToSignUP = () => {
     history.push("/signup");
   };
+  //회원가입후 이메일 인증을 받도록 한다.
+  //authcode를 받아와야함,
+  //이메일 인증을 받지않으면 로그인 불가 (인증을 10분 이상 안할시 계정파기)
+  //인증 메일코드는 5분마다 파기, 5분마다 재발급 받아야함(구현예정)
+  const emailAuthCodeHandler = () => {
+    const url = new URL(window.location.href);
 
+    const searchs = url.search;
+    console.log(searchs.split("=")[0]);
+
+    if (searchs.split("=")[0] === "?authCode") {
+      const code = searchs.split("=")[1];
+
+      console.log(code);
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URI}/auth/confirmemail`,
+          {code: code},
+
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(data => {
+          console.log("성공");
+          history.push("/SignIn");
+          setIsLogin(true);
+        })
+        .catch(err => {
+          console.log(err, "erro");
+        });
+    }
+  };
+  useEffect(() => {
+    emailAuthCodeHandler();
+  }, []);
+
+  // console.log(window.location.href);
   return (
     <>
       <Header3 />
@@ -196,8 +250,8 @@ export default function SignIn({setIsLogin, setIsUserLogin}) {
 
           <CompleteBox>
             <CompleteButton onClick={handleLoginRequest}>로그인</CompleteButton>
-            <CompleteButton onClick={moveToSignUP}>구글</CompleteButton>
-            <CompleteButton onClick={moveToSignUP}>카카오</CompleteButton>
+            <CompleteButton onClick={googleControl}>구글</CompleteButton>
+            <CompleteButton onClick={kakaoControl}>카카오</CompleteButton>
             <CompleteButton onClick={moveToSignUP}>회원가입</CompleteButton>
           </CompleteBox>
         </MainContainer>

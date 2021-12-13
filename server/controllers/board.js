@@ -75,7 +75,7 @@ module.exports = {
     if (userData) {
       console.log("===userData.user_id===", userData.user_id);
       const fbData = await Freeboard.find({
-        like: {$ne: new ObjectId(userData.user_id)},
+        like: {$ne: new ObjectId(new ObjectIduserData.user_id)},
       })
         .select({like: 1, title: 1, createdAt: 1, like_count: 1})
         .populate({path: "user_id", select: {nickname: 1}})

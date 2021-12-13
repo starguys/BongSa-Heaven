@@ -16,7 +16,6 @@ const mailRouter = require("./routes/mail");
 const mapRouter = require("./routes/map");
 const imageRouter = require("./routes/image");
 
-
 //use modules
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
