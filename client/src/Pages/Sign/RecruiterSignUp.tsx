@@ -206,7 +206,7 @@ const DeleteBtn = styled.div`
 export default function UserEdit() {
   const history = useHistory();
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState<string>("");
 
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
