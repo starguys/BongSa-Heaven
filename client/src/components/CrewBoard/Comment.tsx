@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import {useState, useEffect} from "react";
@@ -17,10 +16,14 @@ const CommentList = styled.div`
     width: 1080px;
   }
 `;
+const CommentListBigBox = styled.div`
+  display: flex;
+`;
+
 const CommentBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
   border-bottom: dashed gray 1px;
   padding: 20px 0px;
 
@@ -55,6 +58,101 @@ const CommentContents = styled.div`
     font-size: 16px;
     margin-top: 20px;
   }
+`;
+
+const EditCommentContents = styled.input`
+  display: flex;
+  align-items: center;
+  margin: 10px 0px 0px 25px;
+  font-size: 12px;
+  @media screen and (min-width: 37.5rem) {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+`;
+const CommentListSmallBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  border-bottom: dashed gray 1px;
+  padding: 20px 0px;
+`;
+const CommentDeleteBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15px;
+`;
+const CommentDeleteButton = styled.img`
+  width: 15px;
+  cursor: pointer;
+  object-fit: cover;
+  @media screen and (min-width: 37.5rem) {
+    width: 24px;
+  }
+`;
+const CommentEditBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: 37.5rem) {
+    flex-direction: row;
+`;
+const CommentEditButton = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 25px;
+  color: #ff7676;
+  font-size: 12px;
+  margin-top: 20px;
+  @media screen and (min-width: 37.5rem) {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+`;
+
+const CommentEditButtonCheck = styled.div`
+  cursor: pointer;
+  background-color: #ff7676;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 20px;
+  border-radius: 20px;
+  margin-left: 5px;
+  margin-top: 12px;
+  font-size: 12px;
+
+  @media screen and (min-width: 37.5rem) {
+    width: 30%;
+    height: 25px;
+    margin-left: 30px;
+    font-size: 20px;
+    margin-top: 30px;
+  }
+`;
+const CommentEditButtonCancel = styled.div`
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 20px;
+  border: solid black 1px;
+  border-radius: 20px;
+  margin-left: 5px;
+  margin-top: 12px;
+  font-size: 12px;
+
+@media screen and (min-width: 37.5rem) {
+  width: 30%;
+  height: 25px;
+  margin-left: 25px;
+  font-size: 20px;
+  margin-top: 30px;
 `;
 
 const CommentInputBox = styled.div`
@@ -117,8 +215,10 @@ const CommentInputButton = styled.div`
 `;
 
 export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
-  const [commentValue, setCommentValue] = useState("");
   const [myId, setMyId] = useState("");
+  const [commentValue, setCommentValue] = useState("");
+  const [isEditMode, setEditMode] = useState(false);
+  const [isEditCommentIdx, chosenEditCommentIdx] = useState(Number);
 
   const getUserInfo = () => {
     axios
@@ -129,7 +229,6 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
         },
       })
       .then(res => {
-        // console.log("res.data.data.nickname",res.data.data.nickname)
         setMyId(res.data.data._id);
       })
       .catch(err => {
@@ -148,7 +247,6 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
         .post(
           "http://localhost:8080/comment/cbcommentregister",
           {
-            user_id: myId,
             crewboard_id: currentCBcontent.data._id,
             comment: commentValue,
           },
@@ -164,10 +262,59 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
           setCommentValue("");
           GoToCrewBoardContent(currentCBcontent.data._id);
         })
-        // .then((res) => window.location.replace("/CrewBoardContents"))
         .catch(err => console.log(err));
     }
   };
+
+  const editComment = (idx: any) => {
+    if (commentValue.length > 0) {
+      axios
+        .patch(
+          "http://localhost:8080/comment/cbcommentedit",
+          {
+            crewboard_id: currentCBcontent.data._id,
+            crewcomment_id: currentCBcontent.data.crewcomments[idx]._id,
+            comment: commentValue,
+          },
+          {
+            headers: {
+              authorization: `Bearer ` + localStorage.getItem("accessToken"),
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(res => {
+          console.log(res.data.message);
+          setEditMode(false);
+          setCommentValue("");
+          GoToCrewBoardContent(currentCBcontent.data._id);
+        })
+        .catch(err => console.log(err));
+    }
+  };
+  const deleteComment = (idx: any) => {
+    console.log(idx);
+    axios
+      .delete("http://localhost:8080/comment/cbcommentdelete", {
+        data: {
+          crewboard_id: currentCBcontent.data._id,
+          crewcomment_id: currentCBcontent.data.crewcomments[idx]._id,
+        },
+        headers: {
+          authorization: `Bearer ` + localStorage.getItem("accessToken"),
+          "Content-Type": "application/json",
+        },
+      })
+      .then(res => {
+        console.log(res.data.message);
+        setEditMode(false);
+        GoToCrewBoardContent(currentCBcontent.data._id);
+      })
+      .catch(err => console.log(err));
+
+    alert("댓글이 삭제되었습니다!");
+  };
+  console.log("currentCBcontent", currentCBcontent);
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
@@ -181,15 +328,62 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
         {currentCBcontent.data === undefined
           ? null
           : currentCBcontent.data.crewcomments.map((comment: any, idx: any) => (
-              <CommentBox key={idx}>
-                <CommentWriter>
-                  {comment.user_id == null
-                    ? "회원탈퇴자"
-                    : comment.user_id.nickname}
-                  <CommentDate>{comment.createdAt.slice(0, 10)}</CommentDate>
-                </CommentWriter>
-                <CommentContents>{comment.comment}</CommentContents>
-              </CommentBox>
+              <CommentListBigBox>
+                <CommentBox key={idx}>
+                  <CommentWriter>
+                    {comment.user_id == null
+                      ? "회원탈퇴자"
+                      : comment.user_id.nickname}
+                    <CommentDate>{comment.createdAt.slice(0, 10)}</CommentDate>
+                  </CommentWriter>
+                  {comment.user_id._id === myId &&
+                  isEditMode &&
+                  idx === isEditCommentIdx ? (
+                    <EditCommentContents
+                      onChange={makeComment}
+                      defaultValue={comment.comment}
+                    />
+                  ) : (
+                    <CommentContents>{comment.comment}</CommentContents>
+                  )}
+                </CommentBox>
+                <CommentListSmallBox>
+                  {comment.user_id._id !== myId ? null : isEditMode &&
+                    idx === isEditCommentIdx ? (
+                    <>
+                      <CommentDeleteBox>
+                        <CommentDeleteButton
+                          src={"./image/delete-button.png"}
+                          onClick={() => deleteComment(idx)}
+                        />
+                      </CommentDeleteBox>
+
+                      <CommentEditBox>
+                        <CommentEditButtonCheck
+                          onClick={() => editComment(idx)}
+                        >
+                          수정
+                        </CommentEditButtonCheck>
+                        <CommentEditButtonCancel
+                          onClick={() => {
+                            setEditMode(false);
+                          }}
+                        >
+                          취소
+                        </CommentEditButtonCancel>
+                      </CommentEditBox>
+                    </>
+                  ) : (
+                    <CommentEditButton
+                      onClick={() => {
+                        setEditMode(true);
+                      }}
+                    >
+                      수정
+                    </CommentEditButton>
+                  )}
+                </CommentListSmallBox>
+              </CommentListBigBox>
             ))}
       </CommentList>
 
@@ -198,7 +392,7 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
           <CommentInputContents
             placeholder="내용을 입력하세요."
             onChange={makeComment}
-            value={commentValue}
+            value={isEditMode ? "" : commentValue}
           ></CommentInputContents>
         </CommentInput>
         <CommentInputButton onClick={saveComment}>
