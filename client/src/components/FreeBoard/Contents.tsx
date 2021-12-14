@@ -1,18 +1,16 @@
-import React from "react";
 import styled from "styled-components";
 
 const ContentsList = styled.div`
   background-color: white;
   width: 100%;
   display: flex;
-  flex-direction: column;
 `;
 
 const ContentsBox = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
   border-bottom: dashed gray 1px;
   padding: 20px 0px;
 `;
@@ -32,13 +30,42 @@ const ContentsTitle = styled.div`
   align-items: center;
   margin: 0px 0px 10px 20px;
 `;
+const LikeBox = styled.div`
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  border-bottom: dashed gray 1px;
+`;
+
+const LikeImg = styled.img`
+  width: 50%;
+  object-fit: cover;
+  @media screen and (min-width: 37.5rem) {
+    width: 20%;
+  }
+`;
+const NotLikeImg = styled.img`
+  width: 50%;
+  object-fit: cover;
+  @media screen and (min-width: 37.5rem) {
+    width: 20%;
+  }
+`;
+
 export default function Contents({
+  like,
+  like_count,
+  user_id,
   freeboard_id,
   title,
   writer,
   date,
   GoToFreeBoardContent,
 }: any) {
+  console.log("user_id", user_id, freeboard_id, "like", like);
   return (
     <>
       <ContentsList onClick={() => GoToFreeBoardContent(freeboard_id)}>
@@ -46,9 +73,17 @@ export default function Contents({
           <ContentsTitle>{title}</ContentsTitle>
           <ContentsWriter>
             {writer}
-            <ContentsDate>{date}</ContentsDate>
+            <ContentsDate>{date.slice(0, 10)}</ContentsDate>
           </ContentsWriter>
         </ContentsBox>
+        <LikeBox>
+          {like.indexOf(user_id) === -1 ? (
+            <NotLikeImg src={"./image/NotLike.png"} />
+          ) : (
+            <LikeImg src={"./image/Like.png"} />
+          )}
+          좋아요&nbsp;{like_count}&nbsp;
+        </LikeBox>
       </ContentsList>
     </>
   );

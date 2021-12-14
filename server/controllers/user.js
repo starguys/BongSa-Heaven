@@ -1,9 +1,6 @@
 require("dotenv").config();
 const crypto = require("crypto");
 const User = require("../models/User");
-const Map = require("../models/Map");
-const freeComment = require("../models/Freecomment");
-const crewCommet = require("../models/Crewcomment");
 const {isAuthorized} = require("../middlewares/token");
 
 module.exports = {
@@ -11,7 +8,6 @@ module.exports = {
     // 1. 토큰을 받아서 유저 아이디를 찾는다
     // 2. 유저 정보를 보내준다.
     const userData = isAuthorized(req, res);
-    console.log(userData);
     if (!userData) {
       return res.status(401).send({message: "싸장님 가입부터 해주세요!"});
     }
@@ -172,9 +168,6 @@ module.exports = {
     }
     if (userData) {
       const userInfo = await User.findById(userData.user_id).remove().exec();
-      //맵에 있는 데이터도 제거
-      Map.findById(userData.user_id).remove().exec();
-
       if (!userInfo) {
         res.status(404).send({message: "탈퇴가 이루어지지 않았어요!"});
       } else {

@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const ImgUploadBox = styled.div`
   display: none;
-
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
     display: flex;
@@ -45,7 +44,7 @@ export default function EditButton(props: any) {
         id="imgUpload"
         onChange={saveFileImage}
         type="file"
-        // aceept="image/*"
+        accept="multipart/form-data"
       />
       {/* display:none 상태 */}
     </>

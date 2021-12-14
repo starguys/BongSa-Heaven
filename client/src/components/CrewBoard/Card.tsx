@@ -1,6 +1,4 @@
-import React from "react";
 import styled from "styled-components";
-import {useHistory} from "react-router";
 
 const Cardbox = styled.div`
   cursor: pointer;
@@ -26,9 +24,8 @@ const Img = styled.img`
   object-fit: cover;
 `;
 
-const Describe = styled.div`
+const DescribeBox = styled.div`
   display: flex;
-  flex-direction: column;
   width: 100%;
   height: 50px;
   background-color: white;
@@ -38,6 +35,35 @@ const Describe = styled.div`
   @media screen and (min-width: 37.5rem) {
     height: 80px;
   }
+`;
+
+const Describe = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  height: 100%;
+
+  @media screen and (min-width: 37.5rem) {
+  }
+`;
+const LikeBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  height: 100%;
+
+  @media screen and (min-width: 37.5rem) {
+  }
+`;
+
+const LikeImg = styled.img`
+  height: 60%;
+  object-fit: cover;
+`;
+const NotLikeImg = styled.img`
+  height: 60%;
+  object-fit: cover;
 `;
 
 const SayHello = styled.div`
@@ -77,6 +103,9 @@ const PublishedDate = styled.div`
 `;
 
 export default function Card({
+  like,
+  like_count,
+  user_id,
   crewboard_id,
   img,
   helloMessage,
@@ -90,11 +119,23 @@ export default function Card({
         <ImageBox>
           <Img src={img} />
         </ImageBox>
-        <Describe>
-          <SayHello>{helloMessage}</SayHello>
-          <VolunteersName>{writer}</VolunteersName>
-          <PublishedDate>{date}</PublishedDate>
-        </Describe>
+        <DescribeBox>
+          <Describe>
+            <SayHello>{helloMessage}</SayHello>
+            <VolunteersName>{writer}</VolunteersName>
+            <PublishedDate>{date.slice(0, 10)}</PublishedDate>
+          </Describe>
+          <LikeBox>
+            {user_id == undefined ? (
+              <NotLikeImg src={"./image/NotLike.png"} />
+            ) : like.indexOf(user_id._id) === -1 ? (
+              <NotLikeImg src={"./image/NotLike.png"} />
+            ) : (
+              <LikeImg src={"./image/Like.png"} />
+            )}
+            좋아요&nbsp;{like_count}&nbsp;
+          </LikeBox>
+        </DescribeBox>
       </Cardbox>
     </>
   );

@@ -26,7 +26,6 @@ const CreateBox = styled.div`
   margin: 10px 0px 10px 0px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
-
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
   }
@@ -46,11 +45,9 @@ const CreateBoxContents = styled.textarea`
   font-size: 12px;
   border: 0px;
   opacity: 0.5;
-
   ::placeholder {
     font-size: 12px;
   }
-
   @media screen and (min-width: 37.5rem) {
     font-size: 16px;
     ::placeholder {

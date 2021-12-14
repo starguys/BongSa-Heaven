@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const ImgUploadBox = styled.div`
   display: none;
-
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
     display: flex;
@@ -47,7 +46,6 @@ export default function CreateButton(props: any) {
           onChange={saveFileImage}
           type="file"
           name="file"
-          // required="true"
           accept="multipart/form-data"
         />
       </form>

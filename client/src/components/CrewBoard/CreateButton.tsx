@@ -9,7 +9,6 @@ const ImgUploadBox = styled.div`
   align-items: center;
   width: 80%;
   margin: 30px 0px 15px 0px;
-
   @media screen and (min-width: 37.5rem) {
     display: none;
   }
@@ -34,7 +33,6 @@ const SelectBox = styled.div`
   align-items: center;
   width: 80%;
   margin: 15px 0px 15px 0px;
-
   @media screen and (min-width: 37.5rem) {
     justify-content: flex-end;
     width: 1080px;
@@ -53,7 +51,6 @@ const CancelButton = styled.div`
   margin-bottom: 20px;
   border-radius: 20px;
   border: 1px solid #000000;
-
   @media screen and (min-width: 37.5rem) {
   }
 `;
@@ -69,7 +66,6 @@ const CompleteButton = styled.div`
   margin-left: 10px;
   margin-bottom: 20px;
   border-radius: 20px;
-
   @media screen and (min-width: 37.5rem) {
   }
 `;
@@ -158,7 +154,6 @@ export default function CreateButton(props: any) {
           onChange={saveFileImage}
           type="file"
           name="file"
-          // required="true"
           accept="multipart/form-data"
         />
       </form>

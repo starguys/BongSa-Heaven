@@ -26,7 +26,6 @@ const ContentsBox = styled.div`
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   margin-top: 30px;
-
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
   }
@@ -43,7 +42,6 @@ const ContentsBoxTitle = styled.input`
   width: 80%;
   border: none;
   border-bottom: solid gray 1px;
-
   @media screen and (min-width: 37.5rem) {
     font-size: 20px;
   }
@@ -63,10 +61,8 @@ const ContentsBoxBorder = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
-
   @media screen and (min-width: 37.5rem) {
     font-size: 16px;
-
     ::placeholder {
       font-size: 16px;
     }
@@ -79,10 +75,8 @@ const ContentsBoxHello = styled.input`
   margin: auto;
   border: none;
   font-size: 12px;
-
   @media screen and (min-width: 37.5rem) {
     font-size: 16px;
-
     ::placeholder {
       font-size: 16px;
     }
@@ -95,10 +89,8 @@ const ContentsBoxContents = styled.textarea`
   margin: 15px auto 40px auto;
   border: none;
   font-size: 12px;
-
   @media screen and (min-width: 37.5rem) {
     font-size: 16px;
-
     ::placeholder {
       font-size: 16px;
     }

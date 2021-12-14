@@ -97,6 +97,7 @@ export default function App() {
         },
       )
       .then(res => {
+        console.log(res.data);
         setCBcontent(res.data);
         GotoCard();
       })
@@ -215,7 +216,11 @@ export default function App() {
       />
 
       {isDevHeader ? <DevHeader /> : null}
-      <Route exact path="/" component={MainPage} />
+      <Route
+        exact
+        path="/"
+        render={() => <MainPage GoToFreeBoardContent={GoToFreeBoardContent} />}
+      />
       {/* Sign */}
 
       <Route exact path="/RecruiterSignUp" component={RecruiterSignUp} />
@@ -298,8 +303,9 @@ export default function App() {
         path="/FreeBoardList"
         render={() => (
           <FreeBoardList
-            GoToFreeBoardContent={GoToFreeBoardContent}
             isLogin={isLogin}
+            userId={userId}
+            GoToFreeBoardContent={GoToFreeBoardContent}
           />
         )}
       />
@@ -343,8 +349,8 @@ export default function App() {
         path="/CrewBoardList"
         render={() => (
           <CrewBoardList
+            userId={userId}
             GoToCrewBoardContent={GoToCrewBoardContent}
-            isLogin={isLogin}
           />
         )}
       />
