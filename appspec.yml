@@ -3,17 +3,16 @@ os: linux
 files: #배포의 설치 이벤트 중 인스턴스에 복사해야 하는 파일의 이름을 ㅈ지정한다.
   - source: / #EC2에 올라가야되건 서버임source이(가) 슬래시 하나인 경우(Amazon Linux, RHEL 및 Ubuntu Server 인스턴스의 경우: "/", Windows Server 인스턴스의 경우: "\") 개정 버전의 모든 파일이 인스턴스에 복사됩니다.
     destination: /home/ubuntu/BongSa-Heaven #source에 사용된 경로는 appspec.yml 파일에 상대적이며 개정 버전의 루트에 있어야 합니다.
-
 hooks:
   ApplicationStop:
-    -location: scripts/stop.sh
-     runas: root
+    - location: scripts/stop.sh
+      runas: root
   AfterInstall:
-    -location: scripts/initialize.sh
-     runas: root
+    - location: scripts/initialize.sh
+      runas: root
   ApplicationStart:
-    -location: scripts/start.sh
-     runas: root
+    - location: scripts/start.sh
+      runas: root
 #without Classic loadbalancer in dp group
 #applicationsStop
 #downloadBundle
