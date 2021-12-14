@@ -217,6 +217,7 @@ module.exports = {
     }
   },
 
+  // freeboard child comment control
   fbchildregisterControl: async (req, res) => {
     // 1. token userData 인증
     // 2. findOndAndUpdate 가능하지않나?? + $set $addToSet인가
@@ -269,59 +270,56 @@ module.exports = {
   fbchildeditControl: async (req, res) => {
     // 1. token userData 인증
     // 2. findOndAndUpdate 가능하지않나?? + $set?? 으로 가능합니까
-    // try {
-    const userData = await isAuthorized(req, res);
-    if (!userData) {
-      return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
-    }
-    if (userData) {
-      const fbchild = await Freeboard.findOne(
-        {
-          _id: req.body.freeboard_id,
-          freecomments: {
-            $elemMatch: {
-              _id: req.body.freecomment_id,
-              freechildcomments: {
-                $elemMatch: {
-                  _id: req.body.freechild_id,
-                  user_id: userData.user_id,
+    try {
+      const userData = await isAuthorized(req, res);
+      if (!userData) {
+        return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+      }
+      if (userData) {
+        const fbchild = await Freeboard.findOneAndUpdate(
+          {
+            _id: req.body.freeboard_id,
+            freecomments: {
+              $elemMatch: {
+                _id: req.body.freecomment_id,
+                freechildcomments: {
+                  $elemMatch: {
+                    _id: req.body.freechild_id,
+                    user_id: userData.user_id,
+                  },
                 },
               },
             },
           },
-        },
-        // {
-        //   $set: {
-        //     "freecomments.freechildcomments.$.child_comment":
-        //       req.body.child_comment,
-        //     // {
-        //     // "freecomments.$[el].freechildcomments": {
-        //     // user_id: userData.user_id,
-        //     // freeboard_id: req.body.freeboard_id,
-        //     // freecomment_id: req.body.freecomment_id,
-        //     //   child_comment: req.body.comment,
-        //     // },
-        //   },
-        // },
-        // {
-        //   arrayFilters: [{"el._id": req.body.freecomment_id}],
-        // },
-      ).exec();
-      if (fbchild) {
-        console.log("===fbchild===", fbchild);
-        return res
-          .status(200)
-          .send({data: fbchild, message: "싸장님 대댓글 수정 완료"});
-      } else {
-        console.log("===fbchild===", fbchild);
-        return res
-          .status(400)
-          .send({data: fbchild, message: "싸장님 대댓글 수정 실패"});
+          {
+            $set: {
+              "freecomments.$[].freechildcomments.$[el].child_comment":
+                req.body.comment,
+            },
+          },
+          {
+            arrayFilters: [
+              {
+                "el._id": {$eq: req.body.freechild_id},
+              },
+            ],
+          },
+        ).exec();
+        if (fbchild) {
+          console.log("===fbchild===", fbchild);
+          return res
+            .status(200)
+            .send({data: fbchild, message: "싸장님 대댓글 수정 완료"});
+        } else {
+          console.log("===fbchild===", fbchild);
+          return res
+            .status(400)
+            .send({data: fbchild, message: "싸장님 대댓글 수정 실패"});
+        }
       }
+    } catch (err) {
+      return res.send("err");
     }
-    // } catch (err) {
-    //   return res.send("err");
-    // }
   },
   fbchilddeleteControl: async (req, res) => {
     // 1. token userData 인증
@@ -339,33 +337,189 @@ module.exports = {
             freecomments: {
               $elemMatch: {
                 _id: req.body.freecomment_id,
+                freechildcomments: {
+                  $elemMatch: {
+                    _id: req.body.freechild_id,
+                    user_id: userData.user_id,
+                  },
+                },
               },
             },
           },
           {
-            $addToSet: {
+            $pull: {
               "freecomments.$[el].freechildcomments": {
-                user_id: userData.user_id,
-                freeboard_id: req.body.freeboard_id,
-                freecomment_id: req.body.freecomment_id,
-                child_comment: req.body.comment,
+                _id: req.body.freechild_id,
               },
             },
           },
           {
-            arrayFilters: [{"el._id": req.body.freecomment_id}],
+            arrayFilters: [
+              {
+                "el._id": {$eq: req.body.freecomment_id},
+              },
+            ],
           },
         ).exec();
         if (fbchild) {
           console.log("===fbchild===", fbchild);
           return res
             .status(200)
-            .send({data: fbchild, message: "싸장님 대댓글 등록 완료"});
+            .send({data: fbchild, message: "싸장님 대댓글 삭제 완료"});
         } else {
           console.log("===fbchild===", fbchild);
           return res
             .status(400)
-            .send({data: fbchild, message: "싸장님 대댓글 등록 실패"});
+            .send({data: fbchild, message: "싸장님 대댓글 삭제 실패"});
+        }
+      }
+    } catch (err) {
+      return res.send("err");
+    }
+  },
+
+  // crewboard child comment control
+  cbchildregisterControl: async (req, res) => {
+    // 1. token userData 인증
+    // 2. findOndAndUpdate 가능하지않나?? + $set $addToSet인가
+    // 3. 해보자
+    try {
+      const userData = await isAuthorized(req, res);
+      if (!userData) {
+        return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+      }
+      if (userData) {
+        const cbchild = await Crewboard.findOneAndUpdate(
+          {
+            _id: req.body.crewboard_id,
+            crewcomments: {
+              $elemMatch: {
+                _id: req.body.crewcomment_id,
+              },
+            },
+          },
+          {
+            $addToSet: {
+              "crewcomments.$[el].crewchildcomments": {
+                user_id: userData.user_id,
+                crewboard_id: req.body.crewboard_id,
+                crewcomment_id: req.body.crewcomment_id,
+                child_comment: req.body.comment,
+              },
+            },
+          },
+          {
+            arrayFilters: [{"el._id": req.body.crewcomment_id}],
+          },
+        ).exec();
+        if (cbchild) {
+          console.log("===cbchild===", cbchild);
+          return res.status(200).send({message: "싸장님 대댓글 등록 완료"});
+        } else {
+          console.log("===cbchild===", cbchild);
+          return res.status(400).send({message: "싸장님 대댓글 등록 실패"});
+        }
+      }
+    } catch (err) {
+      return res.send("err");
+    }
+  },
+  cbchildeditControl: async (req, res) => {
+    // 1. token userData 인증
+    // 2. findOndAndUpdate 가능하지않나?? + $set?? 으로 가능합니까
+    try {
+      const userData = await isAuthorized(req, res);
+      if (!userData) {
+        return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+      }
+      if (userData) {
+        const cbchild = await Crewboard.findOneAndUpdate(
+          {
+            _id: req.body.crewboard_id,
+            crewcomments: {
+              $elemMatch: {
+                _id: req.body.crewcomment_id,
+                crewchildcomments: {
+                  $elemMatch: {
+                    _id: req.body.crewchild_id,
+                    user_id: userData.user_id,
+                  },
+                },
+              },
+            },
+          },
+          {
+            $set: {
+              "crewcomments.$[].crewchildcomments.$[el].child_comment":
+                req.body.comment,
+            },
+          },
+          {
+            arrayFilters: [
+              {
+                "el._id": {$eq: req.body.crewchild_id},
+              },
+            ],
+          },
+        ).exec();
+        if (cbchild) {
+          console.log("===cbchild===", cbchild);
+          return res.status(200).send({message: "싸장님 대댓글 수정 완료"});
+        } else {
+          console.log("===cbchild===", cbchild);
+          return res.status(400).send({message: "싸장님 대댓글 수정 실패"});
+        }
+      }
+    } catch (err) {
+      return res.send("err");
+    }
+  },
+  cbchilddeleteControl: async (req, res) => {
+    // 1. token userData 인증
+    // 2. findOndAndUpdate 가능하지않나?? + $set $addToSet인가
+    // 3. 해보자
+    try {
+      const userData = await isAuthorized(req, res);
+      if (!userData) {
+        return res.send({message: "싸장님 회원 맞아?? 빨리 가입 해"});
+      }
+      if (userData) {
+        const cbchild = await Crewboard.findOneAndUpdate(
+          {
+            _id: req.body.crewboard_id,
+            crewcomments: {
+              $elemMatch: {
+                _id: req.body.crewcomment_id,
+                crewchildcomments: {
+                  $elemMatch: {
+                    _id: req.body.crewchild_id,
+                    user_id: userData.user_id,
+                  },
+                },
+              },
+            },
+          },
+          {
+            $pull: {
+              "crewcomments.$[el].crewchildcomments": {
+                _id: req.body.crewchild_id,
+              },
+            },
+          },
+          {
+            arrayFilters: [
+              {
+                "el._id": {$eq: req.body.crewcomment_id},
+              },
+            ],
+          },
+        ).exec();
+        if (cbchild) {
+          console.log("===cbchild===", cbchild);
+          return res.status(200).send({message: "싸장님 대댓글 삭제 완료"});
+        } else {
+          console.log("===cbchild===", cbchild);
+          return res.status(400).send({message: "싸장님 대댓글 삭제 실패"});
         }
       }
     } catch (err) {

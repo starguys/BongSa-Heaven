@@ -14,5 +14,9 @@ router.delete("/fbchilddelete", controller.fbchilddeleteControl);
 router.post("/cbcommentregister", controller.cbcommentregisterControl);
 router.patch("/cbcommentedit", controller.cbcommenteditControl);
 router.delete("/cbcommentdelete", controller.cbcommentdeleteControl);
+// crewboard child commnent
+router.post("/cbchildregister", controller.cbchildregisterControl);
+router.patch("/cbchildedit", controller.cbchildeditControl);
+router.delete("/cbchilddelete", controller.cbchilddeleteControl);
 
 module.exports = router;
