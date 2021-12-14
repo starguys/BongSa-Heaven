@@ -160,10 +160,15 @@ module.exports = {
               comment: 1,
               nickname: 1,
               createdAt: 1,
+              freechildcomments: 1,
             },
           })
           .populate({
             path: "freecomments.user_id",
+            select: {nickname: 1},
+          })
+          .populate({
+            path: "freecomments.freechildcomments.user_id",
             select: {nickname: 1},
           });
         res
@@ -189,10 +194,15 @@ module.exports = {
               comment: 1,
               nickname: 1,
               createdAt: 1,
+              freechildcomments: 1,
             },
           })
           .populate({
             path: "freecomments.user_id",
+            select: {nickname: 1},
+          })
+          .populate({
+            path: "freecomments.freechildcomments.user_id",
             select: {nickname: 1},
           });
         res.status(200).send({
@@ -220,10 +230,15 @@ module.exports = {
             comment: 1,
             nickname: 1,
             createdAt: 1,
+            freechildcomments: 1,
           },
         })
         .populate({
           path: "freecomments.user_id",
+          select: {nickname: 1},
+        })
+        .populate({
+          path: "freecomments.freechildcomments.user_id",
           select: {nickname: 1},
         });
       res
@@ -459,7 +474,7 @@ module.exports = {
             images: 1,
             shorts_description: 1,
             description: 1,
-            freecomments: 1,
+            crewcomments: 1,
             createdAt: 1,
           })
           .populate({path: "user_id", select: {nickname: 1}})
@@ -471,10 +486,15 @@ module.exports = {
               comment: 1,
               nickname: 1,
               createdAt: 1,
+              crewchildcomments: 1,
             },
           })
           .populate({
             path: "crewcomments.user_id",
+            select: {nickname: 1},
+          })
+          .populate({
+            path: "crewcomments.crewchildcomments.user_id",
             select: {nickname: 1},
           });
         res
@@ -501,10 +521,15 @@ module.exports = {
               comment: 1,
               nickname: 1,
               createdAt: 1,
+              crewchildcomments: 1,
             },
           })
           .populate({
             path: "crewcomments.user_id",
+            select: {nickname: 1},
+          })
+          .populate({
+            path: "crewcomments.crewchildcomments.user_id",
             select: {nickname: 1},
           });
         res.status(200).send({
@@ -533,10 +558,15 @@ module.exports = {
             comment: 1,
             nickname: 1,
             createdAt: 1,
+            crewchildcomments: 1,
           },
         })
         .populate({
           path: "crewcomments.user_id",
+          select: {nickname: 1},
+        })
+        .populate({
+          path: "crewcomments.crewchildcomments.user_id",
           select: {nickname: 1},
         });
       res
