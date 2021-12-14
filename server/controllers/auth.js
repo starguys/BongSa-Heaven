@@ -177,10 +177,12 @@ module.exports = {
   },
 
   refreshtokenControl: async (req, res) => {
-    const refreshTokenData = checkRefreshToken(req);
+    const refreshToken = req.cookies.refreshToken;
+    const refreshTokenData = checkRefreshToken(refreshToken);
     if (!refreshTokenData) {
       return res.status(401).send({message: "유효하지 않은 토큰~"});
     }
+
     if (refreshTokenData) {
       const userInfo = await User.findOne({email: refreshTokenData.email});
       if (!userInfo) {
@@ -189,15 +191,12 @@ module.exports = {
         const {email, nickname} = userInfo;
         const user_id = userInfo._id;
         const accessToken = generateAccessToken({email, nickname, user_id});
-        const refreshToken = generateRefreshToken({email, nickname, user_id});
+
         // const issueDate = new Date();
         // const accessTokenExpiry = new Date(Date.parse(issueDate) + 1209600000); // +3h
         // const refreshTokenExpiry = new Date(Date.parse(issueDate) + 10800000); // +14d
 
-        return res
-          .cookie("refreshToken", refreshToken, {httpOnly: true})
-          .status(200)
-          .send({accessToken: accessToken});
+        return res.status(200).send({accessToken: accessToken});
       }
     }
   },

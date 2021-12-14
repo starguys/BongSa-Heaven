@@ -103,7 +103,7 @@ export default function EditButton(props: any) {
         id="imgUpload"
         onChange={saveFileImage}
         type="file"
-        // aceept="image/*"
+        accept="multipart/form-data"
       />
       {/* display:none 상태 */}
     </>

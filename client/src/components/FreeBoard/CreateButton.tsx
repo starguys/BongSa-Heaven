@@ -150,7 +150,6 @@ export default function CreateButton(props: any) {
           onChange={saveFileImage}
           type="file"
           name="file"
-          // required="true"
           accept="multipart/form-data"
         />
       </form>

@@ -1,4 +1,3 @@
-import React from "react";
 import {useState} from "react";
 import {useEffect} from "react";
 import axios from "axios";
@@ -57,17 +56,19 @@ const ContentsBox = styled.div`
   }
 `;
 
-export default function FreeBoardList({GoToFreeBoardContent, isLogin}: any) {
+export default function FreeBoardList({
+  GoToFreeBoardContent,
+  userId,
+  isLogin,
+}: any) {
   const [isLoading, CheckLoading] = useState(true);
 
   const [freeBoardinfo, setFreeBoardinfo] = useState([]);
-
   const [currentPage, setCurrentPage] = useState(1);
   const postPerPage = 10;
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
-
   const currentPosts = freeBoardinfo.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
 
@@ -113,6 +114,9 @@ export default function FreeBoardList({GoToFreeBoardContent, isLogin}: any) {
                 board.user_id == null ? (
                   <Contents
                     key={board._id}
+                    like={board.like}
+                    like_count={board.like_count}
+                    user_id={userId}
                     freeboard_id={board._id}
                     title={board.title}
                     writer="회원탈퇴자"
@@ -126,6 +130,9 @@ export default function FreeBoardList({GoToFreeBoardContent, isLogin}: any) {
                 ) : (
                   <Contents
                     key={board._id}
+                    like={board.like}
+                    like_count={board.like_count}
+                    user_id={userId}
                     freeboard_id={board._id}
                     title={board.title}
                     writer={board.user_id.nickname}

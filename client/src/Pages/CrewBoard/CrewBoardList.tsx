@@ -1,6 +1,4 @@
-import React from "react";
-import {useState} from "react";
-import {useEffect} from "react";
+import {useState, useEffect} from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Header2 from "../../components/common/Header2";
@@ -132,6 +130,9 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
                   <BigCard>
                     <Card
                       key={0}
+                      like={currentPosts[0].like}
+                      like_count={currentPosts[0].like_count}
+                      user_id={currentPosts[0].user_id}
                       crewboard_id={currentPosts[0]._id}
                       img={currentPosts[0].images}
                       helloMessage={currentPosts[0].shorts_description}
@@ -144,6 +145,9 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
                     {currentPosts.length === 2 ? (
                       <Card
                         key={1}
+                        like={currentPosts[1].like}
+                        like_count={currentPosts[1].like_count}
+                        user_id={currentPosts[1].user_id}
                         crewboard_id={currentPosts[1]._id}
                         img={currentPosts[1].images}
                         helloMessage={currentPosts[1].shorts_description}
@@ -156,6 +160,9 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
                       <>
                         <Card
                           key={1}
+                          like={currentPosts[1].like}
+                          like_count={currentPosts[1].like_count}
+                          user_id={currentPosts[1].user_id}
                           crewboard_id={currentPosts[1]._id}
                           img={currentPosts[1].images}
                           helloMessage={currentPosts[1].shorts_description}
@@ -165,6 +172,9 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
                         />
                         <Card
                           key={2}
+                          like={currentPosts[2].like}
+                          like_count={currentPosts[2].like_count}
+                          user_id={currentPosts[2].user_id}
                           crewboard_id={currentPosts[2]._id}
                           img={currentPosts[2].images}
                           helloMessage={currentPosts[2].shorts_description}
