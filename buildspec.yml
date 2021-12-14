@@ -7,7 +7,7 @@ phases: # 각 명령을 실행하도록 codebuild를 지시할 수 있는 빌드
       - npm install
   build:
     commands:
-      -npm run build
+      - npm run build
 artifacts:
   files:
     -'**/*'
