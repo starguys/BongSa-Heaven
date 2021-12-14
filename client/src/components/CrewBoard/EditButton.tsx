@@ -74,15 +74,15 @@ const CompleteButton = styled.div`
   }
 `;
 
-export default function EditButton(props) {
-  const saveFileImage = e => {
+export default function EditButton(props: any) {
+  const saveFileImage = (e: any) => {
     props.setFileImage(e.target.files[0]);
     props.setpreviewFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const history = useHistory();
-  const Edit = url => history.push(url);
-  const Cancel = url => history.push(url);
+  const Edit = (url: any) => history.push(url);
+  const Cancel = (url: any) => history.push(url);
 
   return (
     <>
@@ -103,12 +103,7 @@ export default function EditButton(props) {
         </CompleteButton>
       </SelectBox>
       {/* display:none 상태 */}
-      <ImgUpload
-        id="imgUpload"
-        onChange={saveFileImage}
-        type="file"
-        aceept="image/*"
-      />
+      <ImgUpload id="imgUpload" onChange={saveFileImage} type="file" />
       {/* display:none 상태 */}
     </>
   );
