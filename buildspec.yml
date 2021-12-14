@@ -5,9 +5,9 @@ phases: # 각 명령을 실행하도록 codebuild를 지시할 수 있는 빌드
     commands:
       - cd client
       - npm install
-  build:
+  build: # 빌드를 하는 단계
     commands:
-      - npm run build
+      - react-scripts build
 artifacts:
   files:
     -'**/*'
