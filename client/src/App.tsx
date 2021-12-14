@@ -21,7 +21,6 @@ import RecruiterDelete from "./Pages/MyPage/RecruiterDelete";
 import RecruiterEdit from "./Pages/MyPage/RecruiterEdit";
 import RecruiterMyPage from "./Pages/MyPage/RecruiterMyPage";
 import RecruiterPasswordCheck from "./Pages/MyPage/RecruiterPasswordCheck";
-import RecruiterMaill from "./Pages/MyPage/RecruiterMaill";
 import SeeRecruiter from "./Pages/MyPage/SeeRecruiter";
 import SeeUser from "./Pages/MyPage/SeeUser";
 import UserDelete from "./Pages/MyPage/UserDelete";
@@ -110,7 +109,7 @@ export default function App() {
         withCredentials: true,
       })
       .then(res => {
-        console.log(res);
+        console.log("res");
         localStorage.setItem("accessToken", res.data.accessToken);
       });
 
@@ -240,7 +239,6 @@ export default function App() {
         path="/RecruiterPasswordCheck"
         component={RecruiterPasswordCheck}
       />
-      <Route exact path="/RecruiterMaill" component={RecruiterMaill} />
       <Route exact path="/SeeRecruiter" component={SeeRecruiter} />
       <Route exact path="/SeeUser" component={SeeUser} />
       <Route
