@@ -203,12 +203,12 @@ module.exports = {
   },
 
 
+  resetrftkControl: async (req, res) => {
     const refreshToken = "";
     res
       .cookie("refreshToken", refreshToken, {httpOnly: true})
       .status(200)
       .send();
-
   },
 
   nickcheckControl: async (req, res) => {
