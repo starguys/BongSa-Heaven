@@ -207,9 +207,6 @@ const DeleteBtn = styled.div`
 
 export default function RecruiterEdit() {
   const history = useHistory();
-  const GoMyPage = () => {
-    history.push("/RecruiteMyPage");
-  };
   const GoUserDelete = () => {
     history.push("/UserDelete");
   };
@@ -226,11 +223,11 @@ export default function RecruiterEdit() {
   });
   const [newPass, setNewPass] = useState<any>({
     password: "",
-    asswordCheck: "",
+    passwordCheck: "",
   });
 
   //errorMessage
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+
   const [passErrorMessage, setPassErrorMessage] = useState("");
   const [passCheckErrorMessage, setPassCheckErrorMessage] = useState("");
   const [nickCheckErrorMessage, setNickCheckErrorMessage] = useState("");
@@ -246,19 +243,6 @@ export default function RecruiterEdit() {
     //userinfo에서 성별을 바꾸는 방법
 
     setUserInfo({...userInfo, [key]: e.target.value});
-
-    if (key === "man") {
-      setUserInfo({...userInfo, ["sex"]: "남자"});
-    } else if (key === "woman") {
-      setUserInfo({...userInfo, ["sex"]: "여자"});
-    }
-    if (key === "teen") {
-      setUserInfo({...userInfo, ["age"]: "청소년 "});
-    } else if (key === "adult") {
-      setUserInfo({...userInfo, ["age"]: "청년"});
-    } else if (key === "senior") {
-      setUserInfo({...userInfo, ["age"]: "장년"});
-    }
 
     console.log(userInfo);
     if (key === "password") {
@@ -390,12 +374,14 @@ export default function RecruiterEdit() {
         .patch(
           "http://localhost:8080/user/edit",
           {
+            nickname: userInfo.nickname,
             email: userInfo.email,
             password: newPass.password,
             want_region: userInfo.want_region,
             want_vol: userInfo.want_vol,
             sex: userInfo.sex,
             age: userInfo.age,
+            iscompany: true,
           },
           {
             headers: {
@@ -405,7 +391,7 @@ export default function RecruiterEdit() {
         )
         .then(res => {
           console.log(res.data.data);
-          history.push("/RecruiteMyPage");
+          history.push("/RecruiterMyPage");
         })
         .catch(err => {
           console.log(err);
@@ -421,10 +407,10 @@ export default function RecruiterEdit() {
             email: userInfo.email,
             nickname: userInfo.nickname,
             password: userInfo.password,
-
             want_region: userInfo.want_region,
             want_vol: userInfo.want_vol,
             company: userInfo.company,
+            iscompany: true,
           },
           {
             headers: {
@@ -434,7 +420,7 @@ export default function RecruiterEdit() {
         )
         .then(res => {
           console.log(res.data.data);
-          history.push("/RecruiteMyPage");
+          history.push("/RecruiterMyPage");
         })
         .catch(err => {
           console.log(err);
@@ -449,12 +435,12 @@ export default function RecruiterEdit() {
             email: userInfo.email,
             nickname: userInfo.nickname,
             password: newPass.password,
-
             want_region: userInfo.want_region,
             want_vol: userInfo.want_vol,
             sex: userInfo.sex,
             age: userInfo.age,
             company: userInfo.company,
+            iscompany: true,
           },
           {
             headers: {
@@ -464,39 +450,13 @@ export default function RecruiterEdit() {
         )
         .then(res => {
           console.log(res.data.data);
-          history.push("/RecruiteMyPage");
+          history.push("/RecruiterMyPage");
         })
         .catch(err => {
           console.log(err);
         });
     }
     //비번 제외 닉네임 제외하고 바꾸는 경우
-    axios
-      .patch(
-        "http://localhost:8080/user/edit",
-        {
-          email: userInfo.email,
-          nickname: userInfo.nickname,
-          password: newPass.password,
-
-          want_region: userInfo.want_region,
-          want_vol: userInfo.want_vol,
-
-          company: userInfo.company,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        },
-      )
-      .then(res => {
-        console.log(res.data.data);
-        history.push("/RecruiteMyPage");
-      })
-      .catch(err => {
-        console.log(err);
-      });
 
     //닉네임 비번 외에는 유효성 검증 필요 없고 그냥 바꿀수 있음.
 
@@ -556,7 +516,7 @@ export default function RecruiterEdit() {
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
           <CheckingPossibleOrNotBox>
-            <PossibleOrNot>사용 가능</PossibleOrNot>
+            <PossibleOrNot>{nickCheckErrorMessage}</PossibleOrNot>
             <CheckingPossibleOrNotButton onClick={handleNicknameCheck}>
               중복 확인
             </CheckingPossibleOrNotButton>
@@ -575,6 +535,12 @@ export default function RecruiterEdit() {
               placeholder="비밀번호 확인"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
+          <CheckingPossibleOrNotBox>
+            <PossibleOrNot>
+              {passErrorMessage}
+              {passCheckErrorMessage}
+            </PossibleOrNot>
+          </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
               defaultValue={userInfo.want_region}

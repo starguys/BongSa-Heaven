@@ -105,6 +105,7 @@ export default function App() {
   };
 
   useEffect(() => {
+    console.log(isLogin, "login");
     axios
       .get("http://localhost:8080/auth/refreshtoken", {
         withCredentials: true,
@@ -136,7 +137,7 @@ export default function App() {
         console.log("err");
         setIsLogin(false);
       });
-  }, [isUserLogin]);
+  }, [isUserLogin, isLogin]);
 
   const googleAuthCode = () => {
     const url = new URL(window.location.href);

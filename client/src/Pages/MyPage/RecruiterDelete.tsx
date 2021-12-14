@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
@@ -21,7 +20,6 @@ const ContentsBox = styled.div`
 `;
 
 export default function FreeBoardDelete() {
-  const history = useHistory();
   return (
     <>
       <Header2 componentName="회원탈퇴" />

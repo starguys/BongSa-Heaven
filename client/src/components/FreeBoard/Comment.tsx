@@ -521,7 +521,7 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
                     )}
                   </CommentListSmallBox>
                 </CommentListBigBox>
-
+                /*{" "}
                 {currentFBcontent.data.freecomments.map(
                   (comment: any, idx: any) =>
                     comment.freechildcomments.length > 0 ? (
@@ -617,7 +617,7 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
             대 댓 글<br />달 기
           </CommentInputButton>
           <CommentInputCancelButton onClick={() => setNestedCommentMode(false)}>
-            취소
+            취소 */
           </CommentInputCancelButton>
         </CommentInputBox>
       ) : (

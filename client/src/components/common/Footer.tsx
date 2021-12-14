@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import {useHistory} from "react-router";
@@ -96,12 +96,6 @@ export default function Footer({isLogin, setIsLogin, setIsUserLogin}: any) {
       })
       .catch(err => console.log(err));
   };
-
-  useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      setIsLogin(true);
-    }
-  }, [isLogin]);
 
   return (
     <>
