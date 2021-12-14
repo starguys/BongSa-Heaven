@@ -520,8 +520,7 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
                       </>
                     )}
                   </CommentListSmallBox>
-                </CommentListBigBox>
-
+                </CommentListBigBox>{" "}
                 {currentFBcontent.data.freecomments.map(
                   (comment: any, idx: any) =>
                     comment.freechildcomments.length > 0 ? (
@@ -599,7 +598,7 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
                         </CommentListBigBox>
                       </>
                     ) : null,
-                )}
+                )}{" "}
               </>
             ))}
       </CommentList>
