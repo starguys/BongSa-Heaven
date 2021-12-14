@@ -43,9 +43,23 @@ app.use("/image", imageRouter);
 // app.post("/images", controller.imageControl);
 
 //server
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`      🚀 Server is starting on ${PORT}`);
-});
+const HTTPS_PORT = process.env.HTTPS_PORT || 8080;
+
+let server;
+if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
+  const privateKey = fs.readFileSync(__dirname + "/key.pem", "utf8");
+  const certificate = fs.readFileSync(__dirname + "/cert.pem", "utf8");
+  const credentials = {key: privateKey, cert: certificate};
+
+  server = https.createServer(credentials, app);
+  server.listen(HTTPS_PORT, () =>
+    console.log(` 🚀 Server is starting on ${HTTPS_PORT}`),
+  );
+  //인증서 없는경우
+} else {
+  app.listen(HTTPS_PORT, () => {
+    console.log(`      🚀 Server is starting on ${HTTPS_PORT}`);
+  });
+}
 
 module.exports = app;
