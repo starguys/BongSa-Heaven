@@ -11,7 +11,6 @@ module.exports = {
     // 1. 가입된 유저인지 확인한다 => 토큰 검증
     // 2. 유저가 아니라면 돌려보냄
     // 3. 유저라면 free board에 모델 생성하고 req.body로 받은 데이터 등록
-
     // 3-1 imag 올리는 경우 // 아닌경우 나눠서 하자
     const image = req.files;
     const path = image.map(img => img.location);
@@ -73,7 +72,12 @@ module.exports = {
     const fbTopThree = await Freeboard.find({})
       .sort({like_count: -1})
       .limit(3)
-      .select({like: 1, title: 1, createdAt: 1, like_count: 1})
+      .select({
+        like: 1,
+        title: 1,
+        createdAt: 1,
+        like_count: 1,
+      })
       .populate({path: "user_id", select: {nickname: 1}})
       .sort({createdAt: -1});
 
@@ -81,7 +85,7 @@ module.exports = {
     if (userData) {
       console.log("===userData.user_id===", userData.user_id);
       const fbData = await Freeboard.find({
-        like: {$ne: new ObjectId(new ObjectIduserData.user_id())},
+        like: {$ne: new ObjectId(new ObjectId(userData.user_id))},
       })
         .select({like: 1, title: 1, createdAt: 1, like_count: 1})
         .populate({path: "user_id", select: {nickname: 1}})
@@ -120,7 +124,9 @@ module.exports = {
         .select({like: 1, title: 1, createdAt: 1, like_count: 1})
         .populate({path: "user_id", select: {nickname: 1}})
         .sort({createdAt: -1});
-      res.status(200).send({data: fbcontents, fbTopThree});
+      res
+        .status(200)
+        .send({data: fbcontents, fbTopThree, message: "싸장님만의 리스트야!"});
     }
   },
 

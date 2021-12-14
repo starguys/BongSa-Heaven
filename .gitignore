@@ -4,3 +4,4 @@ localhost*
 .prettierrc
 *package-lock.json
 *.pemg
+*.pem
