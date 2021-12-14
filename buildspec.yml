@@ -8,7 +8,7 @@ phases: # 각 명령을 실행하도록 codebuild를 지시할 수 있는 빌드
   build: # 빌드를 하는 단계
     commands:
       - npm run build
-artifacts:
-  files:
-    -'**/*'
+artifacts: #아티팩트는 소스 작업에서 다운로드하고나code pipeline에서
+  files: #빌드 잦ㄱ업의 일부로 생선도니 파일을 참ㅈ조 해야한다.
+    - "**/*"
   base-directory: client/build
