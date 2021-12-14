@@ -40,24 +40,6 @@ const CrewBoardImageContainer = styled.div`
   justify-content: center;
 `;
 
-const CrewBoardImage = styled.img`
-  width: 165px;
-  height: 138px;
-  border-radius: 10px;
-  margin: 0px 5px;
-`;
-const CrewBoardImageMore = styled.img`
-  @media screen and (min-width: 37.5rem) {
-    width: 165px;
-    height: 138px;
-    border-radius: 10px;
-    margin: 0px 5px;
-  }
-  @media screen and (max-width: 37.5rem) {
-    display: none;
-  }
-`;
-
 const CrewBoardMoreBtnContainer = styled.div`
   @media screen and (min-width: 37.5rem) {
     width: 100%;

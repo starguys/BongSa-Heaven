@@ -284,25 +284,25 @@ export default function UserEdit() {
 
     setUserInfo({...userInfo, [key]: e.target.value});
 
+    console.log(userInfo);
     if (key === "man") {
-      setUserInfo({...userInfo, ["sex"]: "남자"});
+      setUserInfo({...userInfo, sex: "남자"});
       setSex("남자");
     } else if (key === "woman") {
-      setUserInfo({...userInfo, ["sex"]: "여자"});
+      setUserInfo({...userInfo, sex: "여자"});
       setSex("여자");
     }
     if (key === "teen") {
-      setUserInfo({...userInfo, ["age"]: "청소년 "});
+      setUserInfo({...userInfo, age: "청소년 "});
       setAge("청소년");
     } else if (key === "adult") {
-      setUserInfo({...userInfo, ["age"]: "청년"});
+      setUserInfo({...userInfo, age: "청년"});
       setAge("청년");
     } else if (key === "senior") {
-      setUserInfo({...userInfo, ["age"]: "장년"});
+      setUserInfo({...userInfo, age: "장년"});
       setAge("장년");
     }
 
-    console.log(userInfo);
     if (key === "password") {
       setNewPass({...newPass, [key]: e.target.value});
     } else if (key === "passwordCheck") {
@@ -433,6 +433,7 @@ export default function UserEdit() {
           `http://localhost:8080/user/edit`,
           {
             email: userInfo.email,
+            nickname: userInfo.nickname,
             password: newPass.password,
             want_region: userInfo.want_region,
             want_vol: userInfo.want_vol,
@@ -513,33 +514,6 @@ export default function UserEdit() {
         });
     }
     //비번 제외 닉네임 제외하고 바꾸는 경우
-    axios
-      .patch(
-        `http://localhost:8080/user/edit`,
-        {
-          email: userInfo.email,
-          nickname: userInfo.nickname,
-          password: newPass.password,
-
-          want_region: userInfo.want_region,
-          want_vol: userInfo.want_vol,
-          sex: userInfo.sex,
-          age: userInfo.age,
-          isopen: false,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        },
-      )
-      .then(res => {
-        console.log(res.data.data);
-        history.push("/UserMyPage");
-      })
-      .catch(err => {
-        console.log(err);
-      });
 
     //닉네임 비번 외에는 유효성 검증 필요 없고 그냥 바꿀수 있음.
 
@@ -561,6 +535,7 @@ export default function UserEdit() {
 
       .then(res => {
         console.log(res.data.data.email);
+        console.log(res.data.data);
 
         setUserInfo({
           email: res.data.data.email,
@@ -568,7 +543,7 @@ export default function UserEdit() {
           password: res.data.data.password,
           want_region: res.data.data.want_region,
           want_vol: res.data.data.want_vol,
-          gender: res.data.data.gender,
+          sex: res.data.data.sex,
           age: res.data.data.age,
         });
       })
@@ -617,6 +592,12 @@ export default function UserEdit() {
               type="password"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
+          <CheckingPossibleOrNotBox>
+            <PossibleOrNot>
+              {passErrorMessage}
+              {passCheckErrorMessage}
+            </PossibleOrNot>
+          </CheckingPossibleOrNotBox>
           <SignUpWhiteBox>
             <SignUpWhiteInput
               onChange={handleChange("want_region")}
@@ -631,8 +612,8 @@ export default function UserEdit() {
               placeholder="희망 봉사 활동"
             ></SignUpWhiteInput>
           </SignUpWhiteBox>
-          {sex ? (
-            sex === "남자" ? (
+          {userInfo.sex ? (
+            userInfo.sex === "남자" ? (
               <SelectSexBox>
                 <SelectedSexButton onClick={handleChange("man")}>
                   <SexImageBox src="./image/young-man.png"></SexImageBox>
@@ -661,8 +642,8 @@ export default function UserEdit() {
               </SelectSexButton>
             </SelectSexBox>
           )}
-          {age ? (
-            age === "청소년" ? (
+          {userInfo.age ? (
+            userInfo.age === "청소년" ? (
               <SelectBox>
                 <AgeButtonSelected onClick={handleChange("teen")}>
                   청소년

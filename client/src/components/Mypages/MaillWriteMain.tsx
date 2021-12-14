@@ -127,7 +127,7 @@ export default function MaillWriteMain(Title: any) {
     setText([]);
     dispath(changeName(value));
     dispath(changeText(text));
-  }, []);
+  }, [dispath, text, value]);
   const valueChange = (e: any) => {
     setValue(e.target.value);
     onChangeName(e.target.value);
