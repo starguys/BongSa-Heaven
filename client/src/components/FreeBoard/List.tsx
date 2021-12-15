@@ -17,6 +17,9 @@ const ButtonBox = styled.div`
   display: flex;
   align-items: center;
   width: 50%;
+  @media screen and (min-width: 37.5rem) {
+    width: 30%;
+  }
 `;
 
 const ListButton = styled.div`
@@ -49,10 +52,12 @@ const LikeBox = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 50%;
+  width: 70%;
+
   font-size: 16px;
   @media screen and (min-width: 37.5rem) {
     width: 80%;
+    height: 100%;
     font-size: 24px;
   }
 `;
@@ -77,47 +82,54 @@ const NotLikeImg = styled.img`
 export default function List(props: any) {
   const history = useHistory();
   const BacktoList = (url: any) => history.push(url);
-  console.log("wow", props.currentFBcontent, props.userId);
 
   const likeThisContent = () => {
-    axios
-      .post(
-        "http://localhost:8080/board/freelike",
-        {
-          freeboard_id: props.currentFBcontent.data._id,
-        },
-        {
-          headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
+    if (props.isLogin) {
+      axios
+        .post(
+          "http://localhost:8080/board/freelike",
+          {
+            freeboard_id: props.currentFBcontent.data._id,
           },
-        },
-      )
-      .then(res => {
-        console.log("like good");
-        props.GoToFreeBoardContent(props.currentFBcontent.data._id);
-      })
-      .catch(err => console.log(err));
+          {
+            headers: {
+              authorization: `Bearer ` + localStorage.getItem("accessToken"),
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(res => {
+          console.log("like good");
+          props.GoToFreeBoardContent(props.currentFBcontent.data._id);
+        })
+        .catch(err => console.log(err));
+    } else {
+      alert("로그인이 필요합니다.");
+    }
   };
   const dislikeThisContent = () => {
-    axios
-      .post(
-        "http://localhost:8080/board/freedislike",
-        {
-          freeboard_id: props.currentFBcontent.data._id,
-        },
-        {
-          headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
+    if (props.isLogin) {
+      axios
+        .post(
+          "http://localhost:8080/board/freedislike",
+          {
+            freeboard_id: props.currentFBcontent.data._id,
           },
-        },
-      )
-      .then(res => {
-        console.log("dislike good");
-        props.GoToFreeBoardContent(props.currentFBcontent.data._id);
-      })
-      .catch(err => console.log(err));
+          {
+            headers: {
+              authorization: `Bearer ` + localStorage.getItem("accessToken"),
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(res => {
+          console.log("dislike good");
+          props.GoToFreeBoardContent(props.currentFBcontent.data._id);
+        })
+        .catch(err => console.log(err));
+    } else {
+      alert("로그인이 필요합니다.");
+    }
   };
 
   return (
@@ -129,17 +141,23 @@ export default function List(props: any) {
           </ListButton>
         </ButtonBox>
         <LikeBox>
-          좋아요&nbsp;{props.currentFBcontent.data.like.length} &nbsp;
-          {props.currentFBcontent.data.like.indexOf(props.userId) === -1 ? (
-            <NotLikeImg
-              src={"./image/NotLike.png"}
-              onClick={() => likeThisContent()}
-            />
+          {props.currentFBcontent.data === undefined ? (
+            <></>
           ) : (
-            <LikeImg
-              src={"./image/Like.png"}
-              onClick={() => dislikeThisContent()}
-            />
+            <>
+              좋아요&nbsp;{props.currentFBcontent.data.like.length} &nbsp;
+              {props.currentFBcontent.data.like.indexOf(props.userId) === -1 ? (
+                <NotLikeImg
+                  src={"./image/NotLike.png"}
+                  onClick={() => likeThisContent()}
+                />
+              ) : (
+                <LikeImg
+                  src={"./image/Like.png"}
+                  onClick={() => dislikeThisContent()}
+                />
+              )}
+            </>
           )}
         </LikeBox>
       </ListBox>

@@ -84,47 +84,54 @@ const NotLikeImg = styled.img`
 export default function List(props: any) {
   const history = useHistory();
   const BacktoList = (url: any) => history.push(url);
-  console.log("wow", props.currentCBcontent, props.userId);
 
   const likeThisContent = () => {
-    axios
-      .post(
-        "http://localhost:8080/board/crewlike",
-        {
-          crewboard_id: props.currentCBcontent.data._id,
-        },
-        {
-          headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
+    if (props.isLogin) {
+      axios
+        .post(
+          "http://localhost:8080/board/crewlike",
+          {
+            crewboard_id: props.currentCBcontent.data._id,
           },
-        },
-      )
-      .then(res => {
-        console.log("like good");
-        props.GoToCrewBoardContent(props.currentCBcontent.data._id);
-      })
-      .catch(err => console.log(err));
+          {
+            headers: {
+              authorization: `Bearer ` + localStorage.getItem("accessToken"),
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(res => {
+          console.log("like good");
+          props.GoToCrewBoardContent(props.currentCBcontent.data._id);
+        })
+        .catch(err => console.log(err));
+    } else {
+      alert("로그인이 필요합니다.");
+    }
   };
   const dislikeThisContent = () => {
-    axios
-      .post(
-        "http://localhost:8080/board/crewdislike",
-        {
-          crewboard_id: props.currentCBcontent.data._id,
-        },
-        {
-          headers: {
-            authorization: `Bearer ` + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
+    if (props.isLogin) {
+      axios
+        .post(
+          "http://localhost:8080/board/crewdislike",
+          {
+            crewboard_id: props.currentCBcontent.data._id,
           },
-        },
-      )
-      .then(res => {
-        console.log("dislike good");
-        props.GoToCrewBoardContent(props.currentCBcontent.data._id);
-      })
-      .catch(err => console.log(err));
+          {
+            headers: {
+              authorization: `Bearer ` + localStorage.getItem("accessToken"),
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(res => {
+          console.log("dislike good");
+          props.GoToCrewBoardContent(props.currentCBcontent.data._id);
+        })
+        .catch(err => console.log(err));
+    } else {
+      alert("로그인이 필요합니다.");
+    }
   };
 
   return (
@@ -136,17 +143,23 @@ export default function List(props: any) {
           </ListButton>
         </ButtonBox>
         <LikeBox>
-          좋아요 &nbsp; {props.currentCBcontent.data.like.length} &nbsp;
-          {props.currentCBcontent.data.like.indexOf(props.userId) === -1 ? (
-            <NotLikeImg
-              src={"./image/NotLike.png"}
-              onClick={() => likeThisContent()}
-            />
+          {props.currentCBcontent.data === undefined ? (
+            <></>
           ) : (
-            <LikeImg
-              src={"./image/Like.png"}
-              onClick={() => dislikeThisContent()}
-            />
+            <>
+              좋아요 &nbsp; {props.currentCBcontent.data.like.length} &nbsp;
+              {props.currentCBcontent.data.like.indexOf(props.userId) === -1 ? (
+                <NotLikeImg
+                  src={"./image/NotLike.png"}
+                  onClick={() => likeThisContent()}
+                />
+              ) : (
+                <LikeImg
+                  src={"./image/Like.png"}
+                  onClick={() => dislikeThisContent()}
+                />
+              )}
+            </>
           )}
         </LikeBox>
       </ListBox>

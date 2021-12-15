@@ -105,6 +105,26 @@ const HeaderName = styled.span`
   color: #ff7676;
   cursor: pointer;
 `;
+
+const HeaderMain = styled.button`
+  margin-right: 3%;
+  border: 0;
+  background-color: white;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 27px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #448b76;
+  border: solid 2px white;
+  &:hover {
+    border-bottom: solid 2px #448b76;
+    transition: 0.5s;
+  }
+`;
 const HeaderMap = styled.button`
   margin-right: 3%;
   border: 0;
@@ -172,7 +192,6 @@ export default function Header({
   setUserId,
 }: any) {
   const history = useHistory();
-  console.log(isLogin);
 
   const GoMyPage = () => {
     isUserLogin === "user"
@@ -236,6 +255,7 @@ export default function Header({
             <HeaderName onClick={GoHome}>봉사천국</HeaderName>
           </WebHeaderLeft>
           <WebHeaderRight>
+            <HeaderMain onClick={GoHome}>메인으로</HeaderMain>
             <HeaderMap onClick={GoMap}>봉사지도</HeaderMap>
 
             {isLogin ? (

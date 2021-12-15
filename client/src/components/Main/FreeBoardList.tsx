@@ -1,62 +1,88 @@
 import styled from "styled-components";
 
-const FreeBoardListdiv = styled.div`
-  border-bottom: solid 1px #f2f2f2;
-  margin-top: 26px;
-  margin-left: 17px;
-  width: 332px;
-  height: 50.5px;
+const ContentsList = styled.div`
+  background-color: white;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
 `;
 
-const FreeBoardListTitle = styled.div`
-  margin-bottom: 9px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-`;
-const FreeBoardListTitleBottom = styled.div`
-  margin-bottom: 13.5px;
+const ContentsBox = styled.div`
+  cursor: pointer;
   display: flex;
+  flex-direction: column;
+  width: 80%;
+  border-bottom: dashed gray 1px;
+  padding: 20px 0px;
 `;
-const FreeBoardListTitleBottomUser = styled.div`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
+const ContentsWriter = styled.span`
+  margin-left: 25px;
+  opacity: 0.5;
+`;
+
+const ContentsDate = styled.span`
+  margin-left: 30px;
   font-size: 12px;
-  line-height: 14px;
-  display: flex;
-  align-items: center;
 `;
-const FreeBoardListTitleBottomDate = styled.div`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 14px;
+
+const ContentsTitle = styled.div`
   display: flex;
+  font-size: 14px;
   align-items: center;
+  margin: 0px 0px 10px 20px;
 `;
-export default function FreeBoardList(
-  freeboard_id: any,
-  title: any,
-  writer: any,
-  date: any,
-  GoToFreeBoardContent: any,
-) {
+const LikeBox = styled.div`
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  border-bottom: dashed gray 1px;
+`;
+
+const LikeImg = styled.img`
+  width: 50%;
+  object-fit: cover;
+  @media screen and (min-width: 37.5rem) {
+    width: 20%;
+  }
+`;
+const NotLikeImg = styled.img`
+  width: 50%;
+  object-fit: cover;
+  @media screen and (min-width: 37.5rem) {
+    width: 20%;
+  }
+`;
+export default function FreeBoardList({
+  like,
+  like_count,
+  user_id,
+  freeboard_id,
+  title,
+  writer,
+  date,
+  GoToFreeBoardContent,
+}: any) {
   return (
     <>
-      <FreeBoardListdiv onClick={() => GoToFreeBoardContent(freeboard_id)}>
-        <FreeBoardListTitle>{title}</FreeBoardListTitle>
-        <FreeBoardListTitleBottom>
-          <FreeBoardListTitleBottomUser>{writer}</FreeBoardListTitleBottomUser>
-          <FreeBoardListTitleBottomDate>{date}</FreeBoardListTitleBottomDate>
-        </FreeBoardListTitleBottom>
-      </FreeBoardListdiv>
+      <ContentsList onClick={() => GoToFreeBoardContent(freeboard_id)}>
+        <ContentsBox>
+          <ContentsTitle>{title}</ContentsTitle>
+          <ContentsWriter>
+            {writer}
+            <ContentsDate>{date.slice(0, 10)}</ContentsDate>
+          </ContentsWriter>
+        </ContentsBox>
+        <LikeBox>
+          {like.indexOf(user_id) === -1 ? (
+            <NotLikeImg src={"./image/NotLike.png"} />
+          ) : (
+            <LikeImg src={"./image/Like.png"} />
+          )}
+          좋아요&nbsp;{like_count}&nbsp;
+        </LikeBox>
+      </ContentsList>
     </>
   );
 }

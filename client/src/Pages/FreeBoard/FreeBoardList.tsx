@@ -70,6 +70,7 @@ export default function FreeBoardList({
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPosts = freeBoardinfo.slice(indexOfFirstPost, indexOfLastPost);
+
   const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
 
   const loadingHandler = () => {
@@ -120,11 +121,7 @@ export default function FreeBoardList({
                     freeboard_id={board._id}
                     title={board.title}
                     writer="회원탈퇴자"
-                    date={
-                      board.createdAt.slice(0, 10) +
-                      "  " +
-                      board.createdAt.slice(11, 19)
-                    }
+                    date={board.createdAt.slice(0, 10)}
                     GoToFreeBoardContent={GoToFreeBoardContent}
                   />
                 ) : (
@@ -136,11 +133,7 @@ export default function FreeBoardList({
                     freeboard_id={board._id}
                     title={board.title}
                     writer={board.user_id.nickname}
-                    date={
-                      board.createdAt.slice(0, 10) +
-                      "  " +
-                      board.createdAt.slice(11, 19)
-                    }
+                    date={board.createdAt.slice(0, 10)}
                     GoToFreeBoardContent={GoToFreeBoardContent}
                   />
                 ),

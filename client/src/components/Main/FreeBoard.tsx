@@ -1,8 +1,8 @@
 import {useHistory} from "react-router";
 import styled from "styled-components";
-import axios from "axios";
 import {useState, useEffect} from "react";
 import Pagination from "../../components/common/Pagination";
+import Loading from "../../components/common/Loading";
 import FreeBoardList from "./FreeBoardList";
 
 const MainFreeBoardContianer = styled.div`
@@ -34,81 +34,107 @@ const FreeBoardTitleContainer = styled.div`
 const FreeBoardTittle = styled.span`
   cursor: pointer;
 `;
+const ContentsBox = styled.div`
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  margin: 15px 0px 15px 0px;
+  padding: 0px 0px 10px 0px;
 
-export default function FreeBoard({GoToFreeBoardContent}: any) {
+  @media screen and (min-width: 37.5rem) {
+    margin: auto;
+    background-color: white;
+    width: 1080px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px 20px 0px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+`;
+export default function FreeBoard({
+  GoToFreeBoardContent,
+  userId,
+  freeBoardinfo,
+}: any) {
   const history = useHistory();
-
   const GoFreeBoradList = () => {
     history.push("/FreeBoardList");
   };
 
-  const [freeBoardinfo, setFreeBoardinfo] = useState<any[]>([]);
+  const [isLoading, CheckLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const postPerPage = 10;
-
+  const postPerPage = 5;
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPosts = freeBoardinfo.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
 
-  const getFreeBoardList = () => {
-    axios
-      .get("http://localhost:8080/board/fblist")
-      .then(res => {
-        // setFreeBoardinfo(res.data.data);
-      })
-      .catch(err => console.log(err));
+  const loadingHandler = () => {
+    CheckLoading(false);
   };
 
+  console.log(currentPosts);
+  console.log(freeBoardinfo);
+
   useEffect(() => {
-    getFreeBoardList();
+    setTimeout(() => loadingHandler(), 1000);
   }, []);
 
   return (
     <>
-      <MainFreeBoardContianer>
-        <FreeBoardTitleContainer>
-          <FreeBoardTittle onClick={GoFreeBoradList}>
-            자유게시판
-          </FreeBoardTittle>
-        </FreeBoardTitleContainer>
-        {currentPosts &&
-          currentPosts.length > 0 &&
-          currentPosts.map((board: any) =>
-            board.user_id == null ? (
-              <FreeBoardList
-                key={board._id}
-                freeboard_id={board._id}
-                title={board.title}
-                writer="회원탈퇴자"
-                date={
-                  board.createdAt.slice(0, 10) +
-                  "  " +
-                  board.createdAt.slice(11, 19)
-                }
-                GoToFreeBoardContent={GoToFreeBoardContent}
-              />
-            ) : (
-              <FreeBoardList
-                key={board._id}
-                freeboard_id={board._id}
-                title={board.title}
-                writer={board.user_id.nickname}
-                date={
-                  board.createdAt.slice(0, 10) +
-                  "  " +
-                  board.createdAt.slice(11, 19)
-                }
-                GoToFreeBoardContent={GoToFreeBoardContent}
-              />
-            ),
-          )}
-        <Pagination
-          postPerPage={postPerPage}
-          totalPosts={freeBoardinfo.length}
-          paginate={paginate}
-        />
-      </MainFreeBoardContianer>
+      {isLoading ? (
+        <>
+          <Loading />
+        </>
+      ) : (
+        <>
+          <MainFreeBoardContianer>
+            <FreeBoardTitleContainer>
+              <FreeBoardTittle onClick={() => GoFreeBoradList()}>
+                자유게시판
+              </FreeBoardTittle>
+            </FreeBoardTitleContainer>
+            <ContentsBox>
+              {currentPosts &&
+                currentPosts.length > 0 &&
+                currentPosts.map((board: any) =>
+                  board.user_id == null ? (
+                    <FreeBoardList
+                      key={board._id}
+                      like={board.like}
+                      like_count={board.like_count}
+                      user_id={userId}
+                      freeboard_id={board._id}
+                      title={board.title}
+                      writer="회원탈퇴자"
+                      date={board.createdAt.slice(0, 10)}
+                      GoToFreeBoardContent={GoToFreeBoardContent}
+                    />
+                  ) : (
+                    <FreeBoardList
+                      key={board._id}
+                      like={board.like}
+                      like_count={board.like_count}
+                      user_id={userId}
+                      freeboard_id={board._id}
+                      title={board.title}
+                      writer={board.user_id.nickname}
+                      date={board.createdAt.slice(0, 10)}
+                      GoToFreeBoardContent={GoToFreeBoardContent}
+                    />
+                  ),
+                )}
+            </ContentsBox>
+            <Pagination
+              postPerPage={postPerPage}
+              totalPosts={freeBoardinfo.length}
+              paginate={paginate}
+            />
+          </MainFreeBoardContianer>
+        </>
+      )}
     </>
   );
 }

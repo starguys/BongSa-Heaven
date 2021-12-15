@@ -19,6 +19,17 @@ const CommentList = styled.div`
 const CommentListBigBox = styled.div`
   display: flex;
 `;
+const NestedCommentsImgBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+`;
+const NestedCommentsImg = styled.img`
+  width: 50%;
+  heigth: 50%;
+  object-fit: cover;
+`;
 
 const CommentBox = styled.div`
   display: flex;
@@ -31,6 +42,19 @@ const CommentBox = styled.div`
     padding: 30px 0px;
   }
 `;
+
+const NestedCommentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  border-bottom: dashed gray 1px;
+  padding: 20px 0px;
+
+  @media screen and (min-width: 37.5rem) {
+    padding: 30px 0px;
+  }
+`;
+
 const CommentWriter = styled.span`
   margin-left: 25px;
 
@@ -77,6 +101,14 @@ const CommentListSmallBox = styled.div`
   border-bottom: dashed gray 1px;
   padding: 20px 0px;
 `;
+const NestedCommentListSmallBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  border-bottom: dashed gray 1px;
+  padding: 20px 0px;
+`;
+
 const CommentDeleteBox = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -90,11 +122,23 @@ const CommentDeleteButton = styled.img`
     width: 24px;
   }
 `;
-const CommentEditBox = styled.div`
+const CommentEditAndNestedCommentBox = styled.div`
   display: flex;
   flex-direction: column;
   @media screen and (min-width: 37.5rem) {
     flex-direction: row;
+`;
+const CommentNestedCommentButton = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  color: blue;
+  font-size: 12px;
+  @media screen and (min-width: 37.5rem) {
+    font-size: 16px;
+    margin-top: 20px;
+  }
 `;
 const CommentEditButton = styled.div`
   cursor: pointer;
@@ -213,12 +257,61 @@ const CommentInputButton = styled.div`
     line-height: 120%;
   }
 `;
+const CommentInputCancelButton = styled.div`
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  line-height: 23px;
+  width: 22%;
+  height: 90%;
+  border: 0.5px black solid;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  margin: 30px 0px 30px 20px;
 
-export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
+  @media screen and (min-width: 37.5rem) {
+    margin: 0px 0px 30px 20px;
+    width: 15%;
+    font-size: 20px;
+    height: 120px;
+    line-height: 120%;
+  }
+`;
+
+const YouhavetoLogin = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  border-radius: 20px;
+  background-color: white;
+  margin: 20px 0px 20px 0px;
+  border-radius: 15px;
+
+  @media screen and (min-width: 37.5rem) {
+    width: 1080px;
+    font-size: 24px;
+  }
+`;
+
+export default function Comment({
+  isLogin,
+  currentCBcontent,
+  GoToCrewBoardContent,
+}: any) {
   const [myId, setMyId] = useState("");
   const [commentValue, setCommentValue] = useState("");
+  const [nestedCommentValue, setNestedCommentValue] = useState("");
+  const [CommentIdxForNestedComment, setCommentIdxForNestedComment] =
+    useState(Number);
+  const [isNestedCommentMode, setNestedCommentMode] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
+  const [isNestedEditMode, setNestedEditMode] = useState(false);
   const [isEditCommentIdx, chosenEditCommentIdx] = useState(Number);
+  const [isEditNestedCommentIdx, chosenEditNestedCommentIdx] = useState(Number);
 
   const getUserInfo = () => {
     axios
@@ -239,6 +332,15 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
   const makeComment = (e: any) => {
     setCommentValue(e.target.value);
     console.log(commentValue);
+  };
+  const makeNestedComment = (e: any) => {
+    setNestedCommentValue(e.target.value);
+    console.log(nestedCommentValue);
+  };
+
+  const GoNestCommentInputMode = (idx: any) => {
+    setNestedCommentMode(!isNestedCommentMode);
+    setCommentIdxForNestedComment(idx);
   };
 
   const saveComment = () => {
@@ -265,7 +367,35 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
         .catch(err => console.log(err));
     }
   };
-
+  const saveNestedComment = () => {
+    if (nestedCommentValue.length > 0) {
+      axios
+        .post(
+          "http://localhost:8080/comment/cbchildregister",
+          {
+            crewboard_id: currentCBcontent.data._id,
+            comment: nestedCommentValue,
+            crewcomment_id:
+              currentCBcontent.data.crewcomments[CommentIdxForNestedComment]
+                ._id,
+          },
+          {
+            headers: {
+              authorization: `Bearer ` + localStorage.getItem("accessToken"),
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(res => {
+          console.log(res.data.message);
+          setCommentValue("");
+          setNestedCommentValue("");
+          setNestedCommentMode(false);
+          GoToCrewBoardContent(currentCBcontent.data._id);
+        })
+        .catch(err => console.log(err));
+    }
+  };
   const editComment = (idx: any) => {
     if (commentValue.length > 0) {
       axios
@@ -292,6 +422,37 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
         .catch(err => console.log(err));
     }
   };
+  const editNestedComment = () => {
+    if (nestedCommentValue.length > 0) {
+      axios
+        .patch(
+          "http://localhost:8080/comment/cbchildedit",
+          {
+            crewboard_id: currentCBcontent.data._id,
+            crewcomment_id:
+              currentCBcontent.data.crewcomments[isEditCommentIdx]._id,
+            crewchild_id:
+              currentCBcontent.data.crewcomments[isEditCommentIdx]
+                .crewchildcomments[isEditNestedCommentIdx]._id,
+            comment: nestedCommentValue,
+          },
+          {
+            headers: {
+              authorization: `Bearer ` + localStorage.getItem("accessToken"),
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(res => {
+          console.log(res.data.message);
+          setEditMode(false);
+          setNestedEditMode(false);
+          setNestedCommentValue("");
+          GoToCrewBoardContent(currentCBcontent.data._id);
+        })
+        .catch(err => console.log(err));
+    }
+  };
   const deleteComment = (idx: any) => {
     console.log(idx);
     axios
@@ -308,13 +469,41 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
       .then(res => {
         console.log(res.data.message);
         setEditMode(false);
+        setNestedCommentMode(false);
         GoToCrewBoardContent(currentCBcontent.data._id);
       })
       .catch(err => console.log(err));
 
     alert("댓글이 삭제되었습니다!");
   };
-  console.log("currentCBcontent", currentCBcontent);
+
+  const deleteNestedComment = () => {
+    axios
+      .delete("http://localhost:8080/comment/cbchilddelete", {
+        data: {
+          crewboard_id: currentCBcontent.data._id,
+          crewcomment_id:
+            currentCBcontent.data.crewcomments[isEditCommentIdx]._id,
+          crewchild_id:
+            currentCBcontent.data.crewcomments[isEditCommentIdx]
+              .crewchildcomments[isEditNestedCommentIdx]._id,
+        },
+        headers: {
+          authorization: `Bearer ` + localStorage.getItem("accessToken"),
+          "Content-Type": "application/json",
+        },
+      })
+      .then(res => {
+        console.log(res.data.message);
+        setEditMode(false);
+        setNestedCommentMode(false);
+        setNestedEditMode(false);
+        GoToCrewBoardContent(currentCBcontent.data._id);
+      })
+      .catch(err => console.log(err));
+
+    alert("댓글이 삭제되었습니다!");
+  };
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
@@ -328,77 +517,226 @@ export default function Comment({currentCBcontent, GoToCrewBoardContent}: any) {
         {currentCBcontent.data === undefined
           ? null
           : currentCBcontent.data.crewcomments.map((comment: any, idx: any) => (
-              <CommentListBigBox>
-                <CommentBox key={idx}>
-                  <CommentWriter>
-                    {comment.user_id == null
-                      ? "회원탈퇴자"
-                      : comment.user_id.nickname}
-                    <CommentDate>{comment.createdAt.slice(0, 10)}</CommentDate>
-                  </CommentWriter>
-                  {comment.user_id._id === myId &&
-                  isEditMode &&
-                  idx === isEditCommentIdx ? (
-                    <EditCommentContents
-                      onChange={makeComment}
-                      defaultValue={comment.comment}
-                    />
-                  ) : (
-                    <CommentContents>{comment.comment}</CommentContents>
-                  )}
-                </CommentBox>
-                <CommentListSmallBox>
-                  {comment.user_id._id !== myId ? null : isEditMode &&
-                    idx === isEditCommentIdx ? (
-                    <>
-                      <CommentDeleteBox>
-                        <CommentDeleteButton
-                          src={"./image/delete-button.png"}
-                          onClick={() => deleteComment(idx)}
-                        />
-                      </CommentDeleteBox>
-
-                      <CommentEditBox>
-                        <CommentEditButtonCheck
-                          onClick={() => editComment(idx)}
+              <>
+                <CommentListBigBox key={idx}>
+                  <CommentBox>
+                    <CommentWriter>
+                      {comment.user_id == null
+                        ? "회원탈퇴자"
+                        : comment.user_id.nickname}
+                      <CommentDate>
+                        {comment.createdAt === undefined
+                          ? null
+                          : comment.createdAt.slice(0, 10)}
+                      </CommentDate>
+                    </CommentWriter>
+                    {comment.user_id == null ? (
+                      <>
+                        <CommentContents>{comment.comment}</CommentContents>
+                      </>
+                    ) : comment.user_id._id === myId &&
+                      isEditMode &&
+                      idx === isEditCommentIdx ? (
+                      <EditCommentContents
+                        onChange={makeComment}
+                        defaultValue={comment.comment}
+                      />
+                    ) : (
+                      <>
+                        <CommentContents>{comment.comment}</CommentContents>
+                      </>
+                    )}
+                  </CommentBox>
+                  <CommentListSmallBox>
+                    {comment.user_id == null ? (
+                      <></>
+                    ) : comment.user_id._id !== myId ? (
+                      <>
+                        <CommentNestedCommentButton
+                          onClick={() => GoNestCommentInputMode(idx)}
                         >
-                          수정
-                        </CommentEditButtonCheck>
-                        <CommentEditButtonCancel
+                          대댓글
+                        </CommentNestedCommentButton>
+                        <CommentEditButton />
+                      </>
+                    ) : isEditMode && idx === isEditCommentIdx ? (
+                      <>
+                        <CommentEditAndNestedCommentBox>
+                          <CommentEditButtonCheck
+                            onClick={() => editComment(isEditCommentIdx)}
+                          >
+                            수정
+                          </CommentEditButtonCheck>
+                          <CommentEditButtonCancel
+                            onClick={() => {
+                              setEditMode(false);
+                            }}
+                          >
+                            취소
+                          </CommentEditButtonCancel>
+                        </CommentEditAndNestedCommentBox>
+                      </>
+                    ) : (
+                      <>
+                        <CommentDeleteBox>
+                          <CommentDeleteButton
+                            src={"./image/delete-button.png"}
+                            onClick={() => deleteComment(isEditCommentIdx)}
+                          />
+                        </CommentDeleteBox>
+                        <CommentNestedCommentButton
+                          onClick={() => GoNestCommentInputMode(idx)}
+                        >
+                          대댓글
+                        </CommentNestedCommentButton>
+                        <CommentEditButton
                           onClick={() => {
-                            setEditMode(false);
+                            setEditMode(true);
+                            chosenEditCommentIdx(idx);
                           }}
                         >
-                          취소
-                        </CommentEditButtonCancel>
-                      </CommentEditBox>
-                    </>
-                  ) : (
-                    <CommentEditButton
-                      onClick={() => {
-                        setEditMode(true);
-                      }}
-                    >
-                      수정
-                    </CommentEditButton>
-                  )}
-                </CommentListSmallBox>
-              </CommentListBigBox>
+                          수정
+                        </CommentEditButton>
+                      </>
+                    )}
+                  </CommentListSmallBox>
+                </CommentListBigBox>
+
+                {currentCBcontent.data.crewcomments[idx].crewchildcomments.map(
+                  (childComment: any, nestIdx: any) => (
+                    <CommentListBigBox key={nestIdx}>
+                      <NestedCommentsImgBox>
+                        <NestedCommentsImg src={"./image/nestedComment.png"} />
+                      </NestedCommentsImgBox>
+                      <NestedCommentBox>
+                        <CommentWriter>
+                          {childComment.user_id === null
+                            ? "회원탈퇴자"
+                            : childComment.user_id.nickname}
+                          <CommentDate>
+                            {childComment.createdAt === undefined
+                              ? null
+                              : childComment.createdAt.slice(0, 10)}
+                          </CommentDate>
+                        </CommentWriter>
+                        {childComment.user_id === null ? (
+                          <>
+                            <CommentContents>
+                              {childComment.child_comment}
+                            </CommentContents>
+                          </>
+                        ) : childComment.user_id._id === myId &&
+                          isNestedEditMode &&
+                          nestIdx === isEditNestedCommentIdx &&
+                          idx === isEditCommentIdx ? (
+                          <EditCommentContents
+                            onChange={makeNestedComment}
+                            defaultValue={childComment.child_comment}
+                          />
+                        ) : (
+                          <>
+                            <CommentContents>
+                              {childComment.child_comment}
+                            </CommentContents>
+                          </>
+                        )}
+                      </NestedCommentBox>
+                      <NestedCommentListSmallBox>
+                        {childComment.user_id === null ? (
+                          <></>
+                        ) : childComment.user_id._id !==
+                          myId ? null : isNestedEditMode &&
+                          comment._id === childComment.crewcomment_id &&
+                          nestIdx === isEditNestedCommentIdx &&
+                          idx === isEditCommentIdx ? (
+                          <>
+                            <CommentEditAndNestedCommentBox>
+                              <CommentEditButtonCheck
+                                onClick={() => editNestedComment()}
+                              >
+                                수정
+                              </CommentEditButtonCheck>
+                              <CommentEditButtonCancel
+                                onClick={() => {
+                                  setNestedEditMode(false);
+                                }}
+                              >
+                                취소
+                              </CommentEditButtonCancel>
+                            </CommentEditAndNestedCommentBox>
+                          </>
+                        ) : (
+                          <>
+                            <CommentDeleteBox>
+                              <CommentDeleteButton
+                                src={"./image/delete-button.png"}
+                                onClick={() => {
+                                  chosenEditCommentIdx(idx);
+                                  chosenEditNestedCommentIdx(nestIdx);
+                                  console.log(isEditCommentIdx);
+                                  console.log(isEditNestedCommentIdx);
+                                  deleteNestedComment();
+                                }}
+                              />
+                            </CommentDeleteBox>
+                            <CommentEditButton
+                              onClick={() => {
+                                setNestedEditMode(true);
+                                chosenEditCommentIdx(idx);
+                                chosenEditNestedCommentIdx(nestIdx);
+                                console.log(isEditCommentIdx);
+                                console.log(isEditNestedCommentIdx);
+                              }}
+                            >
+                              수정
+                            </CommentEditButton>
+                          </>
+                        )}
+                      </NestedCommentListSmallBox>
+                    </CommentListBigBox>
+                  ),
+                )}
+              </>
             ))}
       </CommentList>
-
-      <CommentInputBox>
-        <CommentInput>
-          <CommentInputContents
-            placeholder="내용을 입력하세요."
-            onChange={makeComment}
-            value={isEditMode ? "" : commentValue}
-          ></CommentInputContents>
-        </CommentInput>
-        <CommentInputButton onClick={saveComment}>
-          댓 글<br />달 기
-        </CommentInputButton>
-      </CommentInputBox>
+      {!isLogin ? (
+        <YouhavetoLogin></YouhavetoLogin>
+      ) : (
+        <>
+          {isNestedCommentMode ? (
+            <CommentInputBox>
+              <CommentInput>
+                <CommentInputContents
+                  placeholder="내용을 입력하세요."
+                  onChange={makeNestedComment}
+                  value={nestedCommentValue}
+                ></CommentInputContents>
+              </CommentInput>
+              <CommentInputButton onClick={() => saveNestedComment()}>
+                대 댓 글<br />달 기
+              </CommentInputButton>
+              <CommentInputCancelButton
+                onClick={() => setNestedCommentMode(false)}
+              >
+                취소
+              </CommentInputCancelButton>
+            </CommentInputBox>
+          ) : (
+            <CommentInputBox>
+              <CommentInput>
+                <CommentInputContents
+                  placeholder="내용을 입력하세요."
+                  onChange={makeComment}
+                  value={isEditMode ? "" : commentValue}
+                ></CommentInputContents>
+              </CommentInput>
+              <CommentInputButton onClick={() => saveComment()}>
+                댓 글<br />달 기
+              </CommentInputButton>
+            </CommentInputBox>
+          )}
+        </>
+      )}
     </>
   );
 }
