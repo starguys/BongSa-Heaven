@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/ubuntu/Winner-s-Record/server
+cd /home/ubuntu/BongSa-Heaven/server
 
 export ACCESS_SECRET=$(aws ssm get-parameters --region ap-northeast-2 --names ACCESS_SECRET --query Parameters[0].Value | sed 's/"//g')
 export MONGODB_URI=$(aws ssm get-parameters --region ap-northeast-2 --names MONGODB_URI --query Parameters[0].Value | sed 's/"//g')
