@@ -603,7 +603,6 @@ export default function Comment({
                     )}
                   </CommentListSmallBox>
                 </CommentListBigBox>
-
                 {currentFBcontent.data.freecomments[idx].freechildcomments.map(
                   (childComment: any, nestIdx: any) => (
                     <CommentListBigBox key={nestIdx}>

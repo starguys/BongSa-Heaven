@@ -1,0 +1,14 @@
+version: 0.2
+
+phases: # 각 명령을 실행하도록 codebuild를 지시할 수 있는 빌드 단계를 나타냅니다
+  pre_build: #빌드 하기전 client 로 들어가서 -> npm i로 혹시모를 package 설치 대비
+    commands:
+      - cd client
+      - npm install
+  build: # 빌드를 하는 단계
+    commands:
+      - npm run build
+artifacts: #아티팩트는 소스 작업에서 다운로드하고나code pipeline에서
+  files: #빌드 잦ㄱ업의 일부로 생선도니 파일을 참ㅈ조 해야한다.
+    - "**/*"
+  base-directory: client/build
