@@ -520,6 +520,7 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
                       </>
                     )}
                   </CommentListSmallBox>
+
                 </CommentListBigBox>
                 /*{" "}
                 {currentFBcontent.data.freecomments.map(
@@ -600,7 +601,9 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
                       </>
                     ) : null,
                 )}{" "}
+
                 */
+
               </>
             ))}
       </CommentList>
