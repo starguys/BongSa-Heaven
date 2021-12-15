@@ -99,9 +99,11 @@ export default function SignIn({setIsLogin, setIsUserLogin}: any) {
   const kakaoOauth = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
 
   const googleControl = () => {
+    sessionStorage.setItem("life", "have");
     window.location.assign(GoogleOauth);
   };
   const kakaoControl = () => {
+    sessionStorage.setItem("life", "have");
     window.location.assign(kakaoOauth);
   };
 
@@ -141,10 +143,14 @@ export default function SignIn({setIsLogin, setIsUserLogin}: any) {
             withCredentials: true,
           },
         )
-        .then(res =>
+        .then((res: any) =>
           //로컬스토리지에 저장, 메인으로 복귀
+
           localStorage.setItem("accessToken", res.data.accessToken),
         )
+        .then(res => {
+          sessionStorage.setItem("life", "have");
+        })
         .then(res =>
           axios
             .get(`http://localhost:8080/user/info`, {

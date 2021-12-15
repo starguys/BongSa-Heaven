@@ -73,7 +73,7 @@ const LeftCards = styled.div`
 export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
   const [isLoading, CheckLoading] = useState(true);
 
-  const [crewBoardinfo, setcrewBoardinfo] = useState([]);
+  const [crewBoardinfo, setCrewBoardinfo] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const postPerPage = 3;
@@ -96,7 +96,7 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
     axios
       .get("http://localhost:8080/board/cblist")
       .then(res => {
-        setcrewBoardinfo(res.data.data);
+        setCrewBoardinfo(res.data.data);
         console.log(res.data.data);
       })
       .catch(err => console.log(err));

@@ -65,8 +65,8 @@ const CommentWriter = styled.span`
 `;
 
 const CommentDate = styled.span`
-  margin-left: 30px;
-  font-size: 14px;
+  margin-left: 5px;
+  font-size: 12px;
   opacity: 0.5;
 
   @media screen and (min-width: 37.5rem) {
@@ -283,7 +283,27 @@ const CommentInputCancelButton = styled.div`
   }
 `;
 
-export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
+const YouhavetoLogin = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  border-radius: 20px;
+  background-color: white;
+  margin: 20px 0px 20px 0px;
+  border-radius: 15px;
+
+  @media screen and (min-width: 37.5rem) {
+    width: 1080px;
+    font-size: 24px;
+  }
+`;
+
+export default function Comment({
+  isLogin,
+  currentFBcontent,
+  GoToFreeBoardContent,
+}: any) {
   const [myId, setMyId] = useState("");
   const [commentValue, setCommentValue] = useState("");
   const [nestedCommentValue, setNestedCommentValue] = useState("");
@@ -291,7 +311,9 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
     useState(Number);
   const [isNestedCommentMode, setNestedCommentMode] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
+  const [isNestedEditMode, setNestedEditMode] = useState(false);
   const [isEditCommentIdx, chosenEditCommentIdx] = useState(Number);
+  const [isEditNestedCommentIdx, chosenEditNestedCommentIdx] = useState(Number);
 
   const getUserInfo = () => {
     axios
@@ -341,22 +363,13 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
         )
         .then(res => {
           console.log(res.data.message);
-          setNestedCommentValue("");
-          setNestedCommentMode(false);
+          setCommentValue("");
           GoToFreeBoardContent(currentFBcontent.data._id);
         })
         .catch(err => console.log(err));
     }
   };
   const saveNestedComment = () => {
-    console.log(
-      "freeboard_id",
-      currentFBcontent.data._id,
-      "comment",
-      nestedCommentValue,
-      "freecomment_id",
-      currentFBcontent.data.freecomments[CommentIdxForNestedComment]._id,
-    );
     if (nestedCommentValue.length > 0) {
       axios
         .post(
@@ -378,6 +391,8 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
         .then(res => {
           console.log(res.data.message);
           setCommentValue("");
+          setNestedCommentValue("");
+          setNestedCommentMode(false);
           GoToFreeBoardContent(currentFBcontent.data._id);
         })
         .catch(err => console.log(err));
@@ -411,6 +426,38 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
     }
   };
 
+  const editNestedComment = () => {
+    if (nestedCommentValue.length > 0) {
+      axios
+        .patch(
+          "http://localhost:8080/comment/fbchildedit",
+          {
+            freeboard_id: currentFBcontent.data._id,
+            freecomment_id:
+              currentFBcontent.data.freecomments[isEditCommentIdx]._id,
+            freechild_id:
+              currentFBcontent.data.freecomments[isEditCommentIdx]
+                .freechildcomments[isEditNestedCommentIdx]._id,
+            comment: nestedCommentValue,
+          },
+          {
+            headers: {
+              authorization: `Bearer ` + localStorage.getItem("accessToken"),
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .then(res => {
+          console.log(res.data.message);
+          setEditMode(false);
+          setNestedEditMode(false);
+          setNestedCommentValue("");
+          GoToFreeBoardContent(currentFBcontent.data._id);
+        })
+        .catch(err => console.log(err));
+    }
+  };
+
   const deleteComment = (idx: any) => {
     console.log(idx);
     axios
@@ -427,13 +474,40 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
       .then(res => {
         console.log(res.data.message);
         setEditMode(false);
+        setNestedCommentMode(false);
         GoToFreeBoardContent(currentFBcontent.data._id);
       })
       .catch(err => console.log(err));
 
     alert("댓글이 삭제되었습니다!");
   };
-  console.log("currentFBcontent", currentFBcontent);
+  const deleteNestedComment = () => {
+    axios
+      .delete("http://localhost:8080/comment/fbchilddelete", {
+        data: {
+          freeboard_id: currentFBcontent.data._id,
+          freecomment_id:
+            currentFBcontent.data.freecomments[isEditCommentIdx]._id,
+          freechild_id:
+            currentFBcontent.data.freecomments[isEditCommentIdx]
+              .freechildcomments[isEditNestedCommentIdx]._id,
+        },
+        headers: {
+          authorization: `Bearer ` + localStorage.getItem("accessToken"),
+          "Content-Type": "application/json",
+        },
+      })
+      .then(res => {
+        console.log(res.data.message);
+        setEditMode(false);
+        setNestedCommentMode(false);
+        setNestedEditMode(false);
+        GoToFreeBoardContent(currentFBcontent.data._id);
+      })
+      .catch(err => console.log(err));
+
+    alert("댓글이 삭제되었습니다!");
+  };
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
@@ -448,29 +522,37 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
           ? null
           : currentFBcontent.data.freecomments.map((comment: any, idx: any) => (
               <>
-                <CommentListBigBox>
-                  <CommentBox key={idx}>
+                <CommentListBigBox key={idx}>
+                  <CommentBox>
                     <CommentWriter>
                       {comment.user_id == null
                         ? "회원탈퇴자"
                         : comment.user_id.nickname}
                       <CommentDate>
-                        {comment.createdAt.slice(0, 10)}
+                        {comment.createdAt === undefined
+                          ? null
+                          : comment.createdAt.slice(0, 10)}
                       </CommentDate>
                     </CommentWriter>
-                    {comment.user_id._id === myId &&
-                    isEditMode &&
-                    idx === isEditCommentIdx ? (
+                    {comment.user_id == null ? (
+                      <>
+                        <CommentContents>{comment.comment}</CommentContents>
+                      </>
+                    ) : isEditMode &&
+                      idx === isEditCommentIdx &&
+                      comment.user_id._id === myId ? (
                       <EditCommentContents
                         onChange={makeComment}
                         defaultValue={comment.comment}
                       />
                     ) : (
-                      <CommentContents>{comment.comment}</CommentContents>
+                      <></>
                     )}
                   </CommentBox>
                   <CommentListSmallBox>
-                    {comment.user_id._id !== myId ? (
+                    {comment.user_id == null ? (
+                      <></>
+                    ) : comment.user_id._id !== myId ? (
                       <>
                         <CommentNestedCommentButton
                           onClick={() => GoNestCommentInputMode(idx)}
@@ -481,15 +563,9 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
                       </>
                     ) : isEditMode && idx === isEditCommentIdx ? (
                       <>
-                        <CommentDeleteBox>
-                          <CommentDeleteButton
-                            src={"./image/delete-button.png"}
-                            onClick={() => deleteComment(idx)}
-                          />
-                        </CommentDeleteBox>
                         <CommentEditAndNestedCommentBox>
                           <CommentEditButtonCheck
-                            onClick={() => editComment(idx)}
+                            onClick={() => editComment(isEditCommentIdx)}
                           >
                             수정
                           </CommentEditButtonCheck>
@@ -504,6 +580,12 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
                       </>
                     ) : (
                       <>
+                        <CommentDeleteBox>
+                          <CommentDeleteButton
+                            src={"./image/delete-button.png"}
+                            onClick={() => deleteComment(isEditCommentIdx)}
+                          />
+                        </CommentDeleteBox>
                         <CommentNestedCommentButton
                           onClick={() => GoNestCommentInputMode(idx)}
                         >
@@ -521,118 +603,136 @@ export default function Comment({currentFBcontent, GoToFreeBoardContent}: any) {
                     )}
                   </CommentListSmallBox>
                 </CommentListBigBox>
-                /*{" "}
-                {currentFBcontent.data.freecomments.map(
-                  (comment: any, idx: any) =>
-                    comment.freechildcomments.length > 0 ? (
-                      <>
-                        <CommentListBigBox>
-                          <NestedCommentsImgBox>
-                            <NestedCommentsImg
-                              src={"./image/nestedComment.png"}
-                            />
-                          </NestedCommentsImgBox>
-                          <NestedCommentBox key={idx}>
-                            <CommentWriter>
-                              {comment.freechildcomments.user_id == null
-                                ? "회원탈퇴자"
-                                : comment.freechildcomments.user_id.nickname}
-                              <CommentDate>
-                                {comment.freechildcomments.createdAt.slice(
-                                  0,
-                                  10,
-                                )}
-                              </CommentDate>
-                            </CommentWriter>
-                            {comment.user_id._id === myId &&
-                            isEditMode &&
-                            idx === isEditCommentIdx ? (
-                              <EditCommentContents
-                                onChange={makeComment}
-                                defaultValue={
-                                  comment.freechildcomments.child_comment
-                                }
-                              />
-                            ) : (
-                              <CommentContents>
-                                {comment.freechildcomments.child_comment}
-                              </CommentContents>
-                            )}
-                          </NestedCommentBox>
-                          <NestedCommentListSmallBox>
-                            {comment.freechildcomments.user_id._id !==
-                            myId ? null : isEditMode &&
-                              idx === isEditCommentIdx ? (
-                              <>
-                                <CommentDeleteBox>
-                                  <CommentDeleteButton
-                                    src={"./image/delete-button.png"}
-                                    onClick={() => deleteComment(idx)}
-                                  />
-                                </CommentDeleteBox>
-                                <CommentEditAndNestedCommentBox>
-                                  <CommentEditButtonCheck
-                                    onClick={() => editComment(idx)}
-                                  >
-                                    수정
-                                  </CommentEditButtonCheck>
-                                  <CommentEditButtonCancel
-                                    onClick={() => {
-                                      setEditMode(false);
-                                    }}
-                                  >
-                                    취소
-                                  </CommentEditButtonCancel>
-                                </CommentEditAndNestedCommentBox>
-                              </>
-                            ) : (
-                              <CommentEditButton
-                                onClick={() => {
-                                  setEditMode(true);
-                                  chosenEditCommentIdx(idx);
-                                }}
+                {currentFBcontent.data.freecomments[idx].freechildcomments.map(
+                  (childComment: any, nestIdx: any) => (
+                    <CommentListBigBox key={nestIdx}>
+                      <NestedCommentsImgBox>
+                        <NestedCommentsImg src={"./image/nestedComment.png"} />
+                      </NestedCommentsImgBox>
+                      <NestedCommentBox>
+                        <CommentWriter>
+                          {childComment.user_id === null
+                            ? "회원탈퇴자"
+                            : childComment.user_id.nickname}
+                          <CommentDate>
+                            {childComment.createdAt === undefined
+                              ? null
+                              : childComment.createdAt.slice(0, 10)}
+                          </CommentDate>
+                        </CommentWriter>
+                        {childComment.user_id === null ? (
+                          <>
+                            <CommentContents>
+                              {childComment.child_comment}
+                            </CommentContents>
+                          </>
+                        ) : childComment.user_id._id === myId &&
+                          isNestedEditMode &&
+                          nestIdx === isEditNestedCommentIdx &&
+                          idx === isEditCommentIdx ? (
+                          <EditCommentContents
+                            onChange={makeNestedComment}
+                            defaultValue={childComment.child_comment}
+                          />
+                        ) : (
+                          <></>
+                        )}
+                      </NestedCommentBox>
+                      <NestedCommentListSmallBox>
+                        {childComment.user_id === null ? (
+                          <></>
+                        ) : childComment.user_id._id !==
+                          myId ? null : isNestedEditMode &&
+                          comment._id === childComment.freecomment_id &&
+                          nestIdx === isEditNestedCommentIdx &&
+                          idx === isEditCommentIdx ? (
+                          <>
+                            <CommentEditAndNestedCommentBox>
+                              <CommentEditButtonCheck
+                                onClick={() => editNestedComment()}
                               >
                                 수정
-                              </CommentEditButton>
-                            )}
-                          </NestedCommentListSmallBox>
-                        </CommentListBigBox>
-                      </>
-                    ) : null,
+                              </CommentEditButtonCheck>
+                              <CommentEditButtonCancel
+                                onClick={() => {
+                                  setNestedEditMode(false);
+                                }}
+                              >
+                                취소
+                              </CommentEditButtonCancel>
+                            </CommentEditAndNestedCommentBox>
+                          </>
+                        ) : (
+                          <>
+                            <CommentDeleteBox>
+                              <CommentDeleteButton
+                                src={"./image/delete-button.png"}
+                                onClick={() => {
+                                  chosenEditCommentIdx(idx);
+                                  chosenEditNestedCommentIdx(nestIdx);
+                                  console.log(isEditCommentIdx);
+                                  console.log(isEditNestedCommentIdx);
+                                  deleteNestedComment();
+                                }}
+                              />
+                            </CommentDeleteBox>
+                            <CommentEditButton
+                              onClick={() => {
+                                setNestedEditMode(true);
+                                chosenEditCommentIdx(idx);
+                                chosenEditNestedCommentIdx(nestIdx);
+                                console.log(isEditCommentIdx);
+                                console.log(isEditNestedCommentIdx);
+                              }}
+                            >
+                              수정
+                            </CommentEditButton>
+                          </>
+                        )}
+                      </NestedCommentListSmallBox>
+                    </CommentListBigBox>
+                  ),
                 )}
               </>
             ))}
       </CommentList>
-
-      {isNestedCommentMode ? (
-        <CommentInputBox>
-          <CommentInput>
-            <CommentInputContents
-              placeholder="내용을 입력하세요."
-              onChange={makeNestedComment}
-              value={nestedCommentValue}
-            ></CommentInputContents>
-          </CommentInput>
-          <CommentInputButton onClick={() => saveNestedComment()}>
-            대 댓 글<br />달 기
-          </CommentInputButton>
-          <CommentInputCancelButton onClick={() => setNestedCommentMode(false)}>
-            취소 */
-          </CommentInputCancelButton>
-        </CommentInputBox>
+      {!isLogin ? (
+        <YouhavetoLogin>로그인을 해야 댓글을 달 수 있습니다.</YouhavetoLogin>
       ) : (
-        <CommentInputBox>
-          <CommentInput>
-            <CommentInputContents
-              placeholder="내용을 입력하세요."
-              onChange={makeComment}
-              value={isEditMode ? "" : commentValue}
-            ></CommentInputContents>
-          </CommentInput>
-          <CommentInputButton onClick={() => saveComment()}>
-            댓 글<br />달 기
-          </CommentInputButton>
-        </CommentInputBox>
+        <>
+          {isNestedCommentMode ? (
+            <CommentInputBox>
+              <CommentInput>
+                <CommentInputContents
+                  placeholder="내용을 입력하세요."
+                  onChange={makeNestedComment}
+                  value={nestedCommentValue}
+                ></CommentInputContents>
+              </CommentInput>
+              <CommentInputButton onClick={() => saveNestedComment()}>
+                대 댓 글<br />달 기
+              </CommentInputButton>
+              <CommentInputCancelButton
+                onClick={() => setNestedCommentMode(false)}
+              >
+                취소
+              </CommentInputCancelButton>
+            </CommentInputBox>
+          ) : (
+            <CommentInputBox>
+              <CommentInput>
+                <CommentInputContents
+                  placeholder="내용을 입력하세요."
+                  onChange={makeComment}
+                  value={isEditMode ? "" : commentValue}
+                ></CommentInputContents>
+              </CommentInput>
+              <CommentInputButton onClick={() => saveComment()}>
+                댓 글<br />달 기
+              </CommentInputButton>
+            </CommentInputBox>
+          )}
+        </>
       )}
     </>
   );

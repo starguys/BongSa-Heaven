@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(
   cors({
-    origin: true,
+    origin: [`${process.env.REACT_APP_API_URI}`] || ["http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
   }),

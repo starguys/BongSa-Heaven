@@ -14,6 +14,7 @@ const Wrapper = styled.div`
 `;
 
 export default function CrewBoardContents({
+  isLogin,
   currentCBcontent,
   userId,
   GoToCrewBoardContent,
@@ -26,11 +27,13 @@ export default function CrewBoardContents({
         <Writing currentCBcontent={currentCBcontent} userId={userId} />
         <List
           backtoList="/CrewBoardList"
+          isLogin={isLogin}
           currentCBcontent={currentCBcontent}
           userId={userId}
           GoToCrewBoardContent={GoToCrewBoardContent}
         />
         <Comment
+          isLogin={isLogin}
           currentCBcontent={currentCBcontent}
           GoToCrewBoardContent={GoToCrewBoardContent}
         />

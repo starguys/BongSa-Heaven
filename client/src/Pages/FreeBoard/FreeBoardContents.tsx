@@ -15,10 +15,13 @@ const Wrapper = styled.div`
 `;
 
 export default function FreeBoardContents({
+  isLogin,
   currentFBcontent,
   userId,
   GoToFreeBoardContent,
 }: any) {
+  console.log(currentFBcontent);
+
   return (
     <>
       <Wrapper>
@@ -27,11 +30,13 @@ export default function FreeBoardContents({
         <Writing currentFBcontent={currentFBcontent} userId={userId} />
         <List
           backtoList="/FreeBoardList"
+          isLogin={isLogin}
           currentFBcontent={currentFBcontent}
           userId={userId}
           GoToFreeBoardContent={GoToFreeBoardContent}
         />
         <Comment
+          isLogin={isLogin}
           currentFBcontent={currentFBcontent}
           GoToFreeBoardContent={GoToFreeBoardContent}
         />

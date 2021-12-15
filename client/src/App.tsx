@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import {Route} from "react-router-dom";
 import axios from "axios";
 import {useHistory} from "react-router";
@@ -45,6 +45,11 @@ import Header5 from "./components/common/Header5";
 import Map from "./Pages/Map/Map";
 import MapRegister from "./Pages/Map/MapRegister";
 
+
+import OauthUserReg from "./Pages/Oauth/OauthUserReg";
+import OauthUserEdit from "./Pages/Oauth/OauthUserEdit";
+
+
 export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -52,6 +57,8 @@ export default function App() {
   const [userId, setUserId] = useState("");
   const [currentFBcontent, setFBcontent] = useState({});
   const [currentCBcontent, setCBcontent] = useState({});
+
+  const GetLife = sessionStorage.getItem("life");
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
@@ -103,9 +110,16 @@ export default function App() {
       })
       .catch(err => console.log(err));
   };
+  useEffect(() => {
+    googleAuthCode();
+    kakaoAuthCode();
+  }, []);
 
   useEffect(() => {
     console.log(isLogin, "login");
+
+
+    
     axios
       .get("http://localhost:8080/auth/refreshtoken", {
         withCredentials: true,
@@ -137,6 +151,8 @@ export default function App() {
         console.log("err");
         setIsLogin(false);
       });
+
+
   }, [isUserLogin, isLogin]);
 
   const googleAuthCode = () => {
@@ -201,10 +217,6 @@ export default function App() {
         });
     }
   };
-  useEffect(() => {
-    googleAuthCode();
-    kakaoAuthCode();
-  }, []);
 
   return (
     <div id="app_div">
@@ -220,7 +232,12 @@ export default function App() {
       <Route
         exact
         path="/"
-        render={() => <MainPage GoToFreeBoardContent={GoToFreeBoardContent} />}
+        render={() => (
+          <MainPage
+            GoToFreeBoardContent={GoToFreeBoardContent}
+            userId={userId}
+          />
+        )}
       />
       {/* Sign */}
 
@@ -276,6 +293,7 @@ export default function App() {
         path="/FreeBoardContents"
         render={() => (
           <FreeBoardContents
+            isLogin={isLogin}
             currentFBcontent={currentFBcontent}
             userId={userId}
             GoToFreeBoardContent={GoToFreeBoardContent}
@@ -317,6 +335,7 @@ export default function App() {
         path="/CrewBoardContents"
         render={() => (
           <CrewBoardContents
+            isLogin={isLogin}
             currentCBcontent={currentCBcontent}
             userId={userId}
             GoToCrewBoardContent={GoToCrewBoardContent}
@@ -350,7 +369,7 @@ export default function App() {
         path="/CrewBoardList"
         render={() => (
           <CrewBoardList
-            userId={userId}
+            isLogin={isLogin}
             GoToCrewBoardContent={GoToCrewBoardContent}
           />
         )}
@@ -358,6 +377,11 @@ export default function App() {
 
       <Route exact path="/Map" component={Map} />
       <Route exact path="/MapRegister" component={MapRegister} />
+
+
+      <Route exact path="/OauthUserReg" component={OauthUserReg} />
+      <Route exact path="/OauthUserEdit" component={OauthUserEdit} />
+
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
 
       <DevBtn />
