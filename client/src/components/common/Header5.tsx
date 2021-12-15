@@ -199,20 +199,11 @@ export default function Header({
   };
 
   const LogOut = () => {
-    axios
-      .get(
-        "http://localhost:8080/auth/resetrftk",
-        // {
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     withCredentials: true,
-        //   },
-        // }
-      )
-      .then(res => {
-        console.log(res);
-      });
+    axios.get("http://localhost:8080/auth/resetrftk").then(res => {
+      console.log(res);
+    });
     localStorage.removeItem("accessToken");
+    sessionStorage.removeItem("life");
     setIsLogin(false);
     setIsUserLogin("user");
     setUserId("");

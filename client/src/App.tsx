@@ -45,6 +45,9 @@ import Header5 from "./components/common/Header5";
 import Map from "./Pages/Map/Map";
 import MapRegister from "./Pages/Map/MapRegister";
 
+// import OauthUserReg from "./Pages/Oauth/OauthUserReg";
+// import OauthUserEdit from "./Pages/Oauth/OauthUserEdit";
+
 export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -52,6 +55,8 @@ export default function App() {
   const [userId, setUserId] = useState("");
   const [currentFBcontent, setFBcontent] = useState({});
   const [currentCBcontent, setCBcontent] = useState({});
+
+  const GetLife = sessionStorage.getItem("life");
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
@@ -103,40 +108,52 @@ export default function App() {
       })
       .catch(err => console.log(err));
   };
+  useEffect(() => {
+    googleAuthCode();
+    kakaoAuthCode();
+  }, []);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/auth/refreshtoken", {
-        withCredentials: true,
-      })
-      .then(res => {
-        console.log("res");
-        localStorage.setItem("accessToken", res.data.accessToken);
-      });
+    console.log(isLogin, "login");
+    setTimeout(() => {
+      if (GetLife === "have") {
+        axios
+          .get("http://localhost:8080/auth/refreshtoken", {
+            withCredentials: true,
+          })
+          .then(res => {
+            console.log("res");
+            localStorage.setItem("accessToken", res.data.accessToken);
+          });
 
-    axios
-      .get(`http://localhost:8080/user/info`, {
-        headers: {
-          authorization: `Bearer ` + localStorage.getItem("accessToken"),
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then(res => {
-        setUserId(res.data.data._id);
-        if (res.data.data.iscompany) {
-          setIsUserLogin("recruiter");
-          setIsLogin(true);
-        } else {
-          setIsUserLogin("user");
-          setIsLogin(true);
-        }
-      })
-      .catch(err => {
-        console.log("err");
-        setIsLogin(false);
-      });
-  }, [isUserLogin]);
+        axios
+          .get(`http://localhost:8080/user/info`, {
+            headers: {
+              authorization: `Bearer ` + localStorage.getItem("accessToken"),
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          })
+          .then(res => {
+            console.log(res.data.data);
+            setUserId(res.data.data._id);
+            if (res.data.data.iscompany) {
+              setIsUserLogin("recruiter");
+              setIsLogin(true);
+            } else {
+              setIsUserLogin("user");
+              setIsLogin(true);
+            }
+          })
+          .catch(err => {
+            console.log("err");
+            setIsLogin(false);
+          });
+      } else {
+        console.log("No Life");
+      }
+    }, 100);
+  }, [isUserLogin, isLogin]);
 
   const googleAuthCode = () => {
     const url = new URL(window.location.href);
@@ -200,10 +217,6 @@ export default function App() {
         });
     }
   };
-  useEffect(() => {
-    googleAuthCode();
-    kakaoAuthCode();
-  }, []);
 
   return (
     <div id="app_div">
@@ -357,6 +370,10 @@ export default function App() {
 
       <Route exact path="/Map" component={Map} />
       <Route exact path="/MapRegister" component={MapRegister} />
+
+      {/* <Route exact path="/OauthUserReg" component={OauthUserReg} />
+      <Route exact path="/OauthUserEdit" component={OauthUserEdit} /> */}
+
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
 
       <DevBtn />
