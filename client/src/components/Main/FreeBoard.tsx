@@ -49,8 +49,6 @@ export default function FreeBoard({GoToFreeBoardContent}: any) {
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPosts = freeBoardinfo.slice(indexOfFirstPost, indexOfLastPost);
-  console.log(currentPosts);
-  console.log(freeBoardinfo);
   const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
 
   const getFreeBoardList = () => {

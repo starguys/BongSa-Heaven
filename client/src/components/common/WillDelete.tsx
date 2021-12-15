@@ -203,7 +203,6 @@ export default function Header({
       console.log(res);
     });
     localStorage.removeItem("accessToken");
-    sessionStorage.removeItem("life");
     setIsLogin(false);
     setIsUserLogin("user");
     setUserId("");
