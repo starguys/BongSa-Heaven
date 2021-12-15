@@ -280,6 +280,7 @@ module.exports = {
             return res.status(500).send("서버가 이상합니다");
           }
           const {nickname, _id, email} = data[0];
+
           const accessToken = generateAccessToken({_id, nickname, email});
           const refreshToken = generateRefreshToken({_id, nickname, email});
 
@@ -299,6 +300,7 @@ module.exports = {
 
     try {
       const {email, _id, nickname} = existUser;
+      console.log(email, _id, nickname, "하이 하이 하이뮨이야");
       const accessToken = generateAccessToken({_id, nickname, email});
       const refreshToken = generateRefreshToken({_id, nickname, email});
 
@@ -457,8 +459,8 @@ module.exports = {
 
     const mailOptions = {
       from: `${process.env.NODEMAILER_USER}`,
-      to: "dpemdnjem23@naver.com",
-      subject: userInfo.email,
+      to: userInfo.email,
+      subject: "봉사 천국에 회원가입 해주셔서 감사합니다.",
       html: authEmailForm,
     };
 
