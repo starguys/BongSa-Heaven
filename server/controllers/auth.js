@@ -259,30 +259,36 @@ module.exports = {
     //회원가입을 할때,
     //
     const {id, email} = userInfo.data;
+    console.log(userInfo.data);
     const existUser = await User.findOne({email: email}).exec();
     //회원가입이 되어있지 않다면 회원가입을하고
     if (!existUser) {
       console.log(email);
-      User.insertMany({email: email, nickname: id, status: true})
-        .exec() // 아이디가
+      User.insertMany({
+        email: email,
+        nickname: null,
+        status: true,
+        isopen: true,
+        iscompany: false,
+        age: null,
+        sex: null,
+        want_region: null,
+        want_vol: null,
+      }) // 아이디가
         .then(data => {
-          console.log(data);
           if (!data) {
             return res.status(500).send("서버가 이상합니다");
           }
-          const {_id, nickname, email} = data[0];
-          console.log(data);
-          console.log(_id, nickname, email);
-
+          const {nickname, _id, email} = data[0];
           const accessToken = generateAccessToken({_id, nickname, email});
           const refreshToken = generateRefreshToken({_id, nickname, email});
 
           return res
-            .cookie("refreshToken", refreshToken, {httpOnly: true})
             .status(200)
+            .cookie("refreshToken", refreshToken, {httpOnly: true})
             .send({
-              acessToken: accessToken,
-              message: "토큰 발급및 회원가입, 로그인 되었습니다.",
+              accessToken: accessToken,
+              message: "Oauth인증 성공 다음 단계로",
             });
         })
         .catch(err => {
@@ -333,22 +339,30 @@ module.exports = {
       const userNick = userInfo.data.properties.nickname;
       const userKakao = userInfo.data.id;
 
-      const query = {kakao_id: userKakao, nickname: userNick};
+      const query = {kakao_id: userKakao};
       const existUser = await User.findOne(query);
+      console.log(existUser);
 
       if (existUser) {
-        const accessToken = generateAccessToken({userKakao, userNick});
-        const refreshToken = generateRefreshToken({userKakao, userNick});
+        const {_id, kakao_id, nickname} = existUser;
+        const accessToken = generateAccessToken({_id, kakao_id, nickname});
+        const refreshToken = generateRefreshToken({_id, kakao_id, nickname});
         return res
           .cookie("refreshToken", refreshToken, {httpOnly: true})
           .status(200)
-          .send({accessToken: accessToken, message: "kakao-login 성공!"});
+          .send({accessToken: accessToken, message: "kakao signin성공!"});
       }
       if (!existUser) {
         const newUser = {
           kakao_id: userKakao,
-          nickname: userNick,
+          nickname: null,
           status: true,
+          isopen: true,
+          iscompany: false,
+          age: null,
+          sex: null,
+          want_region: null,
+          want_vol: null,
         };
         const insertDb = new User(newUser).save();
         if (!insertDb) {
@@ -359,7 +373,10 @@ module.exports = {
           return res
             .cookie("refreshToken", refreshToken, {httpOnly: true})
             .status(200)
-            .send({accessToken: accessToken, message: "kakao singup 성공!"});
+            .send({
+              accessToken: accessToken,
+              message: "kakao인증, 다음 ",
+            });
         }
       }
     } catch (err) {
