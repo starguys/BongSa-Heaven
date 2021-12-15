@@ -1,6 +1,6 @@
 /* global kakao */
 import Axios from "axios";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
@@ -121,7 +121,7 @@ export default function KakaoMap() {
           customOverlay.setMap(map);
         }
       });
-  }, []);
+  }, [history]);
 
   return (
     <>

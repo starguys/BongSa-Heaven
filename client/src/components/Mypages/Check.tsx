@@ -64,7 +64,6 @@ export default function Check({contents, leftBtn}: any) {
   const name = useSelector((state: any) => state.mailWriteName.name);
   const text = useSelector((state: any) => state.mailWriteText.text);
   const history = useHistory();
-  const Delete = (url: any) => history.push(url);
   const Cancel = () => history.goBack();
   const userWithdrawalHandler = (props: any) => {
     // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
