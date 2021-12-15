@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPaperPlane} from "@fortawesome/free-regular-svg-icons";
@@ -47,7 +46,6 @@ const ContentsBoxWriter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20%;
   margin: 0px 5px 0px 18px;
 
   @media screen and (min-width: 37.5rem) {
@@ -65,7 +63,7 @@ const ContentsBoxAdjustBox = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 60%;
+  width: 40%;
 
   @media screen and (min-width: 37.5rem) {
     display: none;
@@ -122,7 +120,6 @@ const ContentsBoxImgBox = styled.div`
 const Img = styled.img`
   width: 80%;
   object-fit: cover;
-  opacity: 0.5;
   border-radius: 10px;
 
   @media screen and (min-width: 37.5rem) {

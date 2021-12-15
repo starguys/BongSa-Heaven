@@ -65,7 +65,6 @@ export default function Contents({
   date,
   GoToFreeBoardContent,
 }: any) {
-  console.log("user_id", user_id, freeboard_id, "like", like);
   return (
     <>
       <ContentsList onClick={() => GoToFreeBoardContent(freeboard_id)}>

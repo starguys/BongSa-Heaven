@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import {Route} from "react-router-dom";
 import axios from "axios";
 import {useHistory} from "react-router";
@@ -220,7 +220,12 @@ export default function App() {
       <Route
         exact
         path="/"
-        render={() => <MainPage GoToFreeBoardContent={GoToFreeBoardContent} />}
+        render={() => (
+          <MainPage
+            GoToFreeBoardContent={GoToFreeBoardContent}
+            userId={userId}
+          />
+        )}
       />
       {/* Sign */}
 
@@ -276,6 +281,7 @@ export default function App() {
         path="/FreeBoardContents"
         render={() => (
           <FreeBoardContents
+            isLogin={isLogin}
             currentFBcontent={currentFBcontent}
             userId={userId}
             GoToFreeBoardContent={GoToFreeBoardContent}
@@ -317,6 +323,7 @@ export default function App() {
         path="/CrewBoardContents"
         render={() => (
           <CrewBoardContents
+            isLogin={isLogin}
             currentCBcontent={currentCBcontent}
             userId={userId}
             GoToCrewBoardContent={GoToCrewBoardContent}
@@ -350,7 +357,7 @@ export default function App() {
         path="/CrewBoardList"
         render={() => (
           <CrewBoardList
-            userId={userId}
+            isLogin={isLogin}
             GoToCrewBoardContent={GoToCrewBoardContent}
           />
         )}
