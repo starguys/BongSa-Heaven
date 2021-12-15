@@ -276,12 +276,11 @@ module.exports = {
         want_vol: null,
       }) // 아이디가
         .then(data => {
-          console.log(data);
           if (!data) {
             return res.status(500).send("서버가 이상합니다");
           }
           const {nickname, _id, email} = data[0];
-          console.log(data[0], "하이 하이 하이마트야");
+
           const accessToken = generateAccessToken({_id, nickname, email});
           const refreshToken = generateRefreshToken({_id, nickname, email});
 

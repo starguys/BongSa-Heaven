@@ -86,7 +86,6 @@ export default function BestCrew() {
       .then(res => {
         setcrewBoardinfo(res.data.data);
         crewBoardinfo.forEach(board => rankArray.push(board.like_count));
-        console.log(res.data.data);
       })
       .catch(err => console.log(err));
   };
@@ -94,9 +93,6 @@ export default function BestCrew() {
   const GetTop10 = () => {
     rankArrayCopy = rankArray.slice();
     rankArrayCopy.sort((a, b) => b - a);
-    console.log(crewBoardinfo);
-    console.log(rankArray);
-    console.log(rankArrayCopy);
   };
 
   useEffect(() => {
