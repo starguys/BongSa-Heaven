@@ -45,6 +45,11 @@ import Header5 from "./components/common/Header5";
 import Map from "./Pages/Map/Map";
 import MapRegister from "./Pages/Map/MapRegister";
 
+
+import OauthUserReg from "./Pages/Oauth/OauthUserReg";
+import OauthUserEdit from "./Pages/Oauth/OauthUserEdit";
+
+
 export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -52,6 +57,8 @@ export default function App() {
   const [userId, setUserId] = useState("");
   const [currentFBcontent, setFBcontent] = useState({});
   const [currentCBcontent, setCBcontent] = useState({});
+
+  const GetLife = sessionStorage.getItem("life");
 
   const handleDevHeader = () => {
     setIsDevHeader(!isDevHeader);
@@ -103,9 +110,16 @@ export default function App() {
       })
       .catch(err => console.log(err));
   };
+  useEffect(() => {
+    googleAuthCode();
+    kakaoAuthCode();
+  }, []);
 
   useEffect(() => {
     console.log(isLogin, "login");
+
+
+    
     axios
       .get("http://localhost:8080/auth/refreshtoken", {
         withCredentials: true,
@@ -137,6 +151,8 @@ export default function App() {
         console.log("err");
         setIsLogin(false);
       });
+
+
   }, [isUserLogin, isLogin]);
 
   const googleAuthCode = () => {
@@ -201,10 +217,6 @@ export default function App() {
         });
     }
   };
-  useEffect(() => {
-    googleAuthCode();
-    kakaoAuthCode();
-  }, []);
 
   return (
     <div id="app_div">
@@ -358,6 +370,11 @@ export default function App() {
 
       <Route exact path="/Map" component={Map} />
       <Route exact path="/MapRegister" component={MapRegister} />
+
+
+      <Route exact path="/OauthUserReg" component={OauthUserReg} />
+      <Route exact path="/OauthUserEdit" component={OauthUserEdit} />
+
       <DevFooter handleDevHeader={handleDevHeader} isDevHeader={isDevHeader} />
 
       <DevBtn />
