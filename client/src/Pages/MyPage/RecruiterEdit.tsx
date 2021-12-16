@@ -327,7 +327,7 @@ export default function RecruiterEdit() {
     if (userInfo.nickname && valideNickname) {
       axios
         .post(
-          "http://localhost:8080/auth/nickcheck",
+          `${process.env.REACT_APP_API_URI}/auth/nickcheck`,
           {
             nickname: userInfo.nickname,
           },
@@ -375,7 +375,7 @@ export default function RecruiterEdit() {
       console.log("비번 변경");
       axios
         .patch(
-          "http://localhost:8080/user/edit",
+          `${process.env.REACT_APP_API_URI}/user/edit`,
           {
             nickname: userInfo.nickname,
             email: userInfo.email,
@@ -405,7 +405,7 @@ export default function RecruiterEdit() {
       console.log("닉네임 변경");
       axios
         .patch(
-          "http://localhost:8080/user/edit",
+          `${process.env.REACT_APP_API_URI}/user/edit`,
           {
             email: userInfo.email,
             nickname: userInfo.nickname,
@@ -433,7 +433,7 @@ export default function RecruiterEdit() {
     if (validNickname && isNick && validPassword && validCheckPassword) {
       axios
         .patch(
-          "http://localhost:8080/user/edit",
+          `${process.env.REACT_APP_API_URI}/user/edit`,
           {
             email: userInfo.email,
             nickname: userInfo.nickname,
@@ -472,7 +472,7 @@ export default function RecruiterEdit() {
     //비밀번호, 닉네임, 등등 바꾸는 경우
 
     axios
-      .get("http://localhost:8080/user/info", {
+      .get(`${process.env.REACT_APP_API_URI}/user/info`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "applicaton/json",

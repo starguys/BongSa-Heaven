@@ -159,7 +159,7 @@ export default function UserMaill() {
       dispatch(resetList());
     }, 100);
     axios
-      .get("http://localhost:8080/mail/maillist", {
+      .get(`${process.env.REACT_APP_API_URI}/mail/maillist`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "applicaton/json",
@@ -199,7 +199,7 @@ export default function UserMaill() {
       console.log(el);
 
       axios
-        .delete("http://localhost:8080/mail/maildelete", {
+        .delete(`${process.env.REACT_APP_API_URI}/mail/maildelete`, {
           data: {
             mail_id: el,
           },

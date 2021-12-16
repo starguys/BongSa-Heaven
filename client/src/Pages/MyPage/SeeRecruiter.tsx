@@ -21,7 +21,7 @@ export default function SeeRecruiter() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/user/list", {
+      .get(`${process.env.REACT_APP_API_URI}/user/list`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "applicaton/json",

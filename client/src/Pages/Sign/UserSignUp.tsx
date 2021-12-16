@@ -372,7 +372,7 @@ export default function UserSignUp() {
     if (nickname && valideNickname) {
       axios
         .post(
-          "http://localhost:8080/auth/nickcheck",
+          `${process.env.REACT_APP_API_URI}/auth/nickcheck`,
           {
             nickname: nickname,
           },
@@ -429,7 +429,7 @@ export default function UserSignUp() {
     ) {
       axios
         .post(
-          `http://localhost:8080/auth/signup`,
+          `${process.env.REACT_APP_API_URI}/auth/signup`,
           {
             email: email,
             password: password,

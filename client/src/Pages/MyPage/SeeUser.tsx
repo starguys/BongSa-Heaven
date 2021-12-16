@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-import Header2 from '../../components/common/Header2';
-import styled from 'styled-components';
-import Users from '../../components/Mypages/Users';
+import React, {useEffect, useState} from "react";
+import axios from "axios";
+import Header2 from "../../components/common/Header2";
+import styled from "styled-components";
+import Users from "../../components/Mypages/Users";
 
 const TopSpace = styled.div`
   height: 43px;
@@ -20,10 +20,10 @@ export default function SeeUsers() {
   const [userList, setUserList] = useState([]);
   useEffect(() => {
     axios
-      .get('http://localhost:8080/user/list', {
+      .get(`${process.env.REACT_APP_API_URI}/user/list`, {
         headers: {
-          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'applicaton/json',
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "applicaton/json",
         },
       })
       .then(res => {
@@ -34,7 +34,7 @@ export default function SeeUsers() {
 
   return (
     <>
-      <Header2 componentName={'봉사자 보기'} />
+      <Header2 componentName={"봉사자 보기"} />
       <TopSpace></TopSpace>
       <SeeContainer>
         {userList.map(list => (
