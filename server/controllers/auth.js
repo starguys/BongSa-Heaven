@@ -162,17 +162,29 @@ module.exports = {
 
   nickcheckControl: async (req, res) => {
     // 1. 닉네임을 받는다
-    const query = {nickname: req.body.nickname};
     // 2. db에서 닉네임을 검색한다
+    const query = {nickname: req.body.nickname};
     const existNick = await User.findOne(query);
-    console.log(existNick);
     // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
     if (existNick) {
-      return res.status(409).send({message: "싸장님 닉네임 이미 있어"});
-    } else {
-      return res
-        .status(200)
-        .send({data: existNick, message: "싸장님 좋은 닉네임!"});
+      return res.status(400).send({message: "싸장님 다른 닉네임 부탁해!"});
+    }
+    if (!existNick) {
+      return res.status(200).send({message: "싸장님 좋은 닉네임!"});
+    }
+  },
+
+  mailNickcheckControl: async (req, res) => {
+    // 1. 닉네임을 받는다
+    // 2. db에서 닉네임을 검색한다
+    const query = {nickname: req.body.nickname};
+    const existNick = await User.findOne(query);
+    // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
+    if (existNick) {
+      return res.status(200).send({message: "닉네임 존재확인 완료"});
+    }
+    if (!existNick) {
+      return res.status(400).send({message: "닉네임 없음"});
     }
   },
 
@@ -207,20 +219,6 @@ module.exports = {
       .cookie("refreshToken", refreshToken, {httpOnly: true})
       .status(200)
       .send();
-  },
-
-  nickcheckControl: async (req, res) => {
-    // 1. 닉네임을 받는다
-    // 2. db에서 닉네임을 검색한다
-    const query = {nickname: req.body.nickname};
-    const existNick = await User.findOne(query);
-    // 3. 있으면 돌려보낸다. 없으면 괜찮다고 메세지!
-    if (existNick) {
-      return res.status(400).send({message: "싸장님 다른 닉네임 부탁해!"});
-    }
-    if (!existNick) {
-      return res.status(200).send({message: "싸장님 좋은 닉네임!"});
-    }
   },
 
   googleControl: async (req, res) => {

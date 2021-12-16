@@ -123,8 +123,6 @@ export default function MaillWriteMain(Title: any) {
   const [checkName, setCheckName] = useState<any>(false);
 
   useEffect(() => {
-    setValue([]);
-    setText([]);
     dispath(changeName(value));
     dispath(changeText(text));
   }, [dispath, text, value]);
@@ -140,7 +138,7 @@ export default function MaillWriteMain(Title: any) {
     if (value) {
       axios
         .post(
-          "http://localhost:8080/auth/nickcheck",
+          "http://localhost:8080/auth/mailnickcheck",
           {
             nickname: value,
           },
@@ -151,12 +149,11 @@ export default function MaillWriteMain(Title: any) {
           },
         )
         .then(res => {
-          if (res.status === 200) return setCheckName(false);
-          if (res.status === 201) return setCheckName(true);
-
-          setCheckName(false);
+          console.log("hi");
+          setCheckName(true);
         })
         .catch(err => {
+          setCheckName(false);
           console.log("fail");
         });
     }

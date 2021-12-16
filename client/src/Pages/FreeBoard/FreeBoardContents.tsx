@@ -1,10 +1,11 @@
-import React from "react";
+import {useState, useEffect} from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
 import Writing from "../../components/FreeBoard/Writing";
 import List from "../../components/FreeBoard/List";
 import Comment from "../../components/FreeBoard/Comment";
+import Loading from "../../components/common/Loading";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -22,25 +23,40 @@ export default function FreeBoardContents({
 }: any) {
   console.log(currentFBcontent);
 
+  const [isLoading, CheckLoading] = useState(true);
+  const loadingHandler = () => {
+    CheckLoading(false);
+  };
+  useEffect(() => {
+    setTimeout(() => loadingHandler(), 1000);
+  }, []);
   return (
     <>
-      <Wrapper>
-        <Header2 componentName="게시글 보기" />
-        <DesktopTitle title="게시글 보기" url="/FreeBoardList" />
-        <Writing currentFBcontent={currentFBcontent} userId={userId} />
-        <List
-          backtoList="/FreeBoardList"
-          isLogin={isLogin}
-          currentFBcontent={currentFBcontent}
-          userId={userId}
-          GoToFreeBoardContent={GoToFreeBoardContent}
-        />
-        <Comment
-          isLogin={isLogin}
-          currentFBcontent={currentFBcontent}
-          GoToFreeBoardContent={GoToFreeBoardContent}
-        />
-      </Wrapper>
+      {isLoading ? (
+        <>
+          <Loading />
+        </>
+      ) : (
+        <>
+          <Wrapper>
+            <Header2 componentName="게시글 보기" />
+            <DesktopTitle title="게시글 보기" url="/FreeBoardList" />
+            <Writing currentFBcontent={currentFBcontent} userId={userId} />
+            <List
+              backtoList="/FreeBoardList"
+              isLogin={isLogin}
+              currentFBcontent={currentFBcontent}
+              userId={userId}
+              GoToFreeBoardContent={GoToFreeBoardContent}
+            />
+            <Comment
+              isLogin={isLogin}
+              currentFBcontent={currentFBcontent}
+              GoToFreeBoardContent={GoToFreeBoardContent}
+            />
+          </Wrapper>
+        </>
+      )}
     </>
   );
 }

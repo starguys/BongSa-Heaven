@@ -4,7 +4,11 @@ import Header from "../../components/common/Header";
 import BestCrew from "../../components/Main/BestCrew";
 import FreeBoard from "../../components/Main/FreeBoard";
 
-export default function MainPage({GoToFreeBoardContent, userId}: any) {
+export default function MainPage({
+  GoToFreeBoardContent,
+  GoToCrewBoardContent,
+  userId,
+}: any) {
   const [Top3crewBoardinfo, setTop3CrewBoardinfo] = useState([]);
   const [crewBoardinfo, setCrewBoardinfo] = useState([]);
   const [freeBoardinfo, setFreeBoardinfo] = useState([]);
@@ -38,6 +42,7 @@ export default function MainPage({GoToFreeBoardContent, userId}: any) {
       <Header />
       <BestCrew
         crewBoardinfo={crewBoardinfo}
+        GoToCrewBoardContent={GoToCrewBoardContent}
         Top3crewBoardinfo={Top3crewBoardinfo}
       />
       <FreeBoard
