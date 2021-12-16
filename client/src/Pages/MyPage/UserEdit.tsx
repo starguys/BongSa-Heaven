@@ -288,6 +288,7 @@ export default function UserEdit() {
     setUserInfo({...userInfo, [key]: e.target.value});
 
     console.log(userInfo);
+    console.log(userInfo.age);
     if (key === "man") {
       setUserInfo({...userInfo, sex: "남자"});
       setSex("남자");
@@ -295,6 +296,7 @@ export default function UserEdit() {
       setUserInfo({...userInfo, sex: "여자"});
       setSex("여자");
     }
+
     if (key === "teen") {
       setUserInfo({...userInfo, age: "청소년 "});
       setAge("청소년");
@@ -305,6 +307,7 @@ export default function UserEdit() {
       setUserInfo({...userInfo, age: "장년"});
       setAge("장년");
     }
+    console.log(userInfo.age, "age");
 
     if (key === "password") {
       setNewPass({...newPass, [key]: e.target.value});
@@ -646,13 +649,14 @@ export default function UserEdit() {
             </SelectSexBox>
           )}
           {userInfo.age ? (
-            userInfo.age === "청소년" ? (
+            age === "청소년" ? (
               <SelectBox>
                 <AgeButtonSelected onClick={handleChange("teen")}>
                   청소년
                 </AgeButtonSelected>
                 <AgeButton onClick={handleChange("adult")}>청년</AgeButton>
                 <AgeButton onClick={handleChange("senior")}>장년</AgeButton>
+                {console.log(userInfo.age)}
               </SelectBox>
             ) : age === "청년" ? (
               <SelectBox>

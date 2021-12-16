@@ -96,7 +96,7 @@ export default function MaillList({
       handleUnCheckList(id);
       dispatch(deleteList(id));
     }
-  }, [isChecked, checked, dispatch, handleCheckList, list, handleUnCheckList]);
+  }, [isChecked]);
 
   const handleCheckd = () => {
     setChecked(!checked);
