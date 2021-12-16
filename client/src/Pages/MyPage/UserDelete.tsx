@@ -4,6 +4,14 @@ import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
 import Checkout from "../../components/Mypages/Checkout";
 
+const Wrapper = styled.div`
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const ContentsBox = styled.div`
   @media screen and (min-width: 1024px) {
     margin: auto;
@@ -22,17 +30,19 @@ const ContentsBox = styled.div`
 export default function FreeBoardDelete({setIsLogin}: any) {
   return (
     <>
-      <Header2 componentName="회원탈퇴" />
-      <DesktopTitle title="회원탈퇴" />
-      <ContentsBox>
-        <Checkout
-          contents="회원탈퇴를 하시겠습니까?"
-          delete="/"
-          cancel="/UserMyPage"
-          leftBtn="회원탈퇴"
-          setIsLogin={setIsLogin}
-        />
-      </ContentsBox>
+      <Wrapper>
+        <Header2 componentName="회원탈퇴" />
+        <DesktopTitle title="회원탈퇴" />
+        <ContentsBox>
+          <Checkout
+            contents="회원탈퇴를 하시겠습니까?"
+            delete="/"
+            cancel="/UserMyPage"
+            leftBtn="회원탈퇴"
+            setIsLogin={setIsLogin}
+          />
+        </ContentsBox>
+      </Wrapper>
     </>
   );
 }
