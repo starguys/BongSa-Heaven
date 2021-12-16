@@ -36,7 +36,6 @@ const CrewBoardTop3Container = styled.div`
   height: 138px;
   display: flex;
   justify-content: center;
-  border: black solid 1px;
   @media screen and (min-width: 37.5rem) {
     width: 1080px;
     margin-left: auto;
@@ -51,6 +50,8 @@ const CrewBoardTop3 = styled.div`
   align-items: center;
   width: 20%;
   margin: auto;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 
   }
 `;
@@ -109,27 +110,24 @@ export default function BestCrew({
             <></>
           ) : (
             <>
-              <CrewBoardTop3>
-                <CrewBoardTop3Image
-                  src={Top3crewBoardinfo[0].images}
-                  onClick={() => GoToCrewBoardContent(Top3crewBoardinfo[0]._id)}
-                />
+              <CrewBoardTop3
+                onClick={() => GoToCrewBoardContent(Top3crewBoardinfo[0]._id)}
+              >
+                <CrewBoardTop3Image src={Top3crewBoardinfo[0].images} />
                 {Top3crewBoardinfo[0].title}
               </CrewBoardTop3>
 
-              <CrewBoardTop3>
-                <CrewBoardTop3Image
-                  src={Top3crewBoardinfo[1].images}
-                  onClick={() => GoToCrewBoardContent(Top3crewBoardinfo[1]._id)}
-                />
+              <CrewBoardTop3
+                onClick={() => GoToCrewBoardContent(Top3crewBoardinfo[1]._id)}
+              >
+                <CrewBoardTop3Image src={Top3crewBoardinfo[1].images} />
                 {Top3crewBoardinfo[1].title}
               </CrewBoardTop3>
 
-              <CrewBoardTop3>
-                <CrewBoardTop3Image
-                  src={Top3crewBoardinfo[2].images}
-                  onClick={() => GoToCrewBoardContent(Top3crewBoardinfo[2]._id)}
-                />
+              <CrewBoardTop3
+                onClick={() => GoToCrewBoardContent(Top3crewBoardinfo[2]._id)}
+              >
+                <CrewBoardTop3Image src={Top3crewBoardinfo[2].images} />
                 {Top3crewBoardinfo[2].title}
               </CrewBoardTop3>
             </>
