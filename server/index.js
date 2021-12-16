@@ -19,7 +19,7 @@ const imageRouter = require("./routes/image");
 //use modules
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-// app.use(express.static("public"));
+app.use(express.static("public"));
 
 app.use(
   cors({
@@ -30,8 +30,12 @@ app.use(
 );
 app.use(cookieParser());
 DB();
+app.get("/", (req, res) => {
+  res.status(200).send("hello world....!!");
+});
 
 //routes
+
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
 app.use("/board", boardRouter);
