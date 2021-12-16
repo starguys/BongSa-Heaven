@@ -1,5 +1,4 @@
-import {useState} from "react";
-import {useEffect} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";

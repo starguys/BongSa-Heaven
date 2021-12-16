@@ -58,6 +58,9 @@ const SignUpWhiteBox = styled.div`
   border-radius: 20px;
   padding: 15px 0px 15px 0px;
   margin: 8px 0px 8px 0px;
+  @media screen and (min-width: 37.5rem) {
+    margin: 1px 0px 1px 0px;
+  }
 `;
 const SignUpWhiteInput = styled.input`
   width: 90%;
@@ -677,7 +680,7 @@ export default function UserEdit() {
           )}
           <CompleteBox>
             <CompleteButton onClick={userInfoEditHandler}>
-              수정완료 완료
+              수정완료
             </CompleteButton>
             <CompleteButton onClick={GoUserDelete}>회원탈퇴</CompleteButton>
           </CompleteBox>

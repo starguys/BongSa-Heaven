@@ -70,7 +70,11 @@ const LeftCards = styled.div`
   }
 `;
 
-export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
+export default function CrewBoardList({
+  GoToCrewBoardContent,
+  userId,
+  isLogin,
+}: any) {
   const [isLoading, CheckLoading] = useState(true);
 
   const [crewBoardinfo, setCrewBoardinfo] = useState([]);
@@ -132,7 +136,7 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
                       key={0}
                       like={currentPosts[0].like}
                       like_count={currentPosts[0].like_count}
-                      user_id={currentPosts[0].user_id}
+                      user_id={userId}
                       crewboard_id={currentPosts[0]._id}
                       img={currentPosts[0].images}
                       helloMessage={currentPosts[0].shorts_description}
@@ -147,7 +151,7 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
                         key={1}
                         like={currentPosts[1].like}
                         like_count={currentPosts[1].like_count}
-                        user_id={currentPosts[1].user_id}
+                        user_id={userId}
                         crewboard_id={currentPosts[1]._id}
                         img={currentPosts[1].images}
                         helloMessage={currentPosts[1].shorts_description}
@@ -162,7 +166,7 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
                           key={1}
                           like={currentPosts[1].like}
                           like_count={currentPosts[1].like_count}
-                          user_id={currentPosts[1].user_id}
+                          user_id={userId}
                           crewboard_id={currentPosts[1]._id}
                           img={currentPosts[1].images}
                           helloMessage={currentPosts[1].shorts_description}
@@ -174,7 +178,7 @@ export default function CrewBoardList({GoToCrewBoardContent, isLogin}: any) {
                           key={2}
                           like={currentPosts[2].like}
                           like_count={currentPosts[2].like_count}
-                          user_id={currentPosts[2].user_id}
+                          user_id={userId}
                           crewboard_id={currentPosts[2]._id}
                           img={currentPosts[2].images}
                           helloMessage={currentPosts[2].shorts_description}
