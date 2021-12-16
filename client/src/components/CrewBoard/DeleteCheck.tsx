@@ -66,7 +66,7 @@ export default function DeleteCheck(props: any) {
 
   const deleteCrewBoard = () => {
     axios
-      .delete("http://localhost:8080/board/cbdelete", {
+      .delete(`${process.env.REACT_APP_API_URI}/board/cbdelete`, {
         data: {
           crewboard_id: props.currentCBcontent.data._id,
         },

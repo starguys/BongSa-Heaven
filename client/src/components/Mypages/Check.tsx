@@ -71,7 +71,7 @@ export default function Check({contents, leftBtn}: any) {
     console.log(text);
     axios
       .post(
-        "http://localhost:8080/mail/mailregister",
+        `${process.env.REACT_APP_API_URI}/mail/mailregister`,
         {text: text, nickname: name},
         {
           headers: {
