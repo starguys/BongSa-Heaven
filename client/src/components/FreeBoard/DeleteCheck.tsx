@@ -66,7 +66,7 @@ export default function DeleteCheck(props: any) {
 
   const deleteFreeBoard = () => {
     axios
-      .delete("http://localhost:8080/board/fbdelete", {
+      .delete(`${process.env.REACT_APP_API_URI}/board/fbdelete`, {
         data: {
           freeboard_id: props.currentFBcontent.data._id,
         },

@@ -88,7 +88,7 @@ export default function List(props: any) {
     if (props.isLogin) {
       axios
         .post(
-          "http://localhost:8080/board/freelike",
+          `${process.env.REACT_APP_API_URI}/board/freelike`,
           {
             freeboard_id: props.currentFBcontent.data._id,
           },
@@ -113,7 +113,7 @@ export default function List(props: any) {
     if (props.isLogin) {
       axios
         .post(
-          "http://localhost:8080/board/freedislike",
+          `${process.env.REACT_APP_API_URI}/board/freedislike`,
           {
             freeboard_id: props.currentFBcontent.data._id,
           },

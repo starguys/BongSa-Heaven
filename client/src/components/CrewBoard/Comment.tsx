@@ -365,7 +365,7 @@ export default function Comment({
 
   const getUserInfo = () => {
     axios
-      .get("http://localhost:8080/user/info", {
+      .get(`${process.env.REACT_APP_API_URI}/user/info`, {
         headers: {
           authorization: `Bearer ` + localStorage.getItem("accessToken"),
           "Content-Type": "application/json",
@@ -397,7 +397,7 @@ export default function Comment({
     if (commentValue.length > 0) {
       axios
         .post(
-          "http://localhost:8080/comment/cbcommentregister",
+          `${process.env.REACT_APP_API_URI}/comment/cbcommentregister`,
           {
             crewboard_id: currentCBcontent.data._id,
             comment: commentValue,
@@ -421,7 +421,7 @@ export default function Comment({
     if (nestedCommentValue.length > 0) {
       axios
         .post(
-          "http://localhost:8080/comment/cbchildregister",
+          `${process.env.REACT_APP_API_URI}/comment/cbchildregister`,
           {
             crewboard_id: currentCBcontent.data._id,
             comment: nestedCommentValue,
@@ -450,7 +450,7 @@ export default function Comment({
     if (commentValue.length > 0) {
       axios
         .patch(
-          "http://localhost:8080/comment/cbcommentedit",
+          `${process.env.REACT_APP_API_URI}/comment/cbcommentedit`,
           {
             crewboard_id: currentCBcontent.data._id,
             crewcomment_id: currentCBcontent.data.crewcomments[idx]._id,
@@ -476,7 +476,7 @@ export default function Comment({
     if (nestedCommentValue.length > 0) {
       axios
         .patch(
-          "http://localhost:8080/comment/cbchildedit",
+          `${process.env.REACT_APP_API_URI}/comment/cbchildedit`,
           {
             crewboard_id: currentCBcontent.data._id,
             crewcomment_id:
@@ -506,7 +506,7 @@ export default function Comment({
   const deleteComment = (idx: any) => {
     console.log(idx);
     axios
-      .delete("http://localhost:8080/comment/cbcommentdelete", {
+      .delete(`${process.env.REACT_APP_API_URI}/comment/cbcommentdelete`, {
         data: {
           crewboard_id: currentCBcontent.data._id,
           crewcomment_id: currentCBcontent.data.crewcomments[idx]._id,
@@ -529,7 +529,7 @@ export default function Comment({
 
   const deleteNestedComment = (idx: number, nestIdx: number) => {
     axios
-      .delete("http://localhost:8080/comment/cbchilddelete", {
+      .delete(`${process.env.REACT_APP_API_URI}/comment/cbchilddelete`, {
         data: {
           crewboard_id: currentCBcontent.data._id,
           crewcomment_id: currentCBcontent.data.crewcomments[idx]._id,

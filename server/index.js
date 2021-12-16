@@ -19,19 +19,23 @@ const imageRouter = require("./routes/image");
 //use modules
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-// app.use(express.static("public"));
+app.use(express.static("public"));
 
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
   }),
 );
 app.use(cookieParser());
 DB();
+app.get("/", (req, res) => {
+  res.status(200).send("hello world....!!");
+});
 
 //routes
+
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
 app.use("/board", boardRouter);
@@ -43,7 +47,7 @@ app.use("/image", imageRouter);
 // app.post("/images", controller.imageControl);
 
 //server
-const HTTPS_PORT = process.env.HTTPS_PORT || 8080;
+const HTTPS_PORT = 80;
 
 let server;
 if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
