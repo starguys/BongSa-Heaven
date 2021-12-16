@@ -367,7 +367,7 @@ export default function Comment({
 
   const getUserInfo = () => {
     axios
-      .get("http://localhost:8080/user/info", {
+      .get(`${process.env.REACT_APP_API_URI}/user/info`, {
         headers: {
           authorization: `Bearer ` + localStorage.getItem("accessToken"),
           "Content-Type": "application/json",
@@ -399,7 +399,7 @@ export default function Comment({
     if (commentValue.length > 0) {
       axios
         .post(
-          "http://localhost:8080/comment/fbcommentregister",
+          "${process.env.REACT_APP_API_URI}/comment/fbcommentregister",
           {
             freeboard_id: currentFBcontent.data._id,
             comment: commentValue,
@@ -423,7 +423,7 @@ export default function Comment({
     if (nestedCommentValue.length > 0) {
       axios
         .post(
-          "http://localhost:8080/comment/fbchildregister",
+          "${process.env.REACT_APP_API_URI}/comment/fbchildregister",
           {
             freeboard_id: currentFBcontent.data._id,
             comment: nestedCommentValue,
@@ -453,7 +453,7 @@ export default function Comment({
     if (commentValue.length > 0) {
       axios
         .patch(
-          "http://localhost:8080/comment/fbcommentedit",
+          `${process.env.REACT_APP_API_URI}/comment/fbcommentedit`,
           {
             freeboard_id: currentFBcontent.data._id,
             freecomment_id: currentFBcontent.data.freecomments[idx]._id,
@@ -480,7 +480,7 @@ export default function Comment({
     if (nestedCommentValue.length > 0) {
       axios
         .patch(
-          "http://localhost:8080/comment/fbchildedit",
+          `${process.env.REACT_APP_API_URI}/comment/fbchildedit`,
           {
             freeboard_id: currentFBcontent.data._id,
             freecomment_id:
@@ -511,7 +511,7 @@ export default function Comment({
   const deleteComment = (idx: any) => {
     console.log(idx);
     axios
-      .delete("http://localhost:8080/comment/fbcommentdelete", {
+      .delete(`${process.env.REACT_APP_API_URI}/comment/fbcommentdelete`, {
         data: {
           freeboard_id: currentFBcontent.data._id,
           freecomment_id: currentFBcontent.data.freecomments[idx]._id,
@@ -533,7 +533,7 @@ export default function Comment({
   };
   const deleteNestedComment = (idx: number, nestIdx: number) => {
     axios
-      .delete("http://localhost:8080/comment/fbchilddelete", {
+      .delete(`${process.env.REACT_APP_API_URI}/comment/fbchilddelete`, {
         data: {
           freeboard_id: currentFBcontent.data._id,
           freecomment_id: currentFBcontent.data.freecomments[idx]._id,

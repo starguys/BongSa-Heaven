@@ -90,7 +90,7 @@ export default function List(props: any) {
     if (props.isLogin) {
       axios
         .post(
-          "http://localhost:8080/board/crewlike",
+          `${process.env.REACT_APP_API_URI}/board/crewlike`,
           {
             crewboard_id: props.currentCBcontent.data._id,
           },
@@ -115,7 +115,7 @@ export default function List(props: any) {
     if (props.isLogin) {
       axios
         .post(
-          "http://localhost:8080/board/crewdislike",
+          `${process.env.REACT_APP_API_URI}/board/crewdislike`,
           {
             crewboard_id: props.currentCBcontent.data._id,
           },

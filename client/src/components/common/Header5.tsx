@@ -218,7 +218,7 @@ export default function Header({
   };
 
   const LogOut = () => {
-    axios.get("http://localhost:8080/auth/resetrftk").then(res => {
+    axios.get(`${process.env.REACT_APP_API_URI}/auth/resetrftk`).then(res => {
       console.log(res);
     });
     localStorage.removeItem("accessToken");
