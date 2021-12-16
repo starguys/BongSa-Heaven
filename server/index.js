@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(
   cors({
-    origin: [`${process.env.REACT_APP_API_URI}`] || ["http://localhost:3000"],
+    origin: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
   }),
@@ -43,7 +43,7 @@ app.use("/image", imageRouter);
 // app.post("/images", controller.imageControl);
 
 //server
-const HTTPS_PORT = process.env.HTTPS_PORT || 8080;
+const HTTPS_PORT = 80;
 
 let server;
 if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
