@@ -198,7 +198,11 @@ export default function FreeBoardEdit({
   };
 
   useEffect(() => {
-    if (currentFBcontent.data !== undefined) {
+    if (
+      currentFBcontent.data !== undefined &&
+      currentFBcontent.data.images !== null &&
+      currentFBcontent.data.images[0] !== null
+    ) {
       setFileImage(currentFBcontent.data.images[0]);
       setpreviewFileImage(currentFBcontent.data.images[0]);
       setpreviousFileImage(currentFBcontent.data.images[0]);

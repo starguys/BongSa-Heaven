@@ -341,7 +341,7 @@ export default function MapReg() {
     }
 
     let positions = [{}];
-    Axios.get("http://localhost:8080/map/info")
+    Axios.get(`${process.env.REACT_APP_API_URI}/map/info`)
       .then(res => {
         for (let i = 0; i < res.data.length; i++) {
           if (res.data[i].user_id === null) continue;

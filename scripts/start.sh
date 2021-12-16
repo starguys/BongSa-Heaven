@@ -1,4 +1,5 @@
-cd /home/ubuntu/Winner-s-Record/server
+#!/bin/bash
+cd /home/ubuntu/BongSa-Heaven/server
 
 export ACCESS_SECRET=$(aws ssm get-parameters --region ap-northeast-2 --names ACCESS_SECRET --query Parameters[0].Value | sed 's/"//g')
 export MONGODB_URI=$(aws ssm get-parameters --region ap-northeast-2 --names MONGODB_URI --query Parameters[0].Value | sed 's/"//g')
@@ -10,9 +11,9 @@ export REDIRECT_URI=$(aws ssm get-parameters --region ap-northeast-2 --names RED
 export ACCESS_KEY_ID=$(aws ssm get-parameters --region ap-northeast-2 --names ACCESS_KEY_ID --query Parameters[0].Value | sed 's/"//g')
 export SECRET_KEY_ID=$(aws ssm get-parameters --region ap-northeast-2 --names SECRET_KEY_ID  --query Parameters[0].Value | sed 's/"//g')
 export KAKAO_REDIRECT_URI=$(aws ssm get-parameters --region ap-northeast-2 --names KAKAO_REDIRECT_URI --query Parameters[0].Value | sed 's/"//g')
-export NODEMAILER_USER $(aws ssm get-parameters --region ap-northeast-2 --names NODEMAILER_USER --query Parameters[0].Value | sed 's/"//g')
+export NODEMAILER_USER=$(aws ssm get-parameters --region ap-northeast-2 --names NODEMAILER_USER --query Parameters[0].Value | sed 's/"//g')
 export NODEMAILER_PASS=$(aws ssm get-parameters --region ap-northeast-2 --names NODEMAILER_PASS --query Parameters[0].Value | sed 's/"//g')
 export KAKAO_SECRET=$(aws ssm get-parameters --region ap-northeast-2 --names KAKAO_SECRET --query Parameters[0].Value | sed 's/"//g')
 export KAKAO_CLIENT=$(aws ssm get-parameters --region ap-northeast-2 --names KAKAO_CLIENT --query Parameters[0].Value | sed 's/"//g')
 
-authbind --deep pm2 start app.js
+authbind --deep pm2 start index.js

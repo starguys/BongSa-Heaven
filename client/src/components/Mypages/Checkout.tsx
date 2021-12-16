@@ -70,7 +70,7 @@ export default function Checkout({contents, leftBtn, setIsLogin}: any) {
     console.log("삭제클릭");
     axios
       .delete(
-        "http://localhost:8080/user/withdrawal",
+        `${process.env.REACT_APP_API_URI}/user/withdrawal`,
 
         {
           headers: {

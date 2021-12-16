@@ -75,7 +75,7 @@ export default function UserMyPageMain({userinfo}: any) {
 
   const getUserInfo = () => {
     axios
-      .get("http://localhost:8080/user/info", {
+      .get(`${process.env.REACT_APP_API_URI}/user/info`, {
         headers: {
           authorization: `Bearer ` + localStorage.getItem("accessToken"),
           "Content-Type": "application/json",

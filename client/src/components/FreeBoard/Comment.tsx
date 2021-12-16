@@ -399,7 +399,7 @@ export default function Comment({
     if (commentValue.length > 0) {
       axios
         .post(
-          "${process.env.REACT_APP_API_URI}/comment/fbcommentregister",
+          `${process.env.REACT_APP_API_URI}/comment/fbcommentregister`,
           {
             freeboard_id: currentFBcontent.data._id,
             comment: commentValue,
@@ -423,7 +423,7 @@ export default function Comment({
     if (nestedCommentValue.length > 0) {
       axios
         .post(
-          "${process.env.REACT_APP_API_URI}/comment/fbchildregister",
+          `${process.env.REACT_APP_API_URI}/comment/fbchildregister`,
           {
             freeboard_id: currentFBcontent.data._id,
             comment: nestedCommentValue,

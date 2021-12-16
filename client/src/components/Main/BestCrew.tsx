@@ -16,6 +16,7 @@ const MainCrewBoardContainer = styled.div`
 `;
 
 const CrewBoardBestTitle = styled.div`
+  cursor: pointer;
   height: 24px;
   margin-top: 64px;
   margin-left: 18px;
@@ -57,6 +58,7 @@ const CrewBoardTop3 = styled.div`
 `;
 const CrewBoardTop3Image = styled.img`
   width: 100%;
+  cursor: pointer;
   margin-bottom: 10px;
 `;
 
