@@ -67,7 +67,7 @@ export default function App() {
   const GoToFreeBoardContent = (freeboard_id: any) => {
     axios
       .post(
-        "http://localhost:8080/board/fbinfo",
+        `${process.env.REACT_APP_API_URI}/board/fbinfo`,
         {
           freeboard_id: freeboard_id,
         },
@@ -90,7 +90,7 @@ export default function App() {
   const GoToCrewBoardContent = (crewboard_id: any) => {
     axios
       .post(
-        "http://localhost:8080/board/cbinfo",
+        `${process.env.REACT_APP_API_URI}/board/cbinfo`,
         {
           crewboard_id: crewboard_id,
         },
@@ -117,7 +117,7 @@ export default function App() {
     console.log(isLogin, "login");
 
     axios
-      .get("http://localhost:8080/auth/refreshtoken", {
+      .get(`${process.env.REACT_APP_API_URI}/auth/refreshtoken`, {
         withCredentials: true,
       })
       .then(res => {
@@ -126,7 +126,7 @@ export default function App() {
       });
 
     axios
-      .get(`http://localhost:8080/user/info`, {
+      .get(`${process.env.REACT_APP_API_URI}/user/info`, {
         headers: {
           authorization: `Bearer ` + localStorage.getItem("accessToken"),
           "Content-Type": "application/json",
@@ -159,7 +159,7 @@ export default function App() {
       console.log(code);
       axios
         .post(
-          `http://localhost:8080/auth/google`,
+          `${process.env.REACT_APP_API_URI}/auth/google`,
           {code: code},
 
           {

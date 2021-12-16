@@ -94,7 +94,7 @@ export default function CreateButton(props: any) {
       return;
     }
     axios
-      .post("http://localhost:8080/board/cbregister", formData, {
+      .post(`${process.env.REACT_APP_API_URI}/board/cbregister`, formData, {
         headers: {
           authorization: `Bearer ` + localStorage.getItem("accessToken"),
           "Content-Type": "multipart/form-data",

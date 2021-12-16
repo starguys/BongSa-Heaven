@@ -8,12 +8,10 @@ export default function DevBtn() {
       .get(`${process.env.REACT_APP_API_URI}/auth/refreshtoken`, {
         withCredentials: true,
       })
-      .then((res) => {
+      .then(res => {
         console.log(res);
         localStorage.setItem("accessToken", res.data.accessToken);
-      }
-      )
-      ;
+      });
   };
   return (
     <>

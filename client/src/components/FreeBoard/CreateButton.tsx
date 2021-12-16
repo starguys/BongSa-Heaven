@@ -102,7 +102,7 @@ export default function CreateButton(props: any) {
 
         return axios
           .patch(
-            "http://localhost:8080/board/fbedit",
+            `${process.env.REACT_APP_API_URI}/board/fbedit`,
             {
               freeboard_id: res.data._id,
               title: props.title,
