@@ -382,7 +382,7 @@ export default function OauthUserEdit() {
     if (userInfo.nickname && valideNickname) {
       axios
         .post(
-          "http://localhost:8080/auth/nickcheck",
+          `${process.env.REACT_APP_API_URI}/auth/nickcheck`,
           {
             nickname: userInfo.nickname,
           },
@@ -430,7 +430,7 @@ export default function OauthUserEdit() {
       console.log("비번 변경");
       axios
         .patch(
-          `http://localhost:8080/user/edit`,
+          `${process.env.REACT_APP_API_URI}/user/edit`,
           {
             email: userInfo.email,
             nickname: userInfo.nickname,
@@ -459,7 +459,7 @@ export default function OauthUserEdit() {
       console.log("닉네임 변경");
       axios
         .patch(
-          `http://localhost:8080/user/edit`,
+          `${process.env.REACT_APP_API_URI}/user/edit`,
           {
             email: userInfo.email,
             nickname: userInfo.nickname,
@@ -488,7 +488,7 @@ export default function OauthUserEdit() {
     if (validNickname && isNick && validPassword && validCheckPassword) {
       axios
         .patch(
-          `http://localhost:8080/user/edit`,
+          `${process.env.REACT_APP_API_URI}/user/edit`,
           {
             email: userInfo.email,
             nickname: userInfo.nickname,
@@ -526,7 +526,7 @@ export default function OauthUserEdit() {
     //비밀번호, 닉네임, 등등 바꾸는 경우
 
     axios
-      .get(`http://localhost:8080/user/info`, {
+      .get(`${process.env.REACT_APP_API_URI}/user/info`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "Content-Type": "applicaton/json",

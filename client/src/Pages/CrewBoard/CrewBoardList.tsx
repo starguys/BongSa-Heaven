@@ -98,7 +98,7 @@ export default function CrewBoardList({
 
   const getCrewBoardList = () => {
     axios
-      .get("http://localhost:8080/board/cblist")
+      .get(`${process.env.REACT_APP_API_URI}/board/cblist`)
       .then(res => {
         setCrewBoardinfo(res.data.data);
         console.log(res.data.data);

@@ -134,7 +134,7 @@ export default function SignIn({setIsLogin, setIsUserLogin}: any) {
     } else if (email && password) {
       axios
         .post(
-          `http://localhost:8080/auth/signin`,
+          `${process.env.REACT_APP_API_URI}/auth/signin`,
           {email: email, password: password},
           {
             headers: {
@@ -153,7 +153,7 @@ export default function SignIn({setIsLogin, setIsUserLogin}: any) {
         })
         .then(res =>
           axios
-            .get(`http://localhost:8080/user/info`, {
+            .get(`${process.env.REACT_APP_API_URI}/user/info`, {
               headers: {
                 authorization: `Bearer ` + localStorage.getItem("accessToken"),
                 "Content-Type": "application/json",

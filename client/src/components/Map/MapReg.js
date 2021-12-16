@@ -132,7 +132,7 @@ export default function MapReg() {
             console.log(selectedMarker.n);
             if (localStorage.getItem("accessToken")) {
               Axios.post(
-                "http://localhost:8080/map/register",
+                `${process.env.REACT_APP_API_URI}/map/register`,
                 {
                   La: marker.getPosition().getLat(),
                   Ma: marker.getPosition().getLng(),

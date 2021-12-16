@@ -163,7 +163,7 @@ export default function CrewBoardEdit({
       formData.append("image", fileImage);
 
       axios
-        .post("http://localhost:8080/board/cbimageEdit", formData, {
+        .post(`${process.env.REACT_APP_API_URI}/board/cbimageEdit`, formData, {
           headers: {
             authorization: `Bearer ` + localStorage.getItem("accessToken"),
             "Content-Type": "multipart/form-data",
@@ -174,7 +174,7 @@ export default function CrewBoardEdit({
 
           axios
             .patch(
-              "http://localhost:8080/board/cbedit",
+              `${process.env.REACT_APP_API_URI}/board/cbedit`,
               {
                 crewboard_id: currentCBcontent.data._id,
                 title: editedTitle,
@@ -206,7 +206,7 @@ export default function CrewBoardEdit({
     } else {
       axios
         .patch(
-          "http://localhost:8080/board/cbedit",
+          `${process.env.REACT_APP_API_URI}/board/cbedit`,
           {
             crewboard_id: currentCBcontent.data._id,
             title: editedTitle,

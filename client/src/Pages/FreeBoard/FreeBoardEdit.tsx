@@ -128,7 +128,7 @@ export default function FreeBoardEdit({
       formData.append("image", fileImage);
 
       axios
-        .post("http://localhost:8080/board/fbimageEdit", formData, {
+        .post(`${process.env.REACT_APP_API_URI}/board/fbimageEdit`, formData, {
           headers: {
             authorization: `Bearer ` + localStorage.getItem("accessToken"),
             "Content-Type": "multipart/form-data",
@@ -139,7 +139,7 @@ export default function FreeBoardEdit({
 
           axios
             .patch(
-              "http://localhost:8080/board/fbedit",
+              `${process.env.REACT_APP_API_URI}/board/fbedit`,
               {
                 freeboard_id: currentFBcontent.data._id,
                 title: editedTitle,
@@ -170,7 +170,7 @@ export default function FreeBoardEdit({
     } else {
       axios
         .patch(
-          "http://localhost:8080/board/fbedit",
+          `${process.env.REACT_APP_API_URI}/board/fbedit`,
           {
             crewboard_id: currentFBcontent.data._id,
             title: editedTitle,

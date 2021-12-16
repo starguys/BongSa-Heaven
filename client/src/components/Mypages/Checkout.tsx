@@ -82,9 +82,11 @@ export default function Checkout({contents, leftBtn, setIsLogin}: any) {
       .then(res => {
         // 쿠키삭제, accesstoken삭제
         setIsLogin(false);
-        axios.get("http://localhost:8080/auth/resetrftk").then(res => {
-          console.log(res);
-        });
+        axios
+          .get(`${process.env.REACT_APP_API_URI}/auth/resetrftk`)
+          .then(res => {
+            console.log(res);
+          });
         localStorage.clear();
         sessionStorage.clear();
         history.push("/");
