@@ -60,7 +60,7 @@ const CancelButton = styled.div`
   }
 `;
 
-export default function Check({contents, leftBtn}: any) {
+export default function Checkout({contents, leftBtn, setIsLogin}: any) {
   const name = useSelector((state: any) => state.mailWriteName.name);
   const text = useSelector((state: any) => state.mailWriteText.text);
   const history = useHistory();
@@ -81,20 +81,18 @@ export default function Check({contents, leftBtn}: any) {
       )
       .then(res => {
         // 쿠키삭제, accesstoken삭제
-        const deleteCookie = function (name: any) {
-          document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
-        };
-        deleteCookie("refreshToken");
+        setIsLogin(false);
+        axios.get("http://localhost:8080/auth/resetrftk").then(res => {
+          console.log(res);
+        });
         localStorage.clear();
-        props.setIsLogin(false);
+        sessionStorage.clear();
         history.push("/");
       })
       .catch(err => {
         console.log(err);
       });
   };
-  console.log(name);
-  console.log(text);
 
   // 회원탈퇴시 모든 정보 삭제, 쿠키, 토큰 삭제
 
@@ -104,9 +102,6 @@ export default function Check({contents, leftBtn}: any) {
       <SelectBox>
         <DeleteButton onClick={userWithdrawalHandler}>{leftBtn}</DeleteButton>
         <CancelButton onClick={() => Cancel()}>취소</CancelButton>
-
-        <span>Name:{name}</span>
-        <span>Text:{text}</span>
       </SelectBox>
     </>
   );

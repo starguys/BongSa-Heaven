@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Header2 from "../../components/common/Header2";
 import DesktopTitle from "../../components/common/DesktopTitle";
-import Check from "../../components/Mypages/Check";
+import Checkout from "../../components/Mypages/Checkout";
 
 const ContentsBox = styled.div`
   @media screen and (min-width: 1024px) {
@@ -25,7 +25,7 @@ export default function FreeBoardDelete({setIsLogin}: any) {
       <Header2 componentName="회원탈퇴" />
       <DesktopTitle title="회원탈퇴" />
       <ContentsBox>
-        <Check
+        <Checkout
           contents="회원탈퇴를 하시겠습니까?"
           delete="/"
           cancel="/UserMyPage"
