@@ -82,6 +82,7 @@ const NotLikeImg = styled.img`
 export default function List(props: any) {
   const history = useHistory();
   const BacktoList = (url: any) => history.push(url);
+  const GotoLogIn = () => history.push("/SignIn");
 
   const likeThisContent = () => {
     if (props.isLogin) {
@@ -105,6 +106,7 @@ export default function List(props: any) {
         .catch(err => console.log(err));
     } else {
       alert("로그인이 필요합니다.");
+      GotoLogIn();
     }
   };
   const dislikeThisContent = () => {
@@ -129,6 +131,7 @@ export default function List(props: any) {
         .catch(err => console.log(err));
     } else {
       alert("로그인이 필요합니다.");
+      GotoLogIn();
     }
   };
 
@@ -141,7 +144,9 @@ export default function List(props: any) {
           </ListButton>
         </ButtonBox>
         <LikeBox>
-          {props.currentFBcontent.data === undefined ? (
+          {props.currentFBcontent.data === undefined ||
+          props.currentFBcontent.data.like === null ||
+          undefined ? (
             <></>
           ) : (
             <>

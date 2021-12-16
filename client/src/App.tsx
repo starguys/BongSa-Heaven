@@ -45,10 +45,8 @@ import Header5 from "./components/common/Header5";
 import Map from "./Pages/Map/Map";
 import MapRegister from "./Pages/Map/MapRegister";
 
-
 import OauthUserReg from "./Pages/Oauth/OauthUserReg";
 import OauthUserEdit from "./Pages/Oauth/OauthUserEdit";
-
 
 export default function App() {
   const [isDevHeader, setIsDevHeader] = useState(false);
@@ -118,8 +116,6 @@ export default function App() {
   useEffect(() => {
     console.log(isLogin, "login");
 
-
-    
     axios
       .get("http://localhost:8080/auth/refreshtoken", {
         withCredentials: true,
@@ -151,8 +147,6 @@ export default function App() {
         console.log("err");
         setIsLogin(false);
       });
-
-
   }, [isUserLogin, isLogin]);
 
   const googleAuthCode = () => {
@@ -235,6 +229,7 @@ export default function App() {
         render={() => (
           <MainPage
             GoToFreeBoardContent={GoToFreeBoardContent}
+            GoToCrewBoardContent={GoToCrewBoardContent}
             userId={userId}
           />
         )}
@@ -370,6 +365,7 @@ export default function App() {
         render={() => (
           <CrewBoardList
             isLogin={isLogin}
+            userId={userId}
             GoToCrewBoardContent={GoToCrewBoardContent}
           />
         )}
@@ -377,7 +373,6 @@ export default function App() {
 
       <Route exact path="/Map" component={Map} />
       <Route exact path="/MapRegister" component={MapRegister} />
-
 
       <Route exact path="/OauthUserReg" component={OauthUserReg} />
       <Route exact path="/OauthUserEdit" component={OauthUserEdit} />

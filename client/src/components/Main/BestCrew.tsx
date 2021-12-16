@@ -87,7 +87,11 @@ const CrewBoardMoreBtn = styled.button`
     width: 100%;
   }
 `;
-export default function BestCrew({crewBoardinfo, Top3crewBoardinfo}: any) {
+export default function BestCrew({
+  crewBoardinfo,
+  GoToCrewBoardContent,
+  Top3crewBoardinfo,
+}: any) {
   console.log("Top3crewBoardinfo", Top3crewBoardinfo);
   const history = useHistory();
 
@@ -108,7 +112,7 @@ export default function BestCrew({crewBoardinfo, Top3crewBoardinfo}: any) {
               <CrewBoardTop3>
                 <CrewBoardTop3Image
                   src={Top3crewBoardinfo[0].images}
-                  onClick={GoCrewBoardList}
+                  onClick={() => GoToCrewBoardContent(Top3crewBoardinfo[0]._id)}
                 />
                 {Top3crewBoardinfo[0].title}
               </CrewBoardTop3>
@@ -116,7 +120,7 @@ export default function BestCrew({crewBoardinfo, Top3crewBoardinfo}: any) {
               <CrewBoardTop3>
                 <CrewBoardTop3Image
                   src={Top3crewBoardinfo[1].images}
-                  onClick={GoCrewBoardList}
+                  onClick={() => GoToCrewBoardContent(Top3crewBoardinfo[1]._id)}
                 />
                 {Top3crewBoardinfo[1].title}
               </CrewBoardTop3>
@@ -124,7 +128,7 @@ export default function BestCrew({crewBoardinfo, Top3crewBoardinfo}: any) {
               <CrewBoardTop3>
                 <CrewBoardTop3Image
                   src={Top3crewBoardinfo[2].images}
-                  onClick={GoCrewBoardList}
+                  onClick={() => GoToCrewBoardContent(Top3crewBoardinfo[2]._id)}
                 />
                 {Top3crewBoardinfo[2].title}
               </CrewBoardTop3>

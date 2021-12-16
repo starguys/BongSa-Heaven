@@ -126,9 +126,7 @@ export default function Card({
             <PublishedDate>{date.slice(0, 10)}</PublishedDate>
           </Describe>
           <LikeBox>
-            {user_id == undefined ? (
-              <NotLikeImg src={"./image/NotLike.png"} />
-            ) : like.indexOf(user_id._id) === -1 ? (
+            {like.indexOf(user_id) === -1 ? (
               <NotLikeImg src={"./image/NotLike.png"} />
             ) : (
               <LikeImg src={"./image/Like.png"} />
