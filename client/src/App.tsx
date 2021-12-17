@@ -114,39 +114,41 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    console.log(isLogin, "login");
+    // console.log(isLogin, "login");
 
-    axios
-      .get(`${process.env.REACT_APP_API_URI}/auth/refreshtoken`, {
-        withCredentials: true,
-      })
-      .then(res => {
-        console.log("res");
-        localStorage.setItem("accessToken", res.data.accessToken);
-      });
+    if (GetLife === "have") {
+      axios
+        .get(`${process.env.REACT_APP_API_URI}/auth/refreshtoken`, {
+          withCredentials: true,
+        })
+        .then(res => {
+          // console.log("res");
+          localStorage.setItem("accessToken", res.data.accessToken);
+        });
 
-    axios
-      .get(`${process.env.REACT_APP_API_URI}/user/info`, {
-        headers: {
-          authorization: `Bearer ` + localStorage.getItem("accessToken"),
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then(res => {
-        setUserId(res.data.data._id);
-        if (res.data.data.iscompany) {
-          setIsUserLogin("recruiter");
-          setIsLogin(true);
-        } else {
-          setIsUserLogin("user");
-          setIsLogin(true);
-        }
-      })
-      .catch(err => {
-        console.log("err");
-        setIsLogin(false);
-      });
+      axios
+        .get(`${process.env.REACT_APP_API_URI}/user/info`, {
+          headers: {
+            authorization: `Bearer ` + localStorage.getItem("accessToken"),
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        })
+        .then(res => {
+          setUserId(res.data.data._id);
+          if (res.data.data.iscompany) {
+            setIsUserLogin("recruiter");
+            setIsLogin(true);
+          } else {
+            setIsUserLogin("user");
+            setIsLogin(true);
+          }
+        })
+        .catch(err => {
+          console.log("err");
+          setIsLogin(false);
+        });
+    }
   }, [isUserLogin, isLogin]);
 
   const googleAuthCode = () => {

@@ -1,10 +1,8 @@
-import React from "react";
 import {useState, useEffect} from "react";
 import styled from "styled-components";
 import {useHistory} from "react-router";
 import Header3 from "../../components/common/Header3";
 import axios from "axios";
-import {faCode} from "@fortawesome/free-solid-svg-icons";
 
 const Wrapper = styled.div`
   width: 100%;
