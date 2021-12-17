@@ -1,11 +1,13 @@
-import React from "react";
 import {useState, useEffect} from "react";
 import styled from "styled-components";
 import {useHistory} from "react-router";
 import {useDispatch} from "react-redux";
 import Header3 from "../../components/common/Header3";
 import axios from "axios";
+<<<<<<< HEAD
+=======
 import {issignin} from "../../modules/isSignIn";
+>>>>>>> 53b5828d3d8c1cd89505001f2912b7d1fc8a4f97
 
 const Wrapper = styled.div`
   width: 100%;

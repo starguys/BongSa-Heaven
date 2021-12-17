@@ -1,11 +1,9 @@
-import React from "react";
 import styled from "styled-components";
-
 import Header3 from "../../components/common/Header3";
-import {useState, useRef, useEffect} from "react";
-import {Route, useHistory} from "react-router-dom";
+import {useState} from "react";
+import {useHistory} from "react-router-dom";
 import axios from "axios";
-import {faLastfmSquare} from "@fortawesome/free-brands-svg-icons";
+
 const Wrapper = styled.div`
   width: 100%;
   background-color: #ffd4d4;

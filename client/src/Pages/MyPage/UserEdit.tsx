@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import styled from "styled-components";
 import {useHistory} from "react-router";
 import Header3 from "../../components/common/Header3";
@@ -232,19 +232,6 @@ const CompleteButton = styled.div`
   width: 110px;
   cursor: pointer;
 `;
-const DeleteBtn = styled.div`
-  margin-bottom: 15px;
-  background-color: #448b76;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 80px 20px 80px;
-  border-radius: 5px;
-  width: 110px;
-  opacity: 0.6;
-  height: 5px;
-`;
 
 export default function UserEdit() {
   const [userInfo, setUserInfo] = useState<any>({
@@ -266,7 +253,6 @@ export default function UserEdit() {
   });
 
   //errorMessage
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passErrorMessage, setPassErrorMessage] = useState("");
   const [passCheckErrorMessage, setPassCheckErrorMessage] = useState("");
   const [nickCheckErrorMessage, setNickCheckErrorMessage] = useState("");
