@@ -162,6 +162,7 @@ const SelectBox = styled.div`
   margin: 15px 0px 15px 0px;
   @media screen and (min-width: 37.5rem) {
     justify-content: center;
+    width: 60%;
   }
 `;
 const AgeButton = styled.div`
