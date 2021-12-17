@@ -5,7 +5,6 @@ import {useHistory} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGithub} from "@fortawesome/free-brands-svg-icons";
-
 import {issignout} from "../../modules/isSignIn";
 
 const LogInOut = styled.div`
@@ -73,7 +72,7 @@ export default function Footer({isLogin, setIsLogin, setIsUserLogin}: any) {
   const dispatch = useDispatch();
 
   const isSignIn = useSelector((state: any) => state.issignin.isSign);
-  console.log(isSignIn, "im king of footer");
+  console.log(isSignIn, "im king");
 
   const GoSignIn = () => {
     history.push("/SignIn");
