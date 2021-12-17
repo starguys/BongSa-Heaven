@@ -75,6 +75,9 @@ const WebContainer = styled.div`
 export default function UserMyPage() {
   const history = useHistory();
   const [isChecked, setIsChecked] = useState(true);
+
+  const GetOauth = sessionStorage.getItem("oauth");
+
   const handleSwitch = () => {
     setIsChecked(!isChecked);
     axios
@@ -118,7 +121,11 @@ export default function UserMyPage() {
     history.push("/SeeRecruiter");
   };
   const GoUserEditPasswordCheck = () => {
-    history.push("/UserEditPasswordCheck");
+    if (GetOauth) {
+      history.push("/OauthUserEdit");
+    } else {
+      history.push("/UserEditPasswordCheck");
+    }
   };
 
   const getUserInfoHandler = () => {
