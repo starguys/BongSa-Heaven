@@ -4,10 +4,7 @@ import {useHistory} from "react-router";
 import {useDispatch} from "react-redux";
 import Header3 from "../../components/common/Header3";
 import axios from "axios";
-<<<<<<< HEAD
-=======
 import {issignin} from "../../modules/isSignIn";
->>>>>>> 53b5828d3d8c1cd89505001f2912b7d1fc8a4f97
 
 const Wrapper = styled.div`
   width: 100%;
@@ -114,12 +111,12 @@ export default function SignIn({setIsLogin, setIsUserLogin}: any) {
   };
 
   const handleEmail = (e: any) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setEmail(e.target.value);
   };
   const handlePassword = (e: any) => {
     e.preventDefault();
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setPassword(e.target.value);
   };
   // const onKeyPress = () => {
@@ -167,7 +164,7 @@ export default function SignIn({setIsLogin, setIsUserLogin}: any) {
               withCredentials: true,
             })
             .then(res => {
-              console.log(res);
+              // console.log(res);
               console.log("res.data.data.iscompany", res.data.data.iscompany);
               if (res.data.data.iscompany !== undefined) {
                 setIsUserLogin("recruiter");
