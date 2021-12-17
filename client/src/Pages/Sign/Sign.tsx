@@ -160,12 +160,12 @@ export default function SignIn({setIsLogin, setIsUserLogin}: any) {
   };
 
   const handleEmail = (e: any) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setEmail(e.target.value);
   };
   const handlePassword = (e: any) => {
     e.preventDefault();
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setPassword(e.target.value);
   };
   // const onKeyPress = () => {
@@ -213,7 +213,7 @@ export default function SignIn({setIsLogin, setIsUserLogin}: any) {
               withCredentials: true,
             })
             .then(res => {
-              console.log(res);
+              // console.log(res);
               console.log("res.data.data.iscompany", res.data.data.iscompany);
               if (res.data.data.iscompany !== undefined) {
                 setIsUserLogin("recruiter");
