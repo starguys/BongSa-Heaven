@@ -105,7 +105,6 @@ export default function BestCrew({
   GoToCrewBoardContent,
   Top3crewBoardinfo,
 }: any) {
-  // console.log("Top3crewBoardinfo", Top3crewBoardinfo);
   const history = useHistory();
 
   const GoCrewBoardList = () => {
