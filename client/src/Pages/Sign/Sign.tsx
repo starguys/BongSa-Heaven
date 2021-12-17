@@ -4,10 +4,7 @@ import {useHistory} from "react-router";
 import {useDispatch} from "react-redux";
 import Header3 from "../../components/common/Header3";
 import axios from "axios";
-<<<<<<< HEAD
-=======
 import {issignin} from "../../modules/isSignIn";
->>>>>>> 53b5828d3d8c1cd89505001f2912b7d1fc8a4f97
 
 const Wrapper = styled.div`
   width: 100%;
@@ -86,10 +83,59 @@ const CompleteButton = styled.div`
   align-items: center;
   padding: 20px 80px 20px 80px;
   border-radius: 5px;
+  height: 25px;
   width: 110px;
+
   cursor: pointer;
 `;
 
+const GoogleButton = styled.div`
+  margin-bottom: 15px;
+  background-image: url("https://ifh.cc/g/CVdhQw.png");
+
+  background-size: 100% 100%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 80px 20px 80px;
+  border-radius: 5px;
+  height: 25px;
+  width: 115px;
+  cursor: pointer;
+`;
+
+const KakaoButton = styled.div`
+  margin-bottom: 15px;
+  background-image: url("https://ifh.cc/g/nuizZs.png");
+
+  background-size: 100% 100%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 80px 20px 80px;
+  border-radius: 5px;
+  height: 25px;
+  width: 115px;
+  cursor: pointer;
+`;
+
+const SingUpButton = styled.div`
+  margin-bottom: 15px;
+  background-color: #448b76;
+
+  background-size: 100% 100%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 80px 20px 80px;
+  border-radius: 5px;
+  height: 25px;
+  width: 115px;
+  cursor: pointer;
+`;
 export default function SignIn({setIsLogin, setIsUserLogin}: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -264,9 +310,9 @@ export default function SignIn({setIsLogin, setIsUserLogin}: any) {
 
           <CompleteBox>
             <CompleteButton onClick={handleLoginRequest}>로그인</CompleteButton>
-            <CompleteButton onClick={googleControl}>구글</CompleteButton>
-            <CompleteButton onClick={kakaoControl}>카카오</CompleteButton>
-            <CompleteButton onClick={moveToSignUP}>회원가입</CompleteButton>
+            <GoogleButton onClick={googleControl}></GoogleButton>
+            <KakaoButton onClick={kakaoControl}></KakaoButton>
+            <SingUpButton onClick={moveToSignUP}>회원가입</SingUpButton>
           </CompleteBox>
         </MainContainer>
       </Wrapper>
