@@ -201,6 +201,7 @@ export default function SignIn({setIsLogin, setIsUserLogin}: any) {
           localStorage.setItem("accessToken", res.data.accessToken),
         )
         .then(res => {
+          console.log(res);
           sessionStorage.setItem("life", "have");
         })
         .then(res =>
